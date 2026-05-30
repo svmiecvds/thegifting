@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Order Summary</title>
+
+<link rel="stylesheet"
+href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&display=swap"
+rel="stylesheet">
+
+</head>
+
+<body class="receiptPage">
+
+<h1 class="receiptTitle">
+
+🎀 Thank You For Shopping 🎀
+
+</h1>
+
+<div id="products">
+
+</div>
+
+<div id="receipt">
+
+<h2>
+
+Orders
+
+</h2>
+
+<br>
+
+<div id="orderList">
+
+</div>
+
+<hr>
+
+<br>
+
+<p>
+
+Thank you for shopping with us!
+
+</p>
+
+</div>
+
+<button id="giftButton">
+
+🎁 Make This A Gift
+
+</button>
+
+<script>
+
+const cart =
+JSON.parse(
+localStorage.getItem("cart")
+) || [];
+
+const products =
+document.getElementById(
+"products"
+);
+
+const orderList =
+document.getElementById(
+"orderList"
+);
+
+cart.forEach(item=>{
+
+for(
+let i=0;
+i<item.quantity;
+i++
+){
+
+const img =
+document.createElement(
+"img"
+);
+
+img.src =
+item.image;
+
+img.className =
+"product";
+
+products.appendChild(
+img
+);
+
+}
+
+const row =
+document.createElement(
+"p"
+);
+
+row.innerText =
+
+item.name +
+
+" x " +
+
+item.quantity;
+
+orderList.appendChild(
+row
+);
+
+});
+
+setTimeout(()=>{
+
+document
+.getElementById(
+"receipt"
+)
+.classList.add(
+"showReceipt"
+);
+
+},500);
+
+document
+.getElementById(
+"giftButton"
+)
+.addEventListener(
+"click",
+()=>{
+
+window.location =
+"gift.html";
+
+});
+
+</script>
+
+</body>
+
+</html>
