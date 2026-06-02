@@ -151,6 +151,11 @@ accessory
 
 }
 
+if (item.voiceNote) {
+    wrapper.dataset.voiceNote = item.voiceNote;
+    wrapper.classList.add("has-audio");
+}
+
 makeDraggable(wrapper);
 
 giftScene.appendChild(
@@ -688,4 +693,70 @@ function updateTransform(el) {
   let rotation = el.dataset.rotation || 0;
   let flip = el.dataset.flip || 1;
   el.style.transform = `rotate(${rotation}deg) scaleX(${flip})`;
+}
+
+/* -------------------- */
+/* SERIALIZE & SAVE     */
+/* -------------------- */
+
+const saveGiftBtn = document.getElementById("saveGiftLayoutBtn");
+if (saveGiftBtn) {
+    saveGiftBtn.addEventListener("click", () => {
+        const savedLayout = [];
+        document.querySelectorAll("#giftScene .giftEl").forEach(el => {
+            const isPlushie = el.classList.contains("draggable") && !el.classList.contains("note") && !el.classList.contains("giftText") && el.querySelector("img") && !el.querySelector("img").src.includes("sticker");
+            const isNote = el.classList.contains("note");
+            const isText = el.classList.contains("giftText");
+            const isSticker = el.querySelector("img") && el.querySelector("img").src.includes("sticker") || el.tagName === "IMG";
+
+            let type = "sticker";
+            if (isPlushie) type = "plushie";
+            else if (isNote) type = "note";
+            else if (isText) type = "text";
+
+            let src = "";
+            let text = "";
+            let noteTextDetails = null;
+
+            if (type === "plushie") {
+                src = el.querySelector("img").src;
+            } else if (type === "note") {
+                src = el.querySelector("img").src;
+                const textDiv = el.querySelector(".noteText");
+                if (textDiv) {
+                    noteTextDetails = {
+                        text: textDiv.innerText,
+                        fontFamily: textDiv.style.fontFamily,
+                        color: textDiv.style.color
+                    };
+                }
+            } else if (type === "sticker") {
+                src = el.tagName === "IMG" ? el.src : el.querySelector("img").src;
+            } else if (type === "text") {
+                text = el.innerText;
+            }
+
+            savedLayout.push({
+                type: type,
+                left: el.style.left,
+                top: el.style.top,
+                width: el.style.width,
+                height: el.style.height,
+                zIndex: el.style.zIndex,
+                rotation: el.dataset.rotation || "0",
+                flip: el.dataset.flip || "1",
+                src: src,
+                text: text,
+                noteTextDetails: noteTextDetails,
+                fontFamily: el.style.fontFamily || "",
+                fontSize: el.style.fontSize || "",
+                color: el.style.color || "",
+                voiceNote: el.dataset.voiceNote || ""
+            });
+        });
+        
+        localStorage.setItem("savedGiftLayout", JSON.stringify(savedLayout));
+        alert("🎉 Gift Layout Saved! Opening your wrapped card... 🎁");
+        window.location = "final.html";
+    });
 }

@@ -1349,3 +1349,101 @@ height:auto;
 [data-theme="dark"] .color-option.active .color-label {
     color: white;
 }
+
+/* -------------------- */
+/* VOICE RECORDER UI    */
+/* -------------------- */
+
+#voiceRecorderPanel {
+    background: var(--popup-bg);
+    border: 2px dashed var(--glow-soft);
+    border-radius: 20px;
+    padding: 15px;
+    margin-top: 20px;
+    text-align: center;
+    box-shadow: 0 0 10px var(--glow-soft);
+    transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+
+#voiceRecorderPanel h3 {
+    font-size: 16px;
+    color: var(--heading-color);
+    margin-bottom: 10px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+}
+
+#recordStatus {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-top: 5px;
+}
+
+/* Pulsing red dot for active recording */
+.recording-active {
+    animation: recordPulse 1s infinite alternate;
+    color: #e74c3c !important;
+}
+
+@keyframes recordPulse {
+    from { opacity: 0.5; }
+    to { opacity: 1; }
+}
+
+/* -------------------- */
+/* FINAL PRESENTATION   */
+/* -------------------- */
+
+.has-audio {
+    cursor: pointer !important;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.has-audio:hover {
+    transform: scale(1.05);
+}
+
+/* Click on your gifts CTA button at bottom of final page */
+.click-gifts-cta {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #ff69b4, #ff1493);
+    color: white;
+    padding: 16px 32px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 0 20px hotpink, 0 4px 15px rgba(255, 20, 147, 0.4);
+    z-index: 9999;
+    border: none;
+    animation: ctaFloat 2s infinite ease-in-out;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+@keyframes ctaFloat {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+}
+
+/* Plushie speaking / audio wave pulse animation */
+.plushie-speaking {
+    animation: audioShake 0.15s infinite alternate;
+    box-shadow: 0 0 25px hotpink !important;
+    border-radius: 50%;
+}
+
+@keyframes audioShake {
+    0% { transform: rotate(-2deg) scale(1.02); }
+    100% { transform: rotate(2deg) scale(1.02); }
+}

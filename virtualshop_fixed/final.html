@@ -2,23 +2,14 @@
 <html lang="en">
 
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>Customize Plushie</title>
-
-<link rel="stylesheet"
-href="style.css">
-
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&display=swap"
-rel="stylesheet">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Wrapped Gift Card</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Fredoka:wght@400;500;600&family=Dancing+Script&family=Caveat&family=Indie+Flower&family=Patrick+Hand&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body class="giftPage" style="overflow-y: auto; padding-bottom: 100px;">
 
     <!-- Baby Pink Navbar -->
     <nav id="storeNavbar">
@@ -51,99 +42,20 @@ rel="stylesheet">
         </label>
     </div>
 
-<h1 class="customizeTitle">
+    <!-- Title Header -->
+    <h1 class="checkoutTitle" style="text-align: center !important;">🎁 Your Wrapped Gift Card 🎁</h1>
 
-✨ Customize Your Plushie ✨
-
-</h1>
-
-<div id="customizeContainer">
-
-    <div id="customScene">
-
-       <img
-id="mainPlushie"
-src=""
-class="mainPlushie"
->
-
-    </div>
-
-    <div id="customPanel">
-
-        <h2>
-
-            Accessories
-
-        </h2>
-
-        <img src="custom1.png"
-        class="accessoryTemplate">
-
-        <img src="custom2.png"
-        class="accessoryTemplate">
-
-        <img src="custom3.png"
-        class="accessoryTemplate">
-
-        <img src="custom4.png"
-        class="accessoryTemplate">
-
-        <img src="custom5.png"
-        class="accessoryTemplate">
-
-        <img src="custom6.png"
-        class="accessoryTemplate">
-
-        <hr>
-
-        <button id="deleteItem">
-
-            🗑 Delete Selected
-
-        </button>
-
-     <button id="increaseSize">
-
-➕ Increase Size
-
-</button>
-
-<button id="decreaseSize">
-
-➖ Decrease Size
-
-</button>
-
-        <hr style="margin-top: 15px; margin-bottom: 15px; border: none; border-top: 2px dashed var(--glow-soft);">
-
-        <!-- Voice Recorder Panel -->
-        <div id="voiceRecorderPanel">
-            <h3>🎙️ Plushie Voice Note</h3>
-            <div style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
-                <button id="recordBtn" class="cuteButton" style="width: 100%; margin: 0; padding: 10px; font-size: 14px; background: #ffb6d9; box-shadow: 0 0 10px pink; color: #5a0035;">
-                    🎤 Record (15s limit)
-                </button>
-                <div id="recordStatus">Ready to record</div>
-                <div id="recordPlaybackContainer" style="display: none; justify-content: center; gap: 10px; width: 100%;">
-                    <button id="playVoiceBtn" class="cuteButton" style="flex: 1; margin: 0; padding: 8px; font-size: 13px; background: #e0b0ff; box-shadow: 0 0 10px #e0b0ff; color: #5a0035;">▶️ Play</button>
-                    <button id="deleteVoiceBtn" class="cuteButton" style="flex: 1; margin: 0; padding: 8px; font-size: 13px; background: #ffd6d6; color: #c0392b; box-shadow: 0 0 10px #ffd6d6;">🗑️ Delete</button>
-                </div>
-            </div>
+    <!-- Display the stationary gift layout -->
+    <div id="giftContainer" style="justify-content: center; width: 95%; max-width: 1250px; margin: 0 auto; padding-top: 10px;">
+        <div id="giftScene" style="width: 100%; height: 80vh; flex: none; box-shadow: 0 0 25px rgba(255, 105, 180, 0.4); background: var(--card-bg);">
+            <!-- Arranged elements will be reconstructed here dynamically -->
         </div>
-
-        <button id="saveCustomization">
-
-            💾 Save Changes
-
-        </button>
-
     </div>
 
-</div>
+    <!-- Dynamic Warning Banner "Click on your gifts!" will be appended here by JS if voice note exists -->
 
-<script src="theme.js"></script>
-<script src="customize.js"></script>
+    <script src="theme.js"></script>
+    <script src="final.js"></script>
 
 </body>
 
