@@ -2,30 +2,22 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Fluffy Boutique</title>
-
-    <link rel="stylesheet"
-          href="style.css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluffy Boutique - Flowers</title>
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
-
 </head>
 
 <body>
 
     <!-- Baby Pink Navbar -->
     <nav id="storeNavbar">
-        <a href="index.html" class="navLink active">🧸 Plushies</a>
-        <a href="flowers.html" class="navLink">🌸 Flowers</a>
+        <a href="index.html" class="navLink">🧸 Plushies</a>
+        <a href="flowers.html" class="navLink active">🌸 Flowers</a>
     </nav>
 
-    <!-- Theme Toggle (Shifted to top left corner) -->
+    <!-- Theme Toggle (Static top left corner) -->
     <div id="themeToggleWrapper">
         <label class="theme-switch">
             <input type="checkbox" class="theme-switch__checkbox" id="themeCheckbox">
@@ -49,82 +41,87 @@
         </label>
     </div>
 
+    <!-- Floating Checkout Button -->
     <div id="cartButton">
         🛒 Checkout (<span id="cartCount">0</span>)
     </div>
 
     <!-- Header Text -->
-    <h1 class="storeHeader">Shop for plushies here</h1>
+    <h1 class="storeHeader">pick a bloom for someone</h1>
 
+    <!-- Flowers main layout -->
     <div id="mainContainer">
-        <div class="plushies-layout">
-            <!-- Plushies Grid: Side-by-Side in a Single Row -->
+        <div class="flowers-layout">
+            <!-- Top Row: 2 Flowers -->
             <div class="flowersRowTop">
-                <div class="flowerCard" id="bunnyCard">
-                    <!-- Default to blue bunny -->
-                    <img src="bunny-blue.png" alt="Bunny" class="flowerImage" id="bunnyImage">
-                    <div class="flowerName" id="bunnyName">Blue Bunny</div>
-                    
-                    <!-- Scroll Color Options -->
-                    <div class="color-scroll-container">
-                        <div class="color-option active" data-color="blue" data-image="bunny-blue.png" data-name="Blue Bunny">
-                            <span class="color-dot" style="background-color: #a0d2eb;"></span>
-                            <span class="color-label">Blue</span>
-                        </div>
-                        <div class="color-option" data-color="pink" data-image="bunny-pink.png" data-name="Pink Bunny">
-                            <span class="color-dot" style="background-color: #ffb3d9;"></span>
-                            <span class="color-label">Pink</span>
-                        </div>
-                        <div class="color-option" data-color="purple" data-image="bunny-purple.png" data-name="Purple Bunny">
-                            <span class="color-dot" style="background-color: #e0b0ff;"></span>
-                            <span class="color-label">Purple</span>
-                        </div>
-                    </div>
-
+                <div class="flowerCard">
+                    <img src="flower1.png" alt="Pink Columbine" class="flowerImage">
+                    <div class="flowerName">Pink Columbine</div>
                     <div class="flowerSelector">
-                        <button class="minusBtn" data-plushie="1">−</button>
-                        <span class="flowerQuantity" id="qtyPlushie1">1</span>
-                        <button class="plusBtn" data-plushie="1">+</button>
+                        <button class="minusBtn" data-flower="1">−</button>
+                        <span class="flowerQuantity" id="qtyFlower1">1</span>
+                        <button class="plusBtn" data-flower="1">+</button>
                     </div>
-                    
-                    <button class="customizeBtn" id="bunnyCustomizeBtn" data-plushie="1" data-name="Blue Bunny" data-image="bunny-blue.png">Customize Plushie ✨</button>
-                    <button class="addToCartBtn" id="bunnyAddToCartBtn" data-plushie="1" data-name="Blue Bunny" data-image="bunny-blue.png">Add To Cart ✨</button>
+                    <button class="addToCartBtn" data-flower="1" data-name="Pink Columbine" data-image="flower1.png">Add To Cart ✨</button>
                 </div>
 
                 <div class="flowerCard">
-                    <img src="duck.png" alt="Duck" class="flowerImage">
-                    <div class="flowerName">Duck</div>
+                    <img src="flower2.png" alt="Purple Clematis" class="flowerImage">
+                    <div class="flowerName">Purple Clematis</div>
                     <div class="flowerSelector">
-                        <button class="minusBtn" data-plushie="2">−</button>
-                        <span class="flowerQuantity" id="qtyPlushie2">1</span>
-                        <button class="plusBtn" data-plushie="2">+</button>
+                        <button class="minusBtn" data-flower="2">−</button>
+                        <span class="flowerQuantity" id="qtyFlower2">1</span>
+                        <button class="plusBtn" data-flower="2">+</button>
                     </div>
-                    <button class="customizeBtn" data-plushie="2" data-name="Duck" data-image="duck.png">Customize Plushie ✨</button>
-                    <button class="addToCartBtn" data-plushie="2" data-name="Duck" data-image="duck.png">Add To Cart ✨</button>
+                    <button class="addToCartBtn" data-flower="2" data-name="Purple Clematis" data-image="flower2.png">Add To Cart ✨</button>
+                </div>
+            </div>
+
+            <!-- Bottom Row: 3 Flowers -->
+            <div class="flowersRowBottom">
+                <div class="flowerCard">
+                    <img src="flower3.png" alt="Crimson Orchid" class="flowerImage">
+                    <div class="flowerName">Crimson Orchid</div>
+                    <div class="flowerSelector">
+                        <button class="minusBtn" data-flower="3">−</button>
+                        <span class="flowerQuantity" id="qtyFlower3">1</span>
+                        <button class="plusBtn" data-flower="3">+</button>
+                    </div>
+                    <button class="addToCartBtn" data-flower="3" data-name="Crimson Orchid" data-image="flower3.png">Add To Cart ✨</button>
                 </div>
 
                 <div class="flowerCard">
-                    <img src="bear.png" alt="Bear" class="flowerImage">
-                    <div class="flowerName">Bear</div>
+                    <img src="flower4.png" alt="Magenta Lily" class="flowerImage">
+                    <div class="flowerName">Magenta Lily</div>
                     <div class="flowerSelector">
-                        <button class="minusBtn" data-plushie="3">−</button>
-                        <span class="flowerQuantity" id="qtyPlushie3">1</span>
-                        <button class="plusBtn" data-plushie="3">+</button>
+                        <button class="minusBtn" data-flower="4">−</button>
+                        <span class="flowerQuantity" id="qtyFlower4">1</span>
+                        <button class="plusBtn" data-flower="4">+</button>
                     </div>
-                    <button class="customizeBtn" data-plushie="3" data-name="Bear" data-image="bear.png">Customize Plushie ✨</button>
-                    <button class="addToCartBtn" data-plushie="3" data-name="Bear" data-image="bear.png">Add To Cart ✨</button>
+                    <button class="addToCartBtn" data-flower="4" data-name="Magenta Lily" data-image="flower4.png">Add To Cart ✨</button>
+                </div>
+
+                <div class="flowerCard">
+                    <img src="flower5.png" alt="Pink Tulips" class="flowerImage">
+                    <div class="flowerName">Pink Tulips</div>
+                    <div class="flowerSelector">
+                        <button class="minusBtn" data-flower="5">−</button>
+                        <span class="flowerQuantity" id="qtyFlower5">1</span>
+                        <button class="plusBtn" data-flower="5">+</button>
+                    </div>
+                    <button class="addToCartBtn" data-flower="5" data-name="Pink Tulips" data-image="flower5.png">Add To Cart ✨</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Toast -->
+    <!-- Toast Notification -->
     <div id="toast">
         Added To Cart ✨
     </div>
 
     <script src="theme.js"></script>
-    <script src="script.js"></script>
+    <script src="flowers.js"></script>
 
 </body>
 

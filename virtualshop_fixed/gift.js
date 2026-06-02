@@ -61,6 +61,10 @@ e.preventDefault();
 
 giftItems.forEach(item => {
 
+const qty = item.quantity || 1;
+
+for (let q = 0; q < qty; q++) {
+
 const wrapper =
 document.createElement(
 "div"
@@ -72,11 +76,13 @@ wrapper.className =
 wrapper.style.position =
 "absolute";
 
-wrapper.style.left =
-"80px";
+wrapper.style.left = (80 + q * 30) + "px";
 
-wrapper.style.top =
-"80px";
+wrapper.style.top = (80 + q * 30) + "px";
+
+wrapper.style.width = "180px";
+
+wrapper.style.height = "180px";
 
 wrapper.style.zIndex =
 highestZ++;
@@ -90,8 +96,13 @@ document.createElement(
 plushie.src =
 item.image;
 
-plushie.style.width =
-"180px";
+plushie.style.position = "absolute";
+plushie.style.width = "100%";
+plushie.style.height = "100%";
+plushie.style.objectFit = "contain";
+plushie.style.left = "0";
+plushie.style.top = "0";
+plushie.style.transform = "none";
 
 plushie.style.display =
 "block";
@@ -105,9 +116,9 @@ plushie
 /* Accessories overlaid at saved positions */
 if(item.accessories && item.accessories.length > 0){
 
-const sceneWidth = 700;
-const containerWidth = 180;
-const scale = containerWidth / sceneWidth;
+const plushieCanvasW = 280;
+const plushieCanvasL = 210;
+const plushieCanvasT = 210;
 
 item.accessories.forEach(acc => {
 
@@ -128,9 +139,9 @@ const rawLeft = parseFloat(acc.left);
 const rawTop  = parseFloat(acc.top);
 const rawWidth = parseFloat(acc.width);
 
-accessory.style.left  = (rawLeft  * scale) + "px";
-accessory.style.top   = (rawTop   * scale) + "px";
-accessory.style.width = (rawWidth * scale) + "px";
+accessory.style.left  = (((rawLeft - plushieCanvasL) / plushieCanvasW) * 100) + "%";
+accessory.style.top   = (((rawTop  - plushieCanvasT) / plushieCanvasW) * 100) + "%";
+accessory.style.width = ((rawWidth / plushieCanvasW) * 100) + "%";
 
 wrapper.appendChild(
 accessory
@@ -145,6 +156,8 @@ makeDraggable(wrapper);
 giftScene.appendChild(
 wrapper
 );
+
+}
 
 });
 
@@ -225,9 +238,15 @@ return;
 
 }
 
+const isText = el.classList.contains("giftText");
+if (isText) {
+const currentFS = parseFloat(window.getComputedStyle(el).fontSize);
+el.style.fontSize = (currentFS + 3) + "px";
+} else {
 const currentW = el.offsetWidth;
-
 el.style.width = (currentW + 20) + "px";
+el.style.height = (currentW + 20) + "px";
+}
 
 }
 );
@@ -249,12 +268,18 @@ return;
 
 }
 
+const isText = el.classList.contains("giftText");
+if (isText) {
+const currentFS = parseFloat(window.getComputedStyle(el).fontSize);
+if (currentFS > 10) {
+el.style.fontSize = (currentFS - 3) + "px";
+}
+} else {
 const currentW = el.offsetWidth;
-
 if(currentW > 40){
-
 el.style.width = (currentW - 20) + "px";
-
+el.style.height = (currentW - 20) + "px";
+}
 }
 
 }
@@ -328,23 +353,8 @@ paper.style.width =
 
 paper.draggable = false;
 
-const text =
-document.createElement(
-"div"
-);
-
-text.className =
-"noteText";
-
-text.innerText =
-"Double click to edit";
-
 wrapper.appendChild(
 paper
-);
-
-wrapper.appendChild(
-text
 );
 
 makeDraggable(wrapper);
@@ -454,15 +464,6 @@ textEl.style.cursor =
 textEl.style.userSelect =
 "none";
 
-textEl.style.padding =
-"6px 12px";
-
-textEl.style.background =
-"rgba(255,255,255,0.6)";
-
-textEl.style.borderRadius =
-"10px";
-
 textEl.innerText =
 "✨ Your Text Here ✨";
 
@@ -499,6 +500,19 @@ document.getElementById(
 
 let editingEl = null;
 
+function rgbToHex(rgb) {
+    if (!rgb) return "#ff4fa2";
+    if (rgb.startsWith("#")) return rgb;
+    const match = rgb.match(/^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i);
+    if (match) {
+        return "#" + 
+            ("0" + parseInt(match[1], 10).toString(16)).slice(-2) +
+            ("0" + parseInt(match[2], 10).toString(16)).slice(-2) +
+            ("0" + parseInt(match[3], 10).toString(16)).slice(-2);
+    }
+    return "#ff4fa2";
+}
+
 function openTextEditor(el){
 
 editingEl = el;
@@ -524,6 +538,9 @@ fontSelect.value =
 el.style.fontFamily
 ? el.style.fontFamily.split(",")[0].trim().replace(/['"]/g, "")
 : "Pacifico";
+
+const textColorPicker = document.getElementById("textColorPicker");
+textColorPicker.value = el.style.color ? rgbToHex(el.style.color) : "#ff4fa2";
 
 noteEditor.style.display =
 "block";
@@ -573,6 +590,7 @@ if(!editingEl) return;
 const isNote = editingEl.classList.contains("note");
 
 const font = fontSelect.value;
+const textColor = document.getElementById("textColorPicker").value;
 
 if(isNote){
 
@@ -587,6 +605,8 @@ noteMessage.value;
 textDiv.style.fontFamily =
 font;
 
+textDiv.style.color = textColor;
+
 }
 
 } else {
@@ -596,6 +616,8 @@ noteMessage.value;
 
 editingEl.style.fontFamily =
 font + ", cursive";
+
+editingEl.style.color = textColor;
 
 }
 
@@ -621,3 +643,49 @@ noteEditor.style.display =
 
 }
 );
+
+/* -------------------- */
+/* ROTATE & FLIP        */
+/* -------------------- */
+
+/* Rotate selected */
+document
+.getElementById("giftRotate")
+.addEventListener(
+"click",
+() => {
+  const el = getSelectedEl();
+  if(!el){
+    alert("Select an item first!");
+    return;
+  }
+  let currentRotation = parseInt(el.dataset.rotation) || 0;
+  currentRotation = (currentRotation + 45) % 360;
+  el.dataset.rotation = currentRotation;
+  updateTransform(el);
+}
+);
+
+/* Flip selected sideways */
+document
+.getElementById("giftFlip")
+.addEventListener(
+"click",
+() => {
+  const el = getSelectedEl();
+  if(!el){
+    alert("Select an item first!");
+    return;
+  }
+  let currentFlip = parseInt(el.dataset.flip) || 1;
+  currentFlip = currentFlip === 1 ? -1 : 1;
+  el.dataset.flip = currentFlip;
+  updateTransform(el);
+}
+);
+
+function updateTransform(el) {
+  let rotation = el.dataset.rotation || 0;
+  let flip = el.dataset.flip || 1;
+  el.style.transform = `rotate(${rotation}deg) scaleX(${flip})`;
+}

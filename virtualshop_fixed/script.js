@@ -1,267 +1,152 @@
-const bunny =
-document.getElementById("bunny");
+// Cart state
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-const duck =
-document.getElementById("duck");
-
-const bear =
-document.getElementById("bear");
-
-const colorPanel =
-document.getElementById("colorPanel");
-
-const quantityPopup =
-document.getElementById("quantityPopup");
-
-const quantityValue =
-document.getElementById("quantityValue");
-
-const toast =
-document.getElementById("toast");
-
-const cartCount =
-document.getElementById("cartCount");
-
-let cart =
-JSON.parse(
-localStorage.getItem("cart")
-) || [];
-
-let currentItem = "";
-
-let currentImage = "";
-
-let selectedQuantity = 1;
-
-cartCount.innerText =
-cart.length;
-
-/* -------------------- */
-/* BUNNY */
-/* -------------------- */
-
-bunny.addEventListener(
-"click",
-()=>{
-
-colorPanel.style.display =
-"block";
-
-});
-
-document
-.querySelectorAll(".colorBtn")
-.forEach(button=>{
-
-button.addEventListener(
-"click",
-()=>{
-
-currentItem =
-"Bunny";
-
-currentImage =
-button.dataset.image;
-
-bunny.src =
-currentImage;
-
-selectedQuantity = 1;
-
-quantityValue.innerText =
-1;
-
-colorPanel.style.display =
-"none";
-
-quantityPopup.style.display =
-"block";
-
-});
-
-});
-
-/* -------------------- */
-/* DUCK */
-/* -------------------- */
-
-duck.addEventListener(
-"click",
-()=>{
-
-currentItem =
-"Duck";
-
-currentImage =
-"duck.png";
-
-selectedQuantity = 1;
-
-quantityValue.innerText =
-1;
-
-quantityPopup.style.display =
-"block";
-
-});
-
-/* -------------------- */
-/* BEAR */
-/* -------------------- */
-
-bear.addEventListener(
-"click",
-()=>{
-
-currentItem =
-"Bear";
-
-currentImage =
-"bear.png";
-
-selectedQuantity = 1;
-
-quantityValue.innerText =
-1;
-
-quantityPopup.style.display =
-"block";
-
-});
-
-/* -------------------- */
-/* QUANTITY */
-/* -------------------- */
-
-document
-.getElementById("plusBtn")
-.addEventListener(
-"click",
-()=>{
-
-selectedQuantity++;
-
-quantityValue.innerText =
-selectedQuantity;
-
-});
-
-document
-.getElementById("minusBtn")
-.addEventListener(
-"click",
-()=>{
-
-if(selectedQuantity > 1){
-
-selectedQuantity--;
-
-quantityValue.innerText =
-selectedQuantity;
-
+function getCartCount() {
+    const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    const customizedItems = JSON.parse(localStorage.getItem("customizedItems")) || [];
+    const allItems = cartItems.map(item => {
+        const custom = customizedItems.find(
+            c => c.name === item.name && c.image === item.image
+        );
+        return custom ? custom : item;
+    });
+    customizedItems.forEach(c => {
+        const inCart = allItems.find(item => item.name === c.name);
+        if (!inCart) allItems.push(c);
+    });
+    return allItems.length;
 }
 
+// DOM Elements
+const cartCount = document.getElementById("cartCount");
+const toast = document.getElementById("toast");
+const cartButton = document.getElementById("cartButton");
+
+// Set initial cart count
+cartCount.innerText = getCartCount();
+
+// Track quantities for the 3 plushie cards locally
+const plushieQuantities = {
+    "1": 1, // Bunny
+    "2": 1, // Duck
+    "3": 1  // Bear
+};
+
+// Update quantities in DOM
+function updateQtyDisplay(plushieId) {
+    const qtySpan = document.getElementById(`qtyPlushie${plushieId}`);
+    if (qtySpan) {
+        qtySpan.innerText = plushieQuantities[plushieId];
+    }
+}
+
+// Plus Buttons
+document.querySelectorAll(".plusBtn").forEach(button => {
+    button.addEventListener("click", () => {
+        const plushieId = button.dataset.plushie;
+        plushieQuantities[plushieId]++;
+        updateQtyDisplay(plushieId);
+    });
 });
 
-/* -------------------- */
-/* CUSTOMIZE */
-/* -------------------- */
-
-document
-.getElementById("customizeBtn")
-.addEventListener(
-"click",
-()=>{
-
-if(!currentItem) return;
-
-localStorage.setItem(
-
-"currentPlushie",
-
-JSON.stringify({
-
-name:
-currentItem,
-
-image:
-currentImage,
-
-quantity:
-selectedQuantity
-
-})
-
-);
-
-window.location =
-"customize.html";
-
+// Minus Buttons
+document.querySelectorAll(".minusBtn").forEach(button => {
+    button.addEventListener("click", () => {
+        const plushieId = button.dataset.plushie;
+        if (plushieQuantities[plushieId] > 1) {
+            plushieQuantities[plushieId]--;
+            updateQtyDisplay(plushieId);
+        }
+    });
 });
 
-/* -------------------- */
-/* ADD TO CART */
-/* -------------------- */
+// Color Option Selection for Bunny Card
+document.querySelectorAll(".color-option").forEach(option => {
+    option.addEventListener("click", () => {
+        // Deactivate all other options
+        document.querySelectorAll(".color-option").forEach(opt => opt.classList.remove("active"));
+        // Activate clicked option
+        option.classList.add("active");
 
-document
-.getElementById("addToCartBtn")
-.addEventListener(
-"click",
-()=>{
+        // Retrieve properties
+        const colorName = option.dataset.name;
+        const colorImage = option.dataset.image;
 
-cart.push({
+        // Update main card presentation
+        const mainImage = document.getElementById("bunnyImage");
+        const mainName = document.getElementById("bunnyName");
+        if (mainImage) mainImage.src = colorImage;
+        if (mainName) mainName.innerText = colorName;
 
-name:
-currentItem,
-
-image:
-currentImage,
-
-quantity:
-selectedQuantity
-
+        // Update button attributes
+        const custBtn = document.getElementById("bunnyCustomizeBtn");
+        const cartBtn = document.getElementById("bunnyAddToCartBtn");
+        if (custBtn) {
+            custBtn.dataset.name = colorName;
+            custBtn.dataset.image = colorImage;
+        }
+        if (cartBtn) {
+            cartBtn.dataset.name = colorName;
+            cartBtn.dataset.image = colorImage;
+        }
+    });
 });
 
-localStorage.setItem(
+// Add to Cart
+document.querySelectorAll(".addToCartBtn").forEach(button => {
+    button.addEventListener("click", () => {
+        const plushieId = button.dataset.plushie;
+        const plushieName = button.dataset.name;
+        const plushieImage = button.dataset.image;
+        const quantity = plushieQuantities[plushieId];
 
-"cart",
+        // Push to cart
+        cart.push({
+            name: plushieName,
+            image: plushieImage,
+            quantity: quantity
+        });
 
-JSON.stringify(cart)
+        // Save
+        localStorage.setItem("cart", JSON.stringify(cart));
 
-);
+        // Update count
+        cartCount.innerText = getCartCount();
 
-cartCount.innerText =
-cart.length;
+        // Reset display and internal count for this card
+        plushieQuantities[plushieId] = 1;
+        updateQtyDisplay(plushieId);
 
-quantityPopup.style.display =
-"none";
-
-toast.innerText =
-"✨ Added To Cart ✨";
-
-toast.style.display =
-"block";
-
-setTimeout(()=>{
-
-toast.style.display =
-"none";
-
-},2000);
-
+        // Toast
+        toast.innerText = "✨ Added To Cart ✨";
+        toast.style.display = "block";
+        setTimeout(() => {
+            toast.style.display = "none";
+        }, 2000);
+    });
 });
 
-/* -------------------- */
-/* CHECKOUT */
-/* -------------------- */
+// Customize Plushie
+document.querySelectorAll(".customizeBtn").forEach(button => {
+    button.addEventListener("click", () => {
+        const plushieId = button.dataset.plushie;
+        const plushieName = button.dataset.name;
+        const plushieImage = button.dataset.image;
+        const quantity = plushieQuantities[plushieId];
 
-document
-.getElementById("cartButton")
-.addEventListener(
-"click",
-()=>{
+        // Save selection details to currentPlushie
+        localStorage.setItem("currentPlushie", JSON.stringify({
+            name: plushieName,
+            image: plushieImage,
+            quantity: quantity
+        }));
 
-window.location =
-"checkout.html";
+        // Redirect to customization page
+        window.location = "customize.html";
+    });
+});
 
+// Redirect to checkout
+cartButton.addEventListener("click", () => {
+    window.location = "checkout.html";
 });

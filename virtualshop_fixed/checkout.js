@@ -13,18 +13,10 @@ document.getElementById(
 "receipt"
 );
 
-const generateBill =
-document.getElementById(
-"generateBill"
-);
-
 const giftButton =
 document.getElementById(
 "giftButton"
 );
-
-giftButton.style.display =
-"none";
 
 /* -------------------- */
 /* LOAD CURRENT ITEMS   */
@@ -82,15 +74,15 @@ orderList.innerHTML =
 
 "<p>No items added yet.</p>";
 
-generateBill.style.display =
-"none";
-
 giftButton.style.display =
 "none";
 
 return;
 
 }
+
+giftButton.style.display =
+"inline-block";
 
 allItems.forEach((item, index) => {
 
@@ -125,7 +117,15 @@ plushie.src =
 item.image;
 
 plushie.className =
-"product";
+"checkoutProduct";
+
+plushie.style.position = "absolute";
+plushie.style.width = "100%";
+plushie.style.height = "100%";
+plushie.style.objectFit = "contain";
+plushie.style.left = "0";
+plushie.style.top = "0";
+plushie.style.transform = "none";
 
 plushieContainer.appendChild(
 plushie
@@ -134,6 +134,10 @@ plushie
 /* Accessories overlaid at saved positions */
 
 if(item.accessories && item.accessories.length > 0){
+
+const plushieCanvasW = 280;
+const plushieCanvasL = 210;
+const plushieCanvasT = 210;
 
 item.accessories.forEach(
 acc => {
@@ -149,19 +153,13 @@ acc.image;
 accessory.className =
 "checkoutAccessory";
 
-/* acc positions are saved as pixel values relative to the
-   customScene (700px wide). Scale them to the 250px container. */
-const sceneWidth = 700;
-const containerWidth = 250;
-const scale = containerWidth / sceneWidth;
-
 const rawLeft = parseFloat(acc.left);
 const rawTop  = parseFloat(acc.top);
 const rawWidth = parseFloat(acc.width);
 
-accessory.style.left  = (rawLeft  * scale) + "px";
-accessory.style.top   = (rawTop   * scale) + "px";
-accessory.style.width = (rawWidth * scale) + "px";
+accessory.style.left  = (((rawLeft - plushieCanvasL) / plushieCanvasW) * 100) + "%";
+accessory.style.top   = (((rawTop  - plushieCanvasT) / plushieCanvasW) * 100) + "%";
+accessory.style.width = ((rawWidth / plushieCanvasW) * 100) + "%";
 
 plushieContainer.appendChild(
 accessory
@@ -266,24 +264,16 @@ renderCart();
 renderCart();
 
 /* -------------------- */
-/* GENERATE BILL        */
+/* AUTOMATIC RECEIPT    */
 /* -------------------- */
 
-generateBill.addEventListener(
-"click",
-() => {
+setTimeout(() => {
 
 receipt.classList.add(
 "showReceipt"
 );
 
-generateBill.style.display =
-"none";
-
-giftButton.style.display =
-"inline-block";
-
-});
+}, 500);
 
 /* -------------------- */
 /* GIFT BUTTON          */

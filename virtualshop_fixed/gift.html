@@ -20,6 +20,13 @@ rel="stylesheet">
 
 <body class="giftPage">
 
+    <!-- Baby Pink Navbar -->
+    <nav id="storeNavbar">
+        <a href="index.html" class="navLink">🧸 Plushies</a>
+        <a href="flowers.html" class="navLink">🌸 Flowers</a>
+        <a href="index.html" class="navLink" id="backToShopNavLink">⬅️ Back to Shop</a>
+    </nav>
+
 <!-- Theme Toggle -->
 <div id="themeToggleWrapper">
     <label class="theme-switch">
@@ -77,6 +84,14 @@ rel="stylesheet">
 
             <button id="addTextBtn" class="giftControlBtn">
                 💬 Add Text
+            </button>
+
+            <button id="giftRotate" class="giftControlBtn">
+                🔄 Rotate
+            </button>
+
+            <button id="giftFlip" class="giftControlBtn">
+                ↔️ Flip Sideways
             </button>
 
         </div>
@@ -139,29 +154,33 @@ rel="stylesheet">
 
     <br><br>
 
-    <select id="fontSelect">
+    <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+        <select id="fontSelect" style="flex: 1; margin-bottom: 0;">
 
-        <option value="Pacifico">
-        Pacifico
-        </option>
+            <option value="Pacifico">
+            Pacifico
+            </option>
 
-        <option value="Dancing Script">
-        Dancing Script
-        </option>
+            <option value="Dancing Script">
+            Dancing Script
+            </option>
 
-        <option value="Caveat">
-        Caveat
-        </option>
+            <option value="Caveat">
+            Caveat
+            </option>
 
-        <option value="Indie Flower">
-        Indie Flower
-        </option>
+            <option value="Indie Flower">
+            Indie Flower
+            </option>
 
-        <option value="Patrick Hand">
-        Patrick Hand
-        </option>
+            <option value="Patrick Hand">
+            Patrick Hand
+            </option>
 
-    </select>
+        </select>
+        
+        <input type="color" id="textColorPicker" value="#ff4fa2" style="width: 45px; height: 45px; border: none; border-radius: 50%; cursor: pointer; padding: 0; background: none; box-shadow: 0 0 5px rgba(255, 105, 180, 0.5);">
+    </div>
 
     <br><br>
 
