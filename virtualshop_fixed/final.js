@@ -92,14 +92,16 @@ savedLayout.forEach(item => {
                 accessory.style.left  = (((rawLeft - plushieCanvasL) / plushieCanvasW) * 100) + "%";
                 accessory.style.top   = (((rawTop  - plushieCanvasT) / plushieCanvasW) * 100) + "%";
                 accessory.style.width = ((rawWidth / plushieCanvasW) * 100) + "%";
+                accessory.style.transform = `rotate(${acc.rotation || 0}deg) scaleX(${acc.flip || 1})`;
                 wrapper.appendChild(accessory);
             });
         }
 
         // Voice Note Playback
-        if (item.voiceNote) {
+        const voiceNoteSrc = item.voiceNote || (matchedItem && matchedItem.voiceNote);
+        if (voiceNoteSrc) {
             hasAudioNote = true;
-            wrapper.dataset.voiceNote = item.voiceNote;
+            wrapper.dataset.voiceNote = voiceNoteSrc;
             wrapper.classList.add("has-audio");
             
             wrapper.addEventListener("click", (e) => {
@@ -108,7 +110,7 @@ savedLayout.forEach(item => {
                     activeAudio.pause();
                 }
                 
-                activeAudio = new Audio(item.voiceNote);
+                activeAudio = new Audio(voiceNoteSrc);
                 activeAudio.play();
                 
                 // Audio playing animation

@@ -41,7 +41,7 @@ localStorage.getItem(
 /* Merge: customized versions replace matching regular items */
 let allItems = cartItems.map(item => {
   const custom = customizedItems.find(
-    c => c.name === item.name && c.image === item.image
+    c => c.name === item.name && c.image.split("/").pop() === item.image.split("/").pop()
   );
   return custom ? custom : item;
 });
@@ -160,6 +160,7 @@ const rawWidth = parseFloat(acc.width);
 accessory.style.left  = (((rawLeft - plushieCanvasL) / plushieCanvasW) * 100) + "%";
 accessory.style.top   = (((rawTop  - plushieCanvasT) / plushieCanvasW) * 100) + "%";
 accessory.style.width = ((rawWidth / plushieCanvasW) * 100) + "%";
+accessory.style.transform = `rotate(${acc.rotation || 0}deg) scaleX(${acc.flip || 1})`;
 
 plushieContainer.appendChild(
 accessory

@@ -1447,3 +1447,212 @@ height:auto;
     0% { transform: rotate(-2deg) scale(1.02); }
     100% { transform: rotate(2deg) scale(1.02); }
 }
+
+/* -------------------- */
+/* TREATS PAGE LAYOUT   */
+/* -------------------- */
+
+.treats-layout {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+    padding: 30px 20px 60px 20px;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1350px;
+    margin: 0 auto;
+}
+
+.dessert-cart-container {
+    width: 340px;
+    background: var(--popup-bg);
+    border: 3px solid #ffb6d9;
+    border-radius: 35px;
+    padding: 24px;
+    box-shadow: 0 10px 25px rgba(255, 105, 180, 0.15);
+    transition: background 0.5s ease, border-color 0.5s ease;
+}
+
+[data-theme="dark"] .dessert-cart-container {
+    background-color: rgba(46, 0, 31, 0.6);
+    border-color: #5c0045;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.dessert-spawner-card h3 {
+    text-align: center;
+    color: var(--heading-color);
+    margin-bottom: 18px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.spawner-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    justify-items: center;
+}
+
+.dessertSpawner {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    cursor: pointer;
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.25s ease;
+}
+
+.dessertSpawner:hover {
+    transform: scale(1.2) rotate(8deg);
+    filter: drop-shadow(0 8px 12px rgba(255, 105, 180, 0.45));
+}
+
+/* Big chosen box canvas - a tad bit smaller (600x600px) */
+.treats-layout #customScene {
+    width: 600px;
+    height: 600px;
+    background: white;
+    border-radius: 40px;
+    box-shadow: 0 0 25px rgba(255, 182, 193, 0.6);
+    position: relative;
+    overflow: hidden;
+}
+
+#customPanel.treats-controls-panel {
+    width: 280px !important;
+    background: var(--popup-bg);
+    border: 3px solid #ffb6d9;
+    border-radius: 35px;
+    padding: 24px;
+    box-shadow: 0 10px 25px rgba(255, 105, 180, 0.15);
+    display: flex;
+    flex-direction: column;
+}
+
+[data-theme="dark"] #customPanel.treats-controls-panel {
+    background-color: rgba(46, 0, 31, 0.6);
+    border-color: #5c0045;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+#customPanel.treats-controls-panel h2 {
+    text-align: center;
+    color: var(--heading-color);
+    margin-bottom: 15px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+/* Bubbly option elements inside selection panel */
+.box-option {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 20px;
+    background: var(--btn-bg);
+    border: 2px solid #ffb6d9;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    width: 100%;
+}
+
+.box-option:hover {
+    transform: translateY(-3px) scale(1.02);
+    border-color: hotpink;
+    box-shadow: 0 5px 12px rgba(255, 105, 180, 0.2);
+}
+
+.box-option.active {
+    background: #ffb6d9;
+    border-color: hotpink;
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.45);
+}
+
+.box-option img {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+}
+
+.box-option span {
+    font-size: 16px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.box-option.active span {
+    color: #5a0035;
+}
+
+[data-theme="dark"] .box-option {
+    border-color: #5c0045;
+}
+
+[data-theme="dark"] .box-option.active {
+    background: #c2185b;
+    border-color: #ff80c0;
+}
+
+[data-theme="dark"] .box-option.active span {
+    color: white;
+}
+
+/* Customization Buttons Placed Side-by-Side */
+.buttons-row {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.buttons-row button {
+    flex: 1;
+    margin: 0 !important;
+    padding: 12px 6px !important;
+    font-size: 14px !important;
+    border-radius: 25px !important;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    background: #ffd6ef;
+    box-shadow: 0 0 8px rgba(255, 182, 193, 0.6);
+    color: #5a0035;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease;
+}
+
+.buttons-row button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 12px rgba(255, 105, 180, 0.8);
+}
+
+#saveCustomization {
+    background: #ffb6d9 !important;
+    color: #5a0035 !important;
+    box-shadow: 0 0 10px pink !important;
+}
+
+#saveCustomization:hover {
+    box-shadow: 0 0 15px hotpink !important;
+}
+
+/* Spawned Draggable Treats */
+.draggableTreat {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    cursor: move;
+    z-index: 10;
+    transition: transform 0.1s ease;
+}
+
+.draggableTreatSelected {
+    outline: 3px solid hotpink !important;
+    outline-offset: 3px;
+}

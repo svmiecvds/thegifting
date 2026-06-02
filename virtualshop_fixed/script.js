@@ -6,7 +6,7 @@ function getCartCount() {
     const customizedItems = JSON.parse(localStorage.getItem("customizedItems")) || [];
     const allItems = cartItems.map(item => {
         const custom = customizedItems.find(
-            c => c.name === item.name && c.image === item.image
+            c => c.name === item.name && c.image.split("/").pop() === item.image.split("/").pop()
         );
         return custom ? custom : item;
     });

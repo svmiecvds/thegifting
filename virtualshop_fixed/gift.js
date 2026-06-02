@@ -142,6 +142,7 @@ const rawWidth = parseFloat(acc.width);
 accessory.style.left  = (((rawLeft - plushieCanvasL) / plushieCanvasW) * 100) + "%";
 accessory.style.top   = (((rawTop  - plushieCanvasT) / plushieCanvasW) * 100) + "%";
 accessory.style.width = ((rawWidth / plushieCanvasW) * 100) + "%";
+accessory.style.transform = `rotate(${acc.rotation || 0}deg) scaleX(${acc.flip || 1})`;
 
 wrapper.appendChild(
 accessory
