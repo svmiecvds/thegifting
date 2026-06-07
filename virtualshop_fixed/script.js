@@ -25,11 +25,16 @@ const cartButton = document.getElementById("cartButton");
 // Set initial cart count
 cartCount.innerText = getCartCount();
 
-// Track quantities for the 3 plushie cards locally
+// Track quantities for the plushie cards locally
 const plushieQuantities = {
     "1": 1, // Bunny
     "2": 1, // Duck
-    "3": 1  // Bear
+    "3": 1, // Bear
+    "4": 1, // Elephant
+    "5": 1, // Pig
+    "6": 1, // Fox
+    "7": 1, // Koala
+    "8": 1  // Cat
 };
 
 // Update quantities in DOM
@@ -60,11 +65,14 @@ document.querySelectorAll(".minusBtn").forEach(button => {
     });
 });
 
-// Color Option Selection for Bunny Card
+// Color Option Selection (generic helper)
 document.querySelectorAll(".color-option").forEach(option => {
     option.addEventListener("click", () => {
-        // Deactivate all other options
-        document.querySelectorAll(".color-option").forEach(opt => opt.classList.remove("active"));
+        const card = option.closest(".flowerCard");
+        if (!card) return;
+
+        // Deactivate all other options inside this card
+        card.querySelectorAll(".color-option").forEach(opt => opt.classList.remove("active"));
         // Activate clicked option
         option.classList.add("active");
 
@@ -73,14 +81,14 @@ document.querySelectorAll(".color-option").forEach(option => {
         const colorImage = option.dataset.image;
 
         // Update main card presentation
-        const mainImage = document.getElementById("bunnyImage");
-        const mainName = document.getElementById("bunnyName");
+        const mainImage = card.querySelector(".flowerImage");
+        const mainName = card.querySelector(".flowerName");
         if (mainImage) mainImage.src = colorImage;
         if (mainName) mainName.innerText = colorName;
 
         // Update button attributes
-        const custBtn = document.getElementById("bunnyCustomizeBtn");
-        const cartBtn = document.getElementById("bunnyAddToCartBtn");
+        const custBtn = card.querySelector(".customizeBtn");
+        const cartBtn = card.querySelector(".addToCartBtn");
         if (custBtn) {
             custBtn.dataset.name = colorName;
             custBtn.dataset.image = colorImage;

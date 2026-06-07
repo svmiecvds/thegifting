@@ -154,6 +154,7 @@ accessory
 
 if (item.voiceNote) {
     wrapper.dataset.voiceNote = item.voiceNote;
+    wrapper.dataset.voiceNoteDuration = item.voiceNoteDuration || 0;
     wrapper.classList.add("has-audio");
 }
 
@@ -752,7 +753,8 @@ if (saveGiftBtn) {
                 fontFamily: el.style.fontFamily || "",
                 fontSize: el.style.fontSize || "",
                 color: el.style.color || "",
-                voiceNote: el.dataset.voiceNote || ""
+                voiceNote: el.dataset.voiceNote || "",
+                voiceNoteDuration: parseInt(el.dataset.voiceNoteDuration) || 0
             });
         });
         

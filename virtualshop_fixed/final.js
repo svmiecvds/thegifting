@@ -5,6 +5,10 @@ const savedLayout = JSON.parse(localStorage.getItem("savedGiftLayout")) || [];
 
 let hasAudioNote = false;
 let activeAudio = null;
+const audioPlaylist = [];
+let currentPlaylistIndex = -1;
+let isPlaylistPlaying = false;
+let fallbackTimeoutId = null;
 
 /* Reconstruct everything inside the stationary scene */
 savedLayout.forEach(item => {
@@ -36,40 +40,6 @@ savedLayout.forEach(item => {
         wrapper.appendChild(img);
 
         // Reconstruct overlays (accessories)
-        // Wait, did the plushie wrapper serialize its inner accessories or was it flat?
-        // Since we saved the whole flat elements including overlays or we saved them as individual elements.
-        // Wait! Let's check how we serialized:
-        // "src = el.querySelector('img').src;"
-        // Wait! During serialization, we ran `document.querySelectorAll("#giftScene .giftEl").forEach(el => ...)`
-        // In gift.js, the plushie has a wrapper ".draggable.giftEl" that has a base plushie img and children overlay imgs (the accessories!).
-        // So the wrapper has multiple children!
-        // To reconstruct them perfectly, we can just copy all children img elements of the plushie or rebuild them!
-        // Wait, let's see how our serialization in gift.js works:
-        // `savedLayout.push({ ... src: src, ... })`
-        // Wait! If the plushie had accessories overlaid, they were children of the wrapper.
-        // During serialization, did we store the accessories overlay data inside the savedLayout?
-        // Ah! In `gift.js`, the overlays were created inside the wrapper when loading gift items from checkout:
-        // ```javascript
-        // /* Accessories overlaid at saved positions */
-        // if(item.accessories && item.accessories.length > 0){
-        //   item.accessories.forEach(acc => {
-        //     const accessory = document.createElement("img");
-        //     accessory.src = acc.image;
-        //     ...
-        //     wrapper.appendChild(accessory);
-        //   });
-        // }
-        // ```
-        // Yes! The accessories are children inside the plushie wrapper.
-        // So, when we serialize the plushie on the gift page, how do we serialize its accessories?
-        // If we only save the base image `src`, the overlays will be lost on the final page!
-        // Oh! That is a very important insight!
-        // We must serialize the overlays as well, or since the final page can easily read the accessories from `giftItems` inside `localStorage` for that plushie name, we can dynamically overlays them just like in `gift.js`!
-        // Wait! That is extremely clever! Because `localStorage` contains `"giftItems"`, which has the exact plushie name, image, and its accessories!
-        // So, inside `final.js`, when we reconstruct a `"plushie"`, we can look up the corresponding item in `giftItems` (by comparing `item.src` with the base image `c.image` in `giftItems`) and dynamically re-render its accessories overlaid on top of it, exactly like we did in `gift.js`!
-        // Let's check if this is 100% correct.
-        // Yes! It is extremely clean, works flawlessly, and requires zero extra complex serialization logic!
-        // Let's implement this lookup lookup in `final.js`:
         const giftItems = JSON.parse(localStorage.getItem("giftItems")) || [];
         // Extract filename from item.src
         const filename = item.src.split("/").pop();
@@ -99,25 +69,18 @@ savedLayout.forEach(item => {
 
         // Voice Note Playback
         const voiceNoteSrc = item.voiceNote || (matchedItem && matchedItem.voiceNote);
+        const voiceNoteDuration = parseInt(item.voiceNoteDuration) || (matchedItem && parseInt(matchedItem.voiceNoteDuration)) || 0;
         if (voiceNoteSrc) {
             hasAudioNote = true;
             wrapper.dataset.voiceNote = voiceNoteSrc;
+            wrapper.dataset.voiceNoteDuration = voiceNoteDuration;
             wrapper.classList.add("has-audio");
             
-            wrapper.addEventListener("click", (e) => {
-                e.stopPropagation();
-                if (activeAudio) {
-                    activeAudio.pause();
-                }
-                
-                activeAudio = new Audio(voiceNoteSrc);
-                activeAudio.play();
-                
-                // Audio playing animation
-                img.classList.add("plushie-speaking");
-                activeAudio.onended = () => {
-                    img.classList.remove("plushie-speaking");
-                };
+            audioPlaylist.push({
+                wrapper: wrapper,
+                img: img,
+                src: voiceNoteSrc,
+                duration: voiceNoteDuration
             });
         }
     } 
@@ -168,20 +131,140 @@ savedLayout.forEach(item => {
     giftScene.appendChild(wrapper);
 });
 
+// Playlist control functions
+function playTrack(index) {
+    if (fallbackTimeoutId) {
+        clearTimeout(fallbackTimeoutId);
+        fallbackTimeoutId = null;
+    }
+    if (activeAudio) {
+        activeAudio.pause();
+        activeAudio = null;
+    }
+
+    // Clear speaking class from all playlist items
+    audioPlaylist.forEach(track => {
+        track.img.classList.remove("plushie-speaking");
+    });
+
+    if (index < 0 || index >= audioPlaylist.length) {
+        isPlaylistPlaying = false;
+        currentPlaylistIndex = -1;
+        updateCTA();
+        return;
+    }
+
+    currentPlaylistIndex = index;
+    isPlaylistPlaying = true;
+    updateCTA();
+
+    const track = audioPlaylist[index];
+    track.img.classList.add("plushie-speaking");
+
+    activeAudio = new Audio(track.src);
+    activeAudio.play().catch(err => {
+        console.error("Playback failed", err);
+        // Automatically skip to the next track if playing fails
+        if (fallbackTimeoutId) {
+            clearTimeout(fallbackTimeoutId);
+            fallbackTimeoutId = null;
+        }
+        setTimeout(playNext, 1000);
+    });
+
+    let endedFired = false;
+    const handleEnded = () => {
+        if (endedFired) return;
+        endedFired = true;
+        if (fallbackTimeoutId) {
+            clearTimeout(fallbackTimeoutId);
+            fallbackTimeoutId = null;
+        }
+        track.img.classList.remove("plushie-speaking");
+        playNext();
+    };
+
+    activeAudio.onended = handleEnded;
+
+    if (track.duration && track.duration > 0) {
+        // Fallback in case browser does not fire 'ended' event (common WebM metadata issue)
+        fallbackTimeoutId = setTimeout(handleEnded, track.duration + 200); // 200ms buffer
+    }
+}
+
+function playNext() {
+    playTrack(currentPlaylistIndex + 1);
+}
+
+function stopPlaylist() {
+    if (fallbackTimeoutId) {
+        clearTimeout(fallbackTimeoutId);
+        fallbackTimeoutId = null;
+    }
+    if (activeAudio) {
+        activeAudio.pause();
+        activeAudio = null;
+    }
+    audioPlaylist.forEach(track => {
+        track.img.classList.remove("plushie-speaking");
+    });
+    isPlaylistPlaying = false;
+    currentPlaylistIndex = -1;
+    updateCTA();
+}
+
+function updateCTA() {
+    const cta = document.querySelector(".click-gifts-cta");
+    if (!cta) return;
+
+    if (isPlaylistPlaying) {
+        const displayIndex = currentPlaylistIndex + 1;
+        const total = audioPlaylist.length;
+        if (total > 1) {
+            cta.innerText = `⏸️ Pause sequence (Playing ${displayIndex} of ${total}) 🧸`;
+        } else {
+            cta.innerText = `⏸️ Pause voice message 🧸`;
+        }
+    } else {
+        if (currentPlaylistIndex !== -1 && currentPlaylistIndex < audioPlaylist.length) {
+            cta.innerText = `▶️ Resume voice messages 🧸`;
+        } else {
+            if (audioPlaylist.length > 1) {
+                cta.innerText = `🎵 Play all voice messages in sequence! 🧸`;
+            } else {
+                cta.innerText = `🎵 Play voice message! 🧸`;
+            }
+        }
+    }
+}
+
+// Wire up click event listeners for playlist items
+audioPlaylist.forEach((track, index) => {
+    track.wrapper.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (isPlaylistPlaying && currentPlaylistIndex === index) {
+            stopPlaylist();
+        } else {
+            playTrack(index);
+        }
+    });
+});
+
 /* Create "Click on your gifts" CTA button if custom audio is loaded */
 if (hasAudioNote) {
     const cta = document.createElement("button");
     cta.className = "click-gifts-cta";
-    cta.innerText = "🎵 Click on your gifts to play voice message! 🧸";
+    document.body.appendChild(cta);
     
     // Add pulsing play action
     cta.addEventListener("click", () => {
-        // Automatically find and click the first audio plushie to play!
-        const firstAudioPlushie = document.querySelector(".has-audio");
-        if (firstAudioPlushie) {
-            firstAudioPlushie.click();
+        if (isPlaylistPlaying) {
+            stopPlaylist();
+        } else {
+            const resumeIndex = currentPlaylistIndex !== -1 ? currentPlaylistIndex : 0;
+            playTrack(resumeIndex);
         }
     });
     
-    document.body.appendChild(cta);
+    updateCTA();
 }

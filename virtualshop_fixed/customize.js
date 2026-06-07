@@ -305,7 +305,10 @@ accessories:
 accessories,
 
 voiceNote:
-voiceNoteDataUrl
+voiceNoteDataUrl,
+
+voiceNoteDuration:
+voiceNoteDuration
 
 };
 
@@ -359,6 +362,8 @@ window.location =
 let mediaRecorder = null;
 let audioChunks = [];
 let voiceNoteDataUrl = null;
+let voiceNoteDuration = 0;
+let recordingStartTime = 0;
 let recordingTimer = null;
 let recordDuration = 0;
 
@@ -388,6 +393,7 @@ function startRecording() {
             };
             
             mediaRecorder.onstop = () => {
+                voiceNoteDuration = Date.now() - recordingStartTime;
                 const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
                 const reader = new FileReader();
                 reader.onloadend = () => {
@@ -403,6 +409,7 @@ function startRecording() {
             };
 
             mediaRecorder.start();
+            recordingStartTime = Date.now();
             recordBtn.innerText = "⏹️ Stop Recording";
             recordBtn.style.background = "#ffd6d6";
             recordBtn.style.boxShadow = "0 0 10px #ffd6d6";
@@ -460,6 +467,7 @@ if (playVoiceBtn) {
 if (deleteVoiceBtn) {
     deleteVoiceBtn.addEventListener("click", () => {
         voiceNoteDataUrl = null;
+        voiceNoteDuration = 0;
         if (testAudio) {
             testAudio.pause();
             testAudio = null;
