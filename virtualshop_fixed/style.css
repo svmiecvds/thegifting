@@ -60,7 +60,7 @@ html {
 }
 
 body {
-    background-image: url("bg_pattern.png");
+    background-image: url("assets/bg_pattern.png");
     background-repeat: repeat;
     background-size: 350px;
     background-attachment: fixed;
@@ -71,12 +71,12 @@ body {
 }
 
 [data-theme="dark"] body {
-    background-image: linear-gradient(rgba(92, 0, 69, 0.4), rgba(92, 0, 69, 0.4)), url("bg_pattern.png");
+    background-image: linear-gradient(rgba(92, 0, 69, 0.4), rgba(92, 0, 69, 0.4)), url("assets/bg_pattern.png");
 }
 
 body.receiptPage,
 body.giftPage {
-    background-image: url("bg_pattern.png");
+    background-image: url("assets/bg_pattern.png");
     background-repeat: repeat;
     background-size: 350px;
     background-attachment: fixed;
@@ -85,7 +85,7 @@ body.giftPage {
 
 [data-theme="dark"] body.receiptPage,
 [data-theme="dark"] body.giftPage {
-    background-image: linear-gradient(rgba(92, 0, 69, 0.4), rgba(92, 0, 69, 0.4)), url("bg_pattern.png");
+    background-image: linear-gradient(rgba(92, 0, 69, 0.4), rgba(92, 0, 69, 0.4)), url("assets/bg_pattern.png");
 }
 
 /* -------------------- */

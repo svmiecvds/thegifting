@@ -41,7 +41,7 @@ if (cartCountSpan) {
 /* -------------------- */
 
 let currentBoxName = "Heart Treat Box";
-let currentBoxImage = "box_heart.png";
+let currentBoxImage = "assets/treats/box_heart.png";
 
 document.querySelectorAll(".box-option").forEach(option => {
     option.addEventListener("click", () => {
