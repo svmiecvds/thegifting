@@ -1120,9 +1120,9 @@ margin: 0 auto;
     <!-- Baby Pink Navbar -->
     <nav id="storeNavbar">
         <div class="navBrand">Gift Shop</div>
-        <a href="index.html" class="navLink">🧸 Plushies</a>
-        <a href="flowers.html" class="navLink">🌸 Flowers</a>
-        <a href="treats.html" class="navLink">🧁 Treats</a>
+        <a href="index.html" class="navLink">Plushies</a>
+        <a href="flowers.html" class="navLink">Flowers</a>
+        <a href="treats.html" class="navLink">Treats</a>
         <a href="index.html" class="navLink shiny-cta" id="backToShopNavLink"><span>⬅️ Back to Shop</span></a>
     </nav>
 
@@ -1152,7 +1152,7 @@ margin: 0 auto;
 
 <h1 class="giftTitle">
 
-🎀 Create Your Gift 🎀
+Create Your Gift
 
 </h1>
 
@@ -1167,37 +1167,37 @@ margin: 0 auto;
         <!-- Size controls for selected item -->
         <div class="giftControls">
 
-            <h2>🎛️ Controls</h2>
+            <h2>Customizations</h2>
 
             <button id="giftIncreaseSize" class="giftControlBtn">
-                ➕ Bigger
+                ➕
             </button>
 
             <button id="giftDecreaseSize" class="giftControlBtn">
-                ➖ Smaller
+                ➖
             </button>
 
             <button id="giftDeleteItem" class="giftControlBtn giftDeleteBtn">
-                🗑️ Delete
+                 Delete
             </button>
 
             <button id="addTextBtn" class="giftControlBtn">
-                💬 Add Text
+                 Add Text
             </button>
 
             <button id="giftRotate" class="giftControlBtn">
-                🔄 Rotate
+                 Rotate
             </button>
 
             <button id="giftFlip" class="giftControlBtn">
-                ↔️ Flip Sideways
+                 Flip Sideways
             </button>
 
         </div>
 
         <h2>
 
-            💌 Notes
+             Notes
 
         </h2>
 
@@ -1221,7 +1221,7 @@ margin: 0 auto;
 
         <h2>
 
-            ✨ Stickers
+            Stickers
 
         </h2>
 
@@ -1237,7 +1237,7 @@ margin: 0 auto;
         <hr style="margin-top: 20px; margin-bottom: 20px; border: none; border-top: 2px dashed var(--glow-soft);">
 
         <button id="saveGiftLayoutBtn" class="cuteButton" style="width: 100%; margin: 0; padding: 15px; font-size: 16px; font-weight: bold; background: #ffb6d9; box-shadow: 0 0 15px hotpink; border-radius: 40px; color: #5a0035;">
-            💾 Save & Finish Gift ✨
+            Save & Finish Gift
         </button>
 
     </div>
@@ -1248,7 +1248,7 @@ margin: 0 auto;
 
     <h2>
 
-        💌 Edit Text
+        Edit Text
 
     </h2>
 
@@ -1291,7 +1291,7 @@ margin: 0 auto;
 
     <button id="saveNote">
 
-        Save ✨
+        Save
 
     </button>
 
@@ -1828,7 +1828,7 @@ textEl.style.userSelect =
 "none";
 
 textEl.innerText =
-"✨ Your Text Here ✨";
+"Your Text Here";
 
 makeDraggable(textEl);
 
@@ -2127,7 +2127,7 @@ if (saveGiftBtn) {
         });
         
         localStorage.setItem("savedGiftLayout", JSON.stringify(savedLayout));
-        alert("🎉 Gift Layout Saved! Opening your wrapped card... 🎁");
+        alert("Gift Layout Saved! Opening your wrapped card...");
         window.location = "final.html";
     });
 }

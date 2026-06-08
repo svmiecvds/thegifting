@@ -878,15 +878,28 @@ body.receiptPage {
     font-family: var(--font-body);
     font-weight: 600;
 }
-.removeBtn {
-    background: none;
-    border: none;
-    cursor: pointer;
+.cartQtyControl {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-size: 18px;
+    font-weight: bold;
+    color: var(--text-color);
+}
+.cartQtyControl button {
+    background: #ffb6d9;
+    border: none;
+    border-radius: 5px;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #5a0035;
     transition: transform 0.2s;
 }
-.removeBtn:hover {
-    transform: scale(1.2);
+.cartQtyControl button:hover {
+    transform: scale(1.1);
+    background: #ffd6ef;
 }
 .checkoutButtons {
     margin-top: 30px;
@@ -1043,22 +1056,36 @@ function renderCart() {
                 row.className = "orderRow";
                 row.innerHTML = `
                     <span>${item.name} x ${item.quantity || 1}</span>
-                    <button class="removeBtn" data-index="${item.originalIndex}">❌</button>
+                    <div class="cartQtyControl">
+                        <button class="qtyMinusBtn" data-index="${item.originalIndex}">➖</button>
+                        <span>${item.quantity || 1}</span>
+                        <button class="qtyPlusBtn" data-index="${item.originalIndex}">➕</button>
+                    </div>
                 `;
                 orderList.appendChild(row);
             });
         }
     }
 
-    /* REMOVE BUTTONS */
-    document.querySelectorAll(".removeBtn").forEach(button => {
+    /* QTY BUTTONS */
+    document.querySelectorAll(".qtyMinusBtn").forEach(button => {
         button.addEventListener("click", () => {
             const index = parseInt(button.dataset.index);
-            allItems.splice(index, 1);
-            
-            // Re-sync local storage
+            if (allItems[index].quantity > 1) {
+                allItems[index].quantity--;
+            } else {
+                allItems.splice(index, 1);
+            }
             localStorage.setItem("cart", JSON.stringify(allItems));
-            
+            renderCart();
+        });
+    });
+
+    document.querySelectorAll(".qtyPlusBtn").forEach(button => {
+        button.addEventListener("click", () => {
+            const index = parseInt(button.dataset.index);
+            allItems[index].quantity = (allItems[index].quantity || 1) + 1;
+            localStorage.setItem("cart", JSON.stringify(allItems));
             renderCart();
         });
     });

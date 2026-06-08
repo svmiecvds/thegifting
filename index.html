@@ -450,26 +450,25 @@ transition: var(--transition);
     padding: 12px 24px;
     cursor: pointer;
     background: var(--btn-bg);
-    color: var(--btn-text);
+    color: var(--text-color);
+    font-family: var(--font-body);
     font-size: 16px;
+    font-weight: bold;
     width: 100%;
-    font-family: var(--font-ui);
-    font-weight: 600;
-    box-shadow: 
-        0 4px 10px rgba(255, 182, 193, 0.3),
-        0 0 10px pink,
-        0 0 20px pink;
-    transition: transform 0.2s, background 0.3s, box-shadow 0.3s;
-    margin-top: 8px;
+    margin-bottom: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
+.flowerCard .customizeBtn {
+    margin-top: auto;
+    margin-bottom: 20px;
+}
+
 
 .flowerCard .addToCartBtn:hover, .flowerCard .customizeBtn:hover {
     transform: scale(1.05);
     background: #ffd6ef;
-    box-shadow: 
-        0 6px 15px rgba(255, 105, 180, 0.4),
-        0 0 15px hotpink,
-        0 0 25px hotpink;
+    box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4);
 }
 
 .flowerCard .addToCartBtn:active, .flowerCard .customizeBtn:active {
@@ -1508,30 +1507,43 @@ const cartButton = document.getElementById("cartButton");
 cartCount.innerText = getCartCount();
 
 // Track quantities for the plushie cards locally
-const plushieQuantities = {
-    "1": 1, // Bunny
-    "2": 1, // Duck
-    "3": 1, // Bear
-    "4": 1, // Elephant
-    "5": 1, // Pig
-    "6": 1, // Fox
-    "7": 1, // Koala
-    "8": 1  // Cat
-};
+
 
 // Update quantities in DOM
 function updateQtyDisplay(plushieId) {
     const qtySpan = document.getElementById(`qtyPlushie${plushieId}`);
-    if (qtySpan) {
-        qtySpan.innerText = plushieQuantities[plushieId];
+    const cartBtn = document.querySelector(`.addToCartBtn[data-plushie="${plushieId}"]`);
+    if (qtySpan && cartBtn) {
+        const itemName = cartBtn.dataset.name;
+        const itemInCart = cart.find(item => item.name === itemName && !item.customId);
+        qtySpan.innerText = itemInCart ? itemInCart.quantity : 0;
     }
 }
+// Initialize on load
+setTimeout(() => {
+    for (let i = 1; i <= 8; i++) updateQtyDisplay(i);
+}, 100);
 
 // Plus Buttons
 document.querySelectorAll(".plusBtn").forEach(button => {
     button.addEventListener("click", () => {
         const plushieId = button.dataset.plushie;
-        plushieQuantities[plushieId]++;
+        const cartBtn = document.querySelector(`.addToCartBtn[data-plushie="${plushieId}"]`);
+        const itemName = cartBtn.dataset.name;
+        const itemImage = cartBtn.dataset.image;
+
+        let existingItem = cart.find(item => item.name === itemName && !item.customId);
+        if (existingItem) {
+            existingItem.quantity++;
+        } else {
+            cart.push({
+                name: itemName,
+                image: itemImage,
+                quantity: 1
+            });
+        }
+        localStorage.setItem("cart", JSON.stringify(cart));
+        cartCount.innerText = getCartCount();
         updateQtyDisplay(plushieId);
     });
 });
@@ -1540,8 +1552,18 @@ document.querySelectorAll(".plusBtn").forEach(button => {
 document.querySelectorAll(".minusBtn").forEach(button => {
     button.addEventListener("click", () => {
         const plushieId = button.dataset.plushie;
-        if (plushieQuantities[plushieId] > 1) {
-            plushieQuantities[plushieId]--;
+        const cartBtn = document.querySelector(`.addToCartBtn[data-plushie="${plushieId}"]`);
+        const itemName = cartBtn.dataset.name;
+
+        let existingItemIndex = cart.findIndex(item => item.name === itemName && !item.customId);
+        if (existingItemIndex > -1) {
+            if (cart[existingItemIndex].quantity > 1) {
+                cart[existingItemIndex].quantity--;
+            } else {
+                cart.splice(existingItemIndex, 1);
+            }
+            localStorage.setItem("cart", JSON.stringify(cart));
+            cartCount.innerText = getCartCount();
             updateQtyDisplay(plushieId);
         }
     });
@@ -1588,14 +1610,17 @@ document.querySelectorAll(".addToCartBtn").forEach(button => {
         const plushieId = button.dataset.plushie;
         const plushieName = button.dataset.name;
         const plushieImage = button.dataset.image;
-        const quantity = plushieQuantities[plushieId];
-
-        // Push to cart
-        cart.push({
-            name: plushieName,
-            image: plushieImage,
-            quantity: quantity
-        });
+                // Push to cart
+        let existingItem = cart.find(item => item.name === plushieName && !item.customId);
+        if (existingItem) {
+            existingItem.quantity++;
+        } else {
+            cart.push({
+                name: plushieName,
+                image: plushieImage,
+                quantity: 1
+            });
+        }
 
         // Save
         localStorage.setItem("cart", JSON.stringify(cart));
@@ -1604,7 +1629,6 @@ document.querySelectorAll(".addToCartBtn").forEach(button => {
         cartCount.innerText = getCartCount();
 
         // Reset display and internal count for this card
-        plushieQuantities[plushieId] = 1;
         updateQtyDisplay(plushieId);
 
         // Toast
@@ -1622,7 +1646,10 @@ document.querySelectorAll(".customizeBtn").forEach(button => {
         const plushieId = button.dataset.plushie;
         const plushieName = button.dataset.name;
         const plushieImage = button.dataset.image;
-        const quantity = plushieQuantities[plushieId];
+
+        // Get quantity from cart for this item
+        const cartItem = cart.find(item => item.name === plushieName && !item.customId);
+        const quantity = cartItem ? cartItem.quantity : 1;
 
         // Save selection details to currentPlushie
         localStorage.setItem("currentPlushie", JSON.stringify({

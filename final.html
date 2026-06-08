@@ -1202,15 +1202,15 @@ function updateCTA() {
         const displayIndex = currentPlaylistIndex + 1;
         const total = audioPlaylist.length;
         if (total > 1) {
-            text = `⏸️ Pause sequence (Playing ${displayIndex} of ${total}) 🧸`;
+            text = `Pause sequence (Playing ${displayIndex} of ${total})`;
         } else {
-            text = `⏸️ Pause voice message 🧸`;
+            text = `Pause voice message`;
         }
     } else {
         if (currentPlaylistIndex !== -1 && currentPlaylistIndex < audioPlaylist.length) {
-            text = `▶️ Resume voice message 🧸`;
+            text = `Resume voice message`;
         } else {
-            text = `🔊 Click to hear a message`;
+            text = `Click to hear a message`;
         }
     }
 

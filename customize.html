@@ -362,156 +362,158 @@ transition: var(--transition);
 
 
 /* --- CUSTOMIZE PAGE --- */
-#customizeContainer{
-
-display:flex;
-
-justify-content:center;
-
-align-items:flex-start;
-
-gap:40px;
-
-padding:40px;
+#customizeContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+    padding: 30px 20px;
 }
 
-#customScene{
+#customScene {
     position: relative;
-
-width:700px;
-
-height:700px;
-
-background:white;
-
-border-radius:40px;
-
-box-shadow:
-0 0 25px rgba(255,182,193,.6);
-
-position:relative;
-
-overflow:hidden;
+    width: 700px;
+    height: 700px;
+    background: var(--card-bg);
+    border-radius: 28px;
+    border: 2px solid rgba(255, 182, 217, 0.35);
+    box-shadow:
+        0 8px 32px rgba(255, 182, 193, 0.15),
+        0 2px 8px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-.mainPlushie{
-
-position:absolute;
-
-width:280px;
-
-left:50%;
-
-top:50%;
-
-transform:
-translate(-50%,-50%);
+[data-theme="dark"] #customScene {
+    border-color: rgba(92, 0, 69, 0.5);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(194, 24, 91, 0.08);
 }
 
-#customPanel{
-
-width:260px;
-
-background:white;
-
-padding:20px;
-
-border-radius:30px;
-
-box-shadow:
-0 0 20px rgba(255,182,193,.5);
+.mainPlushie {
+    position: absolute;
+    width: 280px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
-#customPanel h2{
+#customPanel {
+    width: 280px;
+    background: var(--panel-bg);
+    padding: 24px;
+    border-radius: 24px;
+    border: 2px solid rgba(255, 182, 217, 0.3);
+    box-shadow:
+        0 8px 24px rgba(255, 182, 193, 0.12),
+        0 2px 6px rgba(0, 0, 0, 0.03);
+    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
 
-text-align:center;
+[data-theme="dark"] #customPanel {
+    border-color: rgba(92, 0, 69, 0.4);
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.25),
+        0 0 15px rgba(194, 24, 91, 0.06);
+}
 
-margin-bottom:20px;
+#customPanel h2 {
+    text-align: center;
+    margin-bottom: 16px;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--heading-color);
+    letter-spacing: 0.3px;
 }
 
 .accessoriesGrid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    gap: 10px;
+    margin-top: 12px;
+    margin-bottom: 16px;
 }
 
 .accessoryTemplate {
     width: 100% !important;
-    height: 75px !important;
+    height: 72px !important;
     margin: 0 !important;
     object-fit: contain;
-    background: white;
-    border-radius: 10px;
-    padding: 5px;
+    background: var(--card-bg);
+    border-radius: 14px;
+    padding: 6px;
     cursor: grab;
-    transition: transform 0.2s, box-shadow 0.2s;
-    border: 2px solid transparent;
+    transition: transform 0.2s ease, box-shadow 0.25s ease, border-color 0.2s ease;
+    border: 2px solid rgba(255, 182, 217, 0.2);
+}
+
+[data-theme="dark"] .accessoryTemplate {
+    border-color: rgba(92, 0, 69, 0.3);
 }
 
 .accessoryTemplate:hover {
-    transform: scale(1.08);
-    box-shadow: 0 4px 10px rgba(255, 105, 180, 0.3);
+    transform: scale(1.06) translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 105, 180, 0.18);
+    border-color: rgba(255, 105, 180, 0.4);
 }
 
 .accessoryTemplate:active {
     cursor: grabbing;
+    transform: scale(0.97);
 }
 
 .selectedAccessory {
-    outline: 3px solid #ff4fa2 !important;
-    outline-offset: 3px;
-    border-radius: 4px;
-    box-shadow: 0 0 15px rgba(255, 79, 162, 0.5);
+    outline: 2.5px solid var(--heading-color) !important;
+    outline-offset: 2px;
+    border-radius: 14px;
+    box-shadow: 0 0 12px rgba(255, 79, 162, 0.3);
 }
 
 .draggableAccessory {
     cursor: move;
     z-index: 10;
-    transition: outline 0.2s, box-shadow 0.2s;
+    transition: outline 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* --- Customize Action Buttons --- */
 #deleteItem,
 #bringFront,
 #sendBack,
-#saveCustomization,
 #increaseSize,
-#decreaseSize{
+#decreaseSize {
+    width: 100%;
+    margin-top: 10px;
+    border: none;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: var(--font-ui);
+    border-radius: 16px;
+    cursor: pointer;
+    background: var(--btn-bg);
+    color: var(--text-color);
+    border: 1.5px solid rgba(255, 182, 217, 0.25);
+    box-shadow: 0 2px 8px rgba(255, 182, 193, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.25s ease, background 0.3s ease;
+}
 
-width:100%;
-
-margin-top:12px;
-
-border:none;
-
-padding:14px;
-
-font-size:16px;
-
-font-weight:bold;
-
-border-radius:40px;
-
-cursor:pointer;
-
-background:#ffd6ef;
-
-box-shadow:
-0 0 10px pink,
-0 0 20px pink;
-
-transition:.3s;
+[data-theme="dark"] #deleteItem,
+[data-theme="dark"] #bringFront,
+[data-theme="dark"] #sendBack,
+[data-theme="dark"] #increaseSize,
+[data-theme="dark"] #decreaseSize {
+    border-color: rgba(92, 0, 69, 0.4);
 }
 
 #deleteItem:hover,
 #bringFront:hover,
 #sendBack:hover,
-#saveCustomization:hover,
 #increaseSize:hover,
-#decreaseSize:hover{
-
-transform:scale(1.05);
+#decreaseSize:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 105, 180, 0.2);
 }
 .orderRow{
 
@@ -547,21 +549,29 @@ box-shadow:
     margin-top:30px;
 }
 
-.cuteButton{
-    padding:15px 30px;
-    border:none;
-    border-radius:30px;
-    background:#ffb6d9;
-    color:#5a0035;
-    font-size:18px;
-    font-weight:bold;
-    cursor:pointer;
-    box-shadow:0 0 20px hotpink;
-    margin:10px;
+.cuteButton {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 16px;
+    background: var(--btn-bg);
+    color: var(--text-color);
+    font-size: 14px;
+    font-weight: 600;
+    font-family: var(--font-ui);
+    cursor: pointer;
+    border: 1.5px solid rgba(255, 182, 217, 0.25);
+    box-shadow: 0 2px 8px rgba(255, 182, 193, 0.1);
+    margin: 6px;
+    transition: transform 0.2s ease, box-shadow 0.25s ease;
 }
 
-.cuteButton:hover{
-    transform:scale(1.05);
+[data-theme="dark"] .cuteButton {
+    border-color: rgba(92, 0, 69, 0.4);
+}
+
+.cuteButton:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 105, 180, 0.2);
 }
 .productsContainer{
 display:flex;
@@ -731,14 +741,19 @@ height:auto;
 
 /* --- VOICE RECORDER UI --- */
 #voiceRecorderPanel {
-    background: var(--popup-bg);
-    border: 2px dashed var(--glow-soft);
-    border-radius: 20px;
-    padding: 15px;
-    margin-top: 20px;
+    background: var(--card-bg);
+    border: 1.5px solid rgba(255, 182, 217, 0.3);
+    border-radius: 18px;
+    padding: 16px;
+    margin-top: 16px;
     text-align: center;
-    box-shadow: 0 0 10px var(--glow-soft);
-    transition: background 0.5s ease, box-shadow 0.5s ease;
+    box-shadow: 0 2px 10px rgba(255, 182, 193, 0.08);
+    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+[data-theme="dark"] #voiceRecorderPanel {
+    border-color: rgba(92, 0, 69, 0.35);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
 }
 
 #voiceRecorderPanel h3 {
@@ -876,7 +891,7 @@ height:auto;
 /* --- Customization Buttons Placed Side-by-Side --- */
 .buttons-row {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     width: 100%;
     margin-top: 10px;
 }
@@ -884,31 +899,37 @@ height:auto;
 .buttons-row button {
     flex: 1;
     margin: 0 !important;
-    padding: 12px 6px !important;
-    font-size: 14px !important;
-    border-radius: 25px !important;
-    border: none;
+    padding: 10px 6px !important;
+    font-size: 13px !important;
+    border-radius: 14px !important;
+    border: 1.5px solid rgba(255, 182, 217, 0.25) !important;
     cursor: pointer;
-    font-weight: bold;
-    background: #ffd6ef;
-    box-shadow: 0 0 8px rgba(255, 182, 193, 0.6);
-    color: #5a0035;
-    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease;
+    font-weight: 600;
+    font-family: var(--font-ui);
+    background: var(--btn-bg) !important;
+    color: var(--text-color) !important;
+    box-shadow: 0 2px 8px rgba(255, 182, 193, 0.08) !important;
+    transition: transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+[data-theme="dark"] .buttons-row button {
+    border-color: rgba(92, 0, 69, 0.4) !important;
 }
 
 .buttons-row button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 12px rgba(255, 105, 180, 0.8);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 105, 180, 0.18) !important;
 }
 
 #saveCustomization {
-    background: #ffb6d9 !important;
-    color: #5a0035 !important;
-    box-shadow: 0 0 10px pink !important;
+    background: var(--bg-pink) !important;
+    color: var(--btn-text-color) !important;
+    box-shadow: none !important;
+    border: none !important;
 }
 
 #saveCustomization:hover {
-    box-shadow: 0 0 15px hotpink !important;
+    box-shadow: 0 4px 16px rgba(255, 105, 180, 0.25) !important;
 }
 
 /* --- Spawned Draggable Treats --- */
@@ -1181,49 +1202,91 @@ body.no-scroll {
     display: flex;
     flex-direction: column;
 }
+
 .customizeTitle {
     margin-top: 80px !important;
     margin-bottom: 10px !important;
     flex-shrink: 0;
 }
+
 #customizeContainer {
     flex: 1;
     min-height: 0;
     display: flex !important;
     justify-content: center !important;
     align-items: stretch !important;
-    gap: 30px !important;
+    gap: 24px !important;
     padding: 10px 20px !important;
 }
+
 #customScene {
     position: relative;
     flex: 1;
     max-width: 500px;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
+    background: var(--card-bg) !important;
+    border: 2px solid rgba(255, 182, 217, 0.3) !important;
+    border-radius: 24px !important;
+    box-shadow: 0 8px 32px rgba(255, 182, 193, 0.12) !important;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background 0.4s ease, border-color 0.4s ease !important;
 }
+
+[data-theme="dark"] #customScene {
+    border-color: rgba(92, 0, 69, 0.45) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25) !important;
+}
+
 .mainPlushie {
     max-height: 60vh !important;
     width: auto !important;
     object-fit: contain;
 }
+
 #customPanel, .customPanel-style {
     flex: 1;
     max-width: 320px;
     background-color: var(--panel-bg) !important;
-    border: 3px dashed #ffb6d9 !important;
-    border-radius: 20px !important;
-    padding: 20px !important;
-    box-shadow: 0 5px 15px rgba(255,105,180,0.15) !important;
+    border: 2px solid rgba(255, 182, 217, 0.3) !important;
+    border-radius: 24px !important;
+    padding: 22px !important;
+    box-shadow: 0 8px 24px rgba(255, 182, 193, 0.1) !important;
     display: flex;
     flex-direction: column;
     max-height: 70vh;
     overflow-y: auto;
+    transition: background 0.4s ease, border-color 0.4s ease !important;
 }
+
+[data-theme="dark"] #customPanel,
+[data-theme="dark"] .customPanel-style {
+    border-color: rgba(92, 0, 69, 0.4) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* --- Custom scrollbar for panels --- */
+#customPanel::-webkit-scrollbar,
+.customPanel-style::-webkit-scrollbar {
+    width: 6px;
+}
+
+#customPanel::-webkit-scrollbar-track,
+.customPanel-style::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#customPanel::-webkit-scrollbar-thumb,
+.customPanel-style::-webkit-scrollbar-thumb {
+    background: rgba(255, 182, 217, 0.4);
+    border-radius: 10px;
+}
+
+[data-theme="dark"] #customPanel::-webkit-scrollbar-thumb,
+[data-theme="dark"] .customPanel-style::-webkit-scrollbar-thumb {
+    background: rgba(194, 24, 91, 0.3);
+}
+
 /* Overridden accessoryTemplate styles removed for grid layout */
 
 /* --- NAV BRAND CENTERING --- */
@@ -1334,33 +1397,11 @@ class="mainPlushie"
             <img src="assets/plushies/custom21.png" class="accessoryTemplate" draggable="true">
         </div>
 
-        <hr>
+        <hr style="border: none; border-top: 1.5px solid rgba(255, 182, 217, 0.25); margin: 16px 0;">
 
-        <button id="deleteItem">
-
-            🗑 Delete Selected
-
-        </button>
-
-     <button id="increaseSize">
-
-➕ Increase Size
-
-</button>
-
-<button id="decreaseSize">
-
-➖ Decrease Size
-
-</button>
-
-        
-
-
-
-
-
-
+        <button id="deleteItem">🗑 Delete Selected</button>
+        <button id="increaseSize">➕ Increase Size</button>
+        <button id="decreaseSize">➖ Decrease Size</button>
     </div>
 
     <div id="voicePanel" class="customPanel-style">
@@ -1368,18 +1409,18 @@ class="mainPlushie"
         <div id="voiceRecorderPanel">
             <h3>🎙️ Plushie Voice Note</h3>
             <div style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
-                <button id="recordBtn" class="cuteButton" style="width: 100%; margin: 0; padding: 10px; font-size: 14px; background: #ffb6d9; box-shadow: 0 0 10px pink; color: #5a0035;">
+                <button id="recordBtn" class="cuteButton" style="width: 100%; margin: 0; padding: 10px; font-size: 14px;">
                     🎤 Record (15s limit)
                 </button>
                 <div id="recordStatus">Ready to record</div>
-                <div id="recordPlaybackContainer" style="display: none; justify-content: center; gap: 10px; width: 100%;">
-                    <button id="playVoiceBtn" class="cuteButton" style="flex: 1; margin: 0; padding: 8px; font-size: 13px; background: #e0b0ff; box-shadow: 0 0 10px #e0b0ff; color: #5a0035;">▶️ Play</button>
-                    <button id="deleteVoiceBtn" class="cuteButton" style="flex: 1; margin: 0; padding: 8px; font-size: 13px; background: #ffd6d6; color: #c0392b; box-shadow: 0 0 10px #ffd6d6;">🗑️ Delete</button>
+                <div id="recordPlaybackContainer" style="display: none; justify-content: center; gap: 8px; width: 100%;">
+                    <button id="playVoiceBtn" class="cuteButton" style="flex: 1; margin: 0; padding: 8px; font-size: 13px;">▶️ Play</button>
+                    <button id="deleteVoiceBtn" class="cuteButton" style="flex: 1; margin: 0; padding: 8px; font-size: 13px;">🗑️ Delete</button>
                 </div>
             </div>
         </div>
-        <hr style="margin-top: 30px; margin-bottom: 20px; border: none; border-top: 2px dashed var(--glow-soft);">
-        <button id="saveCustomization" class="shiny-cta" style="width: 100%; padding: 15px; font-size: 18px;">
+        <hr style="margin-top: 24px; margin-bottom: 16px; border: none; border-top: 1.5px solid rgba(255, 182, 217, 0.25);">
+        <button id="saveCustomization" class="shiny-cta" style="width: 100%; padding: 14px; font-size: 16px;">
             <span>💾 Save Changes</span>
         </button>
     </div>
@@ -1801,8 +1842,8 @@ function startRecording() {
             mediaRecorder.start();
             recordingStartTime = Date.now();
             recordBtn.innerText = "⏹️ Stop Recording";
-            recordBtn.style.background = "#ffd6d6";
-            recordBtn.style.boxShadow = "0 0 10px #ffd6d6";
+            recordBtn.style.background = "";
+            recordBtn.style.boxShadow = "";
             recordStatus.innerText = "Recording... (15s limit)";
             recordStatus.classList.add("recording-active");
             playbackContainer.style.display = "none";
@@ -1831,8 +1872,8 @@ function stopRecording() {
         mediaRecorder.stop();
     }
     recordBtn.innerText = "🎤 Record (15s limit)";
-    recordBtn.style.background = "#ffb6d9";
-    recordBtn.style.boxShadow = "0 0 10px pink";
+    recordBtn.style.background = "";
+    recordBtn.style.boxShadow = "";
 }
 
 // Playback
