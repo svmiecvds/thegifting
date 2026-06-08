@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gift Shop</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Fredoka:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+/* --- THEME VARIABLES --- */
+:root,
+[data-theme="light"] {
+    --bg-gradient: linear-gradient(135deg, #ffe4f1 0%, #ffc2e0 40%, #ffb3d9 100%);
+    --body-bg: #fff5fb;
+    --panel-bg: #ffe4f1;
+    --popup-bg: #ffe4f1;
+    --receipt-bg: #ffeaf5;
+    --card-bg: #ffffff;
+    --text-color: #c2185b;
+    --heading-color: #ff4fa2;
+    --btn-bg: #ffffff;
+    --btn-text: #ff4fa2;
+    --cart-btn-bg: #ff69b4;
+    --cart-btn-shadow: hotpink;
+    --glow-color: hotpink;
+    --glow-soft: pink;
+    --toast-bg: #ff69b4;
+    --receipt-shadow: pink;
+    --shelf-overlay: rgba(255,255,255,0.0);
+    --font-body: 'Quicksand', sans-serif;
+    --font-heading: 'Pacifico', cursive;
+    --font-ui: 'Fredoka', sans-serif;
+    --font-nav: 'Inter', sans-serif;
+}
+
+[data-theme="dark"] {
+    --bg-gradient: linear-gradient(135deg, #1a0010 0%, #3d0030 40%, #5c0045 100%);
+    --body-bg: #1a0010;
+    --panel-bg: #2e001f;
+    --popup-bg: #2e001f;
+    --receipt-bg: #1a0010;
+    --card-bg: #2e001f;
+    --text-color: #ff80c0;
+    --heading-color: #ff4fa2;
+    --btn-bg: #3d0030;
+    --btn-text: #ff80c0;
+    --cart-btn-bg: #c2185b;
+    --cart-btn-shadow: #ff1493;
+    --glow-color: #ff1493;
+    --glow-soft: #c2185b;
+    --toast-bg: #c2185b;
+    --receipt-shadow: #c2185b;
+    --shelf-overlay: rgba(26,0,16,0.15);
+    --font-body: 'Quicksand', sans-serif;
+    --font-heading: 'Pacifico', cursive;
+    --font-ui: 'Fredoka', sans-serif;
+    --font-nav: 'Inter', sans-serif;
+}
+
+/* --- BASE --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body {
+    color: var(--text-color);
+    background-image: url("assets/bg_pattern.png");
+    background-repeat: repeat;
+    background-size: 350px;
+    background-attachment: fixed;
+    background-color: var(--body-bg);
+    overflow-x: hidden;
+    transition: background 0.5s ease, color 0.5s ease;
+    font-family: var(--font-body);
+    font-weight: 500;
+}
+
+[data-theme="dark"] body {
+    background-image: linear-gradient(rgba(92, 0, 69, 0.4), rgba(92, 0, 69, 0.4)), url("assets/bg_pattern.png");
+}
+
+body.receiptPage,
+body.giftPage {
+    background-image: url("assets/bg_pattern.png");
+    background-repeat: repeat;
+    background-size: 350px;
+    background-attachment: fixed;
+    background-color: var(--receipt-bg);
+}
+
+[data-theme="dark"] body.receiptPage,
+[data-theme="dark"] body.giftPage {
+    background-image: linear-gradient(rgba(92, 0, 69, 0.4), rgba(92, 0, 69, 0.4)), url("assets/bg_pattern.png");
+}
+
+/* --- THEME SWITCH WRAPPER --- */
+#themeToggleWrapper {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    background: transparent;
+    padding: 6px;
+    border-radius: 30px;
+}
+
+[data-theme="dark"] #themeToggleWrapper {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    background: transparent;
+    padding: 6px;
+    border-radius: 30px;
+}
+
+/* --- THEME SWITCH STYLES --- */
+.theme-switch {
+    --toggle-size: 11px;
+
+/* --- Smaller size --- */
+--container-width: 5.625em;
+    --container-height: 2.5em;
+    --container-radius: 6.25em;
+    --container-light-bg: #ff4fa2;
+
+/* --- Changed color to pop more --- */
+--container-night-bg: #800040;
+    --circle-container-diameter: 3.375em;
+    --sun-moon-diameter: 2.125em;
+    --sun-bg: #FFA500;
+    --moon-bg: #E0E4EB;
+    --spot-color: #A1A8B8;
+    --circle-container-offset: calc((var(--circle-container-diameter) - var(--container-height)) / 2 * -1);
+    --stars-color: #fff;
+    --clouds-color: #F3FDFF;
+    --back-clouds-color: #AACADF;
+    --transition: .5s cubic-bezier(0, -0.02, 0.4, 1.25);
+    --circle-transition: .3s cubic-bezier(0, -0.02, 0.35, 1.17);
+}
+
+.theme-switch,
+.theme-switch *,
+.theme-switch *::before,
+.theme-switch *::after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-size: var(--toggle-size);
+}
+
+.theme-switch__container {
+    width: var(--container-width);
+    height: var(--container-height);
+    background-color: var(--container-light-bg);
+    border-radius: var(--container-radius);
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: none;
+
+/* --- Make it flat, not floating --- */
+transition: var(--transition);
+    position: relative;
+}
+
+.theme-switch__container::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    border-radius: var(--container-radius);
+}
+
+.theme-switch__checkbox {
+    display: none;
+}
+
+.theme-switch__circle-container {
+    width: var(--circle-container-diameter);
+    height: var(--circle-container-diameter);
+    background-color: rgba(255, 255, 255, 0.2);
+    position: absolute;
+    left: var(--circle-container-offset);
+    top: var(--circle-container-offset);
+    border-radius: var(--container-radius);
+    display: flex;
+    transition: var(--circle-transition);
+    pointer-events: none;
+}
+
+.theme-switch__sun-moon-container {
+    pointer-events: auto;
+    position: relative;
+    z-index: 2;
+    width: var(--sun-moon-diameter);
+    height: var(--sun-moon-diameter);
+    margin: auto;
+    border-radius: var(--container-radius);
+    background-color: var(--sun-bg);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.theme-switch__moon {
+    transform: translateX(100%);
+    width: 100%;
+    height: 100%;
+    background-color: var(--moon-bg);
+    border-radius: inherit;
+    transition: var(--transition);
+    position: relative;
+}
+
+.theme-switch__spot {
+    position: absolute;
+    top: 0.75em;
+    left: 0.312em;
+    width: 0.75em;
+    height: 0.75em;
+    border-radius: var(--container-radius);
+    background-color: var(--spot-color);
+}
+
+.theme-switch__spot:nth-of-type(2) {
+    width: 0.375em;
+    height: 0.375em;
+    top: 0.937em;
+    left: 1.375em;
+}
+
+.theme-switch__spot:nth-last-of-type(3) {
+    width: 0.25em;
+    height: 0.25em;
+    top: 0.312em;
+    left: 0.812em;
+}
+
+.theme-switch__clouds {
+    width: 1.25em;
+    height: 1.25em;
+    background-color: var(--clouds-color);
+    border-radius: var(--container-radius);
+    position: absolute;
+    bottom: -0.625em;
+    left: 0.312em;
+    box-shadow:
+        0.937em 0.312em var(--clouds-color),
+        -0.312em -0.312em var(--back-clouds-color),
+        1.437em 0.375em var(--clouds-color),
+        0.5em -0.125em var(--back-clouds-color),
+        2.187em 0 var(--clouds-color),
+        1.25em -0.062em var(--back-clouds-color),
+        2.937em 0.312em var(--clouds-color),
+        2em -0.312em var(--back-clouds-color),
+        3.625em -0.062em var(--clouds-color),
+        2.625em 0em var(--back-clouds-color),
+        4.5em -0.312em var(--clouds-color),
+        3.375em -0.437em var(--back-clouds-color),
+        4.625em -1.75em 0 0.437em var(--clouds-color),
+        4em -0.625em var(--back-clouds-color),
+        4.125em -2.125em 0 0.437em var(--back-clouds-color);
+    transition: 0.5s cubic-bezier(0, -0.02, 0.4, 1.25);
+}
+
+.theme-switch__stars-container {
+    position: absolute;
+    color: var(--stars-color);
+    top: -100%;
+    left: 0.312em;
+    width: 2.75em;
+    height: auto;
+    transition: var(--transition);
+}
+
+/* --- -- Switch Actions -- --- */
+.theme-switch__checkbox:checked + .theme-switch__container {
+    background-color: var(--container-night-bg);
+}
+
+.theme-switch__checkbox:checked + .theme-switch__container .theme-switch__circle-container {
+    left: calc(100% - var(--circle-container-offset) - var(--circle-container-diameter));
+}
+
+.theme-switch__checkbox:checked + .theme-switch__container .theme-switch__circle-container:hover {
+    left: calc(100% - var(--circle-container-offset) - var(--circle-container-diameter) - 0.187em);
+}
+
+.theme-switch__circle-container:hover {
+    left: calc(var(--circle-container-offset) + 0.187em);
+}
+
+.theme-switch__checkbox:checked + .theme-switch__container .theme-switch__moon {
+    transform: translate(0);
+}
+
+.theme-switch__checkbox:checked + .theme-switch__container .theme-switch__clouds {
+    bottom: -4.062em;
+}
+
+.theme-switch__checkbox:checked + .theme-switch__container .theme-switch__stars-container {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.sidebar-panel {
+    display: none;
+    /* --- controlled by JS --- */
+    background: var(--popup-bg);
+    padding: 25px;
+    border-radius: 25px;
+    box-shadow:
+        0 10px 20px rgba(0, 0, 0, 0.05),
+        0 0 15px var(--glow-soft);
+    text-align: center;
+    border: 2px solid var(--glow-soft);
+    transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+
+#shelf {
+    width: 1000px;
+    height: 800px;
+    background: url("shelf.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    margin: 0 auto;
+
+/* --- Shelf stays strictly center aligned --- */
+}
+
+.character {
+    position: absolute;
+    width: 170px;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.character:hover {
+    transform: scale(1.05);
+}
+
+/* --- CHECKOUT BUTTON --- */
+
+
+/* --- TOAST --- */
+#toast {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--toast-bg);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 50px;
+    box-shadow:
+        0 0 10px var(--glow-color),
+        0 0 20px var(--glow-color);
+    z-index: 9999;
+    transition: background 0.5s ease;
+}
+
+/* --- Highlight selected gift element --- */
+.gifSelected {
+    outline: 3px solid hotpink !important;
+    outline-offset: 3px;
+}
+
+/* --- Gift text element --- */
+.giftText {
+    min-width: 80px;
+    font-size: 22px;
+    color: var(--heading-color);
+    user-select: none;
+    cursor: move;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* --- CUSTOM ALIGNMENTS --- */
+.checkoutTitle, .customizeTitle {
+    text-align: center !important;
+    font-family: var(--font-heading);
+    color: var(--heading-color);
+    margin-top: 100px;
+    margin-bottom: 25px;
+    font-size: 42px;
+    text-shadow: 2px 2px 4px rgba(255, 182, 193, 0.4);
+}
+
+[data-theme="dark"] .checkoutTitle, [data-theme="dark"] .customizeTitle {
+    text-shadow: none;
+}
+
+/* --- NAVBAR --- */
+#storeNavbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: rgba(255, 228, 241, 0.95);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 30px;
+    z-index: 999;
+    border-bottom: 3px solid #ffb3d9;
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.1);
+    padding: 10px 30px;
+    box-sizing: border-box;
+}
+
+[data-theme="dark"] #storeNavbar {
+    background: rgba(46, 0, 31, 0.95);
+    border-bottom-color: #5c0045;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.navLink {
+    font-size: 20px;
+    font-family: var(--font-nav);
+    font-weight: 500;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.5px;
+}
+
+.navLink:hover {
+    color: var(--heading-color);
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.navLink.active {
+    color: var(--heading-color);
+    font-weight: 800;
+    border-bottom: 3px solid var(--heading-color);
+    padding-bottom: 2px;
+}
+
+[data-theme="dark"] .navLink.active {
+    background: #c2185b;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* --- Header Text styling --- */
+.storeHeader {
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 20px;
+    color: var(--heading-color);
+    font-family: var(--font-heading);
+    font-size: 48px;
+    text-shadow: 2px 2px 4px rgba(255, 182, 193, 0.4);
+}
+
+[data-theme="dark"] .storeHeader {
+    text-shadow: none;
+}
+
+/* --- BACK TO SHOP BTN --- */
+
+
+/* --- Pulsing red dot for active recording --- */
+.recording-active {
+    animation: recordPulse 1s infinite alternate;
+    color: #e74c3c !important;
+}
+
+@keyframes recordPulse {
+    from { opacity: 0.5; }
+    to { opacity: 1; }
+}
+
+/* --- Plushie speaking / audio wave pulse animation --- */
+.plushie-speaking {
+    animation: audioShake 0.15s infinite alternate;
+    box-shadow: 0 0 25px hotpink !important;
+    border-radius: 50%;
+}
+
+@keyframes audioShake {
+    0% { transform: rotate(-2deg) scale(1.02); }
+    100% { transform: rotate(2deg) scale(1.02); }
+}
+
+/* --- TREATS PAGE LAYOUT --- */
+.dessert-cart-container {
+    width: 340px;
+    background: var(--popup-bg);
+    border: 3px solid #ffb6d9;
+    border-radius: 35px;
+    padding: 24px;
+    box-shadow: 0 10px 25px rgba(255, 105, 180, 0.15);
+    transition: background 0.5s ease, border-color 0.5s ease;
+}
+
+[data-theme="dark"] .dessert-cart-container {
+    background-color: rgba(46, 0, 31, 0.6);
+    border-color: #5c0045;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.dessert-spawner-card h3 {
+    text-align: center;
+    color: var(--heading-color);
+    margin-bottom: 18px;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.spawner-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    justify-items: center;
+}
+
+.dessertSpawner {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    cursor: pointer;
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.25s ease;
+}
+
+.dessertSpawner:hover {
+    transform: scale(1.2) rotate(8deg);
+    filter: drop-shadow(0 8px 12px rgba(255, 105, 180, 0.45));
+}
+
+/* --- Big chosen box canvas - a tad bit smaller (600x600px) --- */
+.treats-layout #customScene {
+    width: 600px;
+    height: 600px;
+    background: white;
+    border-radius: 40px;
+    box-shadow: 0 0 25px rgba(255, 182, 193, 0.6);
+    position: relative;
+    overflow: hidden;
+}
+
+#customPanel.treats-controls-panel {
+    width: 280px !important;
+    background: var(--popup-bg);
+    border: 3px solid #ffb6d9;
+    border-radius: 35px;
+    padding: 24px;
+    box-shadow: 0 10px 25px rgba(255, 105, 180, 0.15);
+    display: flex;
+    flex-direction: column;
+}
+
+[data-theme="dark"] #customPanel.treats-controls-panel {
+    background-color: rgba(46, 0, 31, 0.6);
+    border-color: #5c0045;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+#customPanel.treats-controls-panel h2 {
+    text-align: center;
+    color: var(--heading-color);
+    margin-bottom: 15px;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 20px;
+}
+
+/* --- Bubbly option elements inside selection panel --- */
+.box-option {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 20px;
+    background: var(--btn-bg);
+    border: 2px solid #ffb6d9;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    width: 100%;
+}
+
+.box-option:hover {
+    transform: translateY(-3px) scale(1.02);
+    border-color: hotpink;
+    box-shadow: 0 5px 12px rgba(255, 105, 180, 0.2);
+}
+
+.box-option.active {
+    background: #ffb6d9;
+    border-color: hotpink;
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.45);
+}
+
+.box-option img {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+}
+
+.box-option span {
+    font-size: 16px;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.box-option.active span {
+    color: #5a0035;
+}
+
+[data-theme="dark"] .box-option {
+    border-color: #5c0045;
+}
+
+[data-theme="dark"] .box-option.active {
+    background: #c2185b;
+    border-color: #ff80c0;
+}
+
+[data-theme="dark"] .box-option.active span {
+    color: white;
+}
+
+/* --- Customization Buttons Placed Side-by-Side --- */
+.buttons-row {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.buttons-row button {
+    flex: 1;
+    margin: 0 !important;
+    padding: 12px 6px !important;
+    font-size: 14px !important;
+    border-radius: 25px !important;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    background: #ffd6ef;
+    box-shadow: 0 0 8px rgba(255, 182, 193, 0.6);
+    color: #5a0035;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease;
+}
+
+.buttons-row button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 12px rgba(255, 105, 180, 0.8);
+}
+
+#saveCustomization {
+    background: #ffb6d9 !important;
+    color: #5a0035 !important;
+    box-shadow: 0 0 10px pink !important;
+}
+
+#saveCustomization:hover {
+    box-shadow: 0 0 15px hotpink !important;
+}
+
+/* --- Spawned Draggable Treats --- */
+.draggableTreat {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    cursor: move;
+    z-index: 10;
+    transition: transform 0.1s ease;
+}
+
+.draggableTreatSelected {
+    outline: 3px solid hotpink !important;
+    outline-offset: 3px;
+}
+
+/* --- SHINY BUTTON DESIGN --- */
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --gradient-angle-offset {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --gradient-percent {
+  syntax: "<percentage>";
+  initial-value: 5%;
+  inherits: false;
+}
+
+@property --gradient-shine {
+  syntax: "<color>";
+  initial-value: white;
+  inherits: false;
+}
+
+.shiny-cta {
+  --shiny-cta-bg: white;
+  --shiny-cta-bg-subtle: #fce4ec;
+  --shiny-cta-fg: #d81b60;
+  --shiny-cta-highlight: #ff4081;
+  --shiny-cta-highlight-subtle: #f50057;
+  --animation: gradient-angle linear infinite;
+  --duration: 3s;
+  --shadow-size: 2px;
+  --transition: 800ms cubic-bezier(0.25, 1, 0.5, 1);
+  
+  isolation: isolate;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  outline-offset: 4px;
+  padding: 10px 20px;
+
+/* --- matched dimensions for checkout button previously --- */
+font-family: "Inter", sans-serif;
+  font-size: 16px;
+  line-height: 1.2;
+  font-weight: 600;
+  border: 1px solid transparent;
+  border-radius: 360px;
+  color: var(--shiny-cta-fg) !important;
+  background: linear-gradient(var(--shiny-cta-bg), var(--shiny-cta-bg)) padding-box,
+    conic-gradient(
+      from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
+      transparent,
+      var(--shiny-cta-highlight) var(--gradient-percent),
+      var(--gradient-shine) calc(var(--gradient-percent) * 2),
+      var(--shiny-cta-highlight) calc(var(--gradient-percent) * 3),
+      transparent calc(var(--gradient-percent) * 4)
+    ) border-box;
+  box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle);
+  transition: var(--transition);
+  transition-property: --gradient-angle-offset, --gradient-percent, --gradient-shine;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+[data-theme="dark"] .shiny-cta {
+  --shiny-cta-bg: #880e4f;
+  --shiny-cta-bg-subtle: #4a148c;
+  --shiny-cta-fg: #ffffff;
+  --shiny-cta-highlight: #ff80ab;
+  --shiny-cta-highlight-subtle: #ff4081;
+}
+
+.shiny-cta::before,
+.shiny-cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.shiny-cta:active {
+  translate: 0 1px;
+}
+
+.shiny-cta::before {
+  --size: calc(100% - var(--shadow-size) * 3);
+  --position: 2px;
+  --space: calc(var(--position) * 2);
+  width: var(--size);
+  height: var(--size);
+  background: radial-gradient(
+    circle at var(--position) var(--position),
+    white calc(var(--position) / 4),
+    transparent 0
+  ) padding-box;
+  background-size: var(--space) var(--space);
+  background-repeat: space;
+  mask-image: conic-gradient(
+    from calc(var(--gradient-angle) + 45deg),
+    black,
+    transparent 10% 90%,
+    black
+  );
+  border-radius: inherit;
+  opacity: 0.4;
+  z-index: -1;
+}
+
+.shiny-cta::after {
+  --animation: shimmer linear infinite;
+  width: 100%;
+  aspect-ratio: 1;
+  background: linear-gradient(
+    -50deg,
+    transparent,
+    var(--shiny-cta-highlight),
+    transparent
+  );
+  mask-image: radial-gradient(circle at bottom, transparent 40%, black);
+  opacity: 0.6;
+}
+
+.shiny-cta > span {
+  z-index: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+
+.shiny-cta,
+.shiny-cta::before,
+.shiny-cta::after {
+  animation: var(--animation) var(--duration),
+    var(--animation) calc(var(--duration) / 0.4) reverse paused;
+  animation-composition: add;
+}
+
+.shiny-cta:is(:hover, :focus-visible) {
+  --gradient-percent: 20%;
+  --gradient-angle-offset: 95deg;
+  --gradient-shine: var(--shiny-cta-highlight-subtle);
+}
+
+.shiny-cta:is(:hover, :focus-visible),
+.shiny-cta:is(:hover, :focus-visible)::before,
+.shiny-cta:is(:hover, :focus-visible)::after {
+  animation-play-state: running;
+}
+
+
+
+@keyframes gradient-angle {
+  to {
+    --gradient-angle: 360deg;
+  }
+}
+
+@keyframes shimmer {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes breathe {
+  from, to {
+    scale: 1;
+  }
+  50% {
+    scale: 1.2;
+  }
+}
+
+/* --- CAROUSEL STYLES (NO-SCROLL LAYOUT) --- */
+body.no-scroll {
+    overflow: hidden !important;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body.no-scroll #mainContainer {
+    flex: 1;
+    min-height: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body.no-scroll .storeHeader {
+    margin-top: 80px;
+    margin-bottom: 0px;
+    flex-shrink: 0;
+}
+
+.plushies-layout, .flowers-layout {
+    width: 100%;
+}
+
+.carousel-wrapper {
+    position: relative;
+    width: 90%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 60px;
+    height: auto;
+}
+
+.carousel-track-container {
+    overflow: hidden;
+    width: 100%;
+    padding: 15px 0;
+
+/* --- extra padding for box shadows --- */
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.carousel-slide {
+    flex: 0 0 calc(100% / 3);
+
+/* --- Show 3 items --- */
+padding: 0 15px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 1024px) {
+    .carousel-slide {
+        flex: 0 0 50%;
+
+/* --- Show 2 items --- */
+}
+}
+
+@media (max-width: 768px) {
+    .carousel-slide {
+        flex: 0 0 100%;
+
+/* --- Show 1 item --- */
+}
+    .carousel-wrapper {
+        padding: 0 40px;
+    }
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #fafafa;
+    border: 1px solid #e4e4e7;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    color: #52525b;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .carousel-btn {
+    background: #09090b;
+    border-color: #27272a;
+    color: #f4f4f5;
+}
+
+.carousel-btn:hover:not(:disabled) {
+    background: #f4f4f5;
+    color: #18181b;
+}
+
+[data-theme="dark"] .carousel-btn:hover:not(:disabled) {
+    background: #27272a;
+    color: #ffffff;
+}
+
+.carousel-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.carousel-prev {
+    left: 0;
+}
+
+.carousel-next {
+    right: 0;
+}
+
+.carousel-slide .flowerCard {
+    width: 100%;
+
+/* --- Take up the slide width --- */
+max-width: 320px;
+
+/* --- Don't get too crazy large --- */
+margin: 0 auto;
+}
+
+
+body.no-scroll {
+    overflow: hidden !important;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+body.no-scroll #mainContainer {
+    flex: 1;
+    min-height: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.treats-layout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 10px 20px;
+    flex-wrap: nowrap;
+    width: 100%;
+    max-width: 1350px;
+    margin: 0 auto;
+}
+.dessert-cart-container {
+    height: auto;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+.treats-controls-panel {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+/* --- NAV BRAND CENTERING --- */
+.navBrand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 28px;
+    color: var(--heading-color);
+}
+</style>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ribeye&display=swap" rel="stylesheet">
+
+</head>
+
+<body class="no-scroll">
+
+    <!-- Baby Pink Navbar -->
+    <nav id="storeNavbar">
+        <div class="navBrand">Gift Shop</div>
+        <a href="index.html" class="navLink">Plushies</a>
+        <a href="flowers.html" class="navLink">Flowers</a>
+        <a href="treats.html" class="navLink active">Treats</a>
+        <div id="cartButton" class="shiny-cta"><span>Checkout (<span id="cartCount">0</span>)</span></div>
+    </nav>
+
+    <!-- Theme Toggle -->
+    <div id="themeToggleWrapper">
+        <label class="theme-switch">
+            <input type="checkbox" class="theme-switch__checkbox" id="themeCheckbox">
+            <div class="theme-switch__container">
+                <div class="theme-switch__clouds"></div>
+                <div class="theme-switch__stars-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144 55" fill="none">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M135.831 3.00688C135.055 3.85027 134.111 4.29946 133 4.35447C134.111 4.40947 135.055 4.85867 135.831 5.71123C136.607 6.55462 136.996 7.56303 136.996 8.72727C136.996 7.95722 137.172 7.25134 137.525 6.59129C137.886 5.93124 138.372 5.39954 138.98 5.00535C139.598 4.60199 140.268 4.39114 141 4.35447C139.88 4.2903 138.936 3.85027 138.16 3.00688C137.384 2.16348 136.996 1.16425 136.996 0C136.996 1.16425 136.607 2.16348 135.831 3.00688ZM31 23.3545C32.1114 23.2995 33.0551 22.8503 33.8313 22.0069C34.6075 21.1635 34.9956 20.1642 34.9956 19C34.9956 20.1642 35.3837 21.1635 36.1599 22.0069C36.9361 22.8503 37.8798 23.2903 39 23.3545C38.2679 23.3911 37.5976 23.602 36.9802 24.0053C36.3716 24.3995 35.8864 24.9312 35.5248 25.5913C35.172 26.2513 34.9956 26.9572 34.9956 27.7273C34.9956 26.563 34.6075 25.5546 33.8313 24.7112C33.0551 23.8587 32.1114 23.4095 31 23.3545ZM0 36.3545C1.11136 36.2995 2.05513 35.8503 2.83131 35.0069C3.6075 34.1635 3.99559 33.1642 3.99559 32C3.99559 33.1642 4.38368 34.1635 5.15987 35.0069C5.93605 35.8503 6.87982 36.2903 8 36.3545C7.26792 36.3911 6.59757 36.602 5.98015 37.0053C5.37155 37.3995 4.88644 37.9312 4.52481 38.5913C4.172 39.2513 3.99559 39.9572 3.99559 40.7273C3.99559 39.563 3.6075 38.5546 2.83131 37.7112C2.05513 36.8587 1.11136 36.4095 0 36.3545ZM56.8313 24.0069C56.0551 24.8503 55.1114 25.2995 54 25.3545C55.1114 25.4095 56.0551 25.8587 56.8313 26.7112C57.6075 27.5546 57.9956 28.563 57.9956 29.7273C57.9956 28.9572 58.172 28.2513 58.5248 27.5913C58.8864 26.9312 59.3716 26.3995 59.9802 26.0053C60.5976 25.602 61.2679 25.3911 62 25.3545C60.8798 25.2903 59.9361 24.8503 59.1599 24.0069C58.3837 23.1635 57.9956 22.1642 57.9956 21C57.9956 22.1642 57.6075 23.1635 56.8313 24.0069ZM81 25.3545C82.1114 25.2995 83.0551 24.8503 83.8313 24.0069C84.6075 23.1635 84.9956 22.1642 84.9956 21C84.9956 22.1642 85.3837 23.1635 86.1599 24.0069C86.9361 24.8503 87.8798 25.2903 89 25.3545C88.2679 25.3911 87.5976 25.602 86.9802 26.0053C86.3716 26.3995 85.8864 26.9312 85.5248 27.5913C85.172 28.2513 84.9956 28.9572 84.9956 29.7273C84.9956 28.563 84.6075 27.5546 83.8313 26.7112C83.0551 25.8587 82.1114 25.4095 81 25.3545ZM136 36.3545C137.111 36.2995 138.055 35.8503 138.831 35.0069C139.607 34.1635 139.996 33.1642 139.996 32C139.996 33.1642 140.384 34.1635 141.16 35.0069C141.936 35.8503 142.88 36.2903 144 36.3545C143.268 36.3911 142.598 36.602 141.98 37.0053C141.372 37.3995 140.886 37.9312 140.525 38.5913C140.172 39.2513 139.996 39.9572 139.996 40.7273C139.996 39.563 139.607 38.5546 138.831 37.7112C138.055 36.8587 137.111 36.4095 136 36.3545ZM101.831 49.0069C101.055 49.8503 100.111 50.2995 99 50.3545C100.111 50.4095 101.055 50.8587 101.831 51.7112C102.607 52.5546 102.996 53.563 102.996 54.7273C102.996 53.9572 103.172 53.2513 103.525 52.5913C103.886 51.9312 104.372 51.3995 104.98 51.0053C105.598 50.602 106.268 50.3911 107 50.3545C105.88 50.2903 104.936 49.8503 104.16 49.0069C103.384 48.1635 102.996 47.1642 102.996 46C102.996 47.1642 102.607 48.1635 101.831 49.0069Z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div class="theme-switch__circle-container">
+                    <div class="theme-switch__sun-moon-container">
+                        <div class="theme-switch__moon">
+                            <div class="theme-switch__spot"></div>
+                            <div class="theme-switch__spot"></div>
+                            <div class="theme-switch__spot"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </label>
+    </div>
+
+    <!-- Header Text -->
+    <h1 class="storeHeader">pack a treat box for someone</h1>
+
+    <div id="mainContainer">
+        <div class="treats-layout">
+            
+            <!-- Column 1: Spawner Tray (All 25 Desserts) -->
+            <div class="dessert-cart-container">
+                <div class="dessert-spawner-card">
+                    <h3>🧁 Select Your Desserts (Click to Add)</h3>
+                    <div class="spawner-grid">
+                        <img src="assets/treats/dessert1.png" class="dessertSpawner" data-src="assets/treats/dessert1.png" alt="Heart Macaron">
+                        <img src="assets/treats/dessert2.png" class="dessertSpawner" data-src="assets/treats/dessert2.png" alt="Chocolate Cube">
+                        <img src="assets/treats/dessert3.png" class="dessertSpawner" data-src="assets/treats/dessert3.png" alt="Strawberry Macaron">
+                        <img src="assets/treats/dessert4.png" class="dessertSpawner" data-src="assets/treats/dessert4.png" alt="Strawberry Cupcake">
+                        <img src="assets/treats/dessert5.png" class="dessertSpawner" data-src="assets/treats/dessert5.png" alt="Cherry Cupcake">
+                        <img src="assets/treats/dessert6.png" class="dessertSpawner" data-src="assets/treats/dessert6.png" alt="Chestnut Chocolate Cake">
+                        <img src="assets/treats/dessert7.png" class="dessertSpawner" data-src="assets/treats/dessert7.png" alt="Chocolate Donut">
+                        <img src="assets/treats/dessert8.png" class="dessertSpawner" data-src="assets/treats/dessert8.png" alt="Berry Ice Cream">
+                        <img src="assets/treats/dessert9.png" class="dessertSpawner" data-src="assets/treats/dessert9.png" alt="Strawberry Swirl Cheesecake">
+                        <img src="assets/treats/dessert10.png" class="dessertSpawner" data-src="assets/treats/dessert10.png" alt="Waffle Cup Ice Cream">
+                        <img src="assets/treats/dessert11.png" class="dessertSpawner" data-src="assets/treats/dessert11.png" alt="Cherry Pink Donut">
+                        <img src="assets/treats/dessert12.png" class="dessertSpawner" data-src="assets/treats/dessert12.png" alt="Paw Print Cookie">
+                        <img src="assets/treats/dessert13.png" class="dessertSpawner" data-src="assets/treats/dessert13.png" alt="Caramel Chocolate Donut">
+                        <img src="assets/treats/dessert14.png" class="dessertSpawner" data-src="assets/treats/dessert14.png" alt="Pistachio Cream Donut">
+                        <img src="assets/treats/dessert15.png" class="dessertSpawner" data-src="assets/treats/dessert15.png" alt="Lotus Biscoff Donut">
+                        <img src="assets/treats/dessert16.png" class="dessertSpawner" data-src="assets/treats/dessert16.png" alt="Fresh Blueberry Cupcake">
+                        <img src="assets/treats/dessert17.png" class="dessertSpawner" data-src="assets/treats/dessert17.png" alt="Taro Purple Roll Cake">
+                        <img src="assets/treats/dessert18.png" class="dessertSpawner" data-src="assets/treats/dessert18.png" alt="Key Lime Mint Cheesecake">
+                        <img src="assets/treats/dessert19.png" class="dessertSpawner" data-src="assets/treats/dessert19.png" alt="Bear Cookie Cream Cupcake">
+                        <img src="assets/treats/dessert20.png" class="dessertSpawner" data-src="assets/treats/dessert20.png" alt="Cute Bunny Matcha Gateau">
+                        <img src="assets/treats/dessert21.png" class="dessertSpawner" data-src="assets/treats/dessert21.png" alt="Cherry Pudding">
+                        <img src="assets/treats/dessert22.png" class="dessertSpawner" data-src="assets/treats/dessert22.png" alt="Strawberry Donut">
+                        <img src="assets/treats/dessert23.png" class="dessertSpawner" data-src="assets/treats/dessert23.png" alt="Strawberry Sandwich Slice">
+                        <img src="assets/treats/dessert24.png" class="dessertSpawner" data-src="assets/treats/dessert24.png" alt="Heart Jam Cookies">
+                        <img src="assets/treats/dessert25.png" class="dessertSpawner" data-src="assets/treats/dessert25.png" alt="Bunny Canele Cake">
+                        <img src="assets/treats/dessert26.png" class="dessertSpawner" data-src="assets/treats/dessert26.png" alt="Taiyaki Ice Cream Waffle">
+                        <img src="assets/treats/dessert27.png" class="dessertSpawner" data-src="assets/treats/dessert27.png" alt="Hello Kitty Cookie">
+                        <img src="assets/treats/dessert28.png" class="dessertSpawner" data-src="assets/treats/dessert28.png" alt="Cat Donut">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 2: Workspace Canvas (Tad bit smaller) -->
+            <div id="customScene">
+                <img id="mainBox" src="assets/treats/box_heart.png" class="mainPlushie" style="width: 280px;" alt="Selected Box">
+            </div>
+
+            <!-- Column 3: Customizer Sidebar Controls -->
+            <div id="customPanel" class="treats-controls-panel">
+                <h2>choose a box</h2>
+                
+                <div class="box-option active" data-box="heart" data-image="assets/treats/box_heart.png" data-name="Heart Treat Box">
+                    <img src="assets/treats/box_heart.png" alt="Heart Box">
+                    <span>Heart Box</span>
+                </div>
+                
+                <div class="box-option" data-box="rect" data-image="assets/treats/box_rect.png" data-name="Rectangle Treat Box">
+                    <img src="assets/treats/box_rect.png" alt="Rectangle Box">
+                    <span>Rectangle Box</span>
+                </div>
+                
+                <div class="box-option" data-box="circle" data-image="assets/treats/box_circle.png" data-name="Circle Treat Box">
+                    <img src="assets/treats/box_circle.png" alt="Circle Box">
+                    <span>Circle Box</span>
+                </div>
+
+                <hr style="margin-top: 15px; margin-bottom: 15px; border: none; border-top: 2px dashed var(--glow-soft);">
+
+                <h2>Controls</h2>
+                <!-- Actions paired side-by-side in rows -->
+                <div class="buttons-row">
+                    <button id="increaseSize">➕ Bigger</button>
+                    <button id="decreaseSize">➖ Smaller</button>
+                </div>
+                <div class="buttons-row">
+                    <button id="rotateTreatBtn" class="cuteButton">🔄 Rotate</button>
+                    <button id="flipTreatBtn" class="cuteButton">↔️ Flip</button>
+                </div>
+                <div class="buttons-row">
+                    <button id="deleteItem">🗑️ Delete</button>
+                    <button id="saveCustomization">💾 Save</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast">
+        Added To Cart 
+    </div>
+
+    <script>
+/* -------------------- */
+/* THEME TOGGLE         */
+/* -------------------- */
+
+// Apply saved theme immediately to <html> to prevent flash
+(function () {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+    }
+})();
+
+// Wire up the checkbox once DOM is ready
+document.addEventListener('DOMContentLoaded', function () {
+    const checkbox = document.getElementById('themeCheckbox');
+    if (!checkbox) return;
+
+    const saved = localStorage.getItem('theme');
+    checkbox.checked = saved === 'dark';
+
+    checkbox.addEventListener('change', function () {
+        if (this.checked) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+        }
+    });
+});
+
+</script>
+    <script>
+const customScene = document.getElementById("customScene");
+const mainBox = document.getElementById("mainBox");
+
+let selectedItem = null;
+let selected = null;
+let highestZ = 10;
+
+// Rotation and flip state trackers
+let dragOffsetX = 0;
+let dragOffsetY = 0;
+
+/* -------------------- */
+/* LOAD CART STATE      */
+/* -------------------- */
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function getCartCount() {
+    const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    const customizedItems = JSON.parse(localStorage.getItem("customizedItems")) || [];
+    const allItems = cartItems.map(item => {
+        const custom = customizedItems.find(
+            c => c.name === item.name && c.image.split("/").pop() === item.image.split("/").pop()
+        );
+        return custom ? custom : item;
+    });
+    customizedItems.forEach(c => {
+        const inCart = allItems.find(item => item.name === c.name);
+        if (!inCart) allItems.push(c);
+    });
+    return allItems.length;
+}
+
+const cartCountSpan = document.getElementById("cartCount");
+if (cartCountSpan) {
+    cartCountSpan.innerText = getCartCount();
+}
+
+/* -------------------- */
+/* SWITCH BOX TYPE      */
+/* -------------------- */
+
+let currentBoxName = "Heart Treat Box";
+let currentBoxImage = "assets/treats/box_heart.png";
+
+document.querySelectorAll(".box-option").forEach(option => {
+    option.addEventListener("click", () => {
+        // Toggle active options
+        document.querySelectorAll(".box-option").forEach(opt => opt.classList.remove("active"));
+        option.classList.add("active");
+
+        // Update active box details
+        currentBoxName = option.dataset.name;
+        currentBoxImage = option.dataset.image;
+
+        // Update scene backdrop
+        if (mainBox) {
+            mainBox.src = currentBoxImage;
+            mainBox.alt = currentBoxName;
+        }
+    });
+});
+
+/* -------------------- */
+/* DESSERT SPAWNING     */
+/* -------------------- */
+
+document.querySelectorAll(".dessertSpawner").forEach(spawner => {
+    spawner.addEventListener("click", () => {
+        const dessert = document.createElement("img");
+        dessert.src = spawner.dataset.src;
+        dessert.className = "draggableAccessory draggableTreat";
+        dessert.style.position = "absolute";
+        dessert.style.width = "70px";
+        dessert.style.height = "70px";
+        dessert.style.left = "315px"; // Centered inside the 700px scene
+        dessert.style.top = "250px";
+        dessert.style.zIndex = highestZ++;
+        dessert.draggable = false;
+        
+        // Initial transform states
+        dessert.dataset.rotation = "0";
+        dessert.dataset.flip = "1";
+
+        customScene.appendChild(dessert);
+
+        // Auto select newly spawned dessert
+        selectElement(dessert);
+    });
+});
+
+/* -------------------- */
+/* SELECTION SYSTEM     */
+/* -------------------- */
+
+function selectElement(el) {
+    selectedItem = el;
+    document.querySelectorAll(".draggableAccessory").forEach(item => {
+        item.classList.remove("draggableTreatSelected");
+        item.style.outline = "none";
+    });
+    el.classList.add("draggableTreatSelected");
+    el.style.outline = "3px solid hotpink";
+}
+
+document.addEventListener("mousedown", (e) => {
+    const treat = e.target.closest(".draggableAccessory");
+    if (treat && customScene.contains(treat)) {
+        selected = treat;
+        selectElement(treat);
+
+        // Compute offsets
+        const rect = treat.getBoundingClientRect();
+        dragOffsetX = e.clientX - rect.left;
+        dragOffsetY = e.clientY - rect.top;
+        
+        treat.style.zIndex = highestZ++;
+        e.preventDefault();
+    }
+});
+
+/* -------------------- */
+/* DRAGGING MOVEMENT    */
+/* -------------------- */
+
+document.addEventListener("mousemove", (e) => {
+    if (!selected) return;
+
+    const rect = customScene.getBoundingClientRect();
+    let newLeft = e.clientX - rect.left - dragOffsetX;
+    let newTop = e.clientY - rect.top - dragOffsetY;
+
+    // Bounded dragging inside actual canvas size
+    const sceneW = customScene.clientWidth;
+    const sceneH = customScene.clientHeight;
+    newLeft = Math.max(0, Math.min(newLeft, sceneW - selected.offsetWidth));
+    newTop = Math.max(0, Math.min(newTop, sceneH - selected.offsetHeight));
+
+    selected.style.left = newLeft + "px";
+    selected.style.top = newTop + "px";
+});
+
+document.addEventListener("mouseup", () => {
+    selected = null;
+});
+
+// Deselect when clicking scene background
+customScene.addEventListener("mousedown", (e) => {
+    if (e.target === customScene || e.target === mainBox) {
+        selectedItem = null;
+        document.querySelectorAll(".draggableAccessory").forEach(item => {
+            item.classList.remove("draggableTreatSelected");
+            item.style.outline = "none";
+        });
+    }
+});
+
+/* -------------------- */
+/* CONTROLS HANDLING    */
+/* -------------------- */
+
+// Resize Increase
+document.getElementById("increaseSize").addEventListener("click", () => {
+    if (!selectedItem) {
+        alert("Select a dessert inside the box first!");
+        return;
+    }
+    const currW = selectedItem.offsetWidth;
+    selectedItem.style.width = (currW + 15) + "px";
+    selectedItem.style.height = (currW + 15) + "px";
+});
+
+// Resize Decrease
+document.getElementById("decreaseSize").addEventListener("click", () => {
+    if (!selectedItem) {
+        alert("Select a dessert inside the box first!");
+        return;
+    }
+    const currW = selectedItem.offsetWidth;
+    if (currW > 30) {
+        selectedItem.style.width = (currW - 15) + "px";
+        selectedItem.style.height = (currW - 15) + "px";
+    }
+});
+
+// Delete Selected
+document.getElementById("deleteItem").addEventListener("click", () => {
+    if (selectedItem) {
+        selectedItem.remove();
+        selectedItem = null;
+    }
+});
+
+// Rotate Selected
+const rotateBtn = document.getElementById("rotateTreatBtn");
+if (rotateBtn) {
+    rotateBtn.addEventListener("click", () => {
+        if (!selectedItem) {
+            alert("Select a dessert inside the box first!");
+            return;
+        }
+        let rot = parseInt(selectedItem.dataset.rotation) || 0;
+        rot = (rot + 45) % 360;
+        selectedItem.dataset.rotation = rot;
+        updateTreatTransform(selectedItem);
+    });
+}
+
+// Flip Selected
+const flipBtn = document.getElementById("flipTreatBtn");
+if (flipBtn) {
+    flipBtn.addEventListener("click", () => {
+        if (!selectedItem) {
+            alert("Select a dessert inside the box first!");
+            return;
+        }
+        let flip = parseInt(selectedItem.dataset.flip) || 1;
+        flip = flip === 1 ? -1 : 1;
+        selectedItem.dataset.flip = flip;
+        updateTreatTransform(selectedItem);
+    });
+}
+
+function updateTreatTransform(el) {
+    const rot = el.dataset.rotation || 0;
+    const flip = el.dataset.flip || 1;
+    el.style.transform = `rotate(${rot}deg) scaleX(${flip})`;
+}
+
+/* -------------------- */
+/* SERIALIZE & SAVE     */
+/* -------------------- */
+
+document.getElementById("saveCustomization").addEventListener("click", () => {
+    const accessories = [];
+    
+    document.querySelectorAll("#customScene .draggableTreat").forEach(item => {
+        const realLeft = parseFloat(item.style.left) || 0;
+        const realTop = parseFloat(item.style.top) || 0;
+        
+        // Translate real coordinates to virtual 700x700 coordinates
+        const sceneW = customScene.clientWidth;
+        const sceneH = customScene.clientHeight;
+        const virtualLeft = realLeft - (sceneW / 2) + 350;
+        const virtualTop = realTop - (sceneH / 2) + 350;
+
+        accessories.push({
+            image: item.src.split("/").pop(), // Store just the filename
+            left: virtualLeft + "px",
+            top: virtualTop + "px",
+            width: item.style.width,
+            rotation: item.dataset.rotation || "0",
+            flip: item.dataset.flip || "1"
+        });
+    });
+
+    const customizedBox = {
+        name: currentBoxName,
+        image: currentBoxImage,
+        quantity: 1,
+        accessories: accessories
+    };
+
+    // Load existing customized items and filter old box type
+    let customizedItems = JSON.parse(localStorage.getItem("customizedItems")) || [];
+    customizedItems = customizedItems.filter(item => item.name !== currentBoxName);
+    customizedItems.push(customizedBox);
+    localStorage.setItem("customizedItems", JSON.stringify(customizedItems));
+
+    // Ensure the box is added to the general shopping cart list
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const inCart = cart.find(item => item.name === currentBoxName);
+    if (!inCart) {
+        cart.push({
+            name: currentBoxName,
+            image: currentBoxImage,
+            quantity: 1
+        });
+        localStorage.setItem("cart", JSON.stringify(cart));
+    }
+
+    // Alert and Redirect
+    alert("🎉 Treat Box Customization Saved to Cart!");
+    window.location = "checkout.html";
+});
+
+/* Redirect to checkout cart */
+const cartButton = document.getElementById("cartButton");
+if (cartButton) {
+    cartButton.addEventListener("click", () => {
+        window.location = "checkout.html";
+    });
+}
+
+</script>
+
+</body>
+
+</html>

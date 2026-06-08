@@ -1,0 +1,1808 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Gift Shop</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Fredoka:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+/* --- THEME VARIABLES --- */
+:root,
+[data-theme="light"] {
+    --bg-gradient: linear-gradient(135deg, #ffe4f1 0%, #ffc2e0 40%, #ffb3d9 100%);
+    --body-bg: #fff5fb;
+    --panel-bg: #ffe4f1;
+    --popup-bg: #ffe4f1;
+    --receipt-bg: #ffeaf5;
+    --card-bg: #ffffff;
+    --text-color: #c2185b;
+    --heading-color: #ff4fa2;
+    --btn-bg: #ffffff;
+    --btn-text: #ff4fa2;
+    --cart-btn-bg: #ff69b4;
+    --cart-btn-shadow: hotpink;
+    --glow-color: hotpink;
+    --glow-soft: pink;
+    --toast-bg: #ff69b4;
+    --receipt-shadow: pink;
+    --shelf-overlay: rgba(255,255,255,0.0);
+    --font-body: 'Quicksand', sans-serif;
+    --font-heading: 'Pacifico', cursive;
+    --font-ui: 'Fredoka', sans-serif;
+    --font-nav: 'Inter', sans-serif;
+}
+
+[data-theme="dark"] {
+    --bg-gradient: linear-gradient(135deg, #1a0010 0%, #3d0030 40%, #5c0045 100%);
+    --body-bg: #1a0010;
+    --panel-bg: #2e001f;
+    --popup-bg: #2e001f;
+    --receipt-bg: #1a0010;
+    --card-bg: #2e001f;
+    --text-color: #ff80c0;
+    --heading-color: #ff4fa2;
+    --btn-bg: #3d0030;
+    --btn-text: #ff80c0;
+    --cart-btn-bg: #c2185b;
+    --cart-btn-shadow: #ff1493;
+    --glow-color: #ff1493;
+    --glow-soft: #c2185b;
+    --toast-bg: #c2185b;
+    --receipt-shadow: #c2185b;
+    --shelf-overlay: rgba(26,0,16,0.15);
+    --font-body: 'Quicksand', sans-serif;
+    --font-heading: 'Pacifico', cursive;
+    --font-ui: 'Fredoka', sans-serif;
+    --font-nav: 'Inter', sans-serif;
+}
+
+/* --- BASE --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body {
+    color: var(--text-color);
+    background-image: url("assets/bg_pattern.png");
+    background-repeat: repeat;
+    background-size: 350px;
+    background-attachment: fixed;
+    background-color: var(--body-bg);
+    overflow-x: hidden;
+    transition: background 0.5s ease, color 0.5s ease;
+    font-family: var(--font-body);
+    font-weight: 500;
+}
+
+[data-theme="dark"] body {
+    background-image: linear-gradient(rgba(92, 0, 69, 0.4), rgba(92, 0, 69, 0.4)), url("assets/bg_pattern.png");
+}
+
+body.receiptPage,
+body.giftPage {
+    background-image: url("assets/bg_pattern.png");
+    background-repeat: repeat;
+    background-size: 350px;
+    background-attachment: fixed;
+    background-color: var(--receipt-bg);
+}
+
+[data-theme="dark"] body.receiptPage,
+[data-theme="dark"] body.giftPage {
+    background-image: linear-gradient(rgba(92, 0, 69, 0.4), rgba(92, 0, 69, 0.4)), url("assets/bg_pattern.png");
+}
+
+/* --- THEME SWITCH WRAPPER --- */
+#themeToggleWrapper {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    background: transparent;
+    padding: 6px;
+    border-radius: 30px;
+}
+
+[data-theme="dark"] #themeToggleWrapper {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    background: transparent;
+    padding: 6px;
+    border-radius: 30px;
+}
+
+/* --- THEME SWITCH STYLES --- */
+.theme-switch {
+    --toggle-size: 11px;
+
+/* --- Smaller size --- */
+--container-width: 5.625em;
+    --container-height: 2.5em;
+    --container-radius: 6.25em;
+    --container-light-bg: #ff4fa2;
+
+/* --- Changed color to pop more --- */
+--container-night-bg: #800040;
+    --circle-container-diameter: 3.375em;
+    --sun-moon-diameter: 2.125em;
+    --sun-bg: #FFA500;
+    --moon-bg: #E0E4EB;
+    --spot-color: #A1A8B8;
+    --circle-container-offset: calc((var(--circle-container-diameter) - var(--container-height)) / 2 * -1);
+    --stars-color: #fff;
+    --clouds-color: #F3FDFF;
+    --back-clouds-color: #AACADF;
+    --transition: .5s cubic-bezier(0, -0.02, 0.4, 1.25);
+    --circle-transition: .3s cubic-bezier(0, -0.02, 0.35, 1.17);
+}
+
+.theme-switch,
+.theme-switch *,
+.theme-switch *::before,
+.theme-switch *::after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-size: var(--toggle-size);
+}
+
+.theme-switch__container {
+    width: var(--container-width);
+    height: var(--container-height);
+    background-color: var(--container-light-bg);
+    border-radius: var(--container-radius);
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: none;
+
+/* --- Make it flat, not floating --- */
+transition: var(--transition);
+    position: relative;
+}
+
+.theme-switch__container::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    border-radius: var(--container-radius);
+}
+
+.theme-switch__checkbox {
+    display: none;
+}
+
+.theme-switch__circle-container {
+    width: var(--circle-container-diameter);
+    height: var(--circle-container-diameter);
+    background-color: rgba(255, 255, 255, 0.2);
+    position: absolute;
+    left: var(--circle-container-offset);
+    top: var(--circle-container-offset);
+    border-radius: var(--container-radius);
+    display: flex;
+    transition: var(--circle-transition);
+    pointer-events: none;
+}
+
+.theme-switch__sun-moon-container {
+    pointer-events: auto;
+    position: relative;
+    z-index: 2;
+    width: var(--sun-moon-diameter);
+    height: var(--sun-moon-diameter);
+    margin: auto;
+    border-radius: var(--container-radius);
+    background-color: var(--sun-bg);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.theme-switch__moon {
+    transform: translateX(100%);
+    width: 100%;
+    height: 100%;
+    background-color: var(--moon-bg);
+    border-radius: inherit;
+    transition: var(--transition);
+    position: relative;
+}
+
+.theme-switch__spot {
+    position: absolute;
+    top: 0.75em;
+    left: 0.312em;
+    width: 0.75em;
+    height: 0.75em;
+    border-radius: var(--container-radius);
+    background-color: var(--spot-color);
+}
+
+.theme-switch__spot:nth-of-type(2) {
+    width: 0.375em;
+    height: 0.375em;
+    top: 0.937em;
+    left: 1.375em;
+}
+
+.theme-switch__spot:nth-last-of-type(3) {
+    width: 0.25em;
+    height: 0.25em;
+    top: 0.312em;
+    left: 0.812em;
+}
+
+.theme-switch__clouds {
+    width: 1.25em;
+    height: 1.25em;
+    background-color: var(--clouds-color);
+    border-radius: var(--container-radius);
+    position: absolute;
+    bottom: -0.625em;
+    left: 0.312em;
+    box-shadow:
+        0.937em 0.312em var(--clouds-color),
+        -0.312em -0.312em var(--back-clouds-color),
+        1.437em 0.375em var(--clouds-color),
+        0.5em -0.125em var(--back-clouds-color),
+        2.187em 0 var(--clouds-color),
+        1.25em -0.062em var(--back-clouds-color),
+        2.937em 0.312em var(--clouds-color),
+        2em -0.312em var(--back-clouds-color),
+        3.625em -0.062em var(--clouds-color),
+        2.625em 0em var(--back-clouds-color),
+        4.5em -0.312em var(--clouds-color),
+        3.375em -0.437em var(--back-clouds-color),
+        4.625em -1.75em 0 0.437em var(--clouds-color),
+        4em -0.625em var(--back-clouds-color),
+        4.125em -2.125em 0 0.437em var(--back-clouds-color);
+    transition: 0.5s cubic-bezier(0, -0.02, 0.4, 1.25);
+}
+
+.theme-switch__stars-container {
+    position: absolute;
+    color: var(--stars-color);
+    top: -100%;
+    left: 0.312em;
+    width: 2.75em;
+    height: auto;
+    transition: var(--transition);
+}
+
+/* --- -- Switch Actions -- --- */
+.theme-switch__checkbox:checked + .theme-switch__container {
+    background-color: var(--container-night-bg);
+}
+
+.theme-switch__checkbox:checked + .theme-switch__container .theme-switch__circle-container {
+    left: calc(100% - var(--circle-container-offset) - var(--circle-container-diameter));
+}
+
+.theme-switch__checkbox:checked + .theme-switch__container .theme-switch__circle-container:hover {
+    left: calc(100% - var(--circle-container-offset) - var(--circle-container-diameter) - 0.187em);
+}
+
+.theme-switch__circle-container:hover {
+    left: calc(var(--circle-container-offset) + 0.187em);
+}
+
+.theme-switch__checkbox:checked + .theme-switch__container .theme-switch__moon {
+    transform: translate(0);
+}
+
+.theme-switch__checkbox:checked + .theme-switch__container .theme-switch__clouds {
+    bottom: -4.062em;
+}
+
+.theme-switch__checkbox:checked + .theme-switch__container .theme-switch__stars-container {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* --- CARD LAYOUT SYSTEM --- */
+.flowers-layout, .plushies-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.flowersRowTop, .flowersRowBottom {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    width: 100%;
+}
+
+.flowerCard {
+    background: var(--card-bg);
+    border: 3px solid #ffb6d9;
+    border-radius: 30px;
+    padding: 25px;
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 
+        0 10px 25px rgba(255, 105, 180, 0.15),
+        0 0 15px var(--glow-soft);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+    position: relative;
+}
+
+[data-theme="dark"] .flowerCard {
+    border-color: #5c0045;
+}
+
+.flowerCard:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 
+        0 15px 35px rgba(255, 105, 180, 0.25),
+        0 0 25px var(--glow-color);
+}
+
+.flowerImage {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+    margin-bottom: 15px;
+    transition: transform 0.5s ease;
+}
+
+.flowerCard:hover .flowerImage {
+    transform: rotate(5deg) scale(1.05);
+}
+
+.flowerName {
+    font-size: 24px;
+    color: var(--heading-color);
+    margin-bottom: 15px;
+    font-family: 'Pacifico', cursive;
+    text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
+}
+
+[data-theme="dark"] .flowerName {
+    text-shadow: none;
+}
+
+.flowerSelector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    background: rgba(255, 182, 193, 0.15);
+    padding: 6px 16px;
+    border-radius: 50px;
+    border: 2px dashed #ffb6d9;
+}
+
+[data-theme="dark"] .flowerSelector {
+    background: rgba(92, 0, 69, 0.3);
+    border-color: #5c0045;
+}
+
+.flowerSelector button {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    cursor: pointer;
+    font-size: 20px;
+    font-family: var(--font-ui);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s, background 0.3s;
+}
+
+.flowerSelector button:hover {
+    transform: scale(1.15);
+    background: var(--cart-btn-bg);
+    color: white;
+}
+
+.flowerSelector button:active {
+    transform: scale(0.95);
+}
+
+.flowerQuantity {
+    font-size: 20px;
+    color: var(--heading-color);
+    font-weight: 600;
+    font-family: var(--font-ui);
+    min-width: 25px;
+    text-align: center;
+}
+
+.flowerCard .addToCartBtn, .flowerCard .customizeBtn {
+    border: none;
+    border-radius: 50px;
+    padding: 12px 24px;
+    cursor: pointer;
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    font-size: 16px;
+    width: 100%;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    box-shadow: 
+        0 4px 10px rgba(255, 182, 193, 0.3),
+        0 0 10px pink,
+        0 0 20px pink;
+    transition: transform 0.2s, background 0.3s, box-shadow 0.3s;
+    margin-top: 8px;
+}
+
+.flowerCard .addToCartBtn:hover, .flowerCard .customizeBtn:hover {
+    transform: scale(1.05);
+    background: #ffd6ef;
+    box-shadow: 
+        0 6px 15px rgba(255, 105, 180, 0.4),
+        0 0 15px hotpink,
+        0 0 25px hotpink;
+}
+
+.flowerCard .addToCartBtn:active, .flowerCard .customizeBtn:active {
+    transform: scale(0.98);
+}
+
+/* --- COLOR SCROLL CONTAINER --- */
+.color-scroll-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.color-option {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 12px;
+    border-radius: 50px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    background: rgba(255, 182, 193, 0.15);
+    transition: all 0.3s ease;
+}
+
+.color-option:hover {
+    background: rgba(255, 182, 193, 0.3);
+    border-color: #ffb6d9;
+}
+
+.color-option.active {
+    background: #ffb6d9;
+    border-color: hotpink;
+    box-shadow: 0 0 10px rgba(255, 105, 180, 0.3);
+}
+
+[data-theme="dark"] .color-option {
+    background: rgba(92, 0, 69, 0.3);
+}
+
+[data-theme="dark"] .color-option:hover {
+    background: rgba(92, 0, 69, 0.5);
+    border-color: #5c0045;
+}
+
+[data-theme="dark"] .color-option.active {
+    background: #c2185b;
+    border-color: #ff80c0;
+}
+
+.color-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: inline-block;
+    border: 2px solid rgba(0,0,0,0.1);
+}
+
+.color-label {
+    font-size: 13px;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .color-option.active .color-label {
+    color: white;
+}
+
+/* --- SHOP PAGE --- */
+#mainContainer {
+    position: relative;
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+#leftSidebar {
+    position: absolute;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 320px;
+    z-index: 10;
+}
+
+.sidebar-panel {
+    display: none;
+    /* --- controlled by JS --- */
+    background: var(--popup-bg);
+    padding: 25px;
+    border-radius: 25px;
+    box-shadow:
+        0 10px 20px rgba(0, 0, 0, 0.05),
+        0 0 15px var(--glow-soft);
+    text-align: center;
+    border: 2px solid var(--glow-soft);
+    transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+
+.character {
+    position: absolute;
+    width: 170px;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.character:hover {
+    transform: scale(1.05);
+}
+
+/* --- CHECKOUT BUTTON --- */
+
+
+/* --- COLOR POPUP (Sidebar) --- */
+#colorPanel h2 {
+    margin-bottom: 15px;
+    color: var(--heading-color);
+    font-size: 20px;
+}
+
+.colorBtn {
+    display: block;
+    width: 100%;
+    margin: 8px auto;
+    border: none;
+    border-radius: 50px;
+    padding: 12px;
+    cursor: pointer;
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    font-size: 15px;
+    font-family: var(--font-ui);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    transition: transform .25s, background 0.5s ease, color 0.5s ease;
+}
+
+.colorBtn:hover {
+    transform: scale(1.03);
+}
+
+/* --- QUANTITY POPUP --- */
+#quantityPopup h2 {
+    color: var(--heading-color);
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.quantitySelector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.quantitySelector button {
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    cursor: pointer;
+    font-size: 22px;
+    font-family: var(--font-ui);
+    transition: background 0.5s ease, color 0.5s ease;
+}
+
+#quantityValue {
+    font-size: 26px;
+    color: var(--heading-color);
+    font-weight: bold;
+}
+
+#addToCartBtn {
+    border: none;
+    border-radius: 50px;
+    padding: 12px 24px;
+    cursor: pointer;
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    font-size: 15px;
+    width: 100%;
+    font-family: var(--font-ui);
+    transition: transform .25s, background 0.5s ease, color 0.5s ease;
+}
+
+#addToCartBtn:hover {
+    transform: scale(1.03);
+}
+
+/* --- TOAST --- */
+#toast {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--toast-bg);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 50px;
+    box-shadow:
+        0 0 10px var(--glow-color),
+        0 0 20px var(--glow-color);
+    z-index: 9999;
+    transition: background 0.5s ease;
+}
+
+/* --- Highlight selected gift element --- */
+.gifSelected {
+    outline: 3px solid hotpink !important;
+    outline-offset: 3px;
+}
+
+/* --- Gift text element --- */
+.giftText {
+    min-width: 80px;
+    font-size: 22px;
+    color: var(--heading-color);
+    user-select: none;
+    cursor: move;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* --- CUSTOM ALIGNMENTS --- */
+.checkoutTitle, .customizeTitle {
+    text-align: center !important;
+    font-family: var(--font-heading);
+    color: var(--heading-color);
+    margin-top: 100px;
+    margin-bottom: 25px;
+    font-size: 42px;
+    text-shadow: 2px 2px 4px rgba(255, 182, 193, 0.4);
+}
+
+[data-theme="dark"] .checkoutTitle, [data-theme="dark"] .customizeTitle {
+    text-shadow: none;
+}
+
+/* --- NAVBAR --- */
+#storeNavbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: rgba(255, 228, 241, 0.95);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 30px;
+    z-index: 999;
+    border-bottom: 3px solid #ffb3d9;
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.1);
+    padding: 10px 30px;
+    box-sizing: border-box;
+}
+
+[data-theme="dark"] #storeNavbar {
+    background: rgba(46, 0, 31, 0.95);
+    border-bottom-color: #5c0045;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.navLink {
+    font-size: 20px;
+    font-family: var(--font-nav);
+    font-weight: 500;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.5px;
+}
+
+.navLink:hover {
+    color: var(--heading-color);
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.navLink.active {
+    color: var(--heading-color);
+    font-weight: 800;
+    border-bottom: 3px solid var(--heading-color);
+    padding-bottom: 2px;
+}
+
+[data-theme="dark"] .navLink.active {
+    background: #c2185b;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* --- Header Text styling --- */
+.storeHeader {
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 20px;
+    color: var(--heading-color);
+    font-family: var(--font-heading);
+    font-size: 48px;
+    text-shadow: 2px 2px 4px rgba(255, 182, 193, 0.4);
+}
+
+[data-theme="dark"] .storeHeader {
+    text-shadow: none;
+}
+
+/* --- BACK TO SHOP BTN --- */
+
+
+/* --- Pulsing red dot for active recording --- */
+.recording-active {
+    animation: recordPulse 1s infinite alternate;
+    color: #e74c3c !important;
+}
+
+@keyframes recordPulse {
+    from { opacity: 0.5; }
+    to { opacity: 1; }
+}
+
+/* --- Plushie speaking / audio wave pulse animation --- */
+.plushie-speaking {
+    animation: audioShake 0.15s infinite alternate;
+    box-shadow: 0 0 25px hotpink !important;
+    border-radius: 50%;
+}
+
+@keyframes audioShake {
+    0% { transform: rotate(-2deg) scale(1.02); }
+    100% { transform: rotate(2deg) scale(1.02); }
+}
+
+/* --- Big chosen box canvas - a tad bit smaller (600x600px) --- */
+.treats-layout #customScene {
+    width: 600px;
+    height: 600px;
+    background: white;
+    border-radius: 40px;
+    box-shadow: 0 0 25px rgba(255, 182, 193, 0.6);
+    position: relative;
+    overflow: hidden;
+}
+
+#customPanel.treats-controls-panel {
+    width: 280px !important;
+    background: var(--popup-bg);
+    border: 3px solid #ffb6d9;
+    border-radius: 35px;
+    padding: 24px;
+    box-shadow: 0 10px 25px rgba(255, 105, 180, 0.15);
+    display: flex;
+    flex-direction: column;
+}
+
+[data-theme="dark"] #customPanel.treats-controls-panel {
+    background-color: rgba(46, 0, 31, 0.6);
+    border-color: #5c0045;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+#customPanel.treats-controls-panel h2 {
+    text-align: center;
+    color: var(--heading-color);
+    margin-bottom: 15px;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 20px;
+}
+
+/* --- Bubbly option elements inside selection panel --- */
+.box-option {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 20px;
+    background: var(--btn-bg);
+    border: 2px solid #ffb6d9;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    width: 100%;
+}
+
+.box-option:hover {
+    transform: translateY(-3px) scale(1.02);
+    border-color: hotpink;
+    box-shadow: 0 5px 12px rgba(255, 105, 180, 0.2);
+}
+
+.box-option.active {
+    background: #ffb6d9;
+    border-color: hotpink;
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.45);
+}
+
+.box-option img {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+}
+
+.box-option span {
+    font-size: 16px;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.box-option.active span {
+    color: #5a0035;
+}
+
+[data-theme="dark"] .box-option {
+    border-color: #5c0045;
+}
+
+[data-theme="dark"] .box-option.active {
+    background: #c2185b;
+    border-color: #ff80c0;
+}
+
+[data-theme="dark"] .box-option.active span {
+    color: white;
+}
+
+/* --- Customization Buttons Placed Side-by-Side --- */
+.buttons-row {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.buttons-row button {
+    flex: 1;
+    margin: 0 !important;
+    padding: 12px 6px !important;
+    font-size: 14px !important;
+    border-radius: 25px !important;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    background: #ffd6ef;
+    box-shadow: 0 0 8px rgba(255, 182, 193, 0.6);
+    color: #5a0035;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease;
+}
+
+.buttons-row button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 12px rgba(255, 105, 180, 0.8);
+}
+
+#saveCustomization {
+    background: #ffb6d9 !important;
+    color: #5a0035 !important;
+    box-shadow: 0 0 10px pink !important;
+}
+
+#saveCustomization:hover {
+    box-shadow: 0 0 15px hotpink !important;
+}
+
+/* --- Spawned Draggable Treats --- */
+.draggableTreat {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    cursor: move;
+    z-index: 10;
+    transition: transform 0.1s ease;
+}
+
+.draggableTreatSelected {
+    outline: 3px solid hotpink !important;
+    outline-offset: 3px;
+}
+
+/* --- SHINY BUTTON DESIGN --- */
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --gradient-angle-offset {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --gradient-percent {
+  syntax: "<percentage>";
+  initial-value: 5%;
+  inherits: false;
+}
+
+@property --gradient-shine {
+  syntax: "<color>";
+  initial-value: white;
+  inherits: false;
+}
+
+.shiny-cta {
+  --shiny-cta-bg: white;
+  --shiny-cta-bg-subtle: #fce4ec;
+  --shiny-cta-fg: #d81b60;
+  --shiny-cta-highlight: #ff4081;
+  --shiny-cta-highlight-subtle: #f50057;
+  --animation: gradient-angle linear infinite;
+  --duration: 3s;
+  --shadow-size: 2px;
+  --transition: 800ms cubic-bezier(0.25, 1, 0.5, 1);
+  
+  isolation: isolate;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  outline-offset: 4px;
+  padding: 10px 20px;
+
+/* --- matched dimensions for checkout button previously --- */
+font-family: "Inter", sans-serif;
+  font-size: 16px;
+  line-height: 1.2;
+  font-weight: 600;
+  border: 1px solid transparent;
+  border-radius: 360px;
+  color: var(--shiny-cta-fg) !important;
+  background: linear-gradient(var(--shiny-cta-bg), var(--shiny-cta-bg)) padding-box,
+    conic-gradient(
+      from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
+      transparent,
+      var(--shiny-cta-highlight) var(--gradient-percent),
+      var(--gradient-shine) calc(var(--gradient-percent) * 2),
+      var(--shiny-cta-highlight) calc(var(--gradient-percent) * 3),
+      transparent calc(var(--gradient-percent) * 4)
+    ) border-box;
+  box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle);
+  transition: var(--transition);
+  transition-property: --gradient-angle-offset, --gradient-percent, --gradient-shine;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+[data-theme="dark"] .shiny-cta {
+  --shiny-cta-bg: #880e4f;
+  --shiny-cta-bg-subtle: #4a148c;
+  --shiny-cta-fg: #ffffff;
+  --shiny-cta-highlight: #ff80ab;
+  --shiny-cta-highlight-subtle: #ff4081;
+}
+
+.shiny-cta::before,
+.shiny-cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.shiny-cta:active {
+  translate: 0 1px;
+}
+
+.shiny-cta::before {
+  --size: calc(100% - var(--shadow-size) * 3);
+  --position: 2px;
+  --space: calc(var(--position) * 2);
+  width: var(--size);
+  height: var(--size);
+  background: radial-gradient(
+    circle at var(--position) var(--position),
+    white calc(var(--position) / 4),
+    transparent 0
+  ) padding-box;
+  background-size: var(--space) var(--space);
+  background-repeat: space;
+  mask-image: conic-gradient(
+    from calc(var(--gradient-angle) + 45deg),
+    black,
+    transparent 10% 90%,
+    black
+  );
+  border-radius: inherit;
+  opacity: 0.4;
+  z-index: -1;
+}
+
+.shiny-cta::after {
+  --animation: shimmer linear infinite;
+  width: 100%;
+  aspect-ratio: 1;
+  background: linear-gradient(
+    -50deg,
+    transparent,
+    var(--shiny-cta-highlight),
+    transparent
+  );
+  mask-image: radial-gradient(circle at bottom, transparent 40%, black);
+  opacity: 0.6;
+}
+
+.shiny-cta > span {
+  z-index: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+
+.shiny-cta,
+.shiny-cta::before,
+.shiny-cta::after {
+  animation: var(--animation) var(--duration),
+    var(--animation) calc(var(--duration) / 0.4) reverse paused;
+  animation-composition: add;
+}
+
+.shiny-cta:is(:hover, :focus-visible) {
+  --gradient-percent: 20%;
+  --gradient-angle-offset: 95deg;
+  --gradient-shine: var(--shiny-cta-highlight-subtle);
+}
+
+.shiny-cta:is(:hover, :focus-visible),
+.shiny-cta:is(:hover, :focus-visible)::before,
+.shiny-cta:is(:hover, :focus-visible)::after {
+  animation-play-state: running;
+}
+
+
+
+@keyframes gradient-angle {
+  to {
+    --gradient-angle: 360deg;
+  }
+}
+
+@keyframes shimmer {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes breathe {
+  from, to {
+    scale: 1;
+  }
+  50% {
+    scale: 1.2;
+  }
+}
+
+/* --- CAROUSEL STYLES (NO-SCROLL LAYOUT) --- */
+body.no-scroll {
+    overflow: hidden !important;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body.no-scroll #mainContainer {
+    flex: 1;
+    min-height: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body.no-scroll .storeHeader {
+    margin-top: 80px;
+    margin-bottom: 0px;
+    flex-shrink: 0;
+}
+
+.plushies-layout, .flowers-layout {
+    width: 100%;
+}
+
+.carousel-wrapper {
+    position: relative;
+    width: 90%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 60px;
+    height: auto;
+}
+
+.carousel-track-container {
+    overflow: hidden;
+    width: 100%;
+    padding: 15px 0;
+
+/* --- extra padding for box shadows --- */
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.carousel-slide {
+    flex: 0 0 calc(100% / 3);
+
+/* --- Show 3 items --- */
+padding: 0 15px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 1024px) {
+    .carousel-slide {
+        flex: 0 0 50%;
+
+/* --- Show 2 items --- */
+}
+}
+
+@media (max-width: 768px) {
+    .carousel-slide {
+        flex: 0 0 100%;
+
+/* --- Show 1 item --- */
+}
+    .carousel-wrapper {
+        padding: 0 40px;
+    }
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #fafafa;
+    border: 1px solid #e4e4e7;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    color: #52525b;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .carousel-btn {
+    background: #09090b;
+    border-color: #27272a;
+    color: #f4f4f5;
+}
+
+.carousel-btn:hover:not(:disabled) {
+    background: #f4f4f5;
+    color: #18181b;
+}
+
+[data-theme="dark"] .carousel-btn:hover:not(:disabled) {
+    background: #27272a;
+    color: #ffffff;
+}
+
+.carousel-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.carousel-prev {
+    left: 0;
+}
+
+.carousel-next {
+    right: 0;
+}
+
+.carousel-slide .flowerCard {
+    width: 100%;
+
+/* --- Take up the slide width --- */
+max-width: 320px;
+
+/* --- Don't get too crazy large --- */
+margin: 0 auto;
+}
+
+/* --- NAV BRAND CENTERING --- */
+.navBrand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 28px;
+    color: var(--heading-color);
+}
+</style>
+
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ribeye&display=swap" rel="stylesheet">
+
+</head>
+
+<body class="no-scroll">
+
+    <!-- Baby Pink Navbar -->
+    <nav id="storeNavbar">
+        <div class="navBrand">Gift Shop</div>
+        <a href="index.html" class="navLink active">Plushies</a>
+        <a href="flowers.html" class="navLink">Flowers</a>
+        <a href="treats.html" class="navLink">Treats</a>
+        <div id="cartButton" class="shiny-cta"><span>Checkout (<span id="cartCount">0</span>)</span></div>
+    </nav>
+
+    <!-- Theme Toggle (Shifted to top left corner) -->
+    <div id="themeToggleWrapper">
+        <label class="theme-switch">
+            <input type="checkbox" class="theme-switch__checkbox" id="themeCheckbox">
+            <div class="theme-switch__container">
+                <div class="theme-switch__clouds"></div>
+                <div class="theme-switch__stars-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144 55" fill="none">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M135.831 3.00688C135.055 3.85027 134.111 4.29946 133 4.35447C134.111 4.40947 135.055 4.85867 135.831 5.71123C136.607 6.55462 136.996 7.56303 136.996 8.72727C136.996 7.95722 137.172 7.25134 137.525 6.59129C137.886 5.93124 138.372 5.39954 138.98 5.00535C139.598 4.60199 140.268 4.39114 141 4.35447C139.88 4.2903 138.936 3.85027 138.16 3.00688C137.384 2.16348 136.996 1.16425 136.996 0C136.996 1.16425 136.607 2.16348 135.831 3.00688ZM31 23.3545C32.1114 23.2995 33.0551 22.8503 33.8313 22.0069C34.6075 21.1635 34.9956 20.1642 34.9956 19C34.9956 20.1642 35.3837 21.1635 36.1599 22.0069C36.9361 22.8503 37.8798 23.2903 39 23.3545C38.2679 23.3911 37.5976 23.602 36.9802 24.0053C36.3716 24.3995 35.8864 24.9312 35.5248 25.5913C35.172 26.2513 34.9956 26.9572 34.9956 27.7273C34.9956 26.563 34.6075 25.5546 33.8313 24.7112C33.0551 23.8587 32.1114 23.4095 31 23.3545ZM0 36.3545C1.11136 36.2995 2.05513 35.8503 2.83131 35.0069C3.6075 34.1635 3.99559 33.1642 3.99559 32C3.99559 33.1642 4.38368 34.1635 5.15987 35.0069C5.93605 35.8503 6.87982 36.2903 8 36.3545C7.26792 36.3911 6.59757 36.602 5.98015 37.0053C5.37155 37.3995 4.88644 37.9312 4.52481 38.5913C4.172 39.2513 3.99559 39.9572 3.99559 40.7273C3.99559 39.563 3.6075 38.5546 2.83131 37.7112C2.05513 36.8587 1.11136 36.4095 0 36.3545ZM56.8313 24.0069C56.0551 24.8503 55.1114 25.2995 54 25.3545C55.1114 25.4095 56.0551 25.8587 56.8313 26.7112C57.6075 27.5546 57.9956 28.563 57.9956 29.7273C57.9956 28.9572 58.172 28.2513 58.5248 27.5913C58.8864 26.9312 59.3716 26.3995 59.9802 26.0053C60.5976 25.602 61.2679 25.3911 62 25.3545C60.8798 25.2903 59.9361 24.8503 59.1599 24.0069C58.3837 23.1635 57.9956 22.1642 57.9956 21C57.9956 22.1642 57.6075 23.1635 56.8313 24.0069ZM81 25.3545C82.1114 25.2995 83.0551 24.8503 83.8313 24.0069C84.6075 23.1635 84.9956 22.1642 84.9956 21C84.9956 22.1642 85.3837 23.1635 86.1599 24.0069C86.9361 24.8503 87.8798 25.2903 89 25.3545C88.2679 25.3911 87.5976 25.602 86.9802 26.0053C86.3716 26.3995 85.8864 26.9312 85.5248 27.5913C85.172 28.2513 84.9956 28.9572 84.9956 29.7273C84.9956 28.563 84.6075 27.5546 83.8313 26.7112C83.0551 25.8587 82.1114 25.4095 81 25.3545ZM136 36.3545C137.111 36.2995 138.055 35.8503 138.831 35.0069C139.607 34.1635 139.996 33.1642 139.996 32C139.996 33.1642 140.384 34.1635 141.16 35.0069C141.936 35.8503 142.88 36.2903 144 36.3545C143.268 36.3911 142.598 36.602 141.98 37.0053C141.372 37.3995 140.886 37.9312 140.525 38.5913C140.172 39.2513 139.996 39.9572 139.996 40.7273C139.996 39.563 139.607 38.5546 138.831 37.7112C138.055 36.8587 137.111 36.4095 136 36.3545ZM101.831 49.0069C101.055 49.8503 100.111 50.2995 99 50.3545C100.111 50.4095 101.055 50.8587 101.831 51.7112C102.607 52.5546 102.996 53.563 102.996 54.7273C102.996 53.9572 103.172 53.2513 103.525 52.5913C103.886 51.9312 104.372 51.3995 104.98 51.0053C105.598 50.602 106.268 50.3911 107 50.3545C105.88 50.2903 104.936 49.8503 104.16 49.0069C103.384 48.1635 102.996 47.1642 102.996 46C102.996 47.1642 102.607 48.1635 101.831 49.0069Z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div class="theme-switch__circle-container">
+                    <div class="theme-switch__sun-moon-container">
+                        <div class="theme-switch__moon">
+                            <div class="theme-switch__spot"></div>
+                            <div class="theme-switch__spot"></div>
+                            <div class="theme-switch__spot"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </label>
+    </div>
+
+    <!-- Header Text -->
+    <h1 class="storeHeader">Shop for plushies here</h1>
+
+    <div id="mainContainer">
+        <div class="plushies-layout">
+            <!-- Plushies Grid: Side-by-Side in a Single Row -->
+            <div class="flowersRowTop">
+                <div class="flowerCard" id="bunnyCard">
+                    <!-- Default to blue bunny -->
+                    <img src="assets/plushies/bunny-blue.png" alt="Bunny" class="flowerImage" id="bunnyImage">
+                    <div class="flowerName" id="bunnyName">Blue Bunny</div>
+                    
+                    <!-- Scroll Color Options -->
+                    <div class="color-scroll-container">
+                        <div class="color-option active" data-color="blue" data-image="assets/plushies/bunny-blue.png" data-name="Blue Bunny">
+                            <span class="color-dot" style="background-color: #a0d2eb;"></span>
+                            <span class="color-label">Blue</span>
+                        </div>
+                        <div class="color-option" data-color="pink" data-image="assets/plushies/bunny-pink.png" data-name="Pink Bunny">
+                            <span class="color-dot" style="background-color: #ffb3d9;"></span>
+                            <span class="color-label">Pink</span>
+                        </div>
+                        <div class="color-option" data-color="purple" data-image="assets/plushies/bunny-purple.png" data-name="Purple Bunny">
+                            <span class="color-dot" style="background-color: #e0b0ff;"></span>
+                            <span class="color-label">Purple</span>
+                        </div>
+                    </div>
+
+                    <div class="flowerSelector">
+                        <button class="minusBtn" data-plushie="1">−</button>
+                        <span class="flowerQuantity" id="qtyPlushie1">1</span>
+                        <button class="plusBtn" data-plushie="1">+</button>
+                    </div>
+                    
+                    <button class="customizeBtn" id="bunnyCustomizeBtn" data-plushie="1" data-name="Blue Bunny" data-image="assets/plushies/bunny-blue.png">Customize Plushie </button>
+                    <button class="addToCartBtn shiny-cta" id="bunnyAddToCartBtn" data-plushie="1" data-name="Blue Bunny" data-image="assets/plushies/bunny-blue.png"><span>Add To Cart </span></button>
+                </div>
+
+                <div class="flowerCard">
+                    <img src="assets/plushies/duck.png" alt="Duck" class="flowerImage">
+                    <div class="flowerName">Duck</div>
+                    <div class="flowerSelector">
+                        <button class="minusBtn" data-plushie="2">−</button>
+                        <span class="flowerQuantity" id="qtyPlushie2">1</span>
+                        <button class="plusBtn" data-plushie="2">+</button>
+                    </div>
+                    <button class="customizeBtn" data-plushie="2" data-name="Duck" data-image="assets/plushies/duck.png">Customize Plushie </button>
+                    <button class="addToCartBtn shiny-cta" data-plushie="2" data-name="Duck" data-image="assets/plushies/duck.png"><span>Add To Cart </span></button>
+                </div>
+
+                <div class="flowerCard">
+                    <img src="assets/plushies/bear.png" alt="Bear" class="flowerImage">
+                    <div class="flowerName">Bear</div>
+                    <div class="flowerSelector">
+                        <button class="minusBtn" data-plushie="3">−</button>
+                        <span class="flowerQuantity" id="qtyPlushie3">1</span>
+                        <button class="plusBtn" data-plushie="3">+</button>
+                    </div>
+                    <button class="customizeBtn" data-plushie="3" data-name="Bear" data-image="assets/plushies/bear.png">Customize Plushie </button>
+                    <button class="addToCartBtn shiny-cta" data-plushie="3" data-name="Bear" data-image="assets/plushies/bear.png"><span>Add To Cart </span></button>
+                </div>
+            </div>
+
+            <!-- New Plushies Row -->
+            <div class="flowersRowBottom" style="margin-top: 40px;">
+                <div class="flowerCard">
+                    <!-- Default to grey elephant -->
+                    <img src="assets/plushies/elephant-grey.png" alt="Elephant" class="flowerImage">
+                    <div class="flowerName">Grey Elephant</div>
+                    
+                    <!-- Scroll Color Options -->
+                    <div class="color-scroll-container">
+                        <div class="color-option active" data-color="grey" data-image="assets/plushies/elephant-grey.png" data-name="Grey Elephant">
+                            <span class="color-dot" style="background-color: #bbbbbb;"></span>
+                            <span class="color-label">Grey</span>
+                        </div>
+                        <div class="color-option" data-color="blue" data-image="assets/plushies/elephant-blue.png" data-name="Blue Elephant">
+                            <span class="color-dot" style="background-color: #a0d2eb;"></span>
+                            <span class="color-label">Blue</span>
+                        </div>
+                    </div>
+
+                    <div class="flowerSelector">
+                        <button class="minusBtn" data-plushie="4">−</button>
+                        <span class="flowerQuantity" id="qtyPlushie4">1</span>
+                        <button class="plusBtn" data-plushie="4">+</button>
+                    </div>
+                    
+                    <button class="customizeBtn" data-plushie="4" data-name="Grey Elephant" data-image="assets/plushies/elephant-grey.png">Customize Plushie </button>
+                    <button class="addToCartBtn shiny-cta" data-plushie="4" data-name="Grey Elephant" data-image="assets/plushies/elephant-grey.png"><span>Add To Cart </span></button>
+                </div>
+
+                <div class="flowerCard">
+                    <img src="assets/plushies/pig.png" alt="Pig" class="flowerImage">
+                    <div class="flowerName">Pig</div>
+                    <div class="flowerSelector">
+                        <button class="minusBtn" data-plushie="5">−</button>
+                        <span class="flowerQuantity" id="qtyPlushie5">1</span>
+                        <button class="plusBtn" data-plushie="5">+</button>
+                    </div>
+                    <button class="customizeBtn" data-plushie="5" data-name="Pig" data-image="assets/plushies/pig.png">Customize Plushie </button>
+                    <button class="addToCartBtn shiny-cta" data-plushie="5" data-name="Pig" data-image="assets/plushies/pig.png"><span>Add To Cart </span></button>
+                </div>
+
+                <div class="flowerCard">
+                    <img src="assets/plushies/fox.png" alt="Fox" class="flowerImage">
+                    <div class="flowerName">Fox</div>
+                    <div class="flowerSelector">
+                        <button class="minusBtn" data-plushie="6">−</button>
+                        <span class="flowerQuantity" id="qtyPlushie6">1</span>
+                        <button class="plusBtn" data-plushie="6">+</button>
+                    </div>
+                    <button class="customizeBtn" data-plushie="6" data-name="Fox" data-image="assets/plushies/fox.png">Customize Plushie </button>
+                    <button class="addToCartBtn shiny-cta" data-plushie="6" data-name="Fox" data-image="assets/plushies/fox.png"><span>Add To Cart </span></button>
+                </div>
+
+                <div class="flowerCard">
+                    <img src="assets/plushies/koala.png" alt="Koala" class="flowerImage">
+                    <div class="flowerName">Koala</div>
+                    <div class="flowerSelector">
+                        <button class="minusBtn" data-plushie="7">−</button>
+                        <span class="flowerQuantity" id="qtyPlushie7">1</span>
+                        <button class="plusBtn" data-plushie="7">+</button>
+                    </div>
+                    <button class="customizeBtn" data-plushie="7" data-name="Koala" data-image="assets/plushies/koala.png">Customize Plushie </button>
+                    <button class="addToCartBtn shiny-cta" data-plushie="7" data-name="Koala" data-image="assets/plushies/koala.png"><span>Add To Cart </span></button>
+                </div>
+
+                <div class="flowerCard">
+                    <img src="assets/plushies/cat.png" alt="Cat" class="flowerImage">
+                    <div class="flowerName">Cat</div>
+                    <div class="flowerSelector">
+                        <button class="minusBtn" data-plushie="8">−</button>
+                        <span class="flowerQuantity" id="qtyPlushie8">1</span>
+                        <button class="plusBtn" data-plushie="8">+</button>
+                    </div>
+                    <button class="customizeBtn" data-plushie="8" data-name="Cat" data-image="assets/plushies/cat.png">Customize Plushie </button>
+                    <button class="addToCartBtn shiny-cta" data-plushie="8" data-name="Cat" data-image="assets/plushies/cat.png"><span>Add To Cart </span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast">
+        Added To Cart 
+    </div>
+
+    <script>
+/* -------------------- */
+/* THEME TOGGLE         */
+/* -------------------- */
+
+// Apply saved theme immediately to <html> to prevent flash
+(function () {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+    }
+})();
+
+// Wire up the checkbox once DOM is ready
+document.addEventListener('DOMContentLoaded', function () {
+    const checkbox = document.getElementById('themeCheckbox');
+    if (!checkbox) return;
+
+    const saved = localStorage.getItem('theme');
+    checkbox.checked = saved === 'dark';
+
+    checkbox.addEventListener('change', function () {
+        if (this.checked) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+        }
+    });
+});
+
+</script>
+    <script>
+// Cart state
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function getCartCount() {
+    const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    const customizedItems = JSON.parse(localStorage.getItem("customizedItems")) || [];
+    const allItems = cartItems.map(item => {
+        const custom = customizedItems.find(
+            c => c.name === item.name && c.image.split("/").pop() === item.image.split("/").pop()
+        );
+        return custom ? custom : item;
+    });
+    customizedItems.forEach(c => {
+        const inCart = allItems.find(item => item.name === c.name);
+        if (!inCart) allItems.push(c);
+    });
+    return allItems.length;
+}
+
+// DOM Elements
+const cartCount = document.getElementById("cartCount");
+const toast = document.getElementById("toast");
+const cartButton = document.getElementById("cartButton");
+
+// Set initial cart count
+cartCount.innerText = getCartCount();
+
+// Track quantities for the plushie cards locally
+const plushieQuantities = {
+    "1": 1, // Bunny
+    "2": 1, // Duck
+    "3": 1, // Bear
+    "4": 1, // Elephant
+    "5": 1, // Pig
+    "6": 1, // Fox
+    "7": 1, // Koala
+    "8": 1  // Cat
+};
+
+// Update quantities in DOM
+function updateQtyDisplay(plushieId) {
+    const qtySpan = document.getElementById(`qtyPlushie${plushieId}`);
+    if (qtySpan) {
+        qtySpan.innerText = plushieQuantities[plushieId];
+    }
+}
+
+// Plus Buttons
+document.querySelectorAll(".plusBtn").forEach(button => {
+    button.addEventListener("click", () => {
+        const plushieId = button.dataset.plushie;
+        plushieQuantities[plushieId]++;
+        updateQtyDisplay(plushieId);
+    });
+});
+
+// Minus Buttons
+document.querySelectorAll(".minusBtn").forEach(button => {
+    button.addEventListener("click", () => {
+        const plushieId = button.dataset.plushie;
+        if (plushieQuantities[plushieId] > 1) {
+            plushieQuantities[plushieId]--;
+            updateQtyDisplay(plushieId);
+        }
+    });
+});
+
+// Color Option Selection (generic helper)
+document.querySelectorAll(".color-option").forEach(option => {
+    option.addEventListener("click", () => {
+        const card = option.closest(".flowerCard");
+        if (!card) return;
+
+        // Deactivate all other options inside this card
+        card.querySelectorAll(".color-option").forEach(opt => opt.classList.remove("active"));
+        // Activate clicked option
+        option.classList.add("active");
+
+        // Retrieve properties
+        const colorName = option.dataset.name;
+        const colorImage = option.dataset.image;
+
+        // Update main card presentation
+        const mainImage = card.querySelector(".flowerImage");
+        const mainName = card.querySelector(".flowerName");
+        if (mainImage) mainImage.src = colorImage;
+        if (mainName) mainName.innerText = colorName;
+
+        // Update button attributes
+        const custBtn = card.querySelector(".customizeBtn");
+        const cartBtn = card.querySelector(".addToCartBtn");
+        if (custBtn) {
+            custBtn.dataset.name = colorName;
+            custBtn.dataset.image = colorImage;
+        }
+        if (cartBtn) {
+            cartBtn.dataset.name = colorName;
+            cartBtn.dataset.image = colorImage;
+        }
+    });
+});
+
+// Add to Cart
+document.querySelectorAll(".addToCartBtn").forEach(button => {
+    button.addEventListener("click", () => {
+        const plushieId = button.dataset.plushie;
+        const plushieName = button.dataset.name;
+        const plushieImage = button.dataset.image;
+        const quantity = plushieQuantities[plushieId];
+
+        // Push to cart
+        cart.push({
+            name: plushieName,
+            image: plushieImage,
+            quantity: quantity
+        });
+
+        // Save
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        // Update count
+        cartCount.innerText = getCartCount();
+
+        // Reset display and internal count for this card
+        plushieQuantities[plushieId] = 1;
+        updateQtyDisplay(plushieId);
+
+        // Toast
+        toast.innerText = "✨ Added To Cart ✨";
+        toast.style.display = "block";
+        setTimeout(() => {
+            toast.style.display = "none";
+        }, 2000);
+    });
+});
+
+// Customize Plushie
+document.querySelectorAll(".customizeBtn").forEach(button => {
+    button.addEventListener("click", () => {
+        const plushieId = button.dataset.plushie;
+        const plushieName = button.dataset.name;
+        const plushieImage = button.dataset.image;
+        const quantity = plushieQuantities[plushieId];
+
+        // Save selection details to currentPlushie
+        localStorage.setItem("currentPlushie", JSON.stringify({
+            name: plushieName,
+            image: plushieImage,
+            quantity: quantity
+        }));
+
+        // Redirect to customization page
+        window.location = "customize.html";
+    });
+});
+
+// Redirect to checkout
+cartButton.addEventListener("click", () => {
+    window.location = "checkout.html";
+});
+</script>
+
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    // We will dynamically construct the carousel to preserve the existing flowerCard HTML.
+    const layouts = document.querySelectorAll('.plushies-layout, .flowers-layout');
+    
+    layouts.forEach(layout => {
+        // Collect all cards
+        const cards = Array.from(layout.querySelectorAll('.flowerCard'));
+        if (cards.length === 0) return;
+        
+        // Clear layout and build carousel structure
+        layout.innerHTML = '';
+        
+        const wrapper = document.createElement('div');
+        wrapper.className = 'carousel-wrapper';
+        
+        const prevBtn = document.createElement('button');
+        prevBtn.className = 'carousel-btn carousel-prev';
+        prevBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>';
+        
+        const trackContainer = document.createElement('div');
+        trackContainer.className = 'carousel-track-container';
+        
+        const track = document.createElement('div');
+        track.className = 'carousel-track';
+        
+        cards.forEach(card => {
+            const slide = document.createElement('div');
+            slide.className = 'carousel-slide';
+            slide.appendChild(card);
+            track.appendChild(slide);
+        });
+        
+        const nextBtn = document.createElement('button');
+        nextBtn.className = 'carousel-btn carousel-next';
+        nextBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>';
+        
+        trackContainer.appendChild(track);
+        wrapper.appendChild(prevBtn);
+        wrapper.appendChild(trackContainer);
+        wrapper.appendChild(nextBtn);
+        
+        layout.appendChild(wrapper);
+        
+        // --- Carousel Logic ---
+        let currentIndex = 0;
+        let slideInterval;
+        
+        function updateCarousel() {
+            const slides = Array.from(track.children);
+            if (slides.length === 0) return;
+            
+            // To show 3 items at once, slide width is calculated by container
+            const slideWidth = slides[0].getBoundingClientRect().width;
+            
+            // We move exactly by one slide width
+            track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+            
+            const containerWidth = trackContainer.getBoundingClientRect().width;
+            const visibleSlides = Math.round(containerWidth / slideWidth) || 1;
+            const maxIndex = Math.max(0, slides.length - visibleSlides);
+            
+            // Fix index if resizing
+            if (currentIndex > maxIndex) {
+                currentIndex = maxIndex;
+                track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+            }
+            
+            prevBtn.disabled = currentIndex <= 0;
+            nextBtn.disabled = currentIndex >= maxIndex;
+        }
+        
+        function nextSlide() {
+            const containerWidth = trackContainer.getBoundingClientRect().width;
+            const slideWidth = track.children[0].getBoundingClientRect().width;
+            const visibleSlides = Math.round(containerWidth / slideWidth) || 1;
+            const maxIndex = Math.max(0, track.children.length - visibleSlides);
+            
+            if (currentIndex < maxIndex) {
+                currentIndex++;
+            } else {
+                currentIndex = 0; // Loop back
+            }
+            updateCarousel();
+        }
+        
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) currentIndex--;
+            updateCarousel();
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+        });
+        
+        // Auto Slideshow (Slow)
+        function startSlideshow() {
+            slideInterval = setInterval(nextSlide, 3500); // 3.5 seconds
+        }
+        
+        function stopSlideshow() {
+            clearInterval(slideInterval);
+        }
+        
+        wrapper.addEventListener('mouseenter', stopSlideshow);
+        wrapper.addEventListener('mouseleave', startSlideshow);
+        
+        window.addEventListener('resize', updateCarousel);
+        
+        // Initial setup
+        setTimeout(() => {
+            updateCarousel();
+            startSlideshow();
+        }, 100);
+    });
+});
+
+</script>
+</body>
+
+</html>
