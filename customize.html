@@ -429,24 +429,47 @@ text-align:center;
 margin-bottom:20px;
 }
 
-.accessoryTemplate{
-
-width:70px;
-
-height:70px;
-
-object-fit:contain;
-
-cursor:pointer;
-
-margin:5px;
-
-transition:.3s;
+.accessoriesGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
-.accessoryTemplate:hover{
+.accessoryTemplate {
+    width: 100% !important;
+    height: 75px !important;
+    margin: 0 !important;
+    object-fit: contain;
+    background: white;
+    border-radius: 10px;
+    padding: 5px;
+    cursor: grab;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 2px solid transparent;
+}
 
-transform:scale(1.1);
+.accessoryTemplate:hover {
+    transform: scale(1.08);
+    box-shadow: 0 4px 10px rgba(255, 105, 180, 0.3);
+}
+
+.accessoryTemplate:active {
+    cursor: grabbing;
+}
+
+.selectedAccessory {
+    outline: 3px solid #ff4fa2 !important;
+    outline-offset: 3px;
+    border-radius: 4px;
+    box-shadow: 0 0 15px rgba(255, 79, 162, 0.5);
+}
+
+.draggableAccessory {
+    cursor: move;
+    z-index: 10;
+    transition: outline 0.2s, box-shadow 0.2s;
 }
 
 #deleteItem,
@@ -683,9 +706,9 @@ height:auto;
 }
 
 [data-theme="dark"] .navLink.active {
-    background: #c2185b;
-    color: white;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    background: transparent;
+    color: var(--heading-color);
+    box-shadow: none;
 }
 
 /* --- Header Text styling --- */
@@ -904,161 +927,129 @@ height:auto;
     outline-offset: 3px;
 }
 
-/* --- SHINY BUTTON DESIGN --- */
-@property --gradient-angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
+/* --- PEARL STARDUST BUTTON DESIGN --- */
+:root, [data-theme="light"] {
+    --bg-pink: #ffb6d9;
+    --hover-glow: rgba(255, 182, 193, 0.6);
+    --hover-glow-soft: rgba(255, 105, 180, 0.8);
+    --btn-text-color: #5a0035;
 }
 
-@property --gradient-angle-offset {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
-
-@property --gradient-percent {
-  syntax: "<percentage>";
-  initial-value: 5%;
-  inherits: false;
-}
-
-@property --gradient-shine {
-  syntax: "<color>";
-  initial-value: white;
-  inherits: false;
+[data-theme="dark"] {
+    --bg-pink: #880e4f;
+    --hover-glow: rgba(136, 14, 79, 0.6);
+    --hover-glow-soft: rgba(194, 24, 91, 0.8);
+    --btn-text-color: #ffffff;
 }
 
 .shiny-cta {
-  --shiny-cta-bg: white;
-  --shiny-cta-bg-subtle: #fce4ec;
-  --shiny-cta-fg: #d81b60;
-  --shiny-cta-highlight: #ff4081;
-  --shiny-cta-highlight-subtle: #f50057;
-  --animation: gradient-angle linear infinite;
-  --duration: 3s;
-  --shadow-size: 2px;
-  --transition: 800ms cubic-bezier(0.25, 1, 0.5, 1);
-  
-  isolation: isolate;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  outline-offset: 4px;
-  padding: 10px 20px;
-
-/* --- matched dimensions for checkout button previously --- */
-font-family: "Inter", sans-serif;
-  font-size: 16px;
-  line-height: 1.2;
-  font-weight: 600;
-  border: 1px solid transparent;
-  border-radius: 360px;
-  color: var(--shiny-cta-fg) !important;
-  background: linear-gradient(var(--shiny-cta-bg), var(--shiny-cta-bg)) padding-box,
-    conic-gradient(
-      from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
-      transparent,
-      var(--shiny-cta-highlight) var(--gradient-percent),
-      var(--gradient-shine) calc(var(--gradient-percent) * 2),
-      var(--shiny-cta-highlight) calc(var(--gradient-percent) * 3),
-      transparent calc(var(--gradient-percent) * 4)
-    ) border-box;
-  box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle);
-  transition: var(--transition);
-  transition-property: --gradient-angle-offset, --gradient-percent, --gradient-shine;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  text-decoration: none;
-}
-
-[data-theme="dark"] .shiny-cta {
-  --shiny-cta-bg: #880e4f;
-  --shiny-cta-bg-subtle: #4a148c;
-  --shiny-cta-fg: #ffffff;
-  --shiny-cta-highlight: #ff80ab;
-  --shiny-cta-highlight-subtle: #ff4081;
-}
-
-.shiny-cta::before,
-.shiny-cta::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-}
-
-.shiny-cta:active {
-  translate: 0 1px;
+    outline: none;
+    cursor: pointer;
+    border: 0;
+    position: relative;
+    border-radius: 100px;
+    background-color: var(--bg-pink);
+    transition: all 0.2s ease;
+    box-shadow: 
+      inset 0 0.3rem 0.9rem rgba(255, 255, 255, 0.4),
+      inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.4),
+      inset 0 -0.4rem 0.9rem rgba(255, 255, 255, 0.3),
+      0 10px 15px -3px rgba(255, 105, 180, 0.3),
+      0 4px 6px -2px rgba(255, 105, 180, 0.05);
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 10px 24px;
 }
 
 .shiny-cta::before {
-  --size: calc(100% - var(--shadow-size) * 3);
-  --position: 2px;
-  --space: calc(var(--position) * 2);
-  width: var(--size);
-  height: var(--size);
-  background: radial-gradient(
-    circle at var(--position) var(--position),
-    white calc(var(--position) / 4),
-    transparent 0
-  ) padding-box;
-  background-size: var(--space) var(--space);
-  background-repeat: space;
-  mask-image: conic-gradient(
-    from calc(var(--gradient-angle) + 45deg),
-    black,
-    transparent 10% 90%,
-    black
-  );
-  border-radius: inherit;
-  opacity: 0.4;
-  z-index: -1;
+    content: "";
+    position: absolute;
+    left: -15%;
+    right: -15%;
+    bottom: 25%;
+    top: -100%;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.25);
+    transition: all 0.3s ease;
+    z-index: 1;
+    pointer-events: none;
 }
 
 .shiny-cta::after {
-  --animation: shimmer linear infinite;
-  width: 100%;
-  aspect-ratio: 1;
-  background: linear-gradient(
-    -50deg,
-    transparent,
-    var(--shiny-cta-highlight),
-    transparent
-  );
-  mask-image: radial-gradient(circle at bottom, transparent 40%, black);
-  opacity: 0.6;
+    content: "";
+    position: absolute;
+    left: 6%;
+    right: 6%;
+    top: 12%;
+    bottom: 40%;
+    border-radius: 22px 22px 0 0;
+    box-shadow: inset 0 10px 8px -10px rgba(255, 255, 255, 0.6);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.3) 0%,
+      rgba(255, 255, 255, 0) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transition: all 0.3s ease;
+    z-index: 1;
+    pointer-events: none;
 }
 
-.shiny-cta > span {
-  z-index: 1;
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.shiny-cta span {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    color: var(--btn-text-color);
+    transition: all 0.2s ease;
+    transform: translateY(2%);
 }
 
-
-
-.shiny-cta,
-.shiny-cta::before,
-.shiny-cta::after {
-  animation: var(--animation) var(--duration),
-    var(--animation) calc(var(--duration) / 0.4) reverse paused;
-  animation-composition: add;
+.shiny-cta span::before {
+    content: "✧";
+    transition: all 0.2s ease;
 }
 
-.shiny-cta:is(:hover, :focus-visible) {
-  --gradient-percent: 20%;
-  --gradient-angle-offset: 95deg;
-  --gradient-shine: var(--shiny-cta-highlight-subtle);
+.shiny-cta:hover span::before {
+    content: "✦";
 }
 
-.shiny-cta:is(:hover, :focus-visible),
-.shiny-cta:is(:hover, :focus-visible)::before,
-.shiny-cta:is(:hover, :focus-visible)::after {
-  animation-play-state: running;
+.shiny-cta:hover {
+    box-shadow:
+      inset 0 0.3rem 0.5rem var(--hover-glow),
+      inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.4),
+      inset 0 -0.4rem 0.9rem var(--hover-glow-soft),
+      0 12px 20px rgba(255, 105, 180, 0.4),
+      0 4px 8px rgba(255, 105, 180, 0.1);
+}
+
+.shiny-cta:hover::before {
+    transform: translateY(-5%);
+}
+
+.shiny-cta:hover::after {
+    opacity: 0.4;
+    transform: translateY(5%);
+}
+
+.shiny-cta:hover span {
+    transform: translateY(-4%);
+}
+
+.shiny-cta:active {
+    transform: translateY(2px);
+    box-shadow:
+      inset 0 0.3rem 0.5rem var(--hover-glow),
+      inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.5),
+      inset 0 -0.4rem 0.9rem var(--hover-glow-soft),
+      0 6px 10px rgba(255, 105, 180, 0.2);
 }
 
 
@@ -1233,15 +1224,7 @@ body.no-scroll {
     max-height: 70vh;
     overflow-y: auto;
 }
-.accessoryTemplate {
-    width: 80px !important;
-    height: 80px !important;
-    margin: 5px !important;
-    object-fit: contain;
-    background: white;
-    border-radius: 10px;
-    padding: 5px;
-}
+/* Overridden accessoryTemplate styles removed for grid layout */
 
 /* --- NAV BRAND CENTERING --- */
 .navBrand {
@@ -1327,23 +1310,29 @@ class="mainPlushie"
 
         </h2>
 
-        <img src="assets/plushies/custom1.png"
-        class="accessoryTemplate">
-
-        <img src="assets/plushies/custom2.png"
-        class="accessoryTemplate">
-
-        <img src="assets/plushies/custom3.png"
-        class="accessoryTemplate">
-
-        <img src="assets/plushies/custom4.png"
-        class="accessoryTemplate">
-
-        <img src="assets/plushies/custom5.png"
-        class="accessoryTemplate">
-
-        <img src="assets/plushies/custom6.png"
-        class="accessoryTemplate">
+        <div class="accessoriesGrid">
+            <img src="assets/plushies/custom1.png" class="accessoryTemplate" draggable="true">
+            <img src="assets/plushies/custom2.png" class="accessoryTemplate" draggable="true">
+            <img src="assets/plushies/custom3.png" class="accessoryTemplate" draggable="true">
+            <img src="assets/plushies/custom4.png" class="accessoryTemplate" draggable="true">
+            <img src="assets/plushies/custom5.png" class="accessoryTemplate" draggable="true">
+            <img src="assets/plushies/custom6.png" class="accessoryTemplate" draggable="true">
+            <img src="assets/plushies/custom7.png" class="accessoryTemplate" draggable="true">
+            <img src="assets/plushies/custom8.png" class="accessoryTemplate" draggable="true">
+            <img src="assets/plushies/custom9.png" class="accessoryTemplate" draggable="true">
+            <img src="assets/plushies/custom10.png" class="accessoryTemplate" draggable="true">
+            <img src="assets/plushies/custom11.png" class="accessoryTemplate" draggable="true">
+            <img src="assets/plushies/custom12.png" class="accessoryTemplate" draggable="true">
+            <img src="assets/plushies/custom13.png" class="accessoryTemplate" draggable="true">
+            <img src="assets/plushies/custom14.png" class="accessoryTemplate" draggable="true">
+            <img src="assets/plushies/custom15.png" class="accessoryTemplate" draggable="true">
+            <img src="assets/plushies/custom16.png" class="accessoryTemplate" draggable="true">
+            <img src="assets/plushies/custom17.png" class="accessoryTemplate" draggable="true">
+            <img src="assets/plushies/custom18.png" class="accessoryTemplate" draggable="true">
+            <img src="assets/plushies/custom19.png" class="accessoryTemplate" draggable="true">
+            <img src="assets/plushies/custom20.png" class="accessoryTemplate" draggable="true">
+            <img src="assets/plushies/custom21.png" class="accessoryTemplate" draggable="true">
+        </div>
 
         <hr>
 
@@ -1449,148 +1438,155 @@ let selected = null;
 /* LOAD PLUSHIE         */
 /* -------------------- */
 
+// Helper to extract relative assets path
+function getRelativePath(absoluteUrl) {
+    if (!absoluteUrl) return "";
+    let normalized = absoluteUrl.replace(/\\/g, "/");
+    const match = normalized.match(/assets\//i);
+    if (match) {
+        return normalized.substring(match.index);
+    }
+    return normalized;
+}
+
+// Helper to create an accessory image
+function createAccessory(src, leftPx, topPx, widthPx) {
+    const accessory = document.createElement("img");
+    accessory.src = src;
+    accessory.className = "draggableAccessory";
+    accessory.draggable = false;
+    accessory.style.position = "absolute";
+    accessory.style.width = widthPx + "px";
+    accessory.style.left = leftPx + "px";
+    accessory.style.top = topPx + "px";
+
+    customScene.appendChild(accessory);
+    
+    // Auto-select the newly created accessory
+    selectAccessory(accessory);
+    return accessory;
+}
+
+// Function to select a placed accessory and highlight it
+function selectAccessory(element) {
+    selectedItem = element;
+    document.querySelectorAll(".draggableAccessory").forEach(item => {
+        item.classList.remove("selectedAccessory");
+    });
+    if (element) {
+        element.classList.add("selectedAccessory");
+    }
+}
+
 const currentPlushie = JSON.parse(localStorage.getItem("currentPlushie"));
 if (!currentPlushie) {
     window.location.href = "index.html";
 }
 
 if(currentPlushie){
-
-mainPlushie.src =
-currentPlushie.image;
-
+    mainPlushie.src = currentPlushie.image;
+    // Starts fresh with a blank canvas for this customization session
 }
 
 /* -------------------- */
 /* ADD ACCESSORIES      */
 /* -------------------- */
 
-document
-.querySelectorAll(
-".accessoryTemplate"
-)
-.forEach(item => {
+document.querySelectorAll(".accessoryTemplate").forEach(item => {
+    item.addEventListener("click", () => {
+        const rect = customScene.getBoundingClientRect();
+        const plushieRect = mainPlushie.getBoundingClientRect();
+        
+        const plushieW = mainPlushie.offsetWidth || 280;
+        const plushieH = mainPlushie.offsetHeight || 280;
+        
+        // Make it a tad bit smaller (40% of plushie size)
+        const width = plushieW * 0.40;
+        
+        // Center it on the plushie
+        const left = (plushieRect.left - rect.left) + (plushieW - width) / 2;
+        const top = (plushieRect.top - rect.top) + (plushieH - width) / 2;
+        
+        createAccessory(item.src, left, top, width);
+    });
 
-item.addEventListener(
-"click",
-() => {
-
-const accessory =
-document.createElement(
-"img"
-);
-
-accessory.src =
-item.src;
-
-accessory.className =
-"draggableAccessory";
-
-accessory.draggable = false;
-
-accessory.style.position =
-"absolute";
-
-
-const rect = customScene.getBoundingClientRect();
-const plushieRect = mainPlushie.getBoundingClientRect();
-
-accessory.style.width = mainPlushie.offsetWidth + "px";
-accessory.style.left = (plushieRect.left - rect.left) + "px";
-accessory.style.top = (plushieRect.top - rect.top) + "px";
-
-
-customScene.appendChild(
-accessory
-);
-
+    // Support drag start from the sidebar templates
+    item.addEventListener("dragstart", (e) => {
+        e.dataTransfer.setData("text/plain", item.src);
+    });
 });
 
+// Setup drag and drop events on customScene
+customScene.addEventListener("dragover", (e) => {
+    e.preventDefault();
 });
 
-/* -------------------- */
-/* SELECT ACCESSORY     */
-/* -------------------- */
-
-document.addEventListener(
-"mousedown",
-(e) => {
-
-if(
-e.target.classList.contains(
-"draggableAccessory"
-)
-){
-    e.preventDefault(); // Stop native drag
-
-
-selected =
-e.target;
-
-selectedItem =
-e.target;
-
-document
-.querySelectorAll(
-".draggableAccessory"
-)
-.forEach(item => {
-
-
-
-});
-
-
-
-}
-
+customScene.addEventListener("drop", (e) => {
+    e.preventDefault();
+    const src = e.dataTransfer.getData("text/plain");
+    if (src) {
+        const rect = customScene.getBoundingClientRect();
+        
+        // Calculate dropped coordinates relative to customScene
+        const dropX = e.clientX - rect.left;
+        const dropY = e.clientY - rect.top;
+        
+        // Default sticker size (e.g. 40% of the plushie size, fallback to 112)
+        const defaultWidth = (mainPlushie.offsetWidth ? mainPlushie.offsetWidth * 0.40 : 112);
+        
+        // Center the accessory at drop coordinates
+        const left = dropX - defaultWidth / 2;
+        const top = dropY - defaultWidth / 2;
+        
+        createAccessory(src, left, top, defaultWidth);
+    }
 });
 
 /* -------------------- */
-/* DRAGGING             */
+/* SELECT & DRAG PLACED */
 /* -------------------- */
 
-document.addEventListener(
-"mousemove",
-(e) => {
+let dragOffsetX = 0;
+let dragOffsetY = 0;
 
-if(!selected) return;
-
-const rect =
-customScene.getBoundingClientRect();
-
-selected.style.left =
-
-(
-e.clientX
--
-rect.left
--
-selected.offsetWidth/2
-)
-
-+ "px";
-
-selected.style.top =
-
-(
-e.clientY
--
-rect.top
--
-selected.offsetHeight/2
-)
-
-+ "px";
-
+document.addEventListener("mousedown", (e) => {
+    if (e.target.classList.contains("draggableAccessory")) {
+        e.preventDefault(); // Stop native drag
+        selected = e.target;
+        selectAccessory(e.target);
+        
+        // Calculate offset so the sticker doesn't snap to center under cursor
+        const rect = customScene.getBoundingClientRect();
+        const elementRect = selected.getBoundingClientRect();
+        dragOffsetX = e.clientX - elementRect.left;
+        dragOffsetY = e.clientY - elementRect.top;
+    } else {
+        // Deselect if clicking outside of the customScene or customization panels
+        if (!e.target.closest('#customScene') && !e.target.closest('#customPanel') && !e.target.closest('#voicePanel')) {
+            selectAccessory(null);
+        }
+    }
 });
 
-document.addEventListener(
-"mouseup",
-() => {
+document.addEventListener("mousemove", (e) => {
+    if (!selected) return;
 
-selected = null;
+    const rect = customScene.getBoundingClientRect();
+    
+    // Position sticker relative to customScene with drag offsets
+    let left = e.clientX - rect.left - dragOffsetX;
+    let top = e.clientY - rect.top - dragOffsetY;
+    
+    // Bounds check to keep stickers within customScene
+    left = Math.max(-selected.offsetWidth / 2, Math.min(left, rect.width - selected.offsetWidth / 2));
+    top = Math.max(-selected.offsetHeight / 2, Math.min(top, rect.height - selected.offsetHeight / 2));
+    
+    selected.style.left = left + "px";
+    selected.style.top = top + "px";
+});
 
+document.addEventListener("mouseup", () => {
+    selected = null;
 });
 
 /* -------------------- */
@@ -1697,96 +1693,56 @@ document
 () => {
 
 const accessories = [];
+const rect = customScene.getBoundingClientRect();
+const plushieRect = mainPlushie.getBoundingClientRect();
+const plushieW = plushieRect.width || 280;
+const plushieH = plushieRect.height || 280;
 
 document
 .querySelectorAll(
 ".draggableAccessory"
 )
 .forEach(item => {
+    const itemRect = item.getBoundingClientRect();
+    
+    // Calculate coordinates relative to plushieRect
+    const relLeft = (itemRect.left - plushieRect.left) / plushieW;
+    const relTop = (itemRect.top - plushieRect.top) / plushieH;
+    const relWidth = itemRect.width / plushieW;
+    
+    // Virtualize coordinates to a 700x700 canvas with plushie centered at (210, 210) and size 280x280
+    const rawLeft = 210 + relLeft * 280;
+    const rawTop = 210 + relTop * 280;
+    const rawWidth = relWidth * 280;
 
-accessories.push({
-
-image:
-item.src,
-
-left:
-item.style.left,
-
-top:
-item.style.top,
-
-width:
-item.style.width
-
+    accessories.push({
+        image: getRelativePath(item.src),
+        left: rawLeft + "px",
+        top: rawTop + "px",
+        width: rawWidth + "px"
+    });
 });
 
-});
-
-/* Build the customized plushie object */
-
+/* Build the customized plushie object with unique ID */
 const customizedPlushie = {
-
-name:
-currentPlushie.name,
-
-image:
-currentPlushie.image,
-
-quantity:
-currentPlushie.quantity || 1,
-
-accessories:
-accessories,
-
-voiceNote:
-voiceNoteDataUrl,
-
-voiceNoteDuration:
-voiceNoteDuration
-
+    customId: "plushie_" + Date.now(),
+    name: currentPlushie.name,
+    image: currentPlushie.image,
+    quantity: currentPlushie.quantity || 1,
+    accessories: accessories,
+    voiceNote: voiceNoteDataUrl,
+    voiceNoteDuration: voiceNoteDuration
 };
 
-/* Load existing customized items and replace/add this plushie */
+/* Load existing cart items and append this new customized item */
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+cart.push(customizedPlushie);
 
-let customizedItems =
-JSON.parse(
-localStorage.getItem(
-"customizedItems"
-)
-) || [];
+/* Save to cart */
+localStorage.setItem("cart", JSON.stringify(cart));
 
-/* Remove old customization for same plushie name */
-
-customizedItems =
-customizedItems.filter(
-item => item.name !== customizedPlushie.name
-);
-
-/* Add updated customization */
-
-customizedItems.push(
-customizedPlushie
-);
-
-/* Save */
-
-localStorage.setItem(
-
-"customizedItems",
-
-JSON.stringify(
-customizedItems
-)
-
-);
-
-alert(
-"Customization Saved!"
-);
-
-window.location =
-"index.html";
-
+alert("Customization Saved & Added to Cart!");
+window.location = "index.html";
 });
 
 /* -------------------- */

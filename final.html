@@ -432,9 +432,9 @@ transition: var(--transition);
 }
 
 [data-theme="dark"] .navLink.active {
-    background: #c2185b;
-    color: white;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    background: transparent;
+    color: var(--heading-color);
+    box-shadow: none;
 }
 
 /* --- Header Text styling --- */
@@ -637,184 +637,129 @@ transition: var(--transition);
     outline-offset: 3px;
 }
 
-/* --- SHINY BUTTON DESIGN --- */
-@property --gradient-angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
+/* --- PEARL STARDUST BUTTON DESIGN --- */
+:root, [data-theme="light"] {
+    --bg-pink: #ffb6d9;
+    --hover-glow: rgba(255, 182, 193, 0.6);
+    --hover-glow-soft: rgba(255, 105, 180, 0.8);
+    --btn-text-color: #5a0035;
 }
 
-@property --gradient-angle-offset {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
-
-@property --gradient-percent {
-  syntax: "<percentage>";
-  initial-value: 5%;
-  inherits: false;
-}
-
-@property --gradient-shine {
-  syntax: "<color>";
-  initial-value: white;
-  inherits: false;
+[data-theme="dark"] {
+    --bg-pink: #880e4f;
+    --hover-glow: rgba(136, 14, 79, 0.6);
+    --hover-glow-soft: rgba(194, 24, 91, 0.8);
+    --btn-text-color: #ffffff;
 }
 
 .shiny-cta {
-  --shiny-cta-bg: white;
-  --shiny-cta-bg-subtle: #fce4ec;
-  --shiny-cta-fg: #d81b60;
-  --shiny-cta-highlight: #ff4081;
-  --shiny-cta-highlight-subtle: #f50057;
-  --animation: gradient-angle linear infinite;
-  --duration: 3s;
-  --shadow-size: 2px;
-  --transition: 800ms cubic-bezier(0.25, 1, 0.5, 1);
-  
-  isolation: isolate;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  outline-offset: 4px;
-  padding: 10px 20px;
-
-/* --- matched dimensions for checkout button previously --- */
-font-family: "Inter", sans-serif;
-  font-size: 16px;
-  line-height: 1.2;
-  font-weight: 600;
-  border: 1px solid transparent;
-  border-radius: 360px;
-  color: var(--shiny-cta-fg) !important;
-  background: linear-gradient(var(--shiny-cta-bg), var(--shiny-cta-bg)) padding-box,
-    conic-gradient(
-      from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
-      transparent,
-      var(--shiny-cta-highlight) var(--gradient-percent),
-      var(--gradient-shine) calc(var(--gradient-percent) * 2),
-      var(--shiny-cta-highlight) calc(var(--gradient-percent) * 3),
-      transparent calc(var(--gradient-percent) * 4)
-    ) border-box;
-  box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle);
-  transition: var(--transition);
-  transition-property: --gradient-angle-offset, --gradient-percent, --gradient-shine;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  text-decoration: none;
-}
-
-[data-theme="dark"] .shiny-cta {
-  --shiny-cta-bg: #880e4f;
-  --shiny-cta-bg-subtle: #4a148c;
-  --shiny-cta-fg: #ffffff;
-  --shiny-cta-highlight: #ff80ab;
-  --shiny-cta-highlight-subtle: #ff4081;
-}
-
-.shiny-cta::before,
-.shiny-cta::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-}
-
-.shiny-cta:active {
-  translate: 0 1px;
+    outline: none;
+    cursor: pointer;
+    border: 0;
+    position: relative;
+    border-radius: 100px;
+    background-color: var(--bg-pink);
+    transition: all 0.2s ease;
+    box-shadow: 
+      inset 0 0.3rem 0.9rem rgba(255, 255, 255, 0.4),
+      inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.4),
+      inset 0 -0.4rem 0.9rem rgba(255, 255, 255, 0.3),
+      0 10px 15px -3px rgba(255, 105, 180, 0.3),
+      0 4px 6px -2px rgba(255, 105, 180, 0.05);
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 10px 24px;
 }
 
 .shiny-cta::before {
-  --size: calc(100% - var(--shadow-size) * 3);
-  --position: 2px;
-  --space: calc(var(--position) * 2);
-  width: var(--size);
-  height: var(--size);
-  background: radial-gradient(
-    circle at var(--position) var(--position),
-    white calc(var(--position) / 4),
-    transparent 0
-  ) padding-box;
-  background-size: var(--space) var(--space);
-  background-repeat: space;
-  mask-image: conic-gradient(
-    from calc(var(--gradient-angle) + 45deg),
-    black,
-    transparent 10% 90%,
-    black
-  );
-  border-radius: inherit;
-  opacity: 0.4;
-  z-index: -1;
+    content: "";
+    position: absolute;
+    left: -15%;
+    right: -15%;
+    bottom: 25%;
+    top: -100%;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.25);
+    transition: all 0.3s ease;
+    z-index: 1;
+    pointer-events: none;
 }
 
 .shiny-cta::after {
-  --animation: shimmer linear infinite;
-  width: 100%;
-  aspect-ratio: 1;
-  background: linear-gradient(
-    -50deg,
-    transparent,
-    var(--shiny-cta-highlight),
-    transparent
-  );
-  mask-image: radial-gradient(circle at bottom, transparent 40%, black);
-  opacity: 0.6;
+    content: "";
+    position: absolute;
+    left: 6%;
+    right: 6%;
+    top: 12%;
+    bottom: 40%;
+    border-radius: 22px 22px 0 0;
+    box-shadow: inset 0 10px 8px -10px rgba(255, 255, 255, 0.6);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.3) 0%,
+      rgba(255, 255, 255, 0) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transition: all 0.3s ease;
+    z-index: 1;
+    pointer-events: none;
 }
 
-.shiny-cta > span {
-  z-index: 1;
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.shiny-cta span {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    color: var(--btn-text-color);
+    transition: all 0.2s ease;
+    transform: translateY(2%);
 }
 
-
-
-.shiny-cta,
-.shiny-cta::before,
-.shiny-cta::after {
-  animation: var(--animation) var(--duration),
-    var(--animation) calc(var(--duration) / 0.4) reverse paused;
-  animation-composition: add;
+.shiny-cta span::before {
+    content: "✧";
+    transition: all 0.2s ease;
 }
 
-.shiny-cta:is(:hover, :focus-visible) {
-  --gradient-percent: 20%;
-  --gradient-angle-offset: 95deg;
-  --gradient-shine: var(--shiny-cta-highlight-subtle);
+.shiny-cta:hover span::before {
+    content: "✦";
 }
 
-.shiny-cta:is(:hover, :focus-visible),
-.shiny-cta:is(:hover, :focus-visible)::before,
-.shiny-cta:is(:hover, :focus-visible)::after {
-  animation-play-state: running;
+.shiny-cta:hover {
+    box-shadow:
+      inset 0 0.3rem 0.5rem var(--hover-glow),
+      inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.4),
+      inset 0 -0.4rem 0.9rem var(--hover-glow-soft),
+      0 12px 20px rgba(255, 105, 180, 0.4),
+      0 4px 8px rgba(255, 105, 180, 0.1);
 }
 
-
-
-@keyframes gradient-angle {
-  to {
-    --gradient-angle: 360deg;
-  }
+.shiny-cta:hover::before {
+    transform: translateY(-5%);
 }
 
-@keyframes shimmer {
-  to {
-    rotate: 360deg;
-  }
+.shiny-cta:hover::after {
+    opacity: 0.4;
+    transform: translateY(5%);
 }
 
-@keyframes breathe {
-  from, to {
-    scale: 1;
-  }
-  50% {
-    scale: 1.2;
-  }
+.shiny-cta:hover span {
+    transform: translateY(-4%);
+}
+
+.shiny-cta:active {
+    transform: translateY(2px);
+    box-shadow:
+      inset 0 0.3rem 0.5rem var(--hover-glow),
+      inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.5),
+      inset 0 -0.4rem 0.9rem var(--hover-glow-soft),
+      0 6px 10px rgba(255, 105, 180, 0.2);
 }
 
 /* --- extra padding for box shadows --- */
@@ -968,7 +913,7 @@ margin: 0 auto;
 
     <!-- Display the stationary gift layout -->
     <div id="giftContainer" style="justify-content: center; width: 95%; max-width: 1250px; margin: 0 auto; padding-top: 10px;">
-        <div id="giftScene" style="width: 100%; height: 80vh; flex: none; box-shadow: 0 0 25px rgba(255, 105, 180, 0.4); background: var(--card-bg);">
+        <div id="giftScene" style="position: relative; overflow: hidden; border-radius: 25px; width: 100%; height: 80vh; flex: none; box-shadow: 0 0 25px rgba(255, 105, 180, 0.4); background: var(--card-bg);">
             <!-- Arranged elements will be reconstructed here dynamically -->
         </div>
     </div>
@@ -1013,6 +958,22 @@ document.addEventListener('DOMContentLoaded', function () {
     <script>
 const giftScene = document.getElementById("giftScene");
 
+function resolveAccessorySrc(src) {
+    if (!src) return "";
+    let path = src.replace(/\\/g, "/");
+    const assetsIndex = path.toLowerCase().indexOf("assets/");
+    if (assetsIndex !== -1) {
+        return path.substring(assetsIndex);
+    }
+    const filename = path.split("/").pop();
+    if (filename.includes("custom")) {
+        return "assets/plushies/" + filename;
+    } else if (filename.includes("dessert")) {
+        return "assets/treats/" + filename;
+    }
+    return "assets/treats/" + filename;
+}
+
 /* Load saved layout array */
 const savedLayout = JSON.parse(localStorage.getItem("savedGiftLayout")) || [];
 
@@ -1028,7 +989,13 @@ savedLayout.forEach(item => {
     const wrapper = document.createElement("div");
     wrapper.className = "giftEl";
     wrapper.style.position = "absolute";
-    wrapper.style.left = item.left;
+    
+    const finalSceneW = giftScene.clientWidth || 800;
+    if (item.centerOffset !== undefined) {
+        wrapper.style.left = (finalSceneW / 2 + item.centerOffset) + "px";
+    } else {
+        wrapper.style.left = item.left;
+    }
     wrapper.style.top = item.top;
     wrapper.style.width = item.width;
     wrapper.style.height = item.height;
@@ -1053,18 +1020,18 @@ savedLayout.forEach(item => {
         wrapper.appendChild(img);
 
         // Reconstruct overlays (accessories)
-        const giftItems = JSON.parse(localStorage.getItem("giftItems")) || [];
-        // Extract filename from item.src
-        const filename = item.src.split("/").pop();
-        const matchedItem = giftItems.find(g => g.image.split("/").pop() === filename);
-        if (matchedItem && matchedItem.accessories) {
+        if (item.accessories && item.accessories.length > 0) {
             const plushieCanvasW = 280;
             const plushieCanvasL = 210;
             const plushieCanvasT = 210;
             
-            matchedItem.accessories.forEach(acc => {
+            item.accessories.forEach(acc => {
                 const accessory = document.createElement("img");
-                accessory.src = acc.image;
+                let src = acc.image;
+                if (src) {
+                    src = resolveAccessorySrc(src);
+                }
+                accessory.src = src;
                 accessory.style.position = "absolute";
                 accessory.style.pointerEvents = "none";
                 
@@ -1081,8 +1048,8 @@ savedLayout.forEach(item => {
         }
 
         // Voice Note Playback
-        const voiceNoteSrc = item.voiceNote || (matchedItem && matchedItem.voiceNote);
-        const voiceNoteDuration = parseInt(item.voiceNoteDuration) || (matchedItem && parseInt(matchedItem.voiceNoteDuration)) || 0;
+        const voiceNoteSrc = item.voiceNote;
+        const voiceNoteDuration = parseInt(item.voiceNoteDuration) || 0;
         if (voiceNoteSrc) {
             hasAudioNote = true;
             wrapper.dataset.voiceNote = voiceNoteSrc;
@@ -1230,25 +1197,30 @@ function updateCTA() {
     const cta = document.querySelector(".click-gifts-cta");
     if (!cta) return;
 
+    let text = "";
     if (isPlaylistPlaying) {
         const displayIndex = currentPlaylistIndex + 1;
         const total = audioPlaylist.length;
         if (total > 1) {
-            cta.innerText = `⏸️ Pause sequence (Playing ${displayIndex} of ${total}) 🧸`;
+            text = `⏸️ Pause sequence (Playing ${displayIndex} of ${total}) 🧸`;
         } else {
-            cta.innerText = `⏸️ Pause voice message 🧸`;
+            text = `⏸️ Pause voice message 🧸`;
         }
     } else {
         if (currentPlaylistIndex !== -1 && currentPlaylistIndex < audioPlaylist.length) {
-            cta.innerText = `▶️ Resume voice messages 🧸`;
+            text = `▶️ Resume voice message 🧸`;
         } else {
-            if (audioPlaylist.length > 1) {
-                cta.innerText = `🎵 Play all voice messages in sequence! 🧸`;
-            } else {
-                cta.innerText = `🎵 Play voice message! 🧸`;
-            }
+            text = `🔊 Click to hear a message`;
         }
     }
+
+    let span = cta.querySelector("span");
+    if (!span) {
+        span = document.createElement("span");
+        cta.innerHTML = "";
+        cta.appendChild(span);
+    }
+    span.innerText = text;
 }
 
 // Wire up click event listeners for playlist items
@@ -1265,9 +1237,17 @@ audioPlaylist.forEach((track, index) => {
 
 /* Create "Click on your gifts" CTA button if custom audio is loaded */
 if (hasAudioNote) {
+    const ctaContainer = document.createElement("div");
+    ctaContainer.style.display = "flex";
+    ctaContainer.style.justifyContent = "center";
+    ctaContainer.style.marginTop = "25px";
+    ctaContainer.style.marginBottom = "20px";
+
     const cta = document.createElement("button");
-    cta.className = "click-gifts-cta";
-    document.body.appendChild(cta);
+    cta.className = "shiny-cta click-gifts-cta";
+    
+    ctaContainer.appendChild(cta);
+    document.body.appendChild(ctaContainer);
     
     // Add pulsing play action
     cta.addEventListener("click", () => {
