@@ -366,6 +366,7 @@ transition: var(--transition);
     text-align: center;
     margin-top: 100px;
     color: var(--heading-color);
+    font-family: var(--font-heading);
 }
 
 #giftContainer {
@@ -671,7 +672,11 @@ transition: var(--transition);
     text-shadow: 2px 2px 4px rgba(255, 182, 193, 0.4);
 }
 
-[data-theme="dark"] .storeHeader {
+[data-theme="dark"] .storeHeader,
+[data-theme="dark"] .checkoutTitle,
+[data-theme="dark"] .customizeTitle,
+[data-theme="dark"] .giftTitle {
+    color: #ffb6d9 !important;
     text-shadow: none;
 }
 
@@ -1123,7 +1128,7 @@ margin: 0 auto;
         <a href="index.html" class="navLink">Plushies</a>
         <a href="flowers.html" class="navLink">Flowers</a>
         <a href="treats.html" class="navLink">Treats</a>
-        <a href="index.html" class="navLink shiny-cta" id="backToShopNavLink"><span>⬅️ Back to Shop</span></a>
+        <a href="index.html" class="navLink shiny-cta" id="backToShopNavLink"><span>Back to Shop</span></a>
     </nav>
 
 <!-- Theme Toggle -->
@@ -1233,6 +1238,24 @@ Create Your Gift
 
         <img src="assets/final page/sticker3.png"
              class="stickerTemplate">
+
+        <img src="assets/final page/sticker_clip_purple.png"
+             class="stickerTemplate" alt="Purple Binder Clip">
+
+        <img src="assets/final page/sticker_pin_red.png"
+             class="stickerTemplate" alt="Red Pushpin">
+
+        <img src="assets/final page/sticker_clip_beige.png"
+             class="stickerTemplate" alt="Beige Binder Clip">
+
+        <img src="assets/final page/sticker_clip_pink.png"
+             class="stickerTemplate" alt="Pink Binder Clip">
+
+        <img src="assets/final page/sticker_clip_blue.png"
+             class="stickerTemplate" alt="Blue Binder Clip">
+
+        <img src="assets/final page/sticker_camera.png"
+             class="stickerTemplate" alt="Camera">
 
         <hr style="margin-top: 20px; margin-bottom: 20px; border: none; border-top: 2px dashed var(--glow-soft);">
 
@@ -1348,8 +1371,10 @@ function resolveAccessorySrc(src) {
     const filename = path.split("/").pop();
     if (filename.includes("custom")) {
         return "assets/plushies/" + filename;
-    } else if (filename.includes("dessert")) {
+    } else if (filename.includes("dessert") || filename.includes("box")) {
         return "assets/treats/" + filename;
+    } else if (filename.includes("flower") || filename.includes("bow") || filename.includes("holder")) {
+        return "assets/flowers/" + filename;
     }
     return "assets/treats/" + filename;
 }
@@ -1426,6 +1451,11 @@ wrapper.className =
 
 wrapper.dataset.itemIndex = itemIndex;
 
+const isBouquet = (item.customId && item.customId.startsWith("bouquet_")) || (item.name && item.name.toLowerCase().includes("bouquet"));
+if (isBouquet) {
+    wrapper.dataset.isBouquet = "true";
+}
+
 wrapper.style.position =
 "absolute";
 
@@ -1469,9 +1499,9 @@ plushie
 /* Accessories overlaid at saved positions */
 if(item.accessories && item.accessories.length > 0){
 
-const plushieCanvasW = 280;
-const plushieCanvasL = 210;
-const plushieCanvasT = 210;
+const canvasW = isBouquet ? 600 : 280;
+const canvasL = isBouquet ? 50 : 210;
+const canvasT = isBouquet ? 50 : 210;
 
 item.accessories.forEach(acc => {
 
@@ -1495,9 +1525,9 @@ const rawLeft = parseFloat(acc.left);
 const rawTop  = parseFloat(acc.top);
 const rawWidth = parseFloat(acc.width);
 
-accessory.style.left  = (((rawLeft - plushieCanvasL) / plushieCanvasW) * 100) + "%";
-accessory.style.top   = (((rawTop  - plushieCanvasT) / plushieCanvasW) * 100) + "%";
-accessory.style.width = ((rawWidth / plushieCanvasW) * 100) + "%";
+accessory.style.left  = (((rawLeft - canvasL) / canvasW) * 100) + "%";
+accessory.style.top   = (((rawTop  - canvasT) / canvasW) * 100) + "%";
+accessory.style.width = ((rawWidth / canvasW) * 100) + "%";
 accessory.style.transform = `rotate(${acc.rotation || 0}deg) scaleX(${acc.flip || 1})`;
 
 wrapper.appendChild(
@@ -2104,8 +2134,11 @@ if (saveGiftBtn) {
                 accessories = giftItems[itemIndex].accessories || [];
             }
 
+            const isBouquetItem = el.dataset.isBouquet === "true";
+
             savedLayout.push({
                 type: type,
+                isBouquet: isBouquetItem,
                 left: el.style.left,
                 centerOffset: centerOffset,
                 top: el.style.top,

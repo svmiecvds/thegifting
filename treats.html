@@ -475,7 +475,11 @@ transition: var(--transition);
     text-shadow: 2px 2px 4px rgba(255, 182, 193, 0.4);
 }
 
-[data-theme="dark"] .storeHeader {
+[data-theme="dark"] .storeHeader,
+[data-theme="dark"] .checkoutTitle,
+[data-theme="dark"] .customizeTitle,
+[data-theme="dark"] .giftTitle {
+    color: #ffb6d9 !important;
     text-shadow: none;
 }
 
@@ -1053,7 +1057,7 @@ body.no-scroll #mainContainer {
         <a href="index.html" class="navLink">Plushies</a>
         <a href="flowers.html" class="navLink">Flowers</a>
         <a href="treats.html" class="navLink active">Treats</a>
-        <div id="cartButton" class="shiny-cta"><span>Checkout (<span id="cartCount">0</span>)</span></div>
+        <div id="cartButton" class="shiny-cta"><span>🛒 Checkout (<span id="cartCount">0</span>)</span></div>
     </nav>
 
     <!-- Theme Toggle -->
@@ -1081,7 +1085,7 @@ body.no-scroll #mainContainer {
     </div>
 
     <!-- Header Text -->
-    <h1 class="storeHeader">pack a treat box for someone</h1>
+    <h1 class="storeHeader">pack a box of treeats</h1>
 
     <div id="mainContainer">
         <div class="treats-layout">

@@ -376,6 +376,7 @@ transition: var(--transition);
 }
 
 [data-theme="dark"] .checkoutTitle, [data-theme="dark"] .customizeTitle {
+    color: #ffb6d9 !important;
     text-shadow: none;
 }
 
@@ -449,6 +450,7 @@ transition: var(--transition);
 }
 
 [data-theme="dark"] .storeHeader {
+    color: #ffb6d9 !important;
     text-shadow: none;
 }
 
@@ -968,8 +970,10 @@ function resolveAccessorySrc(src) {
     const filename = path.split("/").pop();
     if (filename.includes("custom")) {
         return "assets/plushies/" + filename;
-    } else if (filename.includes("dessert")) {
+    } else if (filename.includes("dessert") || filename.includes("box")) {
         return "assets/treats/" + filename;
+    } else if (filename.includes("flower") || filename.includes("bow") || filename.includes("holder")) {
+        return "assets/flowers/" + filename;
     }
     return "assets/treats/" + filename;
 }
@@ -1021,9 +1025,10 @@ savedLayout.forEach(item => {
 
         // Reconstruct overlays (accessories)
         if (item.accessories && item.accessories.length > 0) {
-            const plushieCanvasW = 280;
-            const plushieCanvasL = 210;
-            const plushieCanvasT = 210;
+            const isBouquet = item.isBouquet === true || (item.src && item.src.startsWith("data:image"));
+            const canvasW = isBouquet ? 600 : 280;
+            const canvasL = isBouquet ? 50 : 210;
+            const canvasT = isBouquet ? 50 : 210;
             
             item.accessories.forEach(acc => {
                 const accessory = document.createElement("img");
@@ -1039,9 +1044,9 @@ savedLayout.forEach(item => {
                 const rawTop  = parseFloat(acc.top);
                 const rawWidth = parseFloat(acc.width);
                 
-                accessory.style.left  = (((rawLeft - plushieCanvasL) / plushieCanvasW) * 100) + "%";
-                accessory.style.top   = (((rawTop  - plushieCanvasT) / plushieCanvasW) * 100) + "%";
-                accessory.style.width = ((rawWidth / plushieCanvasW) * 100) + "%";
+                accessory.style.left  = (((rawLeft - canvasL) / canvasW) * 100) + "%";
+                accessory.style.top   = (((rawTop  - canvasT) / canvasW) * 100) + "%";
+                accessory.style.width = ((rawWidth / canvasW) * 100) + "%";
                 accessory.style.transform = `rotate(${acc.rotation || 0}deg) scaleX(${acc.flip || 1})`;
                 wrapper.appendChild(accessory);
             });
@@ -1202,15 +1207,15 @@ function updateCTA() {
         const displayIndex = currentPlaylistIndex + 1;
         const total = audioPlaylist.length;
         if (total > 1) {
-            text = `Pause sequence (Playing ${displayIndex} of ${total})`;
+            text = `⏸️ Pause sequence (Playing ${displayIndex} of ${total})`;
         } else {
-            text = `Pause voice message`;
+            text = `⏸️ Pause voice message`;
         }
     } else {
         if (currentPlaylistIndex !== -1 && currentPlaylistIndex < audioPlaylist.length) {
-            text = `Resume voice message`;
+            text = `▶️ Resume voice message`;
         } else {
-            text = `Click to hear a message`;
+            text = `▶️ Click to hear a message`;
         }
     }
 

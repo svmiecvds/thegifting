@@ -732,7 +732,11 @@ height:auto;
     text-shadow: 2px 2px 4px rgba(255, 182, 193, 0.4);
 }
 
-[data-theme="dark"] .storeHeader {
+[data-theme="dark"] .storeHeader,
+[data-theme="dark"] .checkoutTitle,
+[data-theme="dark"] .customizeTitle,
+[data-theme="dark"] .giftTitle {
+    color: #ffb6d9 !important;
     text-shadow: none;
 }
 
@@ -1348,7 +1352,7 @@ body.no-scroll {
 
 <h1 class="customizeTitle">
 
-✨ Customize Your Plushie ✨
+Customize Your Plushie
 
 </h1>
 
@@ -1395,33 +1399,37 @@ class="mainPlushie"
             <img src="assets/plushies/custom19.png" class="accessoryTemplate" draggable="true">
             <img src="assets/plushies/custom20.png" class="accessoryTemplate" draggable="true">
             <img src="assets/plushies/custom21.png" class="accessoryTemplate" draggable="true">
+            <img src="assets/plushies/custom22.png" class="accessoryTemplate" draggable="true">
+            <img src="assets/plushies/custom23.png" class="accessoryTemplate" draggable="true">
+            <img src="assets/plushies/custom24.png" class="accessoryTemplate" draggable="true">
+            <img src="assets/plushies/custom25.png" class="accessoryTemplate" draggable="true">
         </div>
 
         <hr style="border: none; border-top: 1.5px solid rgba(255, 182, 217, 0.25); margin: 16px 0;">
 
-        <button id="deleteItem">🗑 Delete Selected</button>
-        <button id="increaseSize">➕ Increase Size</button>
-        <button id="decreaseSize">➖ Decrease Size</button>
+        <button id="deleteItem">Delete Selected</button>
+        <button id="increaseSize">➕</button>
+        <button id="decreaseSize">➖</button>
     </div>
 
     <div id="voicePanel" class="customPanel-style">
         <!-- Voice Recorder Panel -->
         <div id="voiceRecorderPanel">
-            <h3>🎙️ Plushie Voice Note</h3>
+            <h3>Plushie Voice Note</h3>
             <div style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
                 <button id="recordBtn" class="cuteButton" style="width: 100%; margin: 0; padding: 10px; font-size: 14px;">
-                    🎤 Record (15s limit)
+                    Record (15s limit)
                 </button>
                 <div id="recordStatus">Ready to record</div>
                 <div id="recordPlaybackContainer" style="display: none; justify-content: center; gap: 8px; width: 100%;">
                     <button id="playVoiceBtn" class="cuteButton" style="flex: 1; margin: 0; padding: 8px; font-size: 13px;">▶️ Play</button>
-                    <button id="deleteVoiceBtn" class="cuteButton" style="flex: 1; margin: 0; padding: 8px; font-size: 13px;">🗑️ Delete</button>
+                    <button id="deleteVoiceBtn" class="cuteButton" style="flex: 1; margin: 0; padding: 8px; font-size: 13px;">Delete</button>
                 </div>
             </div>
         </div>
         <hr style="margin-top: 24px; margin-bottom: 16px; border: none; border-top: 1.5px solid rgba(255, 182, 217, 0.25);">
         <button id="saveCustomization" class="shiny-cta" style="width: 100%; padding: 14px; font-size: 16px;">
-            <span>💾 Save Changes</span>
+            <span>Save Changes</span>
         </button>
     </div>
 </div>
@@ -1829,7 +1837,7 @@ function startRecording() {
                 const reader = new FileReader();
                 reader.onloadend = () => {
                     voiceNoteDataUrl = reader.result;
-                    recordStatus.innerText = "🎙️ Voice note recorded!";
+                    recordStatus.innerText = "Voice note recorded!";
                     recordStatus.classList.remove("recording-active");
                     playbackContainer.style.display = "flex";
                 };
@@ -1841,7 +1849,7 @@ function startRecording() {
 
             mediaRecorder.start();
             recordingStartTime = Date.now();
-            recordBtn.innerText = "⏹️ Stop Recording";
+            recordBtn.innerText = "Stop Recording";
             recordBtn.style.background = "";
             recordBtn.style.boxShadow = "";
             recordStatus.innerText = "Recording... (15s limit)";
@@ -1871,7 +1879,7 @@ function stopRecording() {
     if (mediaRecorder && mediaRecorder.state === "recording") {
         mediaRecorder.stop();
     }
-    recordBtn.innerText = "🎤 Record (15s limit)";
+    recordBtn.innerText = "Record (15s limit)";
     recordBtn.style.background = "";
     recordBtn.style.boxShadow = "";
 }
@@ -1886,9 +1894,9 @@ if (playVoiceBtn) {
             }
             testAudio = new Audio(voiceNoteDataUrl);
             testAudio.play();
-            recordStatus.innerText = "🔊 Playing voice note...";
+            recordStatus.innerText = "Playing voice note...";
             testAudio.onended = () => {
-                recordStatus.innerText = "🎙️ Voice note recorded!";
+                recordStatus.innerText = "Voice note recorded!";
             };
         }
     });
