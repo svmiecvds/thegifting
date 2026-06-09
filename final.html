@@ -1058,12 +1058,48 @@ margin: 0 auto;
     transform: translateY(-3px) scale(1.08);
     box-shadow: 0 6px 18px rgba(255, 105, 180, 0.3);
 }
+/* --- VIEWER MODE (shared link) --- */
+body.viewer-mode #storeNavbar,
+body.viewer-mode #themeToggleWrapper,
+body.viewer-mode .share-btn-container,
+body.viewer-mode .click-gifts-cta-container {
+    display: none !important;
+}
+
+body.viewer-mode .checkoutTitle {
+    margin-top: 30px;
+    font-size: 36px;
+}
+
+body.viewer-mode {
+    padding-bottom: 40px !important;
+}
+
+.viewer-badge {
+    text-align: center;
+    margin-top: 20px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 13px;
+    color: var(--text-color);
+    opacity: 0.5;
+}
+
+.viewer-badge a {
+    color: var(--heading-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.viewer-badge a:hover {
+    text-decoration: underline;
+}
 </style>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ribeye&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lz-string@1.5.0/libs/lz-string.min.js"></script>
 
 </head>
 
@@ -1170,8 +1206,34 @@ function resolveAccessorySrc(src) {
     return "assets/treats/" + filename;
 }
 
-/* Load saved layout array */
-const savedLayout = JSON.parse(localStorage.getItem("savedGiftLayout")) || [];
+/* ---------- VIEWER MODE DETECTION ---------- */
+// Check if the URL contains shared gift data in the hash
+let isViewerMode = false;
+let savedLayout = [];
+
+(function detectSharedGift() {
+    const hash = window.location.hash;
+    if (hash.startsWith('#gift=')) {
+        try {
+            const compressed = hash.substring(6); // remove '#gift='
+            const json = LZString.decompressFromEncodedURIComponent(compressed);
+            if (json) {
+                savedLayout = JSON.parse(json);
+                isViewerMode = true;
+                document.body.classList.add('viewer-mode');
+                // Change title for viewer
+                const titleEl = document.querySelector('.checkoutTitle');
+                if (titleEl) titleEl.textContent = 'A Gift For You 💝';
+            }
+        } catch (e) {
+            console.error('Failed to decode shared gift data:', e);
+        }
+    }
+    // Fallback to localStorage if no shared data
+    if (!savedLayout.length) {
+        savedLayout = JSON.parse(localStorage.getItem("savedGiftLayout")) || [];
+    }
+})();
 
 let hasAudioNote = false;
 let activeAudio = null;
@@ -1459,13 +1521,39 @@ if (hasAudioNote) {
     updateCTA();
 }
 
+// In viewer mode, add a small badge at the bottom
+if (isViewerMode) {
+    const badge = document.createElement('div');
+    badge.className = 'viewer-badge';
+    badge.innerHTML = 'Made with 💝 <a href="index.html">Gift Shop</a>';
+    document.body.appendChild(badge);
+}
+
 /* -------------------------------- */
 /* SHARE BUTTON & URL SHORTENING    */
 /* -------------------------------- */
 
-// Build the long URL from the current page URL (includes any hash data)
-function getCurrentGiftUrl() {
-    return window.location.href;
+// Encode current gift layout into a shareable URL
+function buildShareableUrl() {
+    // Get layout data — use the current savedLayout
+    const layoutData = savedLayout.map(item => {
+        // Deep-clone and strip voice notes (too large for URLs)
+        const clean = Object.assign({}, item);
+        delete clean.voiceNote;
+        delete clean.voiceNoteDuration;
+        // Clone accessories array without modifying originals
+        if (clean.accessories) {
+            clean.accessories = clean.accessories.map(acc => Object.assign({}, acc));
+        }
+        return clean;
+    });
+
+    const json = JSON.stringify(layoutData);
+    const compressed = LZString.compressToEncodedURIComponent(json);
+    
+    // Build the URL with hash
+    const base = window.location.origin + window.location.pathname;
+    return base + '#gift=' + compressed;
 }
 
 // Check if we're running locally (file:// or localhost)
@@ -1478,6 +1566,11 @@ function isLocalUrl() {
 async function shortenUrl(longUrl) {
     // Don't attempt to shorten local file:// URLs — APIs will reject them
     if (isLocalUrl()) {
+        return longUrl;
+    }
+    // Some URLs may be too long for shorteners (>8000 chars)
+    if (longUrl.length > 8000) {
+        console.warn('URL too long for shortening (' + longUrl.length + ' chars), returning raw URL');
         return longUrl;
     }
     try {
@@ -1596,45 +1689,49 @@ shareBtn.className = 'shiny-cta';
 shareBtn.id = 'shareGiftBtn';
 shareBtn.innerHTML = '<span>🔗 Share Gift</span>';
 
-shareBtnContainer.appendChild(shareBtn);
-document.body.appendChild(shareBtnContainer);
+// Only show share button if NOT in viewer mode
+if (!isViewerMode) {
+    shareBtnContainer.appendChild(shareBtn);
+    document.body.appendChild(shareBtnContainer);
 
-// Create the modal
-const shareModal = createShareModal();
+    // Create the modal
+    const shareModal = createShareModal();
 
-// Share button click handler
-shareBtn.addEventListener('click', async () => {
-    const span = shareBtn.querySelector('span');
-    const originalText = span.innerHTML;
-    
-    // Show spinner state
-    span.innerHTML = '<span class="share-spinner"></span> Creating link...';
-    shareBtn.disabled = true;
-    shareBtn.style.opacity = '0.7';
+    // Share button click handler
+    shareBtn.addEventListener('click', async () => {
+        const span = shareBtn.querySelector('span');
+        const originalText = span.innerHTML;
+        
+        // Show spinner state
+        span.innerHTML = '<span class="share-spinner"></span> Creating link...';
+        shareBtn.disabled = true;
+        shareBtn.style.opacity = '0.7';
 
-    // Show the modal immediately
-    shareModal.classList.add('visible');
-    const urlInput = document.getElementById('shareUrlInput');
+        // Show the modal immediately
+        shareModal.classList.add('visible');
+        const urlInput = document.getElementById('shareUrlInput');
 
-    if (isLocalUrl()) {
-        // Local file — just show the raw URL, no shortening
-        urlInput.value = getCurrentGiftUrl();
-    } else {
-        urlInput.value = 'Generating short link...';
-        try {
-            const longUrl = getCurrentGiftUrl();
-            const shortUrl = await shortenUrl(longUrl);
-            urlInput.value = shortUrl;
-        } catch (e) {
-            urlInput.value = getCurrentGiftUrl();
+        // Build the shareable URL with embedded gift data
+        const shareableUrl = buildShareableUrl();
+
+        if (isLocalUrl()) {
+            urlInput.value = shareableUrl;
+        } else {
+            urlInput.value = 'Generating short link...';
+            try {
+                const shortUrl = await shortenUrl(shareableUrl);
+                urlInput.value = shortUrl;
+            } catch (e) {
+                urlInput.value = shareableUrl;
+            }
         }
-    }
 
-    // Restore button
-    span.innerHTML = originalText;
-    shareBtn.disabled = false;
-    shareBtn.style.opacity = '1';
-});
+        // Restore button
+        span.innerHTML = originalText;
+        shareBtn.disabled = false;
+        shareBtn.style.opacity = '1';
+    });
+}
 
 </script>
 
