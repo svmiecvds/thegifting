@@ -869,10 +869,10 @@ margin: 0 auto;
 
 /* --- SHARE BUTTON --- */
 .share-btn-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 25px;
-    margin-bottom: 20px;
+    position: fixed;
+    top: 90px;
+    right: 30px;
+    z-index: 1000;
 }
 
 /* --- SHARE MODAL OVERLAY --- */
@@ -1103,15 +1103,11 @@ body.viewer-mode {
 
 </head>
 
-<body class="giftPage" style="overflow-y: auto; padding-bottom: 100px;">
+<body class="giftPage" style="overflow: hidden;">
 
     <!-- Baby Pink Navbar -->
     <nav id="storeNavbar">
         <div class="navBrand">Gift Shop</div>
-        <a href="index.html" class="navLink">Plushies</a>
-        <a href="flowers.html" class="navLink">Flowers</a>
-        <a href="treats.html" class="navLink">Treats</a>
-        <a href="index.html" class="navLink shiny-cta" id="backToShopNavLink"><span>Back to Shop</span></a>
     </nav>
 
     <!-- Theme Toggle -->
@@ -1143,10 +1139,11 @@ body.viewer-mode {
 
     <!-- Display the stationary gift layout -->
     <div id="giftContainer" style="justify-content: center; width: 95%; max-width: 1250px; margin: 0 auto; padding-top: 10px;">
-        <div id="giftScene" style="position: relative; overflow: hidden; border-radius: 25px; width: 100%; height: 80vh; flex: none; box-shadow: 0 0 25px rgba(255, 105, 180, 0.4); background: var(--card-bg);">
+        <div id="giftScene" style="position: relative; overflow: hidden; border-radius: 25px; width: 100%; height: 65vh; flex: none; box-shadow: 0 0 25px rgba(255, 105, 180, 0.4); background: var(--card-bg);">
             <!-- Arranged elements will be reconstructed here dynamically -->
         </div>
     </div>
+
 
     <!-- Dynamic Warning Banner "Click on your gifts!" will be appended here by JS if voice note exists -->
 
@@ -1223,7 +1220,7 @@ let savedLayout = [];
                 document.body.classList.add('viewer-mode');
                 // Change title for viewer
                 const titleEl = document.querySelector('.checkoutTitle');
-                if (titleEl) titleEl.textContent = 'A Gift For You 💝';
+                if (titleEl) titleEl.textContent = 'A Gift For You ';
             }
         } catch (e) {
             console.error('Failed to decode shared gift data:', e);
@@ -1461,15 +1458,15 @@ function updateCTA() {
         const displayIndex = currentPlaylistIndex + 1;
         const total = audioPlaylist.length;
         if (total > 1) {
-            text = `⏸️ Pause sequence (Playing ${displayIndex} of ${total})`;
+            text = ` Pause sequence (Playing ${displayIndex} of ${total})`;
         } else {
-            text = `⏸️ Pause voice message`;
+            text = ` Pause voice message`;
         }
     } else {
         if (currentPlaylistIndex !== -1 && currentPlaylistIndex < audioPlaylist.length) {
-            text = `▶️ Resume voice message`;
+            text = ` Resume voice message`;
         } else {
-            text = `▶️ Click to hear a message`;
+            text = ` Click to hear a message`;
         }
     }
 
@@ -1525,7 +1522,7 @@ if (hasAudioNote) {
 if (isViewerMode) {
     const badge = document.createElement('div');
     badge.className = 'viewer-badge';
-    badge.innerHTML = 'Made with 💝 <a href="index.html">Gift Shop</a>';
+    badge.innerHTML = 'Made with  <a href="index.html">Gift Shop</a>';
     document.body.appendChild(badge);
 }
 
@@ -1611,23 +1608,23 @@ function createShareModal() {
     overlay.id = 'shareModalOverlay';
 
     const localNotice = isLocalUrl()
-        ? `<p style="font-size:12px; opacity:0.7; margin-top:-10px; margin-bottom:14px;">⚠️ You're viewing locally — host this site online for a shareable link.</p>`
+        ? `<p style="font-size:12px; opacity:0.7; margin-top:-10px; margin-bottom:14px;"> You're viewing locally — host this site online for a shareable link.</p>`
         : '';
 
     overlay.innerHTML = `
         <div class="share-modal">
             <button class="share-modal-close" id="shareModalClose">✕</button>
-            <h3>💝 Share This Gift</h3>
+            <h3> Share This Gift</h3>
             <p>Send this beautiful gift to someone special!</p>
             ${localNotice}
             <div class="share-url-box">
                 <input type="text" id="shareUrlInput" readonly placeholder="Generating link...">
-                <button id="shareCopyBtn">📋 Copy</button>
+                <button id="shareCopyBtn"> Copy</button>
             </div>
             <div class="share-social-row">
-                <button class="share-social-btn" id="shareWhatsApp" title="WhatsApp">💬</button>
-                <button class="share-social-btn" id="shareTwitter" title="Twitter / X">🐦</button>
-                <button class="share-social-btn" id="shareEmail" title="Email">✉️</button>
+                <button class="share-social-btn" id="shareWhatsApp" title="WhatsApp">WA</button>
+                <button class="share-social-btn" id="shareTwitter" title="Twitter / X">X</button>
+                <button class="share-social-btn" id="shareEmail" title="Email">Email</button>
             </div>
         </div>
     `;
@@ -1646,15 +1643,15 @@ function createShareModal() {
         const input = document.getElementById('shareUrlInput');
         if (!input.value || input.value === 'Generating link...') return;
         navigator.clipboard.writeText(input.value).then(() => {
-            showShareToast('✅ Link copied to clipboard!');
-            document.getElementById('shareCopyBtn').textContent = '✅ Copied!';
+            showShareToast(' Link copied to clipboard!');
+            document.getElementById('shareCopyBtn').textContent = ' Copied!';
             setTimeout(() => {
-                document.getElementById('shareCopyBtn').textContent = '📋 Copy';
+                document.getElementById('shareCopyBtn').textContent = ' Copy';
             }, 2000);
         }).catch(() => {
             input.select();
             document.execCommand('copy');
-            showShareToast('✅ Link copied!');
+            showShareToast(' Link copied!');
         });
     });
 
@@ -1662,19 +1659,19 @@ function createShareModal() {
     document.getElementById('shareWhatsApp').addEventListener('click', () => {
         const url = document.getElementById('shareUrlInput').value;
         if (!url || url === 'Generating link...') return;
-        window.open(`https://wa.me/?text=${encodeURIComponent('Check out this gift I made for you! 💝 ' + url)}`, '_blank');
+        window.open(`https://wa.me/?text=${encodeURIComponent('Check out this gift I made for you!  ' + url)}`, '_blank');
     });
 
     document.getElementById('shareTwitter').addEventListener('click', () => {
         const url = document.getElementById('shareUrlInput').value;
         if (!url || url === 'Generating link...') return;
-        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent('Check out this gift! 💝')}&url=${encodeURIComponent(url)}`, '_blank');
+        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent('Check out this gift! ')}&url=${encodeURIComponent(url)}`, '_blank');
     });
 
     document.getElementById('shareEmail').addEventListener('click', () => {
         const url = document.getElementById('shareUrlInput').value;
         if (!url || url === 'Generating link...') return;
-        window.location.href = `mailto:?subject=${encodeURIComponent('A Special Gift For You 💝')}&body=${encodeURIComponent('I made you a gift! Open it here: ' + url)}`;
+        window.location.href = `mailto:?subject=${encodeURIComponent('A Special Gift For You ')}&body=${encodeURIComponent('I made you a gift! Open it here: ' + url)}`;
     });
 
     return overlay;
@@ -1687,7 +1684,7 @@ shareBtnContainer.className = 'share-btn-container';
 const shareBtn = document.createElement('button');
 shareBtn.className = 'shiny-cta';
 shareBtn.id = 'shareGiftBtn';
-shareBtn.innerHTML = '<span>🔗 Share Gift</span>';
+shareBtn.innerHTML = '<span> Share Gift</span>';
 
 // Only show share button if NOT in viewer mode
 if (!isViewerMode) {

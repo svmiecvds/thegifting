@@ -101,6 +101,10 @@ body.giftPage {
     background-color: var(--receipt-bg);
 }
 
+body.giftPage {
+    overflow: hidden;
+}
+
 [data-theme="dark"] body.receiptPage,
 [data-theme="dark"] body.giftPage {
     background-image: linear-gradient(rgba(92, 0, 69, 0.4), rgba(92, 0, 69, 0.4)), url("assets/bg_pattern.png");
@@ -377,7 +381,7 @@ transition: var(--transition);
 
 #giftScene {
     flex: 1;
-    height: 80vh;
+    height: 65vh;
     background: var(--card-bg);
     border-radius: 25px;
     position: relative;
@@ -393,7 +397,7 @@ transition: var(--transition);
     background: var(--panel-bg);
     border-radius: 25px;
     padding: 15px;
-    height: 80vh;
+    height: 65vh;
     overflow-y: auto;
     box-shadow:
         0 0 10px var(--glow-color),
@@ -1125,10 +1129,7 @@ margin: 0 auto;
     <!-- Baby Pink Navbar -->
     <nav id="storeNavbar">
         <div class="navBrand">Gift Shop</div>
-        <a href="index.html" class="navLink">Plushies</a>
-        <a href="flowers.html" class="navLink">Flowers</a>
-        <a href="treats.html" class="navLink">Treats</a>
-        <a href="index.html" class="navLink shiny-cta" id="backToShopNavLink"><span>Back to Shop</span></a>
+        <a href="checkout.html" class="navLink shiny-cta" id="backToShopNavLink"><span>Back to Cart</span></a>
     </nav>
 
 <!-- Theme Toggle -->
@@ -1169,17 +1170,23 @@ Create Your Gift
 
     <div id="assetPanel">
 
+        <button id="saveGiftLayoutBtn" class="cuteButton" style="width: 100%; margin: 0 0 15px 0; padding: 15px; font-size: 16px; font-weight: bold; background: #ffb6d9; box-shadow: 0 0 15px hotpink; border-radius: 40px; color: #5a0035;">
+            Save and Wrap
+        </button>
+
+        <hr style="margin-bottom: 15px; border: none; border-top: 2px dashed var(--glow-soft);">
+
         <!-- Size controls for selected item -->
         <div class="giftControls">
 
             <h2>Customizations</h2>
 
             <button id="giftIncreaseSize" class="giftControlBtn">
-                ➕
+                +
             </button>
 
             <button id="giftDecreaseSize" class="giftControlBtn">
-                ➖
+                -
             </button>
 
             <button id="giftDeleteItem" class="giftControlBtn giftDeleteBtn">
@@ -1256,12 +1263,6 @@ Create Your Gift
 
         <img src="assets/final page/sticker_camera.png"
              class="stickerTemplate" alt="Camera">
-
-        <hr style="margin-top: 20px; margin-bottom: 20px; border: none; border-top: 2px dashed var(--glow-soft);">
-
-        <button id="saveGiftLayoutBtn" class="cuteButton" style="width: 100%; margin: 0; padding: 15px; font-size: 16px; font-weight: bold; background: #ffb6d9; box-shadow: 0 0 15px hotpink; border-radius: 40px; color: #5a0035;">
-            Save & Finish Gift
-        </button>
 
     </div>
 

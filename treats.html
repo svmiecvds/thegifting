@@ -1057,7 +1057,7 @@ body.no-scroll #mainContainer {
         <a href="index.html" class="navLink">Plushies</a>
         <a href="flowers.html" class="navLink">Flowers</a>
         <a href="treats.html" class="navLink active">Treats</a>
-        <div id="cartButton" class="shiny-cta"><span>🛒 Checkout (<span id="cartCount">0</span>)</span></div>
+        <div id="cartButton" class="shiny-cta"><span>Checkout (<span id="cartCount">0</span>)</span></div>
     </nav>
 
     <!-- Theme Toggle -->
@@ -1085,7 +1085,7 @@ body.no-scroll #mainContainer {
     </div>
 
     <!-- Header Text -->
-    <h1 class="storeHeader">pack a box of treeats</h1>
+    <h1 class="storeHeader">pack a box of treats</h1>
 
     <div id="mainContainer">
         <div class="treats-layout">
@@ -1093,7 +1093,7 @@ body.no-scroll #mainContainer {
             <!-- Column 1: Spawner Tray (All 25 Desserts) -->
             <div class="dessert-cart-container">
                 <div class="dessert-spawner-card">
-                    <h3>🧁 Select Your Desserts (Click to Add)</h3>
+                    <h3>Select Your Desserts</h3>
                     <div class="spawner-grid">
                         <img src="assets/treats/dessert1.png" class="dessertSpawner" data-src="assets/treats/dessert1.png" alt="Heart Macaron">
                         <img src="assets/treats/dessert2.png" class="dessertSpawner" data-src="assets/treats/dessert2.png" alt="Chocolate Cube">
@@ -1156,8 +1156,8 @@ body.no-scroll #mainContainer {
                 <h2>Customizations</h2>
                 <!-- Actions paired side-by-side in rows -->
                 <div class="buttons-row">
-                    <button id="increaseSize">➕</button>
-                    <button id="decreaseSize">➖</button>
+                    <button id="increaseSize">+</button>
+                    <button id="decreaseSize">-</button>
                 </div>
                 <div class="buttons-row">
                     <button id="rotateTreatBtn" class="cuteButton">Rotate</button>
@@ -1472,7 +1472,7 @@ document.getElementById("saveCustomization").addEventListener("click", () => {
     localStorage.setItem("cart", JSON.stringify(cart));
 
     // Alert and Redirect
-    alert("🎉 Treat Box Customization Saved to Cart!");
+    alert(" Treat Box Customization Saved to Cart!");
     window.location = "checkout.html";
 });
 

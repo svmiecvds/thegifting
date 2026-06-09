@@ -1088,9 +1088,9 @@
                         row.innerHTML = `
                     <span>${item.name} x ${item.quantity || 1}</span>
                     <div class="cartQtyControl">
-                        <button class="qtyMinusBtn" data-index="${item.originalIndex}">➖</button>
+                        <button class="qtyMinusBtn" data-index="${item.originalIndex}">-</button>
                         <span>${item.quantity || 1}</span>
-                        <button class="qtyPlusBtn" data-index="${item.originalIndex}">➕</button>
+                        <button class="qtyPlusBtn" data-index="${item.originalIndex}">+</button>
                     </div>
                 `;
                         orderList.appendChild(row);
