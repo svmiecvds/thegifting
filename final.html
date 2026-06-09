@@ -866,6 +866,198 @@ margin: 0 auto;
     transform: translateX(-50%);
     margin: 0;
 }
+
+/* --- SHARE BUTTON --- */
+.share-btn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
+/* --- SHARE MODAL OVERLAY --- */
+.share-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(6px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.share-modal-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.share-modal {
+    background: var(--popup-bg);
+    border: 2px solid var(--glow-soft);
+    border-radius: 28px;
+    padding: 32px 36px;
+    max-width: 480px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(255, 105, 180, 0.25), 0 0 30px var(--glow-soft);
+    text-align: center;
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.share-modal-overlay.visible .share-modal {
+    transform: scale(1) translateY(0);
+}
+
+.share-modal h3 {
+    font-family: 'Pacifico', cursive;
+    color: var(--heading-color);
+    font-size: 26px;
+    margin-bottom: 8px;
+}
+
+.share-modal p {
+    color: var(--text-color);
+    font-family: 'Fredoka', sans-serif;
+    font-size: 14px;
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+.share-url-box {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 2px solid var(--glow-soft);
+    background: var(--card-bg);
+    margin-bottom: 20px;
+}
+
+.share-url-box input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 14px 16px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 14px;
+    color: var(--text-color);
+    outline: none;
+    min-width: 0;
+}
+
+.share-url-box button {
+    border: none;
+    background: var(--bg-pink);
+    color: var(--btn-text-color);
+    padding: 14px 20px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.share-url-box button:hover {
+    filter: brightness(1.1);
+}
+
+.share-modal-close {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 22px;
+    cursor: pointer;
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.share-modal-close:hover {
+    opacity: 1;
+}
+
+.share-modal {
+    position: relative;
+}
+
+/* Spinner inside share button */
+.share-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2.5px solid var(--btn-text-color);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spinShare 0.6s linear infinite;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+
+@keyframes spinShare {
+    to { transform: rotate(360deg); }
+}
+
+/* Toast notification */
+.share-toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--toast-bg);
+    color: white;
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    box-shadow: 0 8px 25px rgba(255, 105, 180, 0.4);
+    z-index: 10001;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.share-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* --- Share buttons row inside modal --- */
+.share-social-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.share-social-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid var(--glow-soft);
+    background: var(--card-bg);
+    color: var(--text-color);
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+}
+
+.share-social-btn:hover {
+    background: var(--bg-pink);
+    transform: translateY(-3px) scale(1.08);
+    box-shadow: 0 6px 18px rgba(255, 105, 180, 0.3);
+}
 </style>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -1266,6 +1458,183 @@ if (hasAudioNote) {
     
     updateCTA();
 }
+
+/* -------------------------------- */
+/* SHARE BUTTON & URL SHORTENING    */
+/* -------------------------------- */
+
+// Build the long URL from the current page URL (includes any hash data)
+function getCurrentGiftUrl() {
+    return window.location.href;
+}
+
+// Check if we're running locally (file:// or localhost)
+function isLocalUrl() {
+    const loc = window.location;
+    return loc.protocol === 'file:' || loc.hostname === 'localhost' || loc.hostname === '127.0.0.1';
+}
+
+// Shorten a URL for free (is.gd with TinyURL fallback)
+async function shortenUrl(longUrl) {
+    // Don't attempt to shorten local file:// URLs — APIs will reject them
+    if (isLocalUrl()) {
+        return longUrl;
+    }
+    try {
+        const res = await fetch(`https://is.gd/create.php?format=json&url=${encodeURIComponent(longUrl)}`);
+        if (!res.ok) throw new Error('is.gd returned ' + res.status);
+        const data = await res.json();
+        return data.shorturl;
+    } catch (err) {
+        console.warn('is.gd failed, trying TinyURL...', err);
+        try {
+            const res2 = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`);
+            if (!res2.ok) throw new Error('TinyURL returned ' + res2.status);
+            return await res2.text();
+        } catch (err2) {
+            console.error('Both URL shorteners failed', err2);
+            return longUrl;
+        }
+    }
+}
+
+// Show a toast notification
+function showShareToast(message) {
+    let toast = document.querySelector('.share-toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.className = 'share-toast';
+        document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// Create the share modal (hidden by default)
+function createShareModal() {
+    const overlay = document.createElement('div');
+    overlay.className = 'share-modal-overlay';
+    overlay.id = 'shareModalOverlay';
+
+    const localNotice = isLocalUrl()
+        ? `<p style="font-size:12px; opacity:0.7; margin-top:-10px; margin-bottom:14px;">⚠️ You're viewing locally — host this site online for a shareable link.</p>`
+        : '';
+
+    overlay.innerHTML = `
+        <div class="share-modal">
+            <button class="share-modal-close" id="shareModalClose">✕</button>
+            <h3>💝 Share This Gift</h3>
+            <p>Send this beautiful gift to someone special!</p>
+            ${localNotice}
+            <div class="share-url-box">
+                <input type="text" id="shareUrlInput" readonly placeholder="Generating link...">
+                <button id="shareCopyBtn">📋 Copy</button>
+            </div>
+            <div class="share-social-row">
+                <button class="share-social-btn" id="shareWhatsApp" title="WhatsApp">💬</button>
+                <button class="share-social-btn" id="shareTwitter" title="Twitter / X">🐦</button>
+                <button class="share-social-btn" id="shareEmail" title="Email">✉️</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+
+    // Close modal
+    document.getElementById('shareModalClose').addEventListener('click', () => {
+        overlay.classList.remove('visible');
+    });
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) overlay.classList.remove('visible');
+    });
+
+    // Copy button
+    document.getElementById('shareCopyBtn').addEventListener('click', () => {
+        const input = document.getElementById('shareUrlInput');
+        if (!input.value || input.value === 'Generating link...') return;
+        navigator.clipboard.writeText(input.value).then(() => {
+            showShareToast('✅ Link copied to clipboard!');
+            document.getElementById('shareCopyBtn').textContent = '✅ Copied!';
+            setTimeout(() => {
+                document.getElementById('shareCopyBtn').textContent = '📋 Copy';
+            }, 2000);
+        }).catch(() => {
+            input.select();
+            document.execCommand('copy');
+            showShareToast('✅ Link copied!');
+        });
+    });
+
+    // Social share buttons
+    document.getElementById('shareWhatsApp').addEventListener('click', () => {
+        const url = document.getElementById('shareUrlInput').value;
+        if (!url || url === 'Generating link...') return;
+        window.open(`https://wa.me/?text=${encodeURIComponent('Check out this gift I made for you! 💝 ' + url)}`, '_blank');
+    });
+
+    document.getElementById('shareTwitter').addEventListener('click', () => {
+        const url = document.getElementById('shareUrlInput').value;
+        if (!url || url === 'Generating link...') return;
+        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent('Check out this gift! 💝')}&url=${encodeURIComponent(url)}`, '_blank');
+    });
+
+    document.getElementById('shareEmail').addEventListener('click', () => {
+        const url = document.getElementById('shareUrlInput').value;
+        if (!url || url === 'Generating link...') return;
+        window.location.href = `mailto:?subject=${encodeURIComponent('A Special Gift For You 💝')}&body=${encodeURIComponent('I made you a gift! Open it here: ' + url)}`;
+    });
+
+    return overlay;
+}
+
+// Create the share button
+const shareBtnContainer = document.createElement('div');
+shareBtnContainer.className = 'share-btn-container';
+
+const shareBtn = document.createElement('button');
+shareBtn.className = 'shiny-cta';
+shareBtn.id = 'shareGiftBtn';
+shareBtn.innerHTML = '<span>🔗 Share Gift</span>';
+
+shareBtnContainer.appendChild(shareBtn);
+document.body.appendChild(shareBtnContainer);
+
+// Create the modal
+const shareModal = createShareModal();
+
+// Share button click handler
+shareBtn.addEventListener('click', async () => {
+    const span = shareBtn.querySelector('span');
+    const originalText = span.innerHTML;
+    
+    // Show spinner state
+    span.innerHTML = '<span class="share-spinner"></span> Creating link...';
+    shareBtn.disabled = true;
+    shareBtn.style.opacity = '0.7';
+
+    // Show the modal immediately
+    shareModal.classList.add('visible');
+    const urlInput = document.getElementById('shareUrlInput');
+
+    if (isLocalUrl()) {
+        // Local file — just show the raw URL, no shortening
+        urlInput.value = getCurrentGiftUrl();
+    } else {
+        urlInput.value = 'Generating short link...';
+        try {
+            const longUrl = getCurrentGiftUrl();
+            const shortUrl = await shortenUrl(longUrl);
+            urlInput.value = shortUrl;
+        } catch (e) {
+            urlInput.value = getCurrentGiftUrl();
+        }
+    }
+
+    // Restore button
+    span.innerHTML = originalText;
+    shareBtn.disabled = false;
+    shareBtn.style.opacity = '1';
+});
 
 </script>
 
