@@ -2,10 +2,15 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>Gift Shop</title>
     <link rel="icon" type="image/png" href="assets/favicon.png">
+
     <style>
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Fredoka:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
@@ -315,6 +320,247 @@ transition: var(--transition);
     transform: translateY(-50%);
 }
 
+/* --- CARD LAYOUT SYSTEM --- */
+.flowers-layout, .plushies-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.flowersRowTop, .flowersRowBottom {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    width: 100%;
+}
+
+.flowerCard {
+    background: var(--card-bg);
+    border: 3px solid #ffb6d9;
+    border-radius: 30px;
+    padding: 25px;
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 
+        0 10px 25px rgba(255, 105, 180, 0.15);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+    position: relative;
+}
+
+[data-theme="dark"] .flowerCard {
+    border-color: #5c0045;
+}
+
+.flowerCard:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 
+        0 15px 35px rgba(255, 105, 180, 0.25);
+}
+
+.flowerImage {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+    margin-bottom: 15px;
+    transition: transform 0.5s ease;
+}
+
+.flowerCard:hover .flowerImage {
+    transform: rotate(5deg) scale(1.05);
+}
+
+.flowerName {
+    font-size: 24px;
+    color: var(--heading-color);
+    margin-bottom: 15px;
+    font-family: 'Pacifico', cursive;
+    text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
+}
+
+[data-theme="dark"] .flowerName {
+    text-shadow: none;
+}
+
+.flowerSelector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    background: rgba(255, 182, 193, 0.15);
+    padding: 6px 16px;
+    border-radius: 50px;
+    border: 2px dashed #ffb6d9;
+}
+
+[data-theme="dark"] .flowerSelector {
+    background: rgba(92, 0, 69, 0.3);
+    border-color: #5c0045;
+}
+
+.flowerSelector button {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    cursor: pointer;
+    font-size: 20px;
+    font-family: var(--font-ui);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s, background 0.3s;
+}
+
+.flowerSelector button:hover {
+    transform: scale(1.15);
+    background: var(--cart-btn-bg);
+    color: white;
+}
+
+.flowerSelector button:active {
+    transform: scale(0.95);
+}
+
+.flowerQuantity {
+    font-size: 20px;
+    color: var(--heading-color);
+    font-weight: 600;
+    font-family: var(--font-ui);
+    min-width: 25px;
+    text-align: center;
+}
+
+.flowerCard .addToCartBtn, .flowerCard .customizeBtn {
+    border: none;
+    border-radius: 50px;
+    padding: 12px 24px;
+    cursor: pointer;
+    background: var(--btn-bg);
+    color: var(--text-color);
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+    margin-bottom: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.flowerCard .customizeBtn {
+    margin-top: auto;
+    margin-bottom: 20px;
+}
+
+
+.flowerCard .addToCartBtn:hover, .flowerCard .customizeBtn:hover {
+    transform: scale(1.05);
+    background: #ffd6ef;
+    box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4);
+}
+
+.flowerCard .addToCartBtn:active, .flowerCard .customizeBtn:active {
+    transform: scale(0.98);
+}
+
+/* --- COLOR SCROLL CONTAINER --- */
+.color-scroll-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.color-option {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 12px;
+    border-radius: 50px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    background: rgba(255, 182, 193, 0.15);
+    transition: all 0.3s ease;
+}
+
+.color-option:hover {
+    background: rgba(255, 182, 193, 0.3);
+    border-color: #ffb6d9;
+}
+
+.color-option.active {
+    background: #ffb6d9;
+    border-color: hotpink;
+    box-shadow: none;
+}
+
+[data-theme="dark"] .color-option {
+    background: rgba(92, 0, 69, 0.3);
+}
+
+[data-theme="dark"] .color-option:hover {
+    background: rgba(92, 0, 69, 0.5);
+    border-color: #5c0045;
+}
+
+[data-theme="dark"] .color-option.active {
+    background: #c2185b;
+    border-color: #ff80c0;
+}
+
+.color-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: inline-block;
+    border: 2px solid rgba(0,0,0,0.1);
+}
+
+.color-label {
+    font-size: 13px;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .color-option.active .color-label {
+    color: white;
+}
+
+/* --- SHOP PAGE --- */
+#mainContainer {
+    position: relative;
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+#leftSidebar {
+    position: absolute;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 320px;
+    z-index: 10;
+}
+
 .sidebar-panel {
     display: none;
     /* --- controlled by JS --- */
@@ -326,19 +572,6 @@ transition: var(--transition);
     text-align: center;
     border: 2px solid var(--glow-soft);
     transition: background 0.5s ease, box-shadow 0.5s ease;
-}
-
-#shelf {
-    width: 1000px;
-    height: 800px;
-    background: url("shelf.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    position: relative;
-    margin: 0 auto;
-
-/* --- Shelf stays strictly center aligned --- */
 }
 
 .character {
@@ -354,6 +587,84 @@ transition: var(--transition);
 
 /* --- CHECKOUT BUTTON --- */
 
+
+/* --- COLOR POPUP (Sidebar) --- */
+#colorPanel h2 {
+    margin-bottom: 15px;
+    color: var(--heading-color);
+    font-size: 20px;
+}
+
+.colorBtn {
+    display: block;
+    width: 100%;
+    margin: 8px auto;
+    border: none;
+    border-radius: 50px;
+    padding: 12px;
+    cursor: pointer;
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    font-size: 15px;
+    font-family: var(--font-ui);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    transition: transform .25s, background 0.5s ease, color 0.5s ease;
+}
+
+.colorBtn:hover {
+    transform: scale(1.03);
+}
+
+/* --- QUANTITY POPUP --- */
+#quantityPopup h2 {
+    color: var(--heading-color);
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.quantitySelector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.quantitySelector button {
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    cursor: pointer;
+    font-size: 22px;
+    font-family: var(--font-ui);
+    transition: background 0.5s ease, color 0.5s ease;
+}
+
+#quantityValue {
+    font-size: 26px;
+    color: var(--heading-color);
+    font-weight: bold;
+}
+
+#addToCartBtn {
+    border: none;
+    border-radius: 50px;
+    padding: 12px 24px;
+    cursor: pointer;
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    font-size: 15px;
+    width: 100%;
+    font-family: var(--font-ui);
+    transition: transform .25s, background 0.5s ease, color 0.5s ease;
+}
+
+#addToCartBtn:hover {
+    transform: scale(1.03);
+}
 
 /* --- TOAST --- */
 #toast {
@@ -506,52 +817,6 @@ transition: var(--transition);
     100% { transform: rotate(2deg) scale(1.02); }
 }
 
-/* --- TREATS PAGE LAYOUT --- */
-.dessert-cart-container {
-    width: 340px;
-    background: var(--popup-bg);
-    border: 3px solid #ffb6d9;
-    border-radius: 35px;
-    padding: 24px;
-    box-shadow: 0 10px 25px rgba(255, 105, 180, 0.15);
-    transition: background 0.5s ease, border-color 0.5s ease;
-}
-
-[data-theme="dark"] .dessert-cart-container {
-    background-color: rgba(46, 0, 31, 0.6);
-    border-color: #5c0045;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-}
-
-.dessert-spawner-card h3 {
-    text-align: center;
-    color: var(--heading-color);
-    margin-bottom: 18px;
-    font-family: var(--font-ui);
-    font-weight: 600;
-    font-size: 18px;
-}
-
-.spawner-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    justify-items: center;
-}
-
-.dessertSpawner {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-    cursor: pointer;
-    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.25s ease;
-}
-
-.dessertSpawner:hover {
-    transform: scale(1.2) rotate(8deg);
-    filter: drop-shadow(0 8px 12px rgba(255, 105, 180, 0.45));
-}
-
 /* --- Big chosen box canvas - a tad bit smaller (600x600px) --- */
 .treats-layout #customScene {
     width: 600px;
@@ -561,13 +826,6 @@ transition: var(--transition);
     box-shadow: none;
     position: relative;
     overflow: hidden;
-}
-
-#mainBox {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
 }
 
 #customPanel.treats-controls-panel {
@@ -989,42 +1247,6 @@ max-width: 320px;
 margin: 0 auto;
 }
 
-
-body.no-scroll {
-    overflow: hidden !important;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-body.no-scroll #mainContainer {
-    flex: 1;
-    min-height: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.treats-layout {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    padding: 10px 20px;
-    flex-wrap: nowrap;
-    width: 100%;
-    max-width: 1350px;
-    margin: 0 auto;
-}
-.dessert-cart-container {
-    height: auto;
-    max-height: 80vh;
-    overflow-y: auto;
-}
-.treats-controls-panel {
-    max-height: 80vh;
-    overflow-y: auto;
-}
-
 /* --- NAV BRAND CENTERING --- */
 .navBrand {
     position: absolute;
@@ -1036,7 +1258,9 @@ body.no-scroll #mainContainer {
     color: var(--heading-color);
 }
 </style>
+
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1050,13 +1274,13 @@ body.no-scroll #mainContainer {
     <!-- Baby Pink Navbar -->
     <nav id="storeNavbar">
         <a href="index.html" class="navBrand" style="text-decoration: none;">Gift Shop</a>
-        <a href="plushies.html" class="navLink">Plushies</a>
+        <a href="plushies.html" class="navLink active">Plushies</a>
         <a href="flowers.html" class="navLink">Flowers</a>
-        <a href="treats.html" class="navLink active">Treats</a>
-        <div id="cartButton" class="shiny-cta"><span>Checkout (<span id="cartCount">0</span>)</span></div>
+        <a href="treats.html" class="navLink">Treats</a>
+        <div id="cartButton" class="shiny-cta"><span> Checkout (<span id="cartCount">0</span>)</span></div>
     </nav>
 
-    <!-- Theme Toggle -->
+    <!-- Theme Toggle (Shifted to top left corner) -->
     <div id="themeToggleWrapper">
         <label class="theme-switch">
             <input type="checkbox" class="theme-switch__checkbox" id="themeCheckbox">
@@ -1081,94 +1305,149 @@ body.no-scroll #mainContainer {
     </div>
 
     <!-- Header Text -->
-    <h1 class="storeHeader">pack a box of treats</h1>
+    <h1 class="storeHeader">Shop for plushies.</h1>
 
     <div id="mainContainer">
-        <div class="treats-layout">
-            
-            <!-- Column 1: Spawner Tray (All 25 Desserts) -->
-            <div class="dessert-cart-container">
-                <div class="dessert-spawner-card">
-                    <h3>Select Your Desserts</h3>
-                    <div class="spawner-grid">
-                        <img src="assets/treats/dessert1.png" class="dessertSpawner" data-src="assets/treats/dessert1.png" alt="Heart Macaron">
-                        <img src="assets/treats/dessert2.png" class="dessertSpawner" data-src="assets/treats/dessert2.png" alt="Chocolate Cube">
-                        <img src="assets/treats/dessert3.png" class="dessertSpawner" data-src="assets/treats/dessert3.png" alt="Strawberry Macaron">
-                        <img src="assets/treats/dessert4.png" class="dessertSpawner" data-src="assets/treats/dessert4.png" alt="Strawberry Cupcake">
-                        <img src="assets/treats/dessert5.png" class="dessertSpawner" data-src="assets/treats/dessert5.png" alt="Cherry Cupcake">
-                        <img src="assets/treats/dessert6.png" class="dessertSpawner" data-src="assets/treats/dessert6.png" alt="Chestnut Chocolate Cake">
-                        <img src="assets/treats/dessert7.png" class="dessertSpawner" data-src="assets/treats/dessert7.png" alt="Chocolate Donut">
-                        <img src="assets/treats/dessert8.png" class="dessertSpawner" data-src="assets/treats/dessert8.png" alt="Berry Ice Cream">
-                        <img src="assets/treats/dessert9.png" class="dessertSpawner" data-src="assets/treats/dessert9.png" alt="Strawberry Swirl Cheesecake">
-                        <img src="assets/treats/dessert10.png" class="dessertSpawner" data-src="assets/treats/dessert10.png" alt="Waffle Cup Ice Cream">
-                        <img src="assets/treats/dessert11.png" class="dessertSpawner" data-src="assets/treats/dessert11.png" alt="Cherry Pink Donut">
-                        <img src="assets/treats/dessert12.png" class="dessertSpawner" data-src="assets/treats/dessert12.png" alt="Paw Print Cookie">
-                        <img src="assets/treats/dessert13.png" class="dessertSpawner" data-src="assets/treats/dessert13.png" alt="Caramel Chocolate Donut">
-                        <img src="assets/treats/dessert14.png" class="dessertSpawner" data-src="assets/treats/dessert14.png" alt="Pistachio Cream Donut">
-                        <img src="assets/treats/dessert15.png" class="dessertSpawner" data-src="assets/treats/dessert15.png" alt="Lotus Biscoff Donut">
-                        <img src="assets/treats/dessert16.png" class="dessertSpawner" data-src="assets/treats/dessert16.png" alt="Fresh Blueberry Cupcake">
-                        <img src="assets/treats/dessert17.png" class="dessertSpawner" data-src="assets/treats/dessert17.png" alt="Taro Purple Roll Cake">
-                        <img src="assets/treats/dessert18.png" class="dessertSpawner" data-src="assets/treats/dessert18.png" alt="Key Lime Mint Cheesecake">
-                        <img src="assets/treats/dessert19.png" class="dessertSpawner" data-src="assets/treats/dessert19.png" alt="Bear Cookie Cream Cupcake">
-                        <img src="assets/treats/dessert20.png" class="dessertSpawner" data-src="assets/treats/dessert20.png" alt="Cute Bunny Matcha Gateau">
-                        <img src="assets/treats/dessert21.png" class="dessertSpawner" data-src="assets/treats/dessert21.png" alt="Cherry Pudding">
-                        <img src="assets/treats/dessert22.png" class="dessertSpawner" data-src="assets/treats/dessert22.png" alt="Strawberry Donut">
-                        <img src="assets/treats/dessert23.png" class="dessertSpawner" data-src="assets/treats/dessert23.png" alt="Strawberry Sandwich Slice">
-                        <img src="assets/treats/dessert24.png" class="dessertSpawner" data-src="assets/treats/dessert24.png" alt="Heart Jam Cookies">
-                        <img src="assets/treats/dessert25.png" class="dessertSpawner" data-src="assets/treats/dessert25.png" alt="Bunny Canele Cake">
-                        <img src="assets/treats/dessert26.png" class="dessertSpawner" data-src="assets/treats/dessert26.png" alt="Taiyaki Ice Cream Waffle">
-                        <img src="assets/treats/dessert27.png" class="dessertSpawner" data-src="assets/treats/dessert27.png" alt="Hello Kitty Cookie">
-                        <img src="assets/treats/dessert28.png" class="dessertSpawner" data-src="assets/treats/dessert28.png" alt="Cat Donut">
+        <div class="plushies-layout">
+            <!-- Plushies Grid: Side-by-Side in a Single Row -->
+            <div class="flowersRowTop">
+                <div class="flowerCard" id="bunnyCard">
+                    <!-- Default to blue bunny -->
+                    <img src="assets/plushies/bunny-blue.png" alt="Bunny" class="flowerImage" id="bunnyImage">
+                    <div class="flowerName" id="bunnyName">Blue Bunny</div>
+                    
+                    <!-- Scroll Color Options -->
+                    <div class="color-scroll-container">
+                        <div class="color-option active" data-color="blue" data-image="assets/plushies/bunny-blue.png" data-name="Blue Bunny">
+                            <span class="color-dot" style="background-color: #a0d2eb;"></span>
+                            <span class="color-label">Blue</span>
+                        </div>
+                        <div class="color-option" data-color="pink" data-image="assets/plushies/bunny-pink.png" data-name="Pink Bunny">
+                            <span class="color-dot" style="background-color: #ffb3d9;"></span>
+                            <span class="color-label">Pink</span>
+                        </div>
+                        <div class="color-option" data-color="purple" data-image="assets/plushies/bunny-purple.png" data-name="Purple Bunny">
+                            <span class="color-dot" style="background-color: #e0b0ff;"></span>
+                            <span class="color-label">Purple</span>
+                        </div>
                     </div>
+
+                    <div class="flowerSelector">
+                        <button class="minusBtn" data-plushie="1">−</button>
+                        <span class="flowerQuantity" id="qtyPlushie1">1</span>
+                        <button class="plusBtn" data-plushie="1">+</button>
+                    </div>
+                    
+                    <button class="customizeBtn" id="bunnyCustomizeBtn" data-plushie="1" data-name="Blue Bunny" data-image="assets/plushies/bunny-blue.png">Customize Plushie </button>
+                    <button class="addToCartBtn shiny-cta" id="bunnyAddToCartBtn" data-plushie="1" data-name="Blue Bunny" data-image="assets/plushies/bunny-blue.png"><span>Add To Cart </span></button>
+                </div>
+
+                <div class="flowerCard">
+                    <img src="assets/plushies/duck.png" alt="Duck" class="flowerImage">
+                    <div class="flowerName">Duck</div>
+                    <div class="flowerSelector">
+                        <button class="minusBtn" data-plushie="2">−</button>
+                        <span class="flowerQuantity" id="qtyPlushie2">1</span>
+                        <button class="plusBtn" data-plushie="2">+</button>
+                    </div>
+                    <button class="customizeBtn" data-plushie="2" data-name="Duck" data-image="assets/plushies/duck.png">Customize Plushie </button>
+                    <button class="addToCartBtn shiny-cta" data-plushie="2" data-name="Duck" data-image="assets/plushies/duck.png"><span>Add To Cart </span></button>
+                </div>
+
+                <div class="flowerCard">
+                    <img src="assets/plushies/bear.png" alt="Bear" class="flowerImage">
+                    <div class="flowerName">Bear</div>
+                    <div class="flowerSelector">
+                        <button class="minusBtn" data-plushie="3">−</button>
+                        <span class="flowerQuantity" id="qtyPlushie3">1</span>
+                        <button class="plusBtn" data-plushie="3">+</button>
+                    </div>
+                    <button class="customizeBtn" data-plushie="3" data-name="Bear" data-image="assets/plushies/bear.png">Customize Plushie </button>
+                    <button class="addToCartBtn shiny-cta" data-plushie="3" data-name="Bear" data-image="assets/plushies/bear.png"><span>Add To Cart </span></button>
                 </div>
             </div>
 
-            <!-- Column 2: Workspace Canvas (Tad bit smaller) -->
-            <div id="customScene">
-                <img id="mainBox" src="assets/treats/box_heart.png" class="mainPlushie" style="width: 280px;" alt="Selected Box">
+            <!-- New Plushies Row -->
+            <div class="flowersRowBottom" style="margin-top: 40px;">
+                <div class="flowerCard">
+                    <!-- Default to grey elephant -->
+                    <img src="assets/plushies/elephant-grey.png" alt="Elephant" class="flowerImage">
+                    <div class="flowerName">Grey Elephant</div>
+                    
+                    <!-- Scroll Color Options -->
+                    <div class="color-scroll-container">
+                        <div class="color-option active" data-color="grey" data-image="assets/plushies/elephant-grey.png" data-name="Grey Elephant">
+                            <span class="color-dot" style="background-color: #bbbbbb;"></span>
+                            <span class="color-label">Grey</span>
+                        </div>
+                        <div class="color-option" data-color="blue" data-image="assets/plushies/elephant-blue.png" data-name="Blue Elephant">
+                            <span class="color-dot" style="background-color: #a0d2eb;"></span>
+                            <span class="color-label">Blue</span>
+                        </div>
+                    </div>
+
+                    <div class="flowerSelector">
+                        <button class="minusBtn" data-plushie="4">−</button>
+                        <span class="flowerQuantity" id="qtyPlushie4">1</span>
+                        <button class="plusBtn" data-plushie="4">+</button>
+                    </div>
+                    
+                    <button class="customizeBtn" data-plushie="4" data-name="Grey Elephant" data-image="assets/plushies/elephant-grey.png">Customize Plushie </button>
+                    <button class="addToCartBtn shiny-cta" data-plushie="4" data-name="Grey Elephant" data-image="assets/plushies/elephant-grey.png"><span>Add To Cart </span></button>
+                </div>
+
+                <div class="flowerCard">
+                    <img src="assets/plushies/pig.png" alt="Pig" class="flowerImage">
+                    <div class="flowerName">Pig</div>
+                    <div class="flowerSelector">
+                        <button class="minusBtn" data-plushie="5">−</button>
+                        <span class="flowerQuantity" id="qtyPlushie5">1</span>
+                        <button class="plusBtn" data-plushie="5">+</button>
+                    </div>
+                    <button class="customizeBtn" data-plushie="5" data-name="Pig" data-image="assets/plushies/pig.png">Customize Plushie </button>
+                    <button class="addToCartBtn shiny-cta" data-plushie="5" data-name="Pig" data-image="assets/plushies/pig.png"><span>Add To Cart </span></button>
+                </div>
+
+                <div class="flowerCard">
+                    <img src="assets/plushies/fox.png" alt="Fox" class="flowerImage">
+                    <div class="flowerName">Fox</div>
+                    <div class="flowerSelector">
+                        <button class="minusBtn" data-plushie="6">−</button>
+                        <span class="flowerQuantity" id="qtyPlushie6">1</span>
+                        <button class="plusBtn" data-plushie="6">+</button>
+                    </div>
+                    <button class="customizeBtn" data-plushie="6" data-name="Fox" data-image="assets/plushies/fox.png">Customize Plushie </button>
+                    <button class="addToCartBtn shiny-cta" data-plushie="6" data-name="Fox" data-image="assets/plushies/fox.png"><span>Add To Cart </span></button>
+                </div>
+
+                <div class="flowerCard">
+                    <img src="assets/plushies/koala.png" alt="Koala" class="flowerImage">
+                    <div class="flowerName">Koala</div>
+                    <div class="flowerSelector">
+                        <button class="minusBtn" data-plushie="7">−</button>
+                        <span class="flowerQuantity" id="qtyPlushie7">1</span>
+                        <button class="plusBtn" data-plushie="7">+</button>
+                    </div>
+                    <button class="customizeBtn" data-plushie="7" data-name="Koala" data-image="assets/plushies/koala.png">Customize Plushie </button>
+                    <button class="addToCartBtn shiny-cta" data-plushie="7" data-name="Koala" data-image="assets/plushies/koala.png"><span>Add To Cart </span></button>
+                </div>
+
+                <div class="flowerCard">
+                    <img src="assets/plushies/cat.png" alt="Cat" class="flowerImage">
+                    <div class="flowerName">Cat</div>
+                    <div class="flowerSelector">
+                        <button class="minusBtn" data-plushie="8">−</button>
+                        <span class="flowerQuantity" id="qtyPlushie8">1</span>
+                        <button class="plusBtn" data-plushie="8">+</button>
+                    </div>
+                    <button class="customizeBtn" data-plushie="8" data-name="Cat" data-image="assets/plushies/cat.png">Customize Plushie </button>
+                    <button class="addToCartBtn shiny-cta" data-plushie="8" data-name="Cat" data-image="assets/plushies/cat.png"><span>Add To Cart </span></button>
+                </div>
             </div>
-
-            <!-- Column 3: Customizer Sidebar Controls -->
-            <div id="customPanel" class="treats-controls-panel">
-                <h2>Choose a Box</h2>
-                
-                <div class="box-option active" data-box="heart" data-image="assets/treats/box_heart.png" data-name="Heart Treat Box">
-                    <img src="assets/treats/box_heart.png" alt="Heart Box">
-                    <span>Heart Box</span>
-                </div>
-                
-                <div class="box-option" data-box="rect" data-image="assets/treats/box_rect.png" data-name="Rectangle Treat Box">
-                    <img src="assets/treats/box_rect.png" alt="Rectangle Box">
-                    <span>Rectangle Box</span>
-                </div>
-                
-                <div class="box-option" data-box="circle" data-image="assets/treats/box_circle.png" data-name="Circle Treat Box">
-                    <img src="assets/treats/box_circle.png" alt="Circle Box">
-                    <span>Circle Box</span>
-                </div>
-
-                <hr style="margin-top: 15px; margin-bottom: 15px; border: none; border-top: 2px dashed var(--glow-soft);">
-
-                <h2>Customizations</h2>
-                <!-- Actions paired side-by-side in rows -->
-                <div class="buttons-row">
-                    <button id="increaseSize">+</button>
-                    <button id="decreaseSize">-</button>
-                </div>
-                <div class="buttons-row">
-                    <button id="rotateTreatBtn" class="cuteButton">Rotate</button>
-                    <button id="flipTreatBtn" class="cuteButton">Flip</button>
-                </div>
-                <div class="buttons-row">
-                    <button id="deleteItem">Delete</button>
-                    <button id="saveCustomization">Save</button>
-                </div>
-            </div>
-
         </div>
     </div>
 
-    <!-- Toast Notification -->
+    <!-- Toast -->
     <div id="toast">
         Added To Cart 
     </div>
@@ -1209,21 +1488,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 </script>
     <script>
-const customScene = document.getElementById("customScene");
-const mainBox = document.getElementById("mainBox");
-
-let selectedItem = null;
-let selected = null;
-let highestZ = 10;
-
-// Rotation and flip state trackers
-let dragOffsetX = 0;
-let dragOffsetY = 0;
-
-/* -------------------- */
-/* LOAD CART STATE      */
-/* -------------------- */
-
+// Cart state
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 function getCartCount() {
@@ -1231,254 +1496,227 @@ function getCartCount() {
     return cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
 }
 
-const cartCountSpan = document.getElementById("cartCount");
-if (cartCountSpan) {
-    cartCountSpan.innerText = getCartCount();
+// DOM Elements
+const cartCount = document.getElementById("cartCount");
+const toast = document.getElementById("toast");
+const cartButton = document.getElementById("cartButton");
+
+// Set initial cart count
+cartCount.innerText = getCartCount();
+
+// Track quantities for the plushie cards locally
+
+
+// Local quantity state for items on this page
+const localQtys = {};
+
+function updateQtyDisplay(plushieId) {
+    const qtySpan = document.getElementById(`qtyPlushie${plushieId}`);
+    if (qtySpan) {
+        qtySpan.innerText = localQtys[plushieId] || 1;
+    }
 }
+// Initialize on load
+setTimeout(() => {
+    for (let i = 1; i <= 8; i++) updateQtyDisplay(i);
+}, 100);
 
-/* -------------------- */
-/* SWITCH BOX TYPE      */
-/* -------------------- */
+// Plus Buttons
+document.querySelectorAll(".plusBtn").forEach(button => {
+    button.addEventListener("click", () => {
+        const plushieId = button.dataset.plushie;
+        localQtys[plushieId] = (localQtys[plushieId] || 1) + 1;
+        updateQtyDisplay(plushieId);
+    });
+});
 
-let currentBoxName = "Heart Treat Box";
-let currentBoxImage = "assets/treats/box_heart.png";
-
-document.querySelectorAll(".box-option").forEach(option => {
-    option.addEventListener("click", () => {
-        // Toggle active options
-        document.querySelectorAll(".box-option").forEach(opt => opt.classList.remove("active"));
-        option.classList.add("active");
-
-        // Update active box details
-        currentBoxName = option.dataset.name;
-        currentBoxImage = option.dataset.image;
-
-        // Update scene backdrop
-        if (mainBox) {
-            mainBox.src = currentBoxImage;
-            mainBox.alt = currentBoxName;
+// Minus Buttons
+document.querySelectorAll(".minusBtn").forEach(button => {
+    button.addEventListener("click", () => {
+        const plushieId = button.dataset.plushie;
+        if ((localQtys[plushieId] || 1) > 1) {
+            localQtys[plushieId]--;
+            updateQtyDisplay(plushieId);
         }
     });
 });
 
-/* -------------------- */
-/* DESSERT SPAWNING     */
-/* -------------------- */
+// Add to Cart
+document.querySelectorAll(".addToCartBtn").forEach(button => {
+    button.addEventListener("click", () => {
+        const plushieId = button.dataset.plushie;
+        const itemName = button.dataset.name;
+        const itemImage = button.dataset.image;
+        const qtyToAdd = localQtys[plushieId] || 1;
 
-document.querySelectorAll(".dessertSpawner").forEach(spawner => {
-    spawner.addEventListener("click", () => {
-        const dessert = document.createElement("img");
-        dessert.src = spawner.dataset.src;
-        dessert.className = "draggableAccessory draggableTreat";
-        dessert.style.position = "absolute";
-        dessert.style.width = "70px";
-        dessert.style.height = "70px";
-        dessert.style.left = "265px"; // Centered inside the 600px scene (600/2 - 70/2)
-        dessert.style.top = "265px";  // Centered inside the 600px scene
-        dessert.style.zIndex = highestZ++;
-        dessert.draggable = false;
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
         
-        // Initial transform states
-        dessert.dataset.rotation = "0";
-        dessert.dataset.flip = "1";
-
-        customScene.appendChild(dessert);
-
-        // Auto select newly spawned dessert
-        selectElement(dessert);
-    });
-});
-
-/* -------------------- */
-/* SELECTION SYSTEM     */
-/* -------------------- */
-
-function selectElement(el) {
-    selectedItem = el;
-    document.querySelectorAll(".draggableAccessory").forEach(item => {
-        item.classList.remove("draggableTreatSelected");
-        item.style.outline = "none";
-    });
-    el.classList.add("draggableTreatSelected");
-    el.style.outline = "3px solid hotpink";
-}
-
-document.addEventListener("mousedown", (e) => {
-    const treat = e.target.closest(".draggableAccessory");
-    if (treat && customScene.contains(treat)) {
-        selected = treat;
-        selectElement(treat);
-
-        // Compute offsets
-        const rect = treat.getBoundingClientRect();
-        dragOffsetX = e.clientX - rect.left;
-        dragOffsetY = e.clientY - rect.top;
-        
-        treat.style.zIndex = highestZ++;
-        e.preventDefault();
-    }
-});
-
-/* -------------------- */
-/* DRAGGING MOVEMENT    */
-/* -------------------- */
-
-document.addEventListener("mousemove", (e) => {
-    if (!selected) return;
-
-    const rect = customScene.getBoundingClientRect();
-    let newLeft = e.clientX - rect.left - dragOffsetX;
-    let newTop = e.clientY - rect.top - dragOffsetY;
-
-    // Bounded dragging inside actual canvas size
-    const sceneW = customScene.clientWidth;
-    const sceneH = customScene.clientHeight;
-    newLeft = Math.max(0, Math.min(newLeft, sceneW - selected.offsetWidth));
-    newTop = Math.max(0, Math.min(newTop, sceneH - selected.offsetHeight));
-
-    selected.style.left = newLeft + "px";
-    selected.style.top = newTop + "px";
-});
-
-document.addEventListener("mouseup", () => {
-    selected = null;
-});
-
-// Deselect when clicking scene background
-customScene.addEventListener("mousedown", (e) => {
-    if (e.target === customScene || e.target === mainBox) {
-        selectedItem = null;
-        document.querySelectorAll(".draggableAccessory").forEach(item => {
-            item.classList.remove("draggableTreatSelected");
-            item.style.outline = "none";
-        });
-    }
-});
-
-/* -------------------- */
-/* CONTROLS HANDLING    */
-/* -------------------- */
-
-// Resize Increase
-document.getElementById("increaseSize").addEventListener("click", () => {
-    if (!selectedItem) {
-        alert("Select a dessert inside the box first!");
-        return;
-    }
-    const currW = selectedItem.offsetWidth;
-    selectedItem.style.width = (currW + 15) + "px";
-    selectedItem.style.height = (currW + 15) + "px";
-});
-
-// Resize Decrease
-document.getElementById("decreaseSize").addEventListener("click", () => {
-    if (!selectedItem) {
-        alert("Select a dessert inside the box first!");
-        return;
-    }
-    const currW = selectedItem.offsetWidth;
-    if (currW > 30) {
-        selectedItem.style.width = (currW - 15) + "px";
-        selectedItem.style.height = (currW - 15) + "px";
-    }
-});
-
-// Delete Selected
-document.getElementById("deleteItem").addEventListener("click", () => {
-    if (selectedItem) {
-        selectedItem.remove();
-        selectedItem = null;
-    }
-});
-
-// Rotate Selected
-const rotateBtn = document.getElementById("rotateTreatBtn");
-if (rotateBtn) {
-    rotateBtn.addEventListener("click", () => {
-        if (!selectedItem) {
-            alert("Select a dessert inside the box first!");
-            return;
+        // Push to cart
+        let existingItem = cart.find(item => item.name === itemName && !item.customId);
+        if (existingItem) {
+            existingItem.quantity += qtyToAdd;
+        } else {
+            cart.push({
+                name: itemName,
+                image: itemImage,
+                quantity: qtyToAdd
+            });
         }
-        let rot = parseInt(selectedItem.dataset.rotation) || 0;
-        rot = (rot + 45) % 360;
-        selectedItem.dataset.rotation = rot;
-        updateTreatTransform(selectedItem);
-    });
-}
 
-// Flip Selected
-const flipBtn = document.getElementById("flipTreatBtn");
-if (flipBtn) {
-    flipBtn.addEventListener("click", () => {
-        if (!selectedItem) {
-            alert("Select a dessert inside the box first!");
-            return;
-        }
-        let flip = parseInt(selectedItem.dataset.flip) || 1;
-        flip = flip === 1 ? -1 : 1;
-        selectedItem.dataset.flip = flip;
-        updateTreatTransform(selectedItem);
-    });
-}
+        // Save
+        localStorage.setItem("cart", JSON.stringify(cart));
 
-function updateTreatTransform(el) {
-    const rot = el.dataset.rotation || 0;
-    const flip = el.dataset.flip || 1;
-    el.style.transform = `rotate(${rot}deg) scaleX(${flip})`;
-}
+        // Update count
+        cartCount.innerText = getCartCount();
 
-/* -------------------- */
-/* SERIALIZE & SAVE     */
-/* -------------------- */
+        // Reset display and internal count for this card
+        localQtys[plushieId] = 1;
+        updateQtyDisplay(plushieId);
 
-document.getElementById("saveCustomization").addEventListener("click", () => {
-    const accessories = [];
-    
-    document.querySelectorAll("#customScene .draggableTreat").forEach(item => {
-        const realLeft = parseFloat(item.style.left) || 0;
-        const realTop = parseFloat(item.style.top) || 0;
-        
-        // Translate real coordinates to virtual 700x700 coordinates
-        const sceneW = customScene.clientWidth;
-        const sceneH = customScene.clientHeight;
-        const virtualLeft = realLeft - (sceneW / 2) + 350;
-        const virtualTop = realTop - (sceneH / 2) + 350;
-
-        accessories.push({
-            image: "assets/treats/" + item.src.split("/").pop(), // Store relative path to assets/treats/
-            left: virtualLeft + "px",
-            top: virtualTop + "px",
-            width: item.style.width,
-            rotation: item.dataset.rotation || "0",
-            flip: item.dataset.flip || "1"
-        });
+        // Toast
+        toast.innerText = "Added To Cart";
+        toast.style.display = "block";
+        setTimeout(() => {
+            toast.style.display = "none";
+        }, 2000);
     });
 
-    const customizedBox = {
-        customId: "box_" + Date.now(),
-        name: currentBoxName,
-        image: currentBoxImage,
-        quantity: 1,
-        accessories: accessories
-    };
+});
 
-    // Load existing cart items and append this new customized box
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.push(customizedBox);
-    localStorage.setItem("cart", JSON.stringify(cart));
+// Customize Plushie
+document.querySelectorAll(".customizeBtn").forEach(button => {
+    button.addEventListener("click", () => {
+        const plushieId = button.dataset.plushie;
+        const plushieName = button.dataset.name;
+        const plushieImage = button.dataset.image;
 
-    // Alert and Redirect
-    alert(" Treat Box Customization Saved to Cart!");
+        // Get quantity from cart for this item
+        const cartItem = cart.find(item => item.name === plushieName && !item.customId);
+        const quantity = cartItem ? cartItem.quantity : 1;
+
+        // Save selection details to currentPlushie
+        localStorage.setItem("currentPlushie", JSON.stringify({
+            name: plushieName,
+            image: plushieImage,
+            quantity: quantity
+        }));
+
+        // Redirect to customization page
+        window.location = "customize.html";
+    });
+});
+
+// Redirect to checkout
+cartButton.addEventListener("click", () => {
     window.location = "checkout.html";
 });
+</script>
 
-/* Redirect to checkout cart */
-const cartButton = document.getElementById("cartButton");
-if (cartButton) {
-    cartButton.addEventListener("click", () => {
-        window.location = "checkout.html";
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    // We will dynamically construct the carousel to preserve the existing flowerCard HTML.
+    const layouts = document.querySelectorAll('.plushies-layout, .flowers-layout');
+    
+    layouts.forEach(layout => {
+        // Collect all cards
+        const cards = Array.from(layout.querySelectorAll('.flowerCard'));
+        if (cards.length === 0) return;
+        
+        // Clear layout and build carousel structure
+        layout.innerHTML = '';
+        
+        const wrapper = document.createElement('div');
+        wrapper.className = 'carousel-wrapper';
+        
+        const prevBtn = document.createElement('button');
+        prevBtn.className = 'carousel-btn carousel-prev';
+        prevBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>';
+        
+        const trackContainer = document.createElement('div');
+        trackContainer.className = 'carousel-track-container';
+        
+        const track = document.createElement('div');
+        track.className = 'carousel-track';
+        
+        cards.forEach(card => {
+            const slide = document.createElement('div');
+            slide.className = 'carousel-slide';
+            slide.appendChild(card);
+            track.appendChild(slide);
+        });
+        
+        const nextBtn = document.createElement('button');
+        nextBtn.className = 'carousel-btn carousel-next';
+        nextBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>';
+        
+        trackContainer.appendChild(track);
+        wrapper.appendChild(prevBtn);
+        wrapper.appendChild(trackContainer);
+        wrapper.appendChild(nextBtn);
+        
+        layout.appendChild(wrapper);
+        
+        // --- Carousel Logic ---
+        let currentIndex = 0;
+        let slideInterval;
+        
+        function updateCarousel() {
+            const slides = Array.from(track.children);
+            if (slides.length === 0) return;
+            
+            // To show 3 items at once, slide width is calculated by container
+            const slideWidth = slides[0].getBoundingClientRect().width;
+            
+            // We move exactly by one slide width
+            track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+            
+            const containerWidth = trackContainer.getBoundingClientRect().width;
+            const visibleSlides = Math.round(containerWidth / slideWidth) || 1;
+            const maxIndex = Math.max(0, slides.length - visibleSlides);
+            
+            // Fix index if resizing
+            if (currentIndex > maxIndex) {
+                currentIndex = maxIndex;
+                track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+            }
+            
+            prevBtn.disabled = currentIndex <= 0;
+            nextBtn.disabled = currentIndex >= maxIndex;
+        }
+        
+        function nextSlide() {
+            const containerWidth = trackContainer.getBoundingClientRect().width;
+            const slideWidth = track.children[0].getBoundingClientRect().width;
+            const visibleSlides = Math.round(containerWidth / slideWidth) || 1;
+            const maxIndex = Math.max(0, track.children.length - visibleSlides);
+            
+            if (currentIndex < maxIndex) {
+                currentIndex++;
+            } else {
+                currentIndex = 0; // Loop back
+            }
+            updateCarousel();
+        }
+        
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) currentIndex--;
+            updateCarousel();
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+        });
+        
+        // Auto Slideshow removed
+        
+        window.addEventListener('resize', updateCarousel);
+        
+        // Initial setup
+        setTimeout(() => {
+            updateCarousel();
+        }, 100);
     });
-}
+});
 
 </script>
 

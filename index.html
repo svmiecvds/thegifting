@@ -1,19 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Gift Shop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to the Gift Shop</title>
     <link rel="icon" type="image/png" href="assets/favicon.png">
 
-    <style>
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Fredoka:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Pacifico&family=Fredoka:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+    <style>
 /* --- THEME VARIABLES --- */
 :root,
 [data-theme="light"] {
@@ -21,50 +16,43 @@
     --body-bg: #fff5fb;
     --panel-bg: #ffe4f1;
     --popup-bg: #ffe4f1;
-    --receipt-bg: #ffeaf5;
-    --card-bg: #ffffff;
+    --card-bg: rgba(255, 255, 255, 0.6);
+    --card-border: #ffb6d9;
+    --card-hover-border: hotpink;
     --text-color: #c2185b;
     --heading-color: #ff4fa2;
+    --hero-gradient: linear-gradient(90deg, #ff4fa2, #ff80c0);
     --btn-bg: #ffffff;
     --btn-text: #ff4fa2;
-    --cart-btn-bg: #ff69b4;
-    --cart-btn-shadow: hotpink;
     --glow-color: hotpink;
     --glow-soft: pink;
-    --toast-bg: #ff69b4;
-    --receipt-shadow: pink;
-    --shelf-overlay: rgba(255,255,255,0.0);
-    --font-body: 'Quicksand', sans-serif;
+    --nav-bg: rgba(255, 228, 241, 0.85);
+    --nav-border: #ffb3d9;
+    --font-body: 'Outfit', sans-serif;
     --font-heading: 'Pacifico', cursive;
-    --font-ui: 'Fredoka', sans-serif;
-    --font-nav: 'Inter', sans-serif;
 }
 
 [data-theme="dark"] {
-    --bg-gradient: linear-gradient(135deg, #1a0010 0%, #3d0030 40%, #5c0045 100%);
-    --body-bg: #1a0010;
+    --bg-gradient: linear-gradient(135deg, #0f001a 0%, #2a0024 40%, #1a0010 100%);
+    --body-bg: #0f001a;
     --panel-bg: #2e001f;
     --popup-bg: #2e001f;
-    --receipt-bg: #1a0010;
-    --card-bg: #2e001f;
-    --text-color: #ff80c0;
-    --heading-color: #ff4fa2;
+    --card-bg: rgba(26, 0, 31, 0.65);
+    --card-border: #4d0039;
+    --card-hover-border: #ff1493;
+    --text-color: #ffb6d9;
+    --heading-color: #ff80c0;
+    --hero-gradient: linear-gradient(90deg, #ff80c0, #ff1493, #ffb6d9);
     --btn-bg: #3d0030;
     --btn-text: #ff80c0;
-    --cart-btn-bg: #c2185b;
-    --cart-btn-shadow: #ff1493;
     --glow-color: #ff1493;
     --glow-soft: #c2185b;
-    --toast-bg: #c2185b;
-    --receipt-shadow: #c2185b;
-    --shelf-overlay: rgba(26,0,16,0.15);
-    --font-body: 'Quicksand', sans-serif;
+    --nav-bg: rgba(15, 0, 26, 0.85);
+    --nav-border: #4d0039;
+    --font-body: 'Outfit', sans-serif;
     --font-heading: 'Pacifico', cursive;
-    --font-ui: 'Fredoka', sans-serif;
-    --font-nav: 'Inter', sans-serif;
 }
 
-/* --- BASE --- */
 * {
     margin: 0;
     padding: 0;
@@ -72,38 +60,24 @@
 }
 
 html {
-    transition: background-color 0.5s ease, color 0.5s ease;
+    transition: background-color 0.6s ease, color 0.6s ease;
 }
 
 body {
     color: var(--text-color);
-    background-image: url("assets/bg_pattern.png");
-    background-repeat: repeat;
-    background-size: 350px;
-    background-attachment: fixed;
-    background-color: var(--body-bg);
+    background: var(--bg-gradient);
+    background-size: 200% 200%;
+    animation: gradientShift 10s ease infinite;
     overflow-x: hidden;
-    transition: background 0.5s ease, color 0.5s ease;
+    transition: background 0.6s ease, color 0.6s ease;
     font-family: var(--font-body);
-    font-weight: 500;
+    font-weight: 400;
 }
 
-[data-theme="dark"] body {
-    background-image: linear-gradient(rgba(92, 0, 69, 0.4), rgba(92, 0, 69, 0.4)), url("assets/bg_pattern.png");
-}
-
-body.receiptPage,
-body.giftPage {
-    background-image: url("assets/bg_pattern.png");
-    background-repeat: repeat;
-    background-size: 350px;
-    background-attachment: fixed;
-    background-color: var(--receipt-bg);
-}
-
-[data-theme="dark"] body.receiptPage,
-[data-theme="dark"] body.giftPage {
-    background-image: linear-gradient(rgba(92, 0, 69, 0.4), rgba(92, 0, 69, 0.4)), url("assets/bg_pattern.png");
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 /* --- THEME SWITCH WRAPPER --- */
@@ -119,30 +93,13 @@ body.giftPage {
     border-radius: 30px;
 }
 
-[data-theme="dark"] #themeToggleWrapper {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    background: transparent;
-    padding: 6px;
-    border-radius: 30px;
-}
-
-/* --- THEME SWITCH STYLES --- */
 .theme-switch {
     --toggle-size: 11px;
-
-/* --- Smaller size --- */
---container-width: 5.625em;
+    --container-width: 5.625em;
     --container-height: 2.5em;
     --container-radius: 6.25em;
     --container-light-bg: #ff4fa2;
-
-/* --- Changed color to pop more --- */
---container-night-bg: #800040;
+    --container-night-bg: #800040;
     --circle-container-diameter: 3.375em;
     --sun-moon-diameter: 2.125em;
     --sun-bg: #FFA500;
@@ -156,11 +113,7 @@ body.giftPage {
     --circle-transition: .3s cubic-bezier(0, -0.02, 0.35, 1.17);
 }
 
-.theme-switch,
-.theme-switch *,
-.theme-switch *::before,
-.theme-switch *::after {
-    -webkit-box-sizing: border-box;
+.theme-switch, .theme-switch *, .theme-switch *::before, .theme-switch *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -174,10 +127,7 @@ body.giftPage {
     border-radius: var(--container-radius);
     overflow: hidden;
     cursor: pointer;
-    box-shadow: none;
-
-/* --- Make it flat, not floating --- */
-transition: var(--transition);
+    transition: var(--transition);
     position: relative;
 }
 
@@ -290,7 +240,6 @@ transition: var(--transition);
     transition: var(--transition);
 }
 
-/* --- -- Switch Actions -- --- */
 .theme-switch__checkbox:checked + .theme-switch__container {
     background-color: var(--container-night-bg);
 }
@@ -320,974 +269,207 @@ transition: var(--transition);
     transform: translateY(-50%);
 }
 
-/* --- CARD LAYOUT SYSTEM --- */
-.flowers-layout, .plushies-layout {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    align-items: center;
-}
-
-.flowersRowTop, .flowersRowBottom {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 40px;
-    width: 100%;
-}
-
-.flowerCard {
-    background: var(--card-bg);
-    border: 3px solid #ffb6d9;
-    border-radius: 30px;
-    padding: 25px;
-    width: 280px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    box-shadow: 
-        0 10px 25px rgba(255, 105, 180, 0.15),
-        0 0 15px var(--glow-soft);
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
-    position: relative;
-}
-
-[data-theme="dark"] .flowerCard {
-    border-color: #5c0045;
-}
-
-.flowerCard:hover {
-    transform: translateY(-8px) scale(1.03);
-    box-shadow: 
-        0 15px 35px rgba(255, 105, 180, 0.25),
-        0 0 25px var(--glow-color);
-}
-
-.flowerImage {
-    width: 180px;
-    height: 180px;
-    object-fit: contain;
-    margin-bottom: 15px;
-    transition: transform 0.5s ease;
-}
-
-.flowerCard:hover .flowerImage {
-    transform: rotate(5deg) scale(1.05);
-}
-
-.flowerName {
-    font-size: 24px;
-    color: var(--heading-color);
-    margin-bottom: 15px;
-    font-family: 'Pacifico', cursive;
-    text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
-}
-
-[data-theme="dark"] .flowerName {
-    text-shadow: none;
-}
-
-.flowerSelector {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 20px;
-    background: rgba(255, 182, 193, 0.15);
-    padding: 6px 16px;
-    border-radius: 50px;
-    border: 2px dashed #ffb6d9;
-}
-
-[data-theme="dark"] .flowerSelector {
-    background: rgba(92, 0, 69, 0.3);
-    border-color: #5c0045;
-}
-
-.flowerSelector button {
-    width: 36px;
-    height: 36px;
-    border: none;
-    border-radius: 50%;
-    background: var(--btn-bg);
-    color: var(--btn-text);
-    cursor: pointer;
-    font-size: 20px;
-    font-family: var(--font-ui);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-    transition: transform 0.2s, background 0.3s;
-}
-
-.flowerSelector button:hover {
-    transform: scale(1.15);
-    background: var(--cart-btn-bg);
-    color: white;
-}
-
-.flowerSelector button:active {
-    transform: scale(0.95);
-}
-
-.flowerQuantity {
-    font-size: 20px;
-    color: var(--heading-color);
-    font-weight: 600;
-    font-family: var(--font-ui);
-    min-width: 25px;
-    text-align: center;
-}
-
-.flowerCard .addToCartBtn, .flowerCard .customizeBtn {
-    border: none;
-    border-radius: 50px;
-    padding: 12px 24px;
-    cursor: pointer;
-    background: var(--btn-bg);
-    color: var(--text-color);
-    font-family: var(--font-body);
-    font-size: 16px;
-    font-weight: bold;
-    width: 100%;
-    margin-bottom: 10px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.flowerCard .customizeBtn {
-    margin-top: auto;
-    margin-bottom: 20px;
-}
-
-
-.flowerCard .addToCartBtn:hover, .flowerCard .customizeBtn:hover {
-    transform: scale(1.05);
-    background: #ffd6ef;
-    box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4);
-}
-
-.flowerCard .addToCartBtn:active, .flowerCard .customizeBtn:active {
-    transform: scale(0.98);
-}
-
-/* --- COLOR SCROLL CONTAINER --- */
-.color-scroll-container {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.color-option {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 6px 12px;
-    border-radius: 50px;
-    cursor: pointer;
-    border: 2px solid transparent;
-    background: rgba(255, 182, 193, 0.15);
-    transition: all 0.3s ease;
-}
-
-.color-option:hover {
-    background: rgba(255, 182, 193, 0.3);
-    border-color: #ffb6d9;
-}
-
-.color-option.active {
-    background: #ffb6d9;
-    border-color: hotpink;
-    box-shadow: 0 0 10px rgba(255, 105, 180, 0.3);
-}
-
-[data-theme="dark"] .color-option {
-    background: rgba(92, 0, 69, 0.3);
-}
-
-[data-theme="dark"] .color-option:hover {
-    background: rgba(92, 0, 69, 0.5);
-    border-color: #5c0045;
-}
-
-[data-theme="dark"] .color-option.active {
-    background: #c2185b;
-    border-color: #ff80c0;
-}
-
-.color-dot {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    display: inline-block;
-    border: 2px solid rgba(0,0,0,0.1);
-}
-
-.color-label {
-    font-size: 13px;
-    font-family: var(--font-ui);
-    font-weight: 600;
-    color: var(--text-color);
-}
-
-[data-theme="dark"] .color-option.active .color-label {
-    color: white;
-}
-
-/* --- SHOP PAGE --- */
-#mainContainer {
-    position: relative;
-    width: 100vw;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 20px;
-}
-
-#leftSidebar {
-    position: absolute;
-    left: 40px;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 320px;
-    z-index: 10;
-}
-
-.sidebar-panel {
-    display: none;
-    /* --- controlled by JS --- */
-    background: var(--popup-bg);
-    padding: 25px;
-    border-radius: 25px;
-    box-shadow:
-        0 10px 20px rgba(0, 0, 0, 0.05),
-        0 0 15px var(--glow-soft);
-    text-align: center;
-    border: 2px solid var(--glow-soft);
-    transition: background 0.5s ease, box-shadow 0.5s ease;
-}
-
-.character {
-    position: absolute;
-    width: 170px;
-    cursor: pointer;
-    transition: .25s;
-}
-
-.character:hover {
-    transform: scale(1.05);
-}
-
-/* --- CHECKOUT BUTTON --- */
-
-
-/* --- COLOR POPUP (Sidebar) --- */
-#colorPanel h2 {
-    margin-bottom: 15px;
-    color: var(--heading-color);
-    font-size: 20px;
-}
-
-.colorBtn {
-    display: block;
-    width: 100%;
-    margin: 8px auto;
-    border: none;
-    border-radius: 50px;
-    padding: 12px;
-    cursor: pointer;
-    background: var(--btn-bg);
-    color: var(--btn-text);
-    font-size: 15px;
-    font-family: var(--font-ui);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
-    transition: transform .25s, background 0.5s ease, color 0.5s ease;
-}
-
-.colorBtn:hover {
-    transform: scale(1.03);
-}
-
-/* --- QUANTITY POPUP --- */
-#quantityPopup h2 {
-    color: var(--heading-color);
-    margin-bottom: 15px;
-    font-size: 20px;
-}
-
-.quantitySelector {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-
-.quantitySelector button {
-    width: 45px;
-    height: 45px;
-    border: none;
-    border-radius: 50%;
-    background: var(--btn-bg);
-    color: var(--btn-text);
-    cursor: pointer;
-    font-size: 22px;
-    font-family: var(--font-ui);
-    transition: background 0.5s ease, color 0.5s ease;
-}
-
-#quantityValue {
-    font-size: 26px;
-    color: var(--heading-color);
-    font-weight: bold;
-}
-
-#addToCartBtn {
-    border: none;
-    border-radius: 50px;
-    padding: 12px 24px;
-    cursor: pointer;
-    background: var(--btn-bg);
-    color: var(--btn-text);
-    font-size: 15px;
-    width: 100%;
-    font-family: var(--font-ui);
-    transition: transform .25s, background 0.5s ease, color 0.5s ease;
-}
-
-#addToCartBtn:hover {
-    transform: scale(1.03);
-}
-
-/* --- TOAST --- */
-#toast {
-    display: none;
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--toast-bg);
-    color: white;
-    padding: 15px 25px;
-    border-radius: 50px;
-    box-shadow:
-        0 0 10px var(--glow-color),
-        0 0 20px var(--glow-color);
-    z-index: 9999;
-    transition: background 0.5s ease;
-}
-
-/* --- Highlight selected gift element --- */
-.gifSelected {
-    outline: 3px solid hotpink !important;
-    outline-offset: 3px;
-}
-
-/* --- Gift text element --- */
-.giftText {
-    min-width: 80px;
-    font-size: 22px;
-    color: var(--heading-color);
-    user-select: none;
-    cursor: move;
-    white-space: pre-wrap;
-    word-break: break-word;
-}
-
-/* --- CUSTOM ALIGNMENTS --- */
-.checkoutTitle, .customizeTitle {
-    text-align: center !important;
-    font-family: var(--font-heading);
-    color: var(--heading-color);
-    margin-top: 100px;
-    margin-bottom: 25px;
-    font-size: 42px;
-    text-shadow: 2px 2px 4px rgba(255, 182, 193, 0.4);
-}
-
-[data-theme="dark"] .checkoutTitle, [data-theme="dark"] .customizeTitle {
-    text-shadow: none;
-}
-
-/* --- NAVBAR --- */
+/* --- NAVBAR (Logo Only) --- */
 #storeNavbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 70px;
-    background: rgba(255, 228, 241, 0.95);
-    backdrop-filter: blur(10px);
+    background: var(--nav-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
-    gap: 30px;
     z-index: 999;
-    border-bottom: 3px solid #ffb3d9;
-    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.1);
+    border-bottom: 2px solid var(--nav-border);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
     padding: 10px 30px;
     box-sizing: border-box;
+    transition: background 0.6s ease, border-color 0.6s ease;
 }
 
-[data-theme="dark"] #storeNavbar {
-    background: rgba(46, 0, 31, 0.95);
-    border-bottom-color: #5c0045;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.navLink {
-    font-size: 20px;
-    font-family: var(--font-nav);
-    font-weight: 500;
-    color: var(--text-color);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    letter-spacing: 0.5px;
-}
-
-.navLink:hover {
-    color: var(--heading-color);
-    transform: translateY(-2px);
-    opacity: 0.9;
-}
-
-.navLink.active {
-    color: var(--heading-color);
-    font-weight: 800;
-    border-bottom: 3px solid var(--heading-color);
-    padding-bottom: 2px;
-}
-
-[data-theme="dark"] .navLink.active {
-    background: transparent;
-    color: var(--heading-color);
-    box-shadow: none;
-}
-
-/* --- Header Text styling --- */
-.storeHeader {
-    text-align: center;
-    margin-top: 100px;
-    margin-bottom: 20px;
-    color: var(--heading-color);
+.navBrand {
+    margin: 0;
     font-family: var(--font-heading);
-    font-size: 48px;
-    text-shadow: 2px 2px 4px rgba(255, 182, 193, 0.4);
+    font-size: 32px;
+    color: var(--heading-color);
+    text-decoration: none;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), text-shadow 0.3s ease;
 }
 
-[data-theme="dark"] .storeHeader,
-[data-theme="dark"] .checkoutTitle,
-[data-theme="dark"] .customizeTitle,
-[data-theme="dark"] .giftTitle {
-    color: #ffb6d9 !important;
+.navBrand:hover {
+    transform: scale(1.08);
     text-shadow: none;
 }
 
-/* --- BACK TO SHOP BTN --- */
-
-
-/* --- Pulsing red dot for active recording --- */
-.recording-active {
-    animation: recordPulse 1s infinite alternate;
-    color: #e74c3c !important;
-}
-
-@keyframes recordPulse {
-    from { opacity: 0.5; }
-    to { opacity: 1; }
-}
-
-/* --- Plushie speaking / audio wave pulse animation --- */
-.plushie-speaking {
-    animation: audioShake 0.15s infinite alternate;
-    box-shadow: 0 0 25px hotpink !important;
-    border-radius: 50%;
-}
-
-@keyframes audioShake {
-    0% { transform: rotate(-2deg) scale(1.02); }
-    100% { transform: rotate(2deg) scale(1.02); }
-}
-
-/* --- Big chosen box canvas - a tad bit smaller (600x600px) --- */
-.treats-layout #customScene {
-    width: 600px;
-    height: 600px;
-    background: white;
-    border-radius: 40px;
-    box-shadow: 0 0 25px rgba(255, 182, 193, 0.6);
-    position: relative;
-    overflow: hidden;
-}
-
-#customPanel.treats-controls-panel {
-    width: 280px !important;
-    background: var(--popup-bg);
-    border: 3px solid #ffb6d9;
-    border-radius: 35px;
-    padding: 24px;
-    box-shadow: 0 10px 25px rgba(255, 105, 180, 0.15);
+/* --- HERO SECTION --- */
+.hero {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-}
-
-[data-theme="dark"] #customPanel.treats-controls-panel {
-    background-color: rgba(46, 0, 31, 0.6);
-    border-color: #5c0045;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-}
-
-#customPanel.treats-controls-panel h2 {
+    align-items: center;
+    justify-content: center;
+    padding: 120px 20px 60px;
     text-align: center;
-    color: var(--heading-color);
-    margin-bottom: 15px;
-    font-family: var(--font-ui);
-    font-weight: 600;
-    font-size: 20px;
-}
-
-/* --- Bubbly option elements inside selection panel --- */
-.box-option {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 12px 20px;
-    background: var(--btn-bg);
-    border: 2px solid #ffb6d9;
-    border-radius: 20px;
-    cursor: pointer;
-    margin-bottom: 12px;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    width: 100%;
-}
-
-.box-option:hover {
-    transform: translateY(-3px) scale(1.02);
-    border-color: hotpink;
-    box-shadow: 0 5px 12px rgba(255, 105, 180, 0.2);
-}
-
-.box-option.active {
-    background: #ffb6d9;
-    border-color: hotpink;
-    box-shadow: 0 0 15px rgba(255, 105, 180, 0.45);
-}
-
-.box-option img {
-    width: 45px;
-    height: 45px;
-    object-fit: contain;
-}
-
-.box-option span {
-    font-size: 16px;
-    font-family: var(--font-ui);
-    font-weight: 600;
-    color: var(--text-color);
-}
-
-.box-option.active span {
-    color: #5a0035;
-}
-
-[data-theme="dark"] .box-option {
-    border-color: #5c0045;
-}
-
-[data-theme="dark"] .box-option.active {
-    background: #c2185b;
-    border-color: #ff80c0;
-}
-
-[data-theme="dark"] .box-option.active span {
-    color: white;
-}
-
-/* --- Customization Buttons Placed Side-by-Side --- */
-.buttons-row {
-    display: flex;
-    gap: 10px;
-    width: 100%;
-    margin-top: 10px;
-}
-
-.buttons-row button {
-    flex: 1;
-    margin: 0 !important;
-    padding: 12px 6px !important;
-    font-size: 14px !important;
-    border-radius: 25px !important;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    background: #ffd6ef;
-    box-shadow: 0 0 8px rgba(255, 182, 193, 0.6);
-    color: #5a0035;
-    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease;
-}
-
-.buttons-row button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 12px rgba(255, 105, 180, 0.8);
-}
-
-#saveCustomization {
-    background: #ffb6d9 !important;
-    color: #5a0035 !important;
-    box-shadow: 0 0 10px pink !important;
-}
-
-#saveCustomization:hover {
-    box-shadow: 0 0 15px hotpink !important;
-}
-
-/* --- Spawned Draggable Treats --- */
-.draggableTreat {
-    position: absolute;
-    width: 70px;
-    height: 70px;
-    object-fit: contain;
-    cursor: move;
+    position: relative;
     z-index: 10;
-    transition: transform 0.1s ease;
 }
 
-.draggableTreatSelected {
-    outline: 3px solid hotpink !important;
-    outline-offset: 3px;
+.hero-title {
+    font-family: var(--font-heading);
+    font-size: 72px;
+    background: var(--hero-gradient);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    margin-bottom: 20px;
+    padding: 20px 30px;
+    line-height: 1.5;
+    animation: fadeInDown 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+    filter: drop-shadow(0 4px 10px rgba(255, 105, 180, 0.2));
 }
 
-/* --- PEARL STARDUST BUTTON DESIGN --- */
-:root, [data-theme="light"] {
-    --bg-pink: #ffb6d9;
-    --hover-glow: rgba(255, 182, 193, 0.6);
-    --hover-glow-soft: rgba(255, 105, 180, 0.8);
-    --btn-text-color: #5a0035;
+@keyframes shine {
+    to { background-position: 200% center; }
 }
 
-[data-theme="dark"] {
-    --bg-pink: #880e4f;
-    --hover-glow: rgba(136, 14, 79, 0.6);
-    --hover-glow-soft: rgba(194, 24, 91, 0.8);
-    --btn-text-color: #ffffff;
+.hero-subtitle {
+    font-size: 20px;
+    font-weight: 400;
+    max-width: 650px;
+    margin-bottom: 60px;
+    color: var(--text-color);
+    line-height: 1.6;
+    animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s both;
 }
 
-.shiny-cta {
-    outline: none;
-    cursor: pointer;
-    border: 0;
-    position: relative;
-    border-radius: 100px;
-    background-color: var(--bg-pink);
-    transition: all 0.2s ease;
-    box-shadow: 
-      inset 0 0.3rem 0.9rem rgba(255, 255, 255, 0.4),
-      inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.4),
-      inset 0 -0.4rem 0.9rem rgba(255, 255, 255, 0.3),
-      0 10px 15px -3px rgba(255, 105, 180, 0.3),
-      0 4px 6px -2px rgba(255, 105, 180, 0.05);
-    overflow: hidden;
-    display: inline-flex;
-    align-items: center;
+.categories {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
     justify-content: center;
-    text-decoration: none;
-    padding: 10px 24px;
+    width: 100%;
+    max-width: 1200px;
+    perspective: 1000px;
 }
 
-.shiny-cta::before {
-    content: "";
-    position: absolute;
-    left: -15%;
-    right: -15%;
-    bottom: 25%;
-    top: -100%;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.25);
-    transition: all 0.3s ease;
-    z-index: 1;
-    pointer-events: none;
-}
-
-.shiny-cta::after {
-    content: "";
-    position: absolute;
-    left: 6%;
-    right: 6%;
-    top: 12%;
-    bottom: 40%;
-    border-radius: 22px 22px 0 0;
-    box-shadow: inset 0 10px 8px -10px rgba(255, 255, 255, 0.6);
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.3) 0%,
-      rgba(255, 255, 255, 0) 50%,
-      rgba(255, 255, 255, 0) 100%
-    );
-    transition: all 0.3s ease;
-    z-index: 1;
-    pointer-events: none;
-}
-
-.shiny-cta span {
-    position: relative;
-    z-index: 2;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 15px;
-    font-family: 'Fredoka', sans-serif;
-    font-weight: 600;
-    color: var(--btn-text-color);
-    transition: all 0.2s ease;
-    transform: translateY(2%);
-}
-
-.shiny-cta span::before {
-    content: "✧";
-    transition: all 0.2s ease;
-}
-
-.shiny-cta:hover span::before {
-    content: "✦";
-}
-
-.shiny-cta:hover {
-    box-shadow:
-      inset 0 0.3rem 0.5rem var(--hover-glow),
-      inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.4),
-      inset 0 -0.4rem 0.9rem var(--hover-glow-soft),
-      0 12px 20px rgba(255, 105, 180, 0.4),
-      0 4px 8px rgba(255, 105, 180, 0.1);
-}
-
-.shiny-cta:hover::before {
-    transform: translateY(-5%);
-}
-
-.shiny-cta:hover::after {
-    opacity: 0.4;
-    transform: translateY(5%);
-}
-
-.shiny-cta:hover span {
-    transform: translateY(-4%);
-}
-
-.shiny-cta:active {
-    transform: translateY(2px);
-    box-shadow:
-      inset 0 0.3rem 0.5rem var(--hover-glow),
-      inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.5),
-      inset 0 -0.4rem 0.9rem var(--hover-glow-soft),
-      0 6px 10px rgba(255, 105, 180, 0.2);
-}
-
-
-
-@keyframes gradient-angle {
-  to {
-    --gradient-angle: 360deg;
-  }
-}
-
-@keyframes shimmer {
-  to {
-    rotate: 360deg;
-  }
-}
-
-@keyframes breathe {
-  from, to {
-    scale: 1;
-  }
-  50% {
-    scale: 1.2;
-  }
-}
-
-/* --- CAROUSEL STYLES (NO-SCROLL LAYOUT) --- */
-body.no-scroll {
-    overflow: hidden !important;
-    height: 100vh;
+.category-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 2px solid var(--card-border);
+    border-radius: 40px;
+    padding: 40px 30px;
+    width: 320px;
     display: flex;
     flex-direction: column;
-}
-
-body.no-scroll #mainContainer {
-    flex: 1;
-    min-height: 0;
-    padding: 0;
-    display: flex;
     align-items: center;
-    justify-content: center;
+    text-decoration: none;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.05),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease, background 0.6s ease;
+    animation: zoomIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
-body.no-scroll .storeHeader {
-    margin-top: 80px;
-    margin-bottom: 0px;
-    flex-shrink: 0;
+.category-card:nth-child(1) { animation-delay: 0.3s; }
+.category-card:nth-child(2) { animation-delay: 0.4s; }
+.category-card:nth-child(3) { animation-delay: 0.5s; }
+
+.category-card:hover {
+    transform: translateY(-15px) scale(1.03);
+    border-color: var(--card-hover-border);
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 
+        0 30px 60px rgba(255, 105, 180, 0.15);
 }
 
-.plushies-layout, .flowers-layout {
-    width: 100%;
+[data-theme="dark"] .category-card:hover {
+    background: rgba(46, 0, 31, 0.8);
+    box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.4);
 }
 
-.carousel-wrapper {
-    position: relative;
-    width: 90%;
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 0 60px;
-    height: auto;
+.category-icon {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: 30px;
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15));
 }
 
-.carousel-track-container {
-    overflow: hidden;
-    width: 100%;
-    padding: 15px 0;
-
-/* --- extra padding for box shadows --- */
+.category-card:hover .category-icon {
+    transform: translateY(-15px) scale(1.15) rotate(5deg);
 }
 
-.carousel-track {
-    display: flex;
-    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.carousel-slide {
-    flex: 0 0 calc(100% / 3);
-
-/* --- Show 3 items --- */
-padding: 0 15px;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-}
-
-@media (max-width: 1024px) {
-    .carousel-slide {
-        flex: 0 0 50%;
-
-/* --- Show 2 items --- */
-}
-}
-
-@media (max-width: 768px) {
-    .carousel-slide {
-        flex: 0 0 100%;
-
-/* --- Show 1 item --- */
-}
-    .carousel-wrapper {
-        padding: 0 40px;
-    }
-}
-
-.carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: #fafafa;
-    border: 1px solid #e4e4e7;
-    border-radius: 50%;
-    width: 44px;
-    height: 44px;
-    color: #52525b;
-    cursor: pointer;
-    z-index: 10;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    transition: all 0.3s ease;
-}
-
-[data-theme="dark"] .carousel-btn {
-    background: #09090b;
-    border-color: #27272a;
-    color: #f4f4f5;
-}
-
-.carousel-btn:hover:not(:disabled) {
-    background: #f4f4f5;
-    color: #18181b;
-}
-
-[data-theme="dark"] .carousel-btn:hover:not(:disabled) {
-    background: #27272a;
-    color: #ffffff;
-}
-
-.carousel-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-}
-
-.carousel-prev {
-    left: 0;
-}
-
-.carousel-next {
-    right: 0;
-}
-
-.carousel-slide .flowerCard {
-    width: 100%;
-
-/* --- Take up the slide width --- */
-max-width: 320px;
-
-/* --- Don't get too crazy large --- */
-margin: 0 auto;
-}
-
-/* --- NAV BRAND CENTERING --- */
-.navBrand {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 0;
-    font-family: var(--font-heading);
-    font-size: 28px;
+.category-title {
+    font-size: 32px;
     color: var(--heading-color);
+    font-family: var(--font-heading);
+    margin-bottom: 15px;
+    transition: color 0.3s ease;
 }
-</style>
 
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+.category-desc {
+    color: var(--text-color);
+    font-size: 16px;
+    line-height: 1.5;
+    opacity: 0.9;
+}
 
+.floating-element {
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.8;
+    animation: float 8s ease-in-out infinite;
+    filter: drop-shadow(0 20px 30px rgba(255, 105, 180, 0.2));
+}
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ribeye&display=swap" rel="stylesheet">
+[data-theme="dark"] .floating-element {
+    opacity: 0.5;
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.5));
+}
 
-<script src="mobile-block.js"></script>
+.float-1 { top: 15%; left: 8%; width: 70px; animation-delay: 0s; }
+.float-2 { top: 25%; right: 12%; width: 90px; animation-delay: 1.5s; animation-duration: 9s; }
+.float-3 { bottom: 15%; left: 12%; width: 80px; animation-delay: 3s; animation-duration: 7s; }
+.float-4 { bottom: 25%; right: 8%; width: 60px; animation-delay: 4.5s; animation-duration: 6s; }
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes zoomIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-25px) rotate(8deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+    </style>
 </head>
+<body>
 
-<body class="no-scroll">
-
-    <!-- Baby Pink Navbar -->
+    <!-- Landing Page Navbar (Logo Only) -->
     <nav id="storeNavbar">
-        <div class="navBrand">Gift Shop</div>
-        <a href="index.html" class="navLink active">Plushies</a>
-        <a href="flowers.html" class="navLink">Flowers</a>
-        <a href="treats.html" class="navLink">Treats</a>
-        <div id="cartButton" class="shiny-cta"><span> Checkout (<span id="cartCount">0</span>)</span></div>
+        <a href="index.html" class="navBrand">Gift Shop</a>
     </nav>
 
-    <!-- Theme Toggle (Shifted to top left corner) -->
+    <!-- Theme Toggle -->
     <div id="themeToggleWrapper">
         <label class="theme-switch">
             <input type="checkbox" class="theme-switch__checkbox" id="themeCheckbox">
@@ -1311,487 +493,72 @@ margin: 0 auto;
         </label>
     </div>
 
-    <!-- Header Text -->
-    <h1 class="storeHeader">Shop for plushies.</h1>
+    <!-- Floating Background Elements -->
+    <img src="assets/plushies/bunny-blue.png" alt="Floating Bunny" class="floating-element float-1">
+    <img src="assets/flowers/flower2.png" alt="Floating Flower" class="floating-element float-2">
+    <img src="assets/treats/dessert2.png" alt="Floating Treat" class="floating-element float-3">
+    <img src="assets/plushies/duck.png" alt="Floating Duck" class="floating-element float-4">
 
-    <div id="mainContainer">
-        <div class="plushies-layout">
-            <!-- Plushies Grid: Side-by-Side in a Single Row -->
-            <div class="flowersRowTop">
-                <div class="flowerCard" id="bunnyCard">
-                    <!-- Default to blue bunny -->
-                    <img src="assets/plushies/bunny-blue.png" alt="Bunny" class="flowerImage" id="bunnyImage">
-                    <div class="flowerName" id="bunnyName">Blue Bunny</div>
-                    
-                    <!-- Scroll Color Options -->
-                    <div class="color-scroll-container">
-                        <div class="color-option active" data-color="blue" data-image="assets/plushies/bunny-blue.png" data-name="Blue Bunny">
-                            <span class="color-dot" style="background-color: #a0d2eb;"></span>
-                            <span class="color-label">Blue</span>
-                        </div>
-                        <div class="color-option" data-color="pink" data-image="assets/plushies/bunny-pink.png" data-name="Pink Bunny">
-                            <span class="color-dot" style="background-color: #ffb3d9;"></span>
-                            <span class="color-label">Pink</span>
-                        </div>
-                        <div class="color-option" data-color="purple" data-image="assets/plushies/bunny-purple.png" data-name="Purple Bunny">
-                            <span class="color-dot" style="background-color: #e0b0ff;"></span>
-                            <span class="color-label">Purple</span>
-                        </div>
-                    </div>
-
-                    <div class="flowerSelector">
-                        <button class="minusBtn" data-plushie="1">−</button>
-                        <span class="flowerQuantity" id="qtyPlushie1">1</span>
-                        <button class="plusBtn" data-plushie="1">+</button>
-                    </div>
-                    
-                    <button class="customizeBtn" id="bunnyCustomizeBtn" data-plushie="1" data-name="Blue Bunny" data-image="assets/plushies/bunny-blue.png">Customize Plushie </button>
-                    <button class="addToCartBtn shiny-cta" id="bunnyAddToCartBtn" data-plushie="1" data-name="Blue Bunny" data-image="assets/plushies/bunny-blue.png"><span>Add To Cart </span></button>
-                </div>
-
-                <div class="flowerCard">
-                    <img src="assets/plushies/duck.png" alt="Duck" class="flowerImage">
-                    <div class="flowerName">Duck</div>
-                    <div class="flowerSelector">
-                        <button class="minusBtn" data-plushie="2">−</button>
-                        <span class="flowerQuantity" id="qtyPlushie2">1</span>
-                        <button class="plusBtn" data-plushie="2">+</button>
-                    </div>
-                    <button class="customizeBtn" data-plushie="2" data-name="Duck" data-image="assets/plushies/duck.png">Customize Plushie </button>
-                    <button class="addToCartBtn shiny-cta" data-plushie="2" data-name="Duck" data-image="assets/plushies/duck.png"><span>Add To Cart </span></button>
-                </div>
-
-                <div class="flowerCard">
-                    <img src="assets/plushies/bear.png" alt="Bear" class="flowerImage">
-                    <div class="flowerName">Bear</div>
-                    <div class="flowerSelector">
-                        <button class="minusBtn" data-plushie="3">−</button>
-                        <span class="flowerQuantity" id="qtyPlushie3">1</span>
-                        <button class="plusBtn" data-plushie="3">+</button>
-                    </div>
-                    <button class="customizeBtn" data-plushie="3" data-name="Bear" data-image="assets/plushies/bear.png">Customize Plushie </button>
-                    <button class="addToCartBtn shiny-cta" data-plushie="3" data-name="Bear" data-image="assets/plushies/bear.png"><span>Add To Cart </span></button>
-                </div>
-            </div>
-
-            <!-- New Plushies Row -->
-            <div class="flowersRowBottom" style="margin-top: 40px;">
-                <div class="flowerCard">
-                    <!-- Default to grey elephant -->
-                    <img src="assets/plushies/elephant-grey.png" alt="Elephant" class="flowerImage">
-                    <div class="flowerName">Grey Elephant</div>
-                    
-                    <!-- Scroll Color Options -->
-                    <div class="color-scroll-container">
-                        <div class="color-option active" data-color="grey" data-image="assets/plushies/elephant-grey.png" data-name="Grey Elephant">
-                            <span class="color-dot" style="background-color: #bbbbbb;"></span>
-                            <span class="color-label">Grey</span>
-                        </div>
-                        <div class="color-option" data-color="blue" data-image="assets/plushies/elephant-blue.png" data-name="Blue Elephant">
-                            <span class="color-dot" style="background-color: #a0d2eb;"></span>
-                            <span class="color-label">Blue</span>
-                        </div>
-                    </div>
-
-                    <div class="flowerSelector">
-                        <button class="minusBtn" data-plushie="4">−</button>
-                        <span class="flowerQuantity" id="qtyPlushie4">1</span>
-                        <button class="plusBtn" data-plushie="4">+</button>
-                    </div>
-                    
-                    <button class="customizeBtn" data-plushie="4" data-name="Grey Elephant" data-image="assets/plushies/elephant-grey.png">Customize Plushie </button>
-                    <button class="addToCartBtn shiny-cta" data-plushie="4" data-name="Grey Elephant" data-image="assets/plushies/elephant-grey.png"><span>Add To Cart </span></button>
-                </div>
-
-                <div class="flowerCard">
-                    <img src="assets/plushies/pig.png" alt="Pig" class="flowerImage">
-                    <div class="flowerName">Pig</div>
-                    <div class="flowerSelector">
-                        <button class="minusBtn" data-plushie="5">−</button>
-                        <span class="flowerQuantity" id="qtyPlushie5">1</span>
-                        <button class="plusBtn" data-plushie="5">+</button>
-                    </div>
-                    <button class="customizeBtn" data-plushie="5" data-name="Pig" data-image="assets/plushies/pig.png">Customize Plushie </button>
-                    <button class="addToCartBtn shiny-cta" data-plushie="5" data-name="Pig" data-image="assets/plushies/pig.png"><span>Add To Cart </span></button>
-                </div>
-
-                <div class="flowerCard">
-                    <img src="assets/plushies/fox.png" alt="Fox" class="flowerImage">
-                    <div class="flowerName">Fox</div>
-                    <div class="flowerSelector">
-                        <button class="minusBtn" data-plushie="6">−</button>
-                        <span class="flowerQuantity" id="qtyPlushie6">1</span>
-                        <button class="plusBtn" data-plushie="6">+</button>
-                    </div>
-                    <button class="customizeBtn" data-plushie="6" data-name="Fox" data-image="assets/plushies/fox.png">Customize Plushie </button>
-                    <button class="addToCartBtn shiny-cta" data-plushie="6" data-name="Fox" data-image="assets/plushies/fox.png"><span>Add To Cart </span></button>
-                </div>
-
-                <div class="flowerCard">
-                    <img src="assets/plushies/koala.png" alt="Koala" class="flowerImage">
-                    <div class="flowerName">Koala</div>
-                    <div class="flowerSelector">
-                        <button class="minusBtn" data-plushie="7">−</button>
-                        <span class="flowerQuantity" id="qtyPlushie7">1</span>
-                        <button class="plusBtn" data-plushie="7">+</button>
-                    </div>
-                    <button class="customizeBtn" data-plushie="7" data-name="Koala" data-image="assets/plushies/koala.png">Customize Plushie </button>
-                    <button class="addToCartBtn shiny-cta" data-plushie="7" data-name="Koala" data-image="assets/plushies/koala.png"><span>Add To Cart </span></button>
-                </div>
-
-                <div class="flowerCard">
-                    <img src="assets/plushies/cat.png" alt="Cat" class="flowerImage">
-                    <div class="flowerName">Cat</div>
-                    <div class="flowerSelector">
-                        <button class="minusBtn" data-plushie="8">−</button>
-                        <span class="flowerQuantity" id="qtyPlushie8">1</span>
-                        <button class="plusBtn" data-plushie="8">+</button>
-                    </div>
-                    <button class="customizeBtn" data-plushie="8" data-name="Cat" data-image="assets/plushies/cat.png">Customize Plushie </button>
-                    <button class="addToCartBtn shiny-cta" data-plushie="8" data-name="Cat" data-image="assets/plushies/cat.png"><span>Add To Cart </span></button>
-                </div>
-            </div>
+    <!-- Main Hero Section -->
+    <main class="hero">
+        <h1 class="hero-title">Welcome to the Virtual Gift Shop</h1>
+        <p class="hero-subtitle">Discover the perfect virtual gifts for your loved ones. Build customized bouquets, choose adorable plushies, or pick delicious treats to assemble the ultimate gift package.</p>
+        
+        <div class="categories">
+            <a href="plushies.html" class="category-card">
+                <img src="assets/plushies/bear.png" alt="Plushies" class="category-icon">
+                <h2 class="category-title">Plushies</h2>
+                <p class="category-desc">Cuddly, colorful companions. Customize them with accessories and colors.</p>
+            </a>
+            
+            <a href="flowers.html" class="category-card">
+                <img src="assets/flowers/flower1.png" alt="Flowers" class="category-icon">
+                <h2 class="category-title">Flowers</h2>
+                <p class="category-desc">Beautiful blooms that never fade. Arrange your own personalized bouquet.</p>
+            </a>
+            
+            <a href="treats.html" class="category-card">
+                <img src="assets/treats/dessert1.png" alt="Treats" class="category-icon">
+                <h2 class="category-title">Treats</h2>
+                <p class="category-desc">Sweet and delightful virtual snacks to complete any amazing gift box.</p>
+            </a>
         </div>
-    </div>
-
-    <!-- Toast -->
-    <div id="toast">
-        Added To Cart 
-    </div>
+    </main>
 
     <script>
-/* -------------------- */
-/* THEME TOGGLE         */
-/* -------------------- */
-
-// Apply saved theme immediately to <html> to prevent flash
-(function () {
-    const saved = localStorage.getItem('theme');
-    if (saved === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-    } else {
-        document.documentElement.setAttribute('data-theme', 'light');
-    }
-})();
-
-// Wire up the checkbox once DOM is ready
-document.addEventListener('DOMContentLoaded', function () {
-    const checkbox = document.getElementById('themeCheckbox');
-    if (!checkbox) return;
-
-    const saved = localStorage.getItem('theme');
-    checkbox.checked = saved === 'dark';
-
-    checkbox.addEventListener('change', function () {
-        if (this.checked) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-        } else {
-            document.documentElement.setAttribute('data-theme', 'light');
-            localStorage.setItem('theme', 'light');
-        }
-    });
-});
-
-</script>
-    <script>
-// Cart state
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-function getCartCount() {
-    const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-    return cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
-}
-
-// DOM Elements
-const cartCount = document.getElementById("cartCount");
-const toast = document.getElementById("toast");
-const cartButton = document.getElementById("cartButton");
-
-// Set initial cart count
-cartCount.innerText = getCartCount();
-
-// Track quantities for the plushie cards locally
-
-
-// Update quantities in DOM
-function updateQtyDisplay(plushieId) {
-    const qtySpan = document.getElementById(`qtyPlushie${plushieId}`);
-    const cartBtn = document.querySelector(`.addToCartBtn[data-plushie="${plushieId}"]`);
-    if (qtySpan && cartBtn) {
-        const itemName = cartBtn.dataset.name;
-        const itemInCart = cart.find(item => item.name === itemName && !item.customId);
-        qtySpan.innerText = itemInCart ? itemInCart.quantity : 0;
-    }
-}
-// Initialize on load
-setTimeout(() => {
-    for (let i = 1; i <= 8; i++) updateQtyDisplay(i);
-}, 100);
-
-// Plus Buttons
-document.querySelectorAll(".plusBtn").forEach(button => {
-    button.addEventListener("click", () => {
-        const plushieId = button.dataset.plushie;
-        const cartBtn = document.querySelector(`.addToCartBtn[data-plushie="${plushieId}"]`);
-        const itemName = cartBtn.dataset.name;
-        const itemImage = cartBtn.dataset.image;
-
-        let existingItem = cart.find(item => item.name === itemName && !item.customId);
-        if (existingItem) {
-            existingItem.quantity++;
-        } else {
-            cart.push({
-                name: itemName,
-                image: itemImage,
-                quantity: 1
-            });
-        }
-        localStorage.setItem("cart", JSON.stringify(cart));
-        cartCount.innerText = getCartCount();
-        updateQtyDisplay(plushieId);
-    });
-});
-
-// Minus Buttons
-document.querySelectorAll(".minusBtn").forEach(button => {
-    button.addEventListener("click", () => {
-        const plushieId = button.dataset.plushie;
-        const cartBtn = document.querySelector(`.addToCartBtn[data-plushie="${plushieId}"]`);
-        const itemName = cartBtn.dataset.name;
-
-        let existingItemIndex = cart.findIndex(item => item.name === itemName && !item.customId);
-        if (existingItemIndex > -1) {
-            if (cart[existingItemIndex].quantity > 1) {
-                cart[existingItemIndex].quantity--;
+        // Theme Toggle Logic
+        (function () {
+            const saved = localStorage.getItem('theme');
+            if (saved === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
             } else {
-                cart.splice(existingItemIndex, 1);
+                document.documentElement.setAttribute('data-theme', 'light');
             }
-            localStorage.setItem("cart", JSON.stringify(cart));
-            cartCount.innerText = getCartCount();
-            updateQtyDisplay(plushieId);
-        }
-    });
-});
+        })();
 
-// Color Option Selection (generic helper)
-document.querySelectorAll(".color-option").forEach(option => {
-    option.addEventListener("click", () => {
-        const card = option.closest(".flowerCard");
-        if (!card) return;
+        document.addEventListener('DOMContentLoaded', function () {
+            const checkbox = document.getElementById('themeCheckbox');
+            if (!checkbox) return;
 
-        // Deactivate all other options inside this card
-        card.querySelectorAll(".color-option").forEach(opt => opt.classList.remove("active"));
-        // Activate clicked option
-        option.classList.add("active");
+            const saved = localStorage.getItem('theme');
+            checkbox.checked = saved === 'dark';
 
-        // Retrieve properties
-        const colorName = option.dataset.name;
-        const colorImage = option.dataset.image;
-
-        // Update main card presentation
-        const mainImage = card.querySelector(".flowerImage");
-        const mainName = card.querySelector(".flowerName");
-        if (mainImage) mainImage.src = colorImage;
-        if (mainName) mainName.innerText = colorName;
-
-        // Update button attributes
-        const custBtn = card.querySelector(".customizeBtn");
-        const cartBtn = card.querySelector(".addToCartBtn");
-        if (custBtn) {
-            custBtn.dataset.name = colorName;
-            custBtn.dataset.image = colorImage;
-        }
-        if (cartBtn) {
-            cartBtn.dataset.name = colorName;
-            cartBtn.dataset.image = colorImage;
-        }
-    });
-});
-
-// Add to Cart
-document.querySelectorAll(".addToCartBtn").forEach(button => {
-    button.addEventListener("click", () => {
-        const plushieId = button.dataset.plushie;
-        const plushieName = button.dataset.name;
-        const plushieImage = button.dataset.image;
-                // Push to cart
-        let existingItem = cart.find(item => item.name === plushieName && !item.customId);
-        if (existingItem) {
-            existingItem.quantity++;
-        } else {
-            cart.push({
-                name: plushieName,
-                image: plushieImage,
-                quantity: 1
+            checkbox.addEventListener('change', function () {
+                if (this.checked) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                }
             });
-        }
-
-        // Save
-        localStorage.setItem("cart", JSON.stringify(cart));
-
-        // Update count
-        cartCount.innerText = getCartCount();
-
-        // Reset display and internal count for this card
-        updateQtyDisplay(plushieId);
-
-        // Toast
-        toast.innerText = "Added To Cart";
-        toast.style.display = "block";
-        setTimeout(() => {
-            toast.style.display = "none";
-        }, 2000);
-    });
-});
-
-// Customize Plushie
-document.querySelectorAll(".customizeBtn").forEach(button => {
-    button.addEventListener("click", () => {
-        const plushieId = button.dataset.plushie;
-        const plushieName = button.dataset.name;
-        const plushieImage = button.dataset.image;
-
-        // Get quantity from cart for this item
-        const cartItem = cart.find(item => item.name === plushieName && !item.customId);
-        const quantity = cartItem ? cartItem.quantity : 1;
-
-        // Save selection details to currentPlushie
-        localStorage.setItem("currentPlushie", JSON.stringify({
-            name: plushieName,
-            image: plushieImage,
-            quantity: quantity
-        }));
-
-        // Redirect to customization page
-        window.location = "customize.html";
-    });
-});
-
-// Redirect to checkout
-cartButton.addEventListener("click", () => {
-    window.location = "checkout.html";
-});
-</script>
-
-    <script>
-document.addEventListener('DOMContentLoaded', () => {
-    // We will dynamically construct the carousel to preserve the existing flowerCard HTML.
-    const layouts = document.querySelectorAll('.plushies-layout, .flowers-layout');
-    
-    layouts.forEach(layout => {
-        // Collect all cards
-        const cards = Array.from(layout.querySelectorAll('.flowerCard'));
-        if (cards.length === 0) return;
-        
-        // Clear layout and build carousel structure
-        layout.innerHTML = '';
-        
-        const wrapper = document.createElement('div');
-        wrapper.className = 'carousel-wrapper';
-        
-        const prevBtn = document.createElement('button');
-        prevBtn.className = 'carousel-btn carousel-prev';
-        prevBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>';
-        
-        const trackContainer = document.createElement('div');
-        trackContainer.className = 'carousel-track-container';
-        
-        const track = document.createElement('div');
-        track.className = 'carousel-track';
-        
-        cards.forEach(card => {
-            const slide = document.createElement('div');
-            slide.className = 'carousel-slide';
-            slide.appendChild(card);
-            track.appendChild(slide);
         });
-        
-        const nextBtn = document.createElement('button');
-        nextBtn.className = 'carousel-btn carousel-next';
-        nextBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>';
-        
-        trackContainer.appendChild(track);
-        wrapper.appendChild(prevBtn);
-        wrapper.appendChild(trackContainer);
-        wrapper.appendChild(nextBtn);
-        
-        layout.appendChild(wrapper);
-        
-        // --- Carousel Logic ---
-        let currentIndex = 0;
-        let slideInterval;
-        
-        function updateCarousel() {
-            const slides = Array.from(track.children);
-            if (slides.length === 0) return;
-            
-            // To show 3 items at once, slide width is calculated by container
-            const slideWidth = slides[0].getBoundingClientRect().width;
-            
-            // We move exactly by one slide width
-            track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-            
-            const containerWidth = trackContainer.getBoundingClientRect().width;
-            const visibleSlides = Math.round(containerWidth / slideWidth) || 1;
-            const maxIndex = Math.max(0, slides.length - visibleSlides);
-            
-            // Fix index if resizing
-            if (currentIndex > maxIndex) {
-                currentIndex = maxIndex;
-                track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-            }
-            
-            prevBtn.disabled = currentIndex <= 0;
-            nextBtn.disabled = currentIndex >= maxIndex;
-        }
-        
-        function nextSlide() {
-            const containerWidth = trackContainer.getBoundingClientRect().width;
-            const slideWidth = track.children[0].getBoundingClientRect().width;
-            const visibleSlides = Math.round(containerWidth / slideWidth) || 1;
-            const maxIndex = Math.max(0, track.children.length - visibleSlides);
-            
-            if (currentIndex < maxIndex) {
-                currentIndex++;
-            } else {
-                currentIndex = 0; // Loop back
-            }
-            updateCarousel();
-        }
-        
-        prevBtn.addEventListener('click', () => {
-            if (currentIndex > 0) currentIndex--;
-            updateCarousel();
-        });
-        
-        nextBtn.addEventListener('click', () => {
-            nextSlide();
-        });
-        
-        // Auto Slideshow (Slow)
-        function startSlideshow() {
-            slideInterval = setInterval(nextSlide, 3500); // 3.5 seconds
-        }
-        
-        function stopSlideshow() {
-            clearInterval(slideInterval);
-        }
-        
-        wrapper.addEventListener('mouseenter', stopSlideshow);
-        wrapper.addEventListener('mouseleave', startSlideshow);
-        
-        window.addEventListener('resize', updateCarousel);
-        
-        // Initial setup
-        setTimeout(() => {
-            updateCarousel();
-            startSlideshow();
-        }, 100);
-    });
-});
+    </script>
 
-</script>
+    <!-- Footer -->
+    <footer style="text-align: center; padding: 10px 20px; font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif; font-size: 15px; color: var(--text-color); opacity: 0.85; width: 100%; box-sizing: border-box; position: fixed; bottom: 0; left: 0; z-index: 9999;">
+        &copy; 2026 | &#9825; designed by <a href="https://www.instagram.com/artwsomi?igsh=bHRpb2Z6aWo1ZjFi" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; font-weight: 600; border-bottom: 1px dotted currentColor; transition: opacity 0.2s ease;">@somi</a> &amp; <a href="https://www.instagram.com/ayush.824?igsh=MW01NTU3MHMzaDJ1bQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; font-weight: 600; border-bottom: 1px dotted currentColor; transition: opacity 0.2s ease;">@byayushdas</a>
+    </footer>
+
 </body>
-
 </html>

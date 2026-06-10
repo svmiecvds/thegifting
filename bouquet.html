@@ -527,7 +527,7 @@
         outline: 3px solid var(--heading-color) !important;
         outline-offset: 3px;
         border-radius: 4px;
-        box-shadow: 0 0 15px rgba(255, 79, 162, 0.4);
+        box-shadow: none;
     }
 
     /* --- CONTROL BUTTONS --- */
@@ -681,7 +681,6 @@
         box-shadow:
           inset 0 0.3rem 0.5rem var(--hover-glow),
           inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.4),
-          inset 0 -0.4rem 0.9rem var(--hover-glow-soft),
           0 12px 20px rgba(255, 105, 180, 0.4),
           0 4px 8px rgba(255, 105, 180, 0.1);
     }
@@ -704,7 +703,6 @@
         box-shadow:
           inset 0 0.3rem 0.5rem var(--hover-glow),
           inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.5),
-          inset 0 -0.4rem 0.9rem var(--hover-glow-soft),
           0 6px 10px rgba(255, 105, 180, 0.2);
     }
 
@@ -719,7 +717,7 @@
         color: white;
         padding: 15px 25px;
         border-radius: 50px;
-        box-shadow: 0 0 15px var(--glow-color);
+        box-shadow: none;
         z-index: 9999;
         font-family: var(--font-ui);
         font-weight: 600;
@@ -733,7 +731,7 @@
 
     <!-- Baby Pink Navbar -->
     <nav id="storeNavbar">
-        <div class="navBrand">Gift Shop</div>
+        <a href="index.html" class="navBrand" style="text-decoration: none;">Gift Shop</a>
         <div style="margin-left: auto; display: flex; gap: 15px; align-items: center;">
             <button class="shiny-cta" onclick="window.location.href='flowers.html'">
                 <span>Back To Flowers</span>
@@ -1172,6 +1170,7 @@
         }, 1200);
     });
     </script>
+
 </body>
 
 </html>

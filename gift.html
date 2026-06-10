@@ -331,8 +331,7 @@ transition: var(--transition);
     padding: 25px;
     border-radius: 25px;
     box-shadow:
-        0 10px 20px rgba(0, 0, 0, 0.05),
-        0 0 15px var(--glow-soft);
+        0 10px 20px rgba(0, 0, 0, 0.05);
     text-align: center;
     border: 2px solid var(--glow-soft);
     transition: background 0.5s ease, box-shadow 0.5s ease;
@@ -386,9 +385,7 @@ transition: var(--transition);
     border-radius: 25px;
     position: relative;
     overflow: hidden;
-    box-shadow:
-        0 0 10px var(--glow-soft),
-        0 0 20px var(--glow-soft);
+    box-shadow: none;
     transition: background 0.5s ease, box-shadow 0.5s ease;
 }
 
@@ -399,9 +396,7 @@ transition: var(--transition);
     padding: 15px;
     height: 65vh;
     overflow-y: auto;
-    box-shadow:
-        0 0 10px var(--glow-color),
-        0 0 20px var(--glow-color);
+    box-shadow: none;
     transition: background 0.5s ease, box-shadow 0.5s ease;
     scrollbar-width: thin;
     scrollbar-color: var(--glow-soft) rgba(0, 0, 0, 0.05);
@@ -478,9 +473,7 @@ transition: var(--transition);
     background: var(--popup-bg);
     padding: 25px;
     border-radius: 25px;
-    box-shadow:
-        0 0 15px var(--glow-color),
-        0 0 30px var(--glow-color);
+    box-shadow: none;
     z-index: 99999;
     transition: background 0.5s ease, box-shadow 0.5s ease;
 }
@@ -507,9 +500,7 @@ transition: var(--transition);
     color: var(--btn-text);
     font-family: var(--font-ui);
     cursor: pointer;
-    box-shadow:
-        0 0 10px var(--glow-soft),
-        0 0 20px var(--glow-soft);
+    box-shadow: none;
     transition: background 0.5s ease, color 0.5s ease;
 }
 #customizeBtn{
@@ -562,7 +553,7 @@ transition: var(--transition);
     font-family: var(--font-ui);
     font-size: 15px;
     cursor: pointer;
-    box-shadow: 0 0 8px var(--glow-soft);
+    box-shadow: none;
     transition: transform 0.15s, background 0.3s;
 }
 
@@ -701,7 +692,7 @@ transition: var(--transition);
 /* --- Plushie speaking / audio wave pulse animation --- */
 .plushie-speaking {
     animation: audioShake 0.15s infinite alternate;
-    box-shadow: 0 0 25px hotpink !important;
+    box-shadow: none !important;
     border-radius: 50%;
 }
 
@@ -716,7 +707,7 @@ transition: var(--transition);
     height: 600px;
     background: white;
     border-radius: 40px;
-    box-shadow: 0 0 25px rgba(255, 182, 193, 0.6);
+    box-shadow: none;
     position: relative;
     overflow: hidden;
 }
@@ -771,7 +762,7 @@ transition: var(--transition);
 .box-option.active {
     background: #ffb6d9;
     border-color: hotpink;
-    box-shadow: 0 0 15px rgba(255, 105, 180, 0.45);
+    box-shadow: none;
 }
 
 .box-option img {
@@ -822,14 +813,14 @@ transition: var(--transition);
     cursor: pointer;
     font-weight: bold;
     background: #ffd6ef;
-    box-shadow: 0 0 8px rgba(255, 182, 193, 0.6);
+    box-shadow: none;
     color: #5a0035;
     transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease;
 }
 
 .buttons-row button:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 12px rgba(255, 105, 180, 0.8);
+    box-shadow: none;
 }
 
 #saveCustomization {
@@ -839,7 +830,7 @@ transition: var(--transition);
 }
 
 #saveCustomization:hover {
-    box-shadow: 0 0 15px hotpink !important;
+    box-shadow: none !important;
 }
 
 /* --- Spawned Draggable Treats --- */
@@ -956,7 +947,6 @@ transition: var(--transition);
     box-shadow:
       inset 0 0.3rem 0.5rem var(--hover-glow),
       inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.4),
-      inset 0 -0.4rem 0.9rem var(--hover-glow-soft),
       0 12px 20px rgba(255, 105, 180, 0.4),
       0 4px 8px rgba(255, 105, 180, 0.1);
 }
@@ -979,7 +969,6 @@ transition: var(--transition);
     box-shadow:
       inset 0 0.3rem 0.5rem var(--hover-glow),
       inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.5),
-      inset 0 -0.4rem 0.9rem var(--hover-glow-soft),
       0 6px 10px rgba(255, 105, 180, 0.2);
 }
 
@@ -1129,7 +1118,7 @@ margin: 0 auto;
 
     <!-- Baby Pink Navbar -->
     <nav id="storeNavbar">
-        <div class="navBrand">Gift Shop</div>
+        <a href="index.html" class="navBrand" style="text-decoration: none;">Gift Shop</a>
         <a href="checkout.html" class="navLink shiny-cta" id="backToShopNavLink"><span>Back to Cart</span></a>
     </nav>
 
@@ -1309,7 +1298,7 @@ Create Your Gift
 
         </select>
         
-        <input type="color" id="textColorPicker" value="#ff4fa2" style="width: 45px; height: 45px; border: none; border-radius: 50%; cursor: pointer; padding: 0; background: none; box-shadow: 0 0 5px rgba(255, 105, 180, 0.5);">
+        <input type="color" id="textColorPicker" value="#ff4fa2" style="width: 45px; height: 45px; border: none; border-radius: 50%; cursor: pointer; padding: 0; background: none; box-shadow: none;">
     </div>
 
     <br><br>
