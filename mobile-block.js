@@ -7,6 +7,9 @@
     }
 
     function showMobileBlock() {
+        // Prevent multiple overlays and crashes if body isn't ready
+        if (!document.body || document.getElementById('mobileBlockOverlay')) return;
+
         // Hide everything
         document.body.style.overflow = 'hidden';
 
