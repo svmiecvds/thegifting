@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1250">
     <title>Gift Shop</title>
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <style>
@@ -1226,7 +1226,7 @@ let savedLayout = [];
     }
     // Fallback to localStorage if no shared data
     if (!savedLayout.length) {
-        savedLayout = JSON.parse(localStorage.getItem("savedGiftLayout")) || [];
+        savedLayout = JSON.parse(sessionStorage.getItem("savedGiftLayout")) || [];
     }
 })();
 
@@ -1532,10 +1532,8 @@ if (isViewerMode) {
 function buildShareableUrl() {
     // Get layout data — use the current savedLayout
     const layoutData = savedLayout.map(item => {
-        // Deep-clone and strip voice notes (too large for URLs)
+        // Deep-clone (allow voice notes to be included in URL)
         const clean = Object.assign({}, item);
-        delete clean.voiceNote;
-        delete clean.voiceNoteDuration;
         // Clone accessories array without modifying originals
         if (clean.accessories) {
             clean.accessories = clean.accessories.map(acc => Object.assign({}, acc));

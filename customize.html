@@ -5,8 +5,7 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=1250">
 
 <title>Gift Shop</title>
     <link rel="icon" type="image/png" href="assets/favicon.png">
@@ -1524,7 +1523,7 @@ function selectAccessory(element) {
     }
 }
 
-const currentPlushie = JSON.parse(localStorage.getItem("currentPlushie"));
+const currentPlushie = JSON.parse(sessionStorage.getItem("currentPlushie"));
 if (!currentPlushie) {
     window.location.href = "index.html";
 }
@@ -1781,11 +1780,11 @@ const customizedPlushie = {
 };
 
 /* Load existing cart items and append this new customized item */
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
 cart.push(customizedPlushie);
 
 /* Save to cart */
-localStorage.setItem("cart", JSON.stringify(cart));
+sessionStorage.setItem("cart", JSON.stringify(cart));
 
 alert("Customization Saved & Added to Cart!");
 window.location = "index.html";

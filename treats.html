@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1250">
     <title>Gift Shop</title>
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <style>
@@ -1226,10 +1226,10 @@ let dragOffsetY = 0;
 /* LOAD CART STATE      */
 /* -------------------- */
 
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
 
 function getCartCount() {
-    const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    const cartItems = JSON.parse(sessionStorage.getItem("cart")) || [];
     return cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
 }
 
@@ -1465,9 +1465,9 @@ document.getElementById("saveCustomization").addEventListener("click", () => {
     };
 
     // Load existing cart items and append this new customized box
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
     cart.push(customizedBox);
-    localStorage.setItem("cart", JSON.stringify(cart));
+    sessionStorage.setItem("cart", JSON.stringify(cart));
 
     // Alert and Redirect
     alert(" Treat Box Customization Saved to Cart!");
