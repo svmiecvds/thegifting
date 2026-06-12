@@ -1532,10 +1532,8 @@ if (isViewerMode) {
 function buildShareableUrl() {
     // Get layout data — use the current savedLayout
     const layoutData = savedLayout.map(item => {
-        // Deep-clone and strip voice notes (too large for URLs)
+        // Deep-clone (allow voice notes to be included in URL)
         const clean = Object.assign({}, item);
-        delete clean.voiceNote;
-        delete clean.voiceNoteDuration;
         // Clone accessories array without modifying originals
         if (clean.accessories) {
             clean.accessories = clean.accessories.map(acc => Object.assign({}, acc));
