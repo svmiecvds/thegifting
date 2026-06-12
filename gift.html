@@ -375,7 +375,11 @@ transition: var(--transition);
 #giftContainer {
     display: flex;
     gap: 20px;
-    padding: 20px;
+    justify-content: center;
+    width: 95%;
+    max-width: 1250px;
+    margin: 0 auto;
+    padding-top: 10px;
 }
 
 #giftScene {
@@ -1120,6 +1124,7 @@ margin: 0 auto;
     <nav id="storeNavbar">
         <a href="index.html" class="navBrand" style="text-decoration: none;">Gift Shop</a>
         <a href="checkout.html" class="navLink shiny-cta" id="backToShopNavLink"><span>Back to Cart</span></a>
+        <button id="saveGiftLayoutBtn" class="shiny-cta"><span>Save and Wrap</span></button>
     </nav>
 
 <!-- Theme Toggle -->
@@ -1159,12 +1164,6 @@ Create Your Gift
     </div>
 
     <div id="assetPanel">
-
-        <button id="saveGiftLayoutBtn" class="cuteButton" style="width: 100%; margin: 0 0 15px 0; padding: 15px; font-size: 16px; font-weight: bold; background: #ffb6d9; box-shadow: 0 0 15px hotpink; border-radius: 40px; color: #5a0035;">
-            Save and Wrap
-        </button>
-
-        <hr style="margin-bottom: 15px; border: none; border-top: 2px dashed var(--glow-soft);">
 
         <!-- Size controls for selected item -->
         <div class="giftControls">
