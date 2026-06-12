@@ -1522,7 +1522,7 @@ function selectAccessory(element) {
     }
 }
 
-const currentPlushie = JSON.parse(localStorage.getItem("currentPlushie"));
+const currentPlushie = JSON.parse(sessionStorage.getItem("currentPlushie"));
 if (!currentPlushie) {
     window.location.href = "index.html";
 }
@@ -1779,11 +1779,11 @@ const customizedPlushie = {
 };
 
 /* Load existing cart items and append this new customized item */
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
 cart.push(customizedPlushie);
 
 /* Save to cart */
-localStorage.setItem("cart", JSON.stringify(cart));
+sessionStorage.setItem("cart", JSON.stringify(cart));
 
 alert("Customization Saved & Added to Cart!");
 window.location = "index.html";

@@ -1371,7 +1371,7 @@ function resolveAccessorySrc(src) {
 /* Read from "giftItems" - the key set by checkout.js */
 const giftItems =
 JSON.parse(
-localStorage.getItem(
+sessionStorage.getItem(
 "giftItems"
 )
 ) || [];
@@ -2148,7 +2148,7 @@ if (saveGiftBtn) {
             });
         });
         
-        localStorage.setItem("savedGiftLayout", JSON.stringify(savedLayout));
+        sessionStorage.setItem("savedGiftLayout", JSON.stringify(savedLayout));
         alert("Gift Layout Saved! Opening your wrapped card...");
         window.location = "final.html";
     });

@@ -1038,7 +1038,7 @@
         const giftButton = document.getElementById("giftButton");
 
         /* LOAD CURRENT ITEMS   */
-        let allItems = JSON.parse(localStorage.getItem("cart")) || [];
+        let allItems = JSON.parse(sessionStorage.getItem("cart")) || [];
 
         /* RENDER CART */
         function renderCart() {
@@ -1103,7 +1103,7 @@
                     } else {
                         allItems.splice(index, 1);
                     }
-                    localStorage.setItem("cart", JSON.stringify(allItems));
+                    sessionStorage.setItem("cart", JSON.stringify(allItems));
                     renderCart();
                 });
             });
@@ -1112,7 +1112,7 @@
                 button.addEventListener("click", () => {
                     const index = parseInt(button.dataset.index);
                     allItems[index].quantity = (allItems[index].quantity || 1) + 1;
-                    localStorage.setItem("cart", JSON.stringify(allItems));
+                    sessionStorage.setItem("cart", JSON.stringify(allItems));
                     renderCart();
                 });
             });
@@ -1121,7 +1121,7 @@
         renderCart();
 
         giftButton.addEventListener("click", () => {
-            localStorage.setItem("giftItems", JSON.stringify(allItems));
+            sessionStorage.setItem("giftItems", JSON.stringify(allItems));
             window.location = "gift.html";
         });
     </script>

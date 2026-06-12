@@ -1622,10 +1622,10 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
     <script>
 // Cart state
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
 
 function getCartCount() {
-    const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    const cartItems = JSON.parse(sessionStorage.getItem("cart")) || [];
     return cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
 }
 
@@ -1682,7 +1682,7 @@ document.querySelectorAll(".addToCartBtn").forEach(button => {
         const itemImage = button.dataset.image;
         const qtyToAdd = localQtys[plushieId] || 1;
 
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
         
         // Push to cart
         let existingItem = cart.find(item => item.name === itemName && !item.customId);
@@ -1697,7 +1697,7 @@ document.querySelectorAll(".addToCartBtn").forEach(button => {
         }
 
         // Save
-        localStorage.setItem("cart", JSON.stringify(cart));
+        sessionStorage.setItem("cart", JSON.stringify(cart));
 
         // Update count
         cartCount.innerText = getCartCount();
@@ -1728,7 +1728,7 @@ document.querySelectorAll(".customizeBtn").forEach(button => {
         const quantity = cartItem ? cartItem.quantity : 1;
 
         // Save selection details to currentPlushie
-        localStorage.setItem("currentPlushie", JSON.stringify({
+        sessionStorage.setItem("currentPlushie", JSON.stringify({
             name: plushieName,
             image: plushieImage,
             quantity: quantity
