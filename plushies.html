@@ -1113,8 +1113,9 @@ transition: var(--transition);
 
 /* --- CAROUSEL STYLES (NO-SCROLL LAYOUT) --- */
 body.no-scroll {
-    overflow: hidden !important;
-    height: 100vh;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
