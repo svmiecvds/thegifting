@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1250">
-    <title>Welcome to the Gift Shop</title>
+    <title>Welcome to The Gifting Co.</title>
     <link rel="icon" type="image/png" href="assets/favicon.png">
 
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Pacifico&family=Fredoka:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -462,12 +462,56 @@ body {
 }
     </style>
     <script src="mobile-block.js"></script>
+
+<style>
+.site-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    padding: 0 20px;
+    font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    color: var(--text-color);
+    width: 100%;
+    box-sizing: border-box;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
+    pointer-events: none;
+    background: rgba(255, 228, 241, 0.85);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid rgba(255, 105, 180, 0.2);
+    transition: all 0.3s ease;
+}
+[data-theme="dark"] .site-footer {
+    background: rgba(46, 0, 31, 0.85);
+    border-top: 1px solid rgba(255, 105, 180, 0.2);
+    color: #ffd6ef;
+}
+.site-footer a {
+    color: var(--heading-color);
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px dotted var(--heading-color);
+    transition: opacity 0.2s ease, color 0.3s ease;
+    pointer-events: auto;
+}
+.site-footer a:hover {
+    opacity: 0.7;
+}
+[data-theme="dark"] .site-footer a {
+    color: #ff80c0;
+    border-bottom-color: #ff80c0;
+}
+</style>
 </head>
 <body>
 
     <!-- Landing Page Navbar (Logo Only) -->
     <nav id="storeNavbar">
-        <a href="index.html" class="navBrand">Gift Shop</a>
+        <a href="index.html" class="navBrand">The Gifting Co.</a>
     </nav>
 
     <!-- Theme Toggle -->
@@ -502,7 +546,7 @@ body {
 
     <!-- Main Hero Section -->
     <main class="hero">
-        <h1 class="hero-title">Welcome to the Virtual Gift Shop</h1>
+        <h1 class="hero-title">Welcome to The Gifting Co.</h1>
         <p class="hero-subtitle">Discover the perfect virtual gifts for your loved ones. Build customized bouquets, choose adorable plushies, or pick delicious treats to assemble the ultimate gift package.</p>
         
         <div class="categories">
@@ -555,11 +599,12 @@ body {
             });
         });
     </script>
-
     <!-- Footer -->
-    <footer style="text-align: center; padding: 10px 20px; font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif; font-size: 15px; color: var(--text-color); opacity: 0.85; width: 100%; box-sizing: border-box; position: fixed; bottom: 0; left: 0; z-index: 9999;">
-        &copy; 2026 | &#9825; designed by <a href="https://www.instagram.com/artwsomi?igsh=bHRpb2Z6aWo1ZjFi" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; font-weight: 600; border-bottom: 1px dotted currentColor; transition: opacity 0.2s ease;">@somi</a> &amp; <a href="https://www.instagram.com/ayush.824?igsh=MW01NTU3MHMzaDJ1bQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; font-weight: 600; border-bottom: 1px dotted currentColor; transition: opacity 0.2s ease;">@byayushdas</a>
+    <footer class="site-footer">
+        &copy; 2026 | &#9825; designed by <a href="https://www.instagram.com/artwsomi?igsh=bHRpb2Z6aWo1ZjFi" target="_blank" rel="noopener noreferrer">@somi</a> &amp; <a href="https://www.instagram.com/ayush.824?igsh=MW01NTU3MHMzaDJ1bQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">@byayushdas</a>
     </footer>
-
 </body>
 </html>
+
+
+

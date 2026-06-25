@@ -2,8 +2,9 @@
 <html>
 
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <title>Gift Shop</title>
+    <title>The Gifting Co.</title>
     <link rel="icon" type="image/png" href="assets/favicon.png">
 
     <style>
@@ -396,19 +397,7 @@
             transform: translateY(0) !important;
         }
 
-        #giftButton {
-            margin-top: 30px;
-            border: none;
-            padding: 18px 35px;
-            border-radius: 50px;
-            background: var(--btn-bg);
-            color: var(--heading-color);
-            font-size: 18px;
-            font-family: var(--font-ui);
-            cursor: pointer;
-            box-shadow: none;
-            transition: background 0.5s ease, color 0.5s ease;
-        }
+        
 
         /* --- Highlight selected gift element --- */
         .gifSelected {
@@ -456,6 +445,9 @@
             display: flex;
             justify-content: flex-end;
             align-items: center;
+            padding: 0 40px;
+            box-sizing: border-box;
+            padding: 0 40px;
             gap: 30px;
             z-index: 999;
             border-bottom: 3px solid #ffb3d9;
@@ -951,6 +943,82 @@
     <link href="https://fonts.googleapis.com/css2?family=Ribeye&display=swap" rel="stylesheet">
 
 <script src="mobile-block.js"></script>
+
+<style>
+.site-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    padding: 0 20px;
+    font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    color: var(--text-color);
+    width: 100%;
+    box-sizing: border-box;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
+    pointer-events: none;
+    background: rgba(255, 228, 241, 0.85);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid rgba(255, 105, 180, 0.2);
+    transition: all 0.3s ease;
+}
+[data-theme="dark"] .site-footer {
+    background: rgba(46, 0, 31, 0.85);
+    border-top: 1px solid rgba(255, 105, 180, 0.2);
+    color: #ffd6ef;
+}
+.site-footer a {
+    color: var(--heading-color);
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px dotted var(--heading-color);
+    transition: opacity 0.2s ease, color 0.3s ease;
+    pointer-events: auto;
+}
+.site-footer a:hover {
+    opacity: 0.7;
+}
+[data-theme="dark"] .site-footer a {
+    color: #ff80c0;
+    border-bottom-color: #ff80c0;
+}
+
+
+        .nav-action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--heading-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            height: 38px;
+            padding: 0 18px;
+            cursor: pointer;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            box-shadow: 0 2px 8px rgba(255, 105, 180, 0.3);
+            white-space: nowrap;
+        }
+
+        .nav-action-btn:hover {
+            opacity: 0.85;
+            transform: translateY(-2px);
+        }
+
+        [data-theme="dark"] .nav-action-btn {
+            background-color: #ffb6d9;
+            color: #5a0035;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+</style>
 </head>
 
 <body class="checkoutPage">
@@ -958,11 +1026,13 @@
 
     <!-- Baby Pink Navbar -->
     <nav id="storeNavbar">
-        <a href="index.html" class="navBrand" style="text-decoration: none;">Gift Shop</a>
-        <div style="margin-left: auto; display: flex;">
-            <button class="shiny-cta" onclick="window.location.href='index.html'">
-                <span>Back To Shop</span>
+        <a href="index.html" class="navBrand" style="text-decoration: none;">The Gifting Co.</a>
+        <div style="margin-left: auto; display: flex; gap: 15px; align-items: center;">
+            <button onclick="window.location.href='index.html'" style="display: inline-flex; align-items: center; justify-content: center; background: transparent; border: none; font-family: 'Fredoka', sans-serif; font-size: 16px; font-weight: 600; letter-spacing: 0.5px; height: 38px; padding: 0 10px; color: var(--text-color); cursor: pointer; text-decoration: none; white-space: nowrap; transition: all 0.3s ease;" onmouseover="this.style.color='var(--heading-color)'; this.style.transform='translateX(-3px)';" onmouseout="this.style.color='var(--text-color)'; this.style.transform='translateX(0)';">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.6; margin-right: 4px; flex-shrink: 0;" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+                Go back
             </button>
+            <div id="giftButton" class="shiny-cta"><span>Make This A Gift</span></div>
         </div>
     </nav>
 
@@ -997,11 +1067,7 @@
             <h2>Your Cart</h2>
             <div id="orderList"></div>
 
-            <div class="checkoutButtons">
-                <button id="giftButton" class="shiny-cta">
-                    <span>Make This A Gift</span>
-                </button>
-            </div>
+            
         </div>
     </div>
     <script>
@@ -1051,7 +1117,7 @@
                 return;
             }
 
-            giftButton.style.display = "inline-flex"; // For shiny-cta
+            giftButton.style.display = "inline-flex";
 
             const categories = {
                 "Plushies": [],
@@ -1127,6 +1193,12 @@
         });
     </script>
 
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        &copy; 2026 | &#9825; designed by <a href="https://www.instagram.com/artwsomi?igsh=bHRpb2Z6aWo1ZjFi" target="_blank" rel="noopener noreferrer">@somi</a> &amp; <a href="https://www.instagram.com/ayush.824?igsh=MW01NTU3MHMzaDJ1bQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">@byayushdas</a>
+    </footer>
 </body>
 
 </html>
+
