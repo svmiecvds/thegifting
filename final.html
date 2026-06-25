@@ -1281,8 +1281,7 @@ savedLayout.forEach(item => {
         img.src = item.src;
         img.style.position = "absolute";
         img.style.width = "100%";
-        img.style.height = "100%";
-        img.style.objectFit = "contain";
+        img.style.height = "auto";
         img.style.left = "0";
         img.style.top = "0";
         img.draggable = false;
@@ -1595,7 +1594,10 @@ if (!isViewerMode && shareBtnContainer) {
             link.download = 'gift.jpg';
             document.body.appendChild(link);
             link.click();
+            
             document.body.removeChild(link);
+            const wm = document.getElementById("download-watermark");
+            if (wm) wm.remove();
             showShareToast(' Image downloaded!');
         } catch (error) {
             console.error("Error creating image:", error);
@@ -1605,6 +1607,8 @@ if (!isViewerMode && shareBtnContainer) {
                 alert("Failed to download image: " + (error.message || error));
             }
         } finally {
+            const wm = document.getElementById('download-watermark');
+            if (wm) wm.remove();
             // Restore button
             span.innerHTML = originalText;
             shareBtn.disabled = false;
