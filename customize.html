@@ -740,60 +740,6 @@ height:auto;
 /* --- BACK TO SHOP BTN --- */
 
 
-/* --- VOICE RECORDER UI --- */
-#voiceRecorderPanel {
-    background: var(--card-bg);
-    border: 1.5px solid rgba(255, 182, 217, 0.3);
-    border-radius: 18px;
-    padding: 16px;
-    margin-top: 16px;
-    text-align: center;
-    box-shadow: 0 2px 10px rgba(255, 182, 193, 0.08);
-    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-}
-
-[data-theme="dark"] #voiceRecorderPanel {
-    border-color: rgba(92, 0, 69, 0.35);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-}
-
-#voiceRecorderPanel h3 {
-    font-size: 16px;
-    color: var(--heading-color);
-    margin-bottom: 10px;
-    font-family: var(--font-ui);
-    font-weight: 600;
-}
-
-#recordStatus {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-color);
-    margin-top: 5px;
-}
-
-/* --- Pulsing red dot for active recording --- */
-.recording-active {
-    animation: recordPulse 1s infinite alternate;
-    color: #e74c3c !important;
-}
-
-@keyframes recordPulse {
-    from { opacity: 0.5; }
-    to { opacity: 1; }
-}
-
-/* --- Plushie speaking / audio wave pulse animation --- */
-.plushie-speaking {
-    animation: audioShake 0.15s infinite alternate;
-    box-shadow: none !important;
-    border-radius: 50%;
-}
-
-@keyframes audioShake {
-    0% { transform: rotate(-2deg) scale(1.02); }
-    100% { transform: rotate(2deg) scale(1.02); }
-}
 
 /* --- Big chosen box canvas - a tad bit smaller (600x600px) --- */
 .treats-layout #customScene {
@@ -1360,10 +1306,13 @@ body.no-scroll {
     <!-- Baby Pink Navbar -->
         <nav id="storeNavbar">
         <a href="index.html" class="navBrand" style="text-decoration: none;">The Gifting Co.</a>
-        <div style="margin-left: auto; display: flex;">
+        <div style="margin-left: auto; display: flex; align-items: center; gap: 15px;">
             <button onclick="window.location.href='index.html'" style="display: inline-flex; align-items: center; justify-content: center; background: transparent; border: none; font-family: 'Fredoka', sans-serif; font-size: 16px; font-weight: 600; letter-spacing: 0.5px; color: var(--text-color); cursor: pointer; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.color='var(--heading-color)'; this.style.transform='translateX(-3px)';" onmouseout="this.style.color='var(--text-color)'; this.style.transform='translateX(0)';">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.6; margin-right: 4px; flex-shrink: 0;" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
                 Go back
+            </button>
+            <button id="saveCustomization" class="shiny-cta" style="padding: 8px 16px; font-size: 14px;">
+                <span>Save Changes</span>
             </button>
         </div>
     </nav>
@@ -1454,26 +1403,7 @@ class="mainPlushie"
         <button id="decreaseSize">-</button>
     </div>
 
-    <div id="voicePanel" class="customPanel-style">
-        <!-- Voice Recorder Panel -->
-        <div id="voiceRecorderPanel">
-            <h3>Plushie Voice Note</h3>
-            <div style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
-                <button id="recordBtn" class="cuteButton" style="width: 100%; margin: 0; padding: 10px; font-size: 14px;">
-                    Record (15s limit)
-                </button>
-                <div id="recordStatus">Ready to record</div>
-                <div id="recordPlaybackContainer" style="display: none; justify-content: center; gap: 8px; width: 100%;">
-                    <button id="playVoiceBtn" class="cuteButton" style="flex: 1; margin: 0; padding: 8px; font-size: 13px;"> Play</button>
-                    <button id="deleteVoiceBtn" class="cuteButton" style="flex: 1; margin: 0; padding: 8px; font-size: 13px;">Delete</button>
-                </div>
-            </div>
-        </div>
-        <hr style="margin-top: 24px; margin-bottom: 16px; border: none; border-top: 1.5px solid rgba(255, 182, 217, 0.25);">
-        <button id="saveCustomization" class="shiny-cta" style="width: 100%; padding: 14px; font-size: 16px;">
-            <span>Save Changes</span>
-        </button>
-    </div>
+
 </div>
 
 <script>
@@ -1820,9 +1750,7 @@ const customizedPlushie = {
     name: currentPlushie.name,
     image: currentPlushie.image,
     quantity: currentPlushie.quantity || 1,
-    accessories: accessories,
-    voiceNote: voiceNoteDataUrl,
-    voiceNoteDuration: voiceNoteDuration
+    accessories: accessories
 };
 
 /* Load existing cart items and append this new customized item */
@@ -1836,127 +1764,7 @@ alert("Customization Saved & Added to Cart!");
 window.location.href = "checkout.html";
 });
 
-/* -------------------- */
-/* VOICE RECORDER API   */
-/* -------------------- */
 
-let mediaRecorder = null;
-let audioChunks = [];
-let voiceNoteDataUrl = null;
-let voiceNoteDuration = 0;
-let recordingStartTime = 0;
-let recordingTimer = null;
-let recordDuration = 0;
-
-const recordBtn = document.getElementById("recordBtn");
-const recordStatus = document.getElementById("recordStatus");
-const playbackContainer = document.getElementById("recordPlaybackContainer");
-const playVoiceBtn = document.getElementById("playVoiceBtn");
-const deleteVoiceBtn = document.getElementById("deleteVoiceBtn");
-
-if (recordBtn) {
-    recordBtn.addEventListener("click", () => {
-        if (mediaRecorder && mediaRecorder.state === "recording") {
-            stopRecording();
-        } else {
-            startRecording();
-        }
-    });
-}
-
-function startRecording() {
-    audioChunks = [];
-    navigator.mediaDevices.getUserMedia({ audio: true })
-        .then(stream => {
-            mediaRecorder = new MediaRecorder(stream);
-            mediaRecorder.ondataavailable = event => {
-                audioChunks.push(event.data);
-            };
-            
-            mediaRecorder.onstop = () => {
-                voiceNoteDuration = Date.now() - recordingStartTime;
-                const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
-                const reader = new FileReader();
-                reader.onloadend = () => {
-                    voiceNoteDataUrl = reader.result;
-                    recordStatus.innerText = "Voice note recorded!";
-                    recordStatus.classList.remove("recording-active");
-                    playbackContainer.style.display = "flex";
-                };
-                reader.readAsDataURL(audioBlob);
-
-                // Stop all tracks on the stream to release the mic
-                stream.getTracks().forEach(track => track.stop());
-            };
-
-            mediaRecorder.start();
-            recordingStartTime = Date.now();
-            recordBtn.innerText = "Stop Recording";
-            recordBtn.style.background = "";
-            recordBtn.style.boxShadow = "";
-            recordStatus.innerText = "Recording... (15s limit)";
-            recordStatus.classList.add("recording-active");
-            playbackContainer.style.display = "none";
-            
-            recordDuration = 0;
-            clearInterval(recordingTimer);
-            recordingTimer = setInterval(() => {
-                recordDuration++;
-                if (recordDuration >= 15) {
-                    stopRecording();
-                } else {
-                    recordStatus.innerText = `Recording... (${15 - recordDuration}s remaining)`;
-                }
-            }, 1000);
-        })
-        .catch(err => {
-            console.error("Microphone access denied or not supported:", err);
-            alert("Unable to access microphone. Please ensure microphone permissions are granted.");
-            recordStatus.innerText = "Microphone access error";
-        });
-}
-
-function stopRecording() {
-    clearInterval(recordingTimer);
-    if (mediaRecorder && mediaRecorder.state === "recording") {
-        mediaRecorder.stop();
-    }
-    recordBtn.innerText = "Record (15s limit)";
-    recordBtn.style.background = "";
-    recordBtn.style.boxShadow = "";
-}
-
-// Playback
-let testAudio = null;
-if (playVoiceBtn) {
-    playVoiceBtn.addEventListener("click", () => {
-        if (voiceNoteDataUrl) {
-            if (testAudio) {
-                testAudio.pause();
-            }
-            testAudio = new Audio(voiceNoteDataUrl);
-            testAudio.play();
-            recordStatus.innerText = "Playing voice note...";
-            testAudio.onended = () => {
-                recordStatus.innerText = "Voice note recorded!";
-            };
-        }
-    });
-}
-
-// Delete
-if (deleteVoiceBtn) {
-    deleteVoiceBtn.addEventListener("click", () => {
-        voiceNoteDataUrl = null;
-        voiceNoteDuration = 0;
-        if (testAudio) {
-            testAudio.pause();
-            testAudio = null;
-        }
-        recordStatus.innerText = "Ready to record";
-        playbackContainer.style.display = "none";
-    });
-}
 
 </script>
     
