@@ -8,7 +8,7 @@
     <title>The Gifting Co.</title>
     <link rel="icon" type="image/png" href="/assets/favicon.png">
     <style>
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Fredoka:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
 /* --- THEME VARIABLES --- */
 :root,
@@ -1060,6 +1060,48 @@ body.viewer-mode {
     color: #5a0035;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
+
+/* Spinner inside share button */
+.share-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2.5px solid var(--btn-text-color);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spinShare 0.6s linear infinite;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+
+@keyframes spinShare {
+    to { transform: rotate(360deg); }
+}
+
+/* Toast notification */
+.share-toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--toast-bg);
+    color: white;
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    box-shadow: 0 8px 25px rgba(255, 105, 180, 0.4);
+    z-index: 10001;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.share-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
 </style>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -1121,6 +1163,7 @@ body.viewer-mode {
     <!-- Baby Pink Navbar -->
     <nav id="storeNavbar">
         <a href="/index.html" class="navBrand" style="text-decoration: none;">The Gifting Co.</a>
+        <div id="navDownloadContainer" style="margin-left: auto; display: flex; align-items: center; gap: 10px;"></div>
     </nav>
 
     <!-- Theme Toggle -->
@@ -1382,6 +1425,82 @@ savedLayout.forEach(item => {
     badge.innerHTML = 'Made with  <a href="/index.html">The Gifting Co.</a>';
     document.body.appendChild(badge);
 } // end renderGift
+
+/* -------------------------------- */
+/* DOWNLOAD BUTTON LOGIC            */
+/* -------------------------------- */
+
+// Show a toast notification
+function showShareToast(message) {
+    let toast = document.querySelector('.share-toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.className = 'share-toast';
+        document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// Create the download button
+const shareBtnContainer = document.getElementById('navDownloadContainer');
+
+if (shareBtnContainer) {
+    const shareBtn = document.createElement('button');
+    shareBtn.id = 'shareGiftBtn';
+    shareBtn.className = 'nav-action-btn';
+    shareBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg><span>Download</span>';
+    shareBtnContainer.appendChild(shareBtn);
+
+    // Download button click handler
+    shareBtn.addEventListener('click', async () => {
+        const span = shareBtn.querySelector('span');
+        const originalText = span.innerHTML;
+        
+        // Show spinner state
+        span.innerHTML = '<span class="share-spinner"></span> Downloading...';
+        shareBtn.disabled = true;
+        shareBtn.style.opacity = '0.7';
+
+        try {
+            if (typeof html2canvas === 'undefined') {
+                throw new Error("html2canvas library failed to load.");
+            }
+
+            const canvas = await html2canvas(document.getElementById('giftScene'), {
+                scale: 2, // High quality
+                useCORS: true,
+                allowTaint: false
+            });
+            const imgData = canvas.toDataURL('image/jpeg', 0.9);
+            const link = document.createElement('a');
+            link.href = imgData;
+            link.download = 'gift.jpg';
+            document.body.appendChild(link);
+            link.click();
+            
+            document.body.removeChild(link);
+            const wm = document.getElementById("download-watermark");
+            if (wm) wm.remove();
+            showShareToast(' Image downloaded!');
+        } catch (error) {
+            console.error("Error creating image:", error);
+            if (window.location.protocol === 'file:') {
+                alert("Cannot download image directly from local files (file://) due to browser security restrictions. Please use a local web server (like VS Code Live Server) to enable downloads, or take a screenshot.");
+            } else {
+                alert("Failed to download image: " + (error.message || error));
+            }
+        } finally {
+            const wm = document.getElementById('download-watermark');
+            if (wm) wm.remove();
+            // Restore button
+            span.innerHTML = originalText;
+            shareBtn.disabled = false;
+            shareBtn.style.opacity = '1';
+        }
+    });
+}
 </script>
 
     <!-- Footer -->
