@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1250">
     <title>The Gifting Co.</title>
-    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
     <style>
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
@@ -65,7 +65,7 @@ html {
 
 body {
     color: var(--text-color);
-    background-image: url("assets/bg_pattern.png");
+    background-image: url("/assets/bg_pattern.png");
     background-repeat: repeat;
     background-size: 350px;
     background-attachment: fixed;
@@ -76,12 +76,12 @@ body {
 }
 
 [data-theme="dark"] body {
-    background-image: linear-gradient(rgba(92, 0, 69, 0.4), rgba(92, 0, 69, 0.4)), url("assets/bg_pattern.png");
+    background-image: linear-gradient(rgba(92, 0, 69, 0.4), rgba(92, 0, 69, 0.4)), url("/assets/bg_pattern.png");
 }
 
 body.receiptPage,
 body.giftPage {
-    background-image: url("assets/bg_pattern.png");
+    background-image: url("/assets/bg_pattern.png");
     background-repeat: repeat;
     background-size: 350px;
     background-attachment: fixed;
@@ -90,7 +90,7 @@ body.giftPage {
 
 [data-theme="dark"] body.receiptPage,
 [data-theme="dark"] body.giftPage {
-    background-image: linear-gradient(rgba(92, 0, 69, 0.4), rgba(92, 0, 69, 0.4)), url("assets/bg_pattern.png");
+    background-image: linear-gradient(rgba(92, 0, 69, 0.4), rgba(92, 0, 69, 0.4)), url("/assets/bg_pattern.png");
 }
 
 /* --- THEME SWITCH WRAPPER --- */
@@ -1069,7 +1069,7 @@ body.viewer-mode {
     <script src="https://cdn.jsdelivr.net/npm/lz-string@1.5.0/libs/lz-string.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
-<script src="mobile-block.js"></script>
+<script src="/mobile-block.js"></script>
 
 <style>
 .site-footer {
@@ -1120,7 +1120,7 @@ body.viewer-mode {
 
     <!-- Baby Pink Navbar -->
     <nav id="storeNavbar">
-        <a href="index.html" class="navBrand" style="text-decoration: none;">The Gifting Co.</a>
+        <a href="/index.html" class="navBrand" style="text-decoration: none;">The Gifting Co.</a>
     </nav>
 
     <!-- Theme Toggle -->
@@ -1196,7 +1196,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 </script>
     <script type="module">
-import { getGift } from './firebase-config.js';
+import { getGift } from '/firebase-config.js';
 
 const giftScene = document.getElementById("giftScene");
 
@@ -1205,20 +1205,22 @@ function resolveAccessorySrc(src) {
     let path = src.replace(/\\/g, "/");
     const assetsIndex = path.toLowerCase().indexOf("assets/");
     if (assetsIndex !== -1) {
-        return path.substring(assetsIndex);
+        const p = path.substring(assetsIndex);
+        return p.startsWith("/") ? p : "/" + p;
     }
     const filename = path.split("/").pop();
     if (filename.includes("custom")) {
-        return "assets/plushies/" + filename;
+        return "/assets/plushies/" + filename;
     } else if (filename.includes("dessert") || filename.includes("box")) {
-        return "assets/treats/" + filename;
+        return "/assets/treats/" + filename;
     } else if (filename.includes("flower") || filename.includes("bow") || filename.includes("holder")) {
-        return "assets/flowers/" + filename;
+        return "/assets/flowers/" + filename;
     }
-    return "assets/treats/" + filename;
+    return "/assets/treats/" + filename;
 }
 
 window.isViewerMode = true;
+const isViewerMode = true;
 document.body.classList.add('viewer-mode');
 const titleEl = document.querySelector('.checkoutTitle');
 if (titleEl) titleEl.textContent = 'A Gift For You 🎁';
@@ -1287,7 +1289,7 @@ savedLayout.forEach(item => {
     if (item.type === "plushie") {
         // Base plushie image
         const img = document.createElement("img");
-        img.src = item.src;
+        img.src = item.src && item.src.startsWith('assets/') ? '/' + item.src : item.src;
         img.style.position = "absolute";
         img.style.width = "100%";
         img.style.height = "auto";
@@ -1326,8 +1328,9 @@ savedLayout.forEach(item => {
         }
 
         // Voice Note Playback
-        const voiceNoteSrc = window.globalAudioUrl || item.voiceNote;
         const voiceNoteDuration = parseInt(item.voiceNoteDuration) || 0;
+        const voiceNoteSrc = (voiceNoteDuration > 0 && window.globalAudioUrl) ? window.globalAudioUrl : item.voiceNote;
+        
         if (voiceNoteSrc) {
             hasAudioNote = true;
             wrapper.dataset.voiceNote = voiceNoteSrc;
@@ -1344,7 +1347,7 @@ savedLayout.forEach(item => {
     } 
     else if (item.type === "note") {
         const paper = document.createElement("img");
-        paper.src = item.src;
+        paper.src = item.src && item.src.startsWith('assets/') ? '/' + item.src : item.src;
         paper.style.width = "100%";
         paper.draggable = false;
         wrapper.appendChild(paper);
@@ -1372,7 +1375,7 @@ savedLayout.forEach(item => {
     } 
     else if (item.type === "sticker") {
         const img = document.createElement("img");
-        img.src = item.src;
+        img.src = item.src && item.src.startsWith('assets/') ? '/' + item.src : item.src;
         img.style.width = "100%";
         img.draggable = false;
         wrapper.appendChild(img);
@@ -1544,7 +1547,7 @@ if (hasAudioNote) {
 if (isViewerMode) {
     const badge = document.createElement('div');
     badge.className = 'viewer-badge';
-    badge.innerHTML = 'Made with  <a href="index.html">The Gifting Co.</a>';
+    badge.innerHTML = 'Made with  <a href="/index.html">The Gifting Co.</a>';
     document.body.appendChild(badge);
 }
 

@@ -27,6 +27,11 @@ function dataURLtoBlob(dataurl) {
 }
 
 export async function saveGift(components, audioDataUrl) {
+    if (firebaseConfig.apiKey === "YOUR_API_KEY") {
+        alert("⚠️ Firebase Credentials Missing!\n\nYou must replace the placeholder keys in firebase-config.js with your actual project config before sharing a gift!");
+        throw new Error("Missing Firebase Credentials.");
+    }
+    
     let audioUrl = null;
 
     if (audioDataUrl) {
@@ -59,6 +64,10 @@ export async function saveGift(components, audioDataUrl) {
 }
 
 export async function getGift(docId) {
+    if (firebaseConfig.apiKey === "YOUR_API_KEY") {
+        alert("⚠️ Firebase Credentials Missing!\n\nThis app is currently using placeholder Firebase config keys. Please add your real config to firebase-config.js!");
+        throw new Error("Missing Firebase Credentials.");
+    }
     const docRef = doc(db, "gifts", docId);
     const docSnap = await getDoc(docRef);
 
