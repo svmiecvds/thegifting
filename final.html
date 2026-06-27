@@ -1199,6 +1199,18 @@ document.addEventListener('DOMContentLoaded', function () {
     <script>
 const giftScene = document.getElementById("giftScene");
 
+function resolveMainSrc(src) {
+    if (!src) return "";
+    if (src.startsWith("data:")) return src;
+    let path = src.replace(/\\/g, "/");
+    const assetsIndex = path.toLowerCase().indexOf("assets/");
+    if (assetsIndex !== -1) {
+        const p = path.substring(assetsIndex);
+        return p.startsWith("/") ? p : "/" + p;
+    }
+    return src;
+}
+
 function resolveAccessorySrc(src) {
     if (!src) return "";
     let path = src.replace(/\\/g, "/");
@@ -1278,7 +1290,7 @@ savedLayout.forEach(item => {
     if (item.type === "plushie") {
         // Base plushie image
         const img = document.createElement("img");
-        img.src = item.src;
+        img.src = resolveMainSrc(item.src);
         img.style.position = "absolute";
         img.style.width = "100%";
         img.style.height = "auto";
@@ -1335,7 +1347,7 @@ savedLayout.forEach(item => {
     } 
     else if (item.type === "note") {
         const paper = document.createElement("img");
-        paper.src = item.src;
+        paper.src = resolveMainSrc(item.src);
         paper.style.width = "100%";
         paper.draggable = false;
         wrapper.appendChild(paper);
@@ -1363,7 +1375,7 @@ savedLayout.forEach(item => {
     } 
     else if (item.type === "sticker") {
         const img = document.createElement("img");
-        img.src = item.src;
+        img.src = resolveMainSrc(item.src);
         img.style.width = "100%";
         img.draggable = false;
         wrapper.appendChild(img);
