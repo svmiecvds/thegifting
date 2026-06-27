@@ -683,26 +683,11 @@ transition: var(--transition);
 /* --- BACK TO SHOP BTN --- */
 
 
-/* --- Pulsing red dot for active recording --- */
-.recording-active {
-    animation: recordPulse 1s infinite alternate;
-    color: #e74c3c !important;
-}
 
-@keyframes recordPulse {
-    from { opacity: 0.5; }
     to { opacity: 1; }
 }
 
-/* --- Plushie speaking / audio wave pulse animation --- */
-.plushie-speaking {
-    animation: audioShake 0.15s infinite alternate;
-    box-shadow: none !important;
-    border-radius: 50%;
-}
 
-@keyframes audioShake {
-    0% { transform: rotate(-2deg) scale(1.02); }
     100% { transform: rotate(2deg) scale(1.02); }
 }
 
@@ -1116,7 +1101,6 @@ margin: 0 auto;
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ribeye&display=swap" rel="stylesheet">
 
-<script src="mobile-block.js"></script>
 
 <style>
 .site-footer {
