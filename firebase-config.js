@@ -1,30 +1,21 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
 import { getFirestore, collection, addDoc, serverTimestamp, getDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
+// Storage import removed
 
 // TODO: Replace with your actual Firebase project configuration
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyDFuBm7nMqGIv_iGoD_NZLXl49Q1sV8f1w",
+  authDomain: "the-gifting-co.firebaseapp.com",
+  projectId: "the-gifting-co",
+  storageBucket: "the-gifting-co.firebasestorage.app",
+  messagingSenderId: "345516616271",
+  appId: "1:345516616271:web:a79fcee3d1f931854c583a",
+  measurementId: "G-LR0WNGJJE9"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const storage = getStorage(app);
-
-// Helper to convert base64 data URL to Blob
-function dataURLtoBlob(dataurl) {
-    let arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-        bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-    while(n--){
-        u8arr[n] = bstr.charCodeAt(n);
-    }
-    return new Blob([u8arr], {type:mime});
-}
+// Storage initialization removed
 
 export async function saveGift(components, audioDataUrl) {
     if (firebaseConfig.apiKey === "YOUR_API_KEY") {
@@ -32,20 +23,10 @@ export async function saveGift(components, audioDataUrl) {
         throw new Error("Missing Firebase Credentials.");
     }
     
-    let audioUrl = null;
-
-    if (audioDataUrl) {
-        // Generate a unique ID for the audio file
-        const audioId = Date.now().toString(36) + Math.random().toString(36).substring(2);
-        const audioBlob = dataURLtoBlob(audioDataUrl);
-        const storageRef = ref(storage, `gifts/${audioId}/voice.webm`);
-        
-        // Upload audio
-        await uploadBytes(storageRef, audioBlob);
-        
-        // Get public URL
-        audioUrl = await getDownloadURL(storageRef);
-    }
+    // We are no longer using Firebase Storage.
+    // Instead, we will store the base64 dataURL directly in Firestore.
+    // This works because the audio recording is small (15s max, well under the 1MB Firestore limit).
+    let audioUrl = audioDataUrl || null;
 
     // Clean components to ensure no huge dataURLs (like voiceNotes) are saved in Firestore layout
     const cleanComponents = components.map(comp => {
