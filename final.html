@@ -1272,12 +1272,12 @@ savedLayout.forEach(item => {
     wrapper.style.position = "absolute";
     
     const finalSceneW = giftScene.clientWidth || 800;
-    if (item.centerOffset !== undefined) {
+    if (item.centerOffset !== undefined && typeof item.left === 'string' && !item.left.endsWith('%')) {
         wrapper.style.left = (finalSceneW / 2 + item.centerOffset) + "px";
     } else {
-        wrapper.style.left = item.left;
+        wrapper.style.left = item.left || "50%";
     }
-    wrapper.style.top = item.top;
+    wrapper.style.top = item.top || "50%";
     wrapper.style.width = item.width;
     wrapper.style.height = item.height;
     wrapper.style.zIndex = item.zIndex;
@@ -1654,7 +1654,8 @@ if (!isViewerMode && shareBtnContainer) {
                     linkBtn.style.opacity = '0.7';
                     
                     try {
-                        const layoutToSave = savedLayout || [];
+                        const storedLayout = JSON.parse(sessionStorage.getItem("savedGiftLayout")) || [];
+                        const layoutToSave = storedLayout;
                         
                         let audioDataUrl = null;
                         const plushieComponent = layoutToSave.find(item => item.voiceNote);

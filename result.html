@@ -1238,14 +1238,6 @@ const titleEl = document.querySelector('.checkoutTitle');
 if (titleEl) titleEl.textContent = 'A Gift For You 🎁';
 
 let savedLayout = [];
-window.globalAudioUrl = null;
-
-let hasAudioNote = false;
-let activeAudio = null;
-const audioPlaylist = [];
-let currentPlaylistIndex = -1;
-let isPlaylistPlaying = false;
-let fallbackTimeoutId = null;
 
 async function initViewer() {
     let docId = new URLSearchParams(window.location.search).get('id');
@@ -1262,7 +1254,6 @@ async function initViewer() {
         const giftData = await getGift(docId);
         if (giftData) {
             savedLayout = giftData.components || [];
-            window.globalAudioUrl = giftData.audioUrl || null;
             renderGift();
         } else {
             giftScene.innerHTML = '<div style="text-align: center; margin-top: 100px; font-family: Fredoka, sans-serif; font-size: 24px;">Gift not found!</div>';
@@ -1283,12 +1274,12 @@ savedLayout.forEach(item => {
     wrapper.style.position = "absolute";
     
     const finalSceneW = giftScene.clientWidth || 800;
-    if (item.centerOffset !== undefined) {
+    if (item.centerOffset !== undefined && typeof item.left === 'string' && !item.left.endsWith('%')) {
         wrapper.style.left = (finalSceneW / 2 + item.centerOffset) + "px";
     } else {
-        wrapper.style.left = item.left;
+        wrapper.style.left = item.left || "50%";
     }
-    wrapper.style.top = item.top;
+    wrapper.style.top = item.top || "50%";
     wrapper.style.width = item.width;
     wrapper.style.height = item.height;
     wrapper.style.zIndex = item.zIndex;
@@ -1338,25 +1329,7 @@ savedLayout.forEach(item => {
                 wrapper.appendChild(accessory);
             });
         }
-
-        // Voice Note Playback
-        const voiceNoteDuration = parseInt(item.voiceNoteDuration) || 0;
-        const voiceNoteSrc = (voiceNoteDuration > 0 && window.globalAudioUrl) ? window.globalAudioUrl : item.voiceNote;
-        
-        if (voiceNoteSrc) {
-            hasAudioNote = true;
-            wrapper.dataset.voiceNote = voiceNoteSrc;
-            wrapper.dataset.voiceNoteDuration = voiceNoteDuration;
-            wrapper.classList.add("has-audio");
-            
-            audioPlaylist.push({
-                wrapper: wrapper,
-                img: img,
-                src: voiceNoteSrc,
-                duration: voiceNoteDuration
-            });
-        }
-    } 
+        } 
     else if (item.type === "note") {
         const paper = document.createElement("img");
         paper.src = resolveMainSrc(item.src);
@@ -1403,181 +1376,11 @@ savedLayout.forEach(item => {
 
     giftScene.appendChild(wrapper);
 });
-
-// Playlist control functions
-function playTrack(index) {
-    if (fallbackTimeoutId) {
-        clearTimeout(fallbackTimeoutId);
-        fallbackTimeoutId = null;
-    }
-    if (activeAudio) {
-        activeAudio.pause();
-        activeAudio = null;
-    }
-
-    // Clear speaking class from all playlist items
-    audioPlaylist.forEach(track => {
-        track.img.classList.remove("plushie-speaking");
-    });
-
-    if (index < 0 || index >= audioPlaylist.length) {
-        isPlaylistPlaying = false;
-        currentPlaylistIndex = -1;
-        updateCTA();
-        return;
-    }
-
-    currentPlaylistIndex = index;
-    isPlaylistPlaying = true;
-    updateCTA();
-
-    const track = audioPlaylist[index];
-    track.img.classList.add("plushie-speaking");
-
-    activeAudio = new Audio(track.src);
-    activeAudio.play().catch(err => {
-        console.error("Playback failed", err);
-        // Automatically skip to the next track if playing fails
-        if (fallbackTimeoutId) {
-            clearTimeout(fallbackTimeoutId);
-            fallbackTimeoutId = null;
-        }
-        setTimeout(playNext, 1000);
-    });
-
-    let endedFired = false;
-    const handleEnded = () => {
-        if (endedFired) return;
-        endedFired = true;
-        if (fallbackTimeoutId) {
-            clearTimeout(fallbackTimeoutId);
-            fallbackTimeoutId = null;
-        }
-        track.img.classList.remove("plushie-speaking");
-        playNext();
-    };
-
-    activeAudio.onended = handleEnded;
-
-    if (track.duration && track.duration > 0) {
-        // Fallback in case browser does not fire 'ended' event (common WebM metadata issue)
-        fallbackTimeoutId = setTimeout(handleEnded, track.duration + 200); // 200ms buffer
-    }
-}
-
-function playNext() {
-    playTrack(currentPlaylistIndex + 1);
-}
-
-function stopPlaylist() {
-    if (fallbackTimeoutId) {
-        clearTimeout(fallbackTimeoutId);
-        fallbackTimeoutId = null;
-    }
-    if (activeAudio) {
-        activeAudio.pause();
-        activeAudio = null;
-    }
-    audioPlaylist.forEach(track => {
-        track.img.classList.remove("plushie-speaking");
-    });
-    isPlaylistPlaying = false;
-    currentPlaylistIndex = -1;
-    updateCTA();
-}
-
-function updateCTA() {
-    const cta = document.querySelector(".click-gifts-cta");
-    if (!cta) return;
-
-    let text = "";
-    if (isPlaylistPlaying) {
-        const displayIndex = currentPlaylistIndex + 1;
-        const total = audioPlaylist.length;
-        if (total > 1) {
-            text = ` Pause sequence (Playing ${displayIndex} of ${total})`;
-        } else {
-            text = ` Pause voice message`;
-        }
-    } else {
-        if (currentPlaylistIndex !== -1 && currentPlaylistIndex < audioPlaylist.length) {
-            text = ` Resume voice message`;
-        } else {
-            text = ` Click to hear a message`;
-        }
-    }
-
-    let span = cta.querySelector("span");
-    if (!span) {
-        span = document.createElement("span");
-        cta.innerHTML = "";
-        cta.appendChild(span);
-    }
-    span.innerText = text;
-}
-
-// Wire up click event listeners for playlist items
-audioPlaylist.forEach((track, index) => {
-    track.wrapper.addEventListener("click", (e) => {
-        e.stopPropagation();
-        if (isPlaylistPlaying && currentPlaylistIndex === index) {
-            stopPlaylist();
-        } else {
-            playTrack(index);
-        }
-    });
-});
-
-/* Create "Click on your gifts" CTA button if custom audio is loaded */
-if (hasAudioNote) {
-    const ctaContainer = document.createElement("div");
-    ctaContainer.style.display = "flex";
-    ctaContainer.style.justifyContent = "center";
-    ctaContainer.style.marginTop = "25px";
-    ctaContainer.style.marginBottom = "20px";
-
-    const cta = document.createElement("button");
-    cta.className = "shiny-cta click-gifts-cta";
-    
-    ctaContainer.appendChild(cta);
-    document.body.appendChild(ctaContainer);
-    
-    // Add pulsing play action
-    cta.addEventListener("click", () => {
-        if (isPlaylistPlaying) {
-            stopPlaylist();
-        } else {
-            const resumeIndex = currentPlaylistIndex !== -1 ? currentPlaylistIndex : 0;
-            playTrack(resumeIndex);
-        }
-    });
-    
-    updateCTA();
-}
-
-// In viewer mode, add a small badge at the bottom
-if (isViewerMode) {
+    // In viewer mode, add a small badge at the bottom
     const badge = document.createElement('div');
     badge.className = 'viewer-badge';
     badge.innerHTML = 'Made with  <a href="/index.html">The Gifting Co.</a>';
     document.body.appendChild(badge);
-}
-
-/* -------------------------------- */
-/* DOWNLOAD BUTTON LOGIC            */
-/* -------------------------------- */
-
-// Show a toast notification
-function showShareToast(message) {
-    let toast = document.querySelector('.share-toast');
-    if (!toast) {
-        toast = document.createElement('div');
-        toast.className = 'share-toast';
-        document.body.appendChild(toast);
-    }
-    toast.textContent = message;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2500);
 } // end renderGift
 </script>
 

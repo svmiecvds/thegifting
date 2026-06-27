@@ -1,8 +1,5 @@
 {
   "rewrites": [
-    {
-      "source": "/gift/:path*",
-      "destination": "/result.html"
-    }
+    { "source": "/gift/:id", "destination": "/result.html?id=:id" }
   ]
 }
