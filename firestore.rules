@@ -1,0 +1,13 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /gifts/{document=**} {
+      // Allow public read for viewers
+      allow read: if true;
+      // Allow public write for creation (since no auth is implemented yet)
+      // Only allow creation, not modification or deletion of existing gifts
+      allow create: if true;
+      allow update, delete: if false;
+    }
+  }
+}
