@@ -996,6 +996,7 @@ margin: 0 auto;
     box-shadow: 0 6px 18px rgba(255, 105, 180, 0.3);
 }
 /* --- VIEWER MODE (shared link) --- */
+body.viewer-mode #storeNavbar,
 body.viewer-mode #themeToggleWrapper,
 body.viewer-mode .share-btn-container,
 body.viewer-mode .click-gifts-cta-container {
@@ -1575,12 +1576,18 @@ shareBtn.id = 'shareGiftBtn';
 shareBtn.className = 'nav-action-btn';
 shareBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg><span>Download</span>';
 
-// Only show download button if NOT in viewer mode
-if (!isViewerMode && shareBtnContainer) {
+if (isViewerMode) {
+    shareBtn.style.position = 'fixed';
+    shareBtn.style.top = '20px';
+    shareBtn.style.right = '20px';
+    shareBtn.style.zIndex = '10000';
+    document.body.appendChild(shareBtn);
+} else if (shareBtnContainer) {
     shareBtnContainer.appendChild(shareBtn);
+}
 
-    // Download button click handler
-    shareBtn.addEventListener('click', async () => {
+// Download button click handler
+shareBtn.addEventListener('click', async () => {
         const span = shareBtn.querySelector('span');
         const originalText = span.innerHTML;
         
@@ -1626,8 +1633,6 @@ if (!isViewerMode && shareBtnContainer) {
             shareBtn.style.opacity = '1';
         }
     });
-}
-
 </script>
     
     <script type="module">
