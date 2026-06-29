@@ -55,7 +55,10 @@ body {
     background-size: 350px;
     background-attachment: fixed;
     background-color: var(--body-bg);
-    overflow-x: hidden;
+    overflow: hidden !important;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     transition: background 0.5s ease, color 0.5s ease;
     font-family: var(--font-body);
     font-weight: 500;
@@ -270,7 +273,18 @@ body.giftPage {
 
 
 /* --- CARD LAYOUT SYSTEM --- */
+#flowersMainContainer, #bouquetMainContainer {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
 .flowers-layout, .plushies-layout {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 40px;
@@ -379,6 +393,7 @@ body.giftPage {
 }
 
 .flowerCard .addToCartBtn, .flowerCard .customizeBtn {
+    border: none;
     border-radius: 50px;
     padding: 12px 24px;
     cursor: pointer;
@@ -643,12 +658,12 @@ body.giftPage {
     transform: translateY(2%);
 }
 
-.shiny-cta span::before {
+.shiny-cta > span::before {
     content: "✧";
     transition: all 0.2s ease;
 }
 
-.shiny-cta:hover span::before {
+.shiny-cta:hover > span::before {
     content: "✦";
 }
 
@@ -684,7 +699,7 @@ body.giftPage {
 /* --- CAROUSEL STYLES (NO-SCROLL LAYOUT) --- */
 body.no-scroll {
     overflow-x: hidden !important;
-    overflow-y: auto !important;
+    overflow-y: hidden !important;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -820,6 +835,363 @@ margin: 0 auto;
     font-size: 28px;
     color: var(--heading-color);
 }
+/* --- BOUQUET STYLES --- */
+#mainContainer {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .bouquet-layout {
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+        gap: 24px;
+        padding: 10px 20px;
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto;
+        height: 78vh;
+    }
+
+    /* --- SIDE PANELS --- */
+    .side-panel {
+        flex: 1;
+        max-width: 320px;
+        background: var(--panel-bg);
+        border: 2px solid rgba(255, 182, 217, 0.3);
+        border-radius: 24px;
+        padding: 20px;
+        box-shadow: 0 8px 24px rgba(255, 182, 193, 0.1);
+        display: flex;
+        flex-direction: column;
+        height: 600px;
+        max-height: 600px;
+        overflow-y: auto;
+        transition: background 0.4s ease, border-color 0.4s ease;
+    }
+
+    
+
+    .side-panel h2 {
+        text-align: center;
+        margin-bottom: 15px;
+        font-family: var(--font-ui);
+        font-weight: 600;
+        font-size: 18px;
+        color: var(--heading-color);
+        letter-spacing: 0.3px;
+        border-bottom: 2px dashed rgba(255, 105, 180, 0.2);
+        padding-bottom: 8px;
+    }
+
+    .side-panel::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .side-panel::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .side-panel::-webkit-scrollbar-thumb {
+        background: rgba(255, 182, 217, 0.5);
+        border-radius: 10px;
+    }
+
+    
+
+    /* --- SPAWNER GRID --- */
+    .spawner-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .spawner-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: var(--card-bg);
+        border-radius: 16px;
+        padding: 10px;
+        border: 2px solid rgba(255, 182, 217, 0.15);
+        cursor: pointer;
+        transition: transform 0.2s ease, border-color 0.2s, box-shadow 0.25s;
+        text-align: center;
+    }
+
+    
+
+    .spawner-item:hover {
+        transform: scale(1.05) translateY(-2px);
+        border-color: rgba(255, 105, 180, 0.4);
+        box-shadow: 0 4px 12px rgba(255, 105, 180, 0.15);
+    }
+
+    .spawner-item img {
+        width: 65px;
+        height: 65px;
+        object-fit: contain;
+        margin-bottom: 6px;
+    }
+
+    .spawner-item span {
+        font-size: 11px;
+        font-family: var(--font-ui);
+        font-weight: 600;
+        color: var(--text-color);
+        line-height: 1.2;
+    }
+
+    /* --- CANVAS AREA --- */
+    #canvasContainer {
+        flex: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #customScene {
+        position: relative;
+        width: 600px;
+        height: 600px;
+        background: white;
+        border-radius: 32px;
+        border: 3px solid rgba(255, 182, 217, 0.35);
+        box-shadow: 0 10px 30px rgba(255, 105, 180, 0.15);
+        overflow: hidden;
+        transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    
+
+    .canvas-placeholder {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+        text-align: center;
+        color: #ff9ccb;
+        font-family: var(--font-heading);
+        font-size: 26px;
+        line-height: 1.5;
+        pointer-events: none;
+        z-index: 1;
+        transition: opacity 0.3s ease;
+    }
+
+    /* --- DRAGGABLE ITEMS --- */
+    .draggableBouquetItem {
+        position: absolute;
+        cursor: move;
+        z-index: 10;
+        transition: outline 0.1s ease;
+    }
+
+    .draggableBouquetItem:hover {
+        outline: 2px dashed hotpink;
+    }
+
+    .selectedItem {
+        outline: 3px solid var(--heading-color) !important;
+        outline-offset: 3px;
+        border-radius: 4px;
+        box-shadow: none;
+    }
+
+    /* --- CONTROL BUTTONS --- */
+    .buttons-row {
+        display: flex;
+        gap: 8px;
+        width: 100%;
+        margin-top: 8px;
+    }
+
+    .buttons-row button,
+    .control-btn {
+        flex: 1;
+        border: none;
+        padding: 10px;
+        font-size: 13px;
+        font-weight: 600;
+        font-family: var(--font-ui);
+        border-radius: 12px;
+        cursor: pointer;
+        background: var(--btn-bg);
+        color: var(--text-color);
+        border: 1.5px solid rgba(255, 182, 217, 0.25);
+        box-shadow: 0 2px 6px rgba(255, 182, 193, 0.08);
+        transition: transform 0.2s ease, box-shadow 0.2s, background 0.3s;
+    }
+
+    
+
+    .buttons-row button:hover,
+    .control-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 10px rgba(255, 105, 180, 0.18);
+    }
+
+    .buttons-row button:active,
+    .control-btn:active {
+        transform: scale(0.97);
+    }
+
+    /* --- PEARL CTA BUTTON --- */
+    .shiny-cta {
+        outline: none;
+        cursor: pointer;
+        border: 0;
+        position: relative;
+        border-radius: 100px;
+        background-color: var(--bg-pink);
+        transition: all 0.2s ease;
+        box-shadow: 
+          inset 0 0.3rem 0.9rem rgba(255, 255, 255, 0.4),
+          inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.4),
+          inset 0 -0.4rem 0.9rem rgba(255, 255, 255, 0.3),
+          0 10px 15px -3px rgba(255, 105, 180, 0.3),
+          0 4px 6px -2px rgba(255, 105, 180, 0.05);
+        overflow: hidden;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        padding: 10px 24px;
+    }
+
+    .shiny-cta::before {
+        content: "";
+        position: absolute;
+        left: -15%;
+        right: -15%;
+        bottom: 25%;
+        top: -100%;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.25);
+        transition: all 0.3s ease;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .shiny-cta::after {
+        content: "";
+        position: absolute;
+        left: 6%;
+        right: 6%;
+        top: 12%;
+        bottom: 40%;
+        border-radius: 22px 22px 0 0;
+        box-shadow: inset 0 10px 8px -10px rgba(255, 255, 255, 0.6);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.3) 0%,
+          rgba(255, 255, 255, 0) 50%,
+          rgba(255, 255, 255, 0) 100%
+        );
+        transition: all 0.3s ease;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .shiny-cta span {
+        position: relative;
+        z-index: 2;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 15px;
+        font-family: 'Fredoka', sans-serif;
+        font-weight: 600;
+        color: var(--btn-text-color);
+        transition: all 0.2s ease;
+        transform: translateY(2%);
+    }
+
+    #storeNavbar .shiny-cta {
+        background-color: #ffb6d9 !important;
+    }
+
+    #storeNavbar .shiny-cta span {
+        color: #000000 !important;
+    }
+
+    
+
+    .shiny-cta > span::before {
+        content: "✧";
+        transition: all 0.2s ease;
+    }
+
+    .shiny-cta:hover > span::before {
+        content: "✦";
+    }
+
+    .shiny-cta:hover {
+        box-shadow:
+          inset 0 0.3rem 0.5rem var(--hover-glow),
+          inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.4),
+          0 12px 20px rgba(255, 105, 180, 0.4),
+          0 4px 8px rgba(255, 105, 180, 0.1);
+    }
+
+    .shiny-cta:hover::before {
+        transform: translateY(-5%);
+    }
+
+    .shiny-cta:hover::after {
+        opacity: 0.4;
+        transform: translateY(5%);
+    }
+
+    .shiny-cta:hover span {
+        transform: translateY(-4%);
+    }
+
+    .shiny-cta:active {
+        transform: translateY(2px);
+        box-shadow:
+          inset 0 0.3rem 0.5rem var(--hover-glow),
+          inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.5),
+          0 6px 10px rgba(255, 105, 180, 0.2);
+    }
+
+    /* --- TOAST NOTIFICATION --- */
+    #toast {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--toast-bg);
+        color: white;
+        padding: 15px 25px;
+        border-radius: 50px;
+        box-shadow: none;
+        z-index: 9999;
+        font-family: var(--font-ui);
+        font-weight: 600;
+        text-align: center;
+    }
+
+/* --- NAVBAR BRAND OVERRIDE --- */
+.navBrand, a.navBrand {
+    font-family: 'Pinyon Script', cursive !important;
+    color: #ff4fa2 !important;
+    font-size: 38px !important;
+    text-shadow: none !important;
+}
+
 </style>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -892,6 +1264,7 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
     margin-top: 0 !important;
 }
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
 </head>
 
 <body class="no-scroll">
@@ -903,6 +1276,7 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
         <a href="flowers.html" class="navLink active">Flowers</a>
         <a href="treats.html" class="navLink">Treats</a>
         <div id="cartButton" class="shiny-cta"><span> Checkout (<span id="cartCount">0</span>)</span></div>
+        <button id="saveBouquet" class="shiny-cta" style="display: none;"><span>Save Changes</span></button>
     </nav>
 
     <!-- Theme Toggle (Static top left corner) -->
@@ -911,13 +1285,17 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
     <!-- Header Text -->
     <h1 class="storeHeader">pick a bloom.</h1>
 
-    <div style="text-align: center; margin-bottom: 25px;">
-        <button class="shiny-cta" onclick="window.location.href='bouquet.html'">
-            <span>Make a Bouquet</span>
-        </button>
+    
+    <div class="toggle-container" style="text-align: center; margin-bottom: 25px; margin-top: -10px;">
+        <div class="joint-button" style="display: inline-flex; background: white; border-radius: 50px; padding: 5px; box-shadow: 0 4px 10px rgba(255, 105, 180, 0.2);">
+            <button id="showFlowersBtn" class="toggle-btn active" style="border: none; background: #ffb6d9; color: #5a0035; border-radius: 50px; padding: 10px 24px; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 15px; cursor: pointer; transition: all 0.3s ease;">Flowers</button>
+            <button id="showBouquetBtn" class="toggle-btn" style="border: none; background: transparent; color: var(--text-color); border-radius: 50px; padding: 10px 24px; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 15px; cursor: pointer; transition: all 0.3s ease;">Bouquet</button>
+        </div>
     </div>
 
+
     <!-- Flowers main layout -->
+    <div id="flowersMainContainer">
     <div id="mainContainer">
         <div class="flowers-layout">
             <!-- Top Row: 2 Flowers -->
@@ -983,7 +1361,108 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
         </div>
     </div>
 
-    <!-- Toast Notification -->
+        </div>
+</div>
+<div id="bouquetMainContainer" style="display: none; width: 100%;">
+<div class="bouquet-layout">
+            
+            <!-- Column 1: Spawner Tray (Flowers) -->
+            <div class="side-panel">
+                <h2>Spawn Flowers</h2>
+                <div class="spawner-grid">
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/flower1.png', 'flower', 'Pink Columbine')">
+                        <img src="assets/flowers/flower1.png" alt="Pink Columbine">
+                        <span>Pink Columbine</span>
+                    </div>
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/flower2.png', 'flower', 'Purple Clematis')">
+                        <img src="assets/flowers/flower2.png" alt="Purple Clematis">
+                        <span>Purple Clematis</span>
+                    </div>
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/flower3.png', 'flower', 'Crimson Orchid')">
+                        <img src="assets/flowers/flower3.png" alt="Crimson Orchid">
+                        <span>Crimson Orchid</span>
+                    </div>
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/flower4.png', 'flower', 'Magenta Lily')">
+                        <img src="assets/flowers/flower4.png" alt="Magenta Lily">
+                        <span>Magenta Lily</span>
+                    </div>
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/flower5.png', 'flower', 'Pink Tulips')">
+                        <img src="assets/flowers/flower5.png" alt="Pink Tulips">
+                        <span>Pink Tulips</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 2: Canvas Space (Center) -->
+            <div id="canvasContainer">
+                <div id="customScene">
+                    <!-- Placeholder instructions -->
+                    <div class="canvas-placeholder" id="placeholderMsg">
+                        <span>Bouquet Canvas</span>
+                        <span style="font-size: 15px; font-family: var(--font-body); margin-top: 15px; opacity: 0.8;">
+                            Click flowers, holders, or bows on the sides to spawn them. Drag to arrange, and use controls to customize!
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 3: Spawner Tray (Bows, Holders) & Controls -->
+            <div class="side-panel">
+                <h2>Wraps & Bows</h2>
+                <div class="spawner-grid">
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/holder.png', 'holder', 'Bouquet Holder')">
+                        <img src="assets/flowers/holder.png" alt="Bouquet Holder">
+                        <span>Bouquet Holder</span>
+                    </div>
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/holder_pink.png', 'holder', 'Pink Holder')">
+                        <img src="assets/flowers/holder_pink.png" alt="Pink Holder">
+                        <span>Pink Holder</span>
+                    </div>
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/holder_blue.png', 'holder', 'Blue Holder')">
+                        <img src="assets/flowers/holder_blue.png" alt="Blue Holder">
+                        <span>Blue Holder</span>
+                    </div>
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/bow_aqua.png', 'bow', 'Aqua Bow')">
+                        <img src="assets/flowers/bow_aqua.png" alt="Aqua Bow">
+                        <span>Aqua Bow</span>
+                    </div>
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/bow_blue.png', 'bow', 'Blue Bow')">
+                        <img src="assets/flowers/bow_blue.png" alt="Blue Bow">
+                        <span>Blue Bow</span>
+                    </div>
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/bow_purple.png', 'bow', 'Purple Bow')">
+                        <img src="assets/flowers/bow_purple.png" alt="Purple Bow">
+                        <span>Purple Bow</span>
+                    </div>
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/bow_green.png', 'bow', 'Green Bow')">
+                        <img src="assets/flowers/bow_green.png" alt="Green Bow">
+                        <span>Green Bow</span>
+                    </div>
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/bow_pink.png', 'bow', 'Pink Bow')">
+                        <img src="assets/flowers/bow_pink.png" alt="Pink Bow">
+                        <span>Pink Bow</span>
+                    </div>
+                </div>
+
+                <h2>Customizations</h2>
+                <div class="buttons-row">
+                    <button id="increaseSize" title="Increase Size">Increase Size</button>
+                    <button id="decreaseSize" title="Decrease Size">Decrease Size</button>
+                </div>
+                <div class="buttons-row">
+                    <button id="rotateBtn">Rotate</button>
+                    <button id="flipBtn">Flip</button>
+                </div>
+                <div class="buttons-row">
+                    <button id="deleteBtn">Delete</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Toast Notification -->
     <div id="toast">
         Added To Cart 
     </div>
@@ -1208,6 +1687,312 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </script>
     
+<script>
+
+const customScene = document.getElementById("customScene");
+const placeholderMsg = document.getElementById("placeholderMsg");
+
+    let selectedItem = null;
+    let selected = null;
+    let highestZ = 10;
+
+    let dragOffsetX = 0;
+    let dragOffsetY = 0;
+
+    /* -------------------- */
+    /* SPAWNER LOGIC        */
+    /* -------------------- */
+    function spawnElement(src, type, name) {
+        // Hide placeholder
+        if (placeholderMsg) {
+            placeholderMsg.style.opacity = "0";
+            setTimeout(() => {
+                if (placeholderMsg) placeholderMsg.style.display = "none";
+            }, 300);
+        }
+
+        const el = document.createElement("img");
+        
+        // Base dimensions: bouquet wrap holder should be larger by default
+        let defaultDim = 120;
+        if (type === 'holder') {
+            defaultDim = 200;
+        } else if (type === 'bow') {
+            defaultDim = 90;
+        }
+
+        el.onload = function() {
+            if (type === 'flower') {
+                const w = el.naturalWidth * 0.5;
+                const h = el.naturalHeight * 0.5;
+                el.style.width = w + "px";
+                el.style.height = h + "px";
+                el.style.left = (300 - w / 2) + "px";
+                el.style.top = (300 - h / 2) + "px";
+            }
+        };
+
+        el.src = src;
+        el.className = "draggableAccessory draggableBouquetItem";
+        el.style.position = "absolute";
+        
+        if (type !== 'flower') {
+            el.style.width = defaultDim + "px";
+            el.style.height = defaultDim + "px";
+            
+            // Center the element
+            el.style.left = (300 - defaultDim / 2) + "px";
+            el.style.top = (300 - defaultDim / 2) + "px";
+        }
+        
+        el.style.zIndex = highestZ++;
+        el.draggable = false;
+        
+        // Track state
+        el.dataset.rotation = "0";
+        el.dataset.flip = "1";
+        el.dataset.type = type;
+        el.dataset.name = name;
+
+        customScene.appendChild(el);
+        selectElement(el);
+    }
+
+    /* -------------------- */
+    /* SELECTION LOGIC      */
+    /* -------------------- */
+    function selectElement(el) {
+        selectedItem = el;
+        document.querySelectorAll(".draggableBouquetItem").forEach(item => {
+            item.classList.remove("selectedItem");
+        });
+        if (el) {
+            el.classList.add("selectedItem");
+        }
+    }
+
+    document.addEventListener("mousedown", (e) => {
+        const item = e.target.closest(".draggableBouquetItem");
+        if (item && customScene.contains(item)) {
+            selected = item;
+            selectElement(item);
+
+            const rect = item.getBoundingClientRect();
+            dragOffsetX = e.clientX - rect.left;
+            dragOffsetY = e.clientY - rect.top;
+            
+            item.style.zIndex = highestZ++;
+            e.preventDefault();
+        }
+    });
+
+    /* -------------------- */
+    /* DRAG & MOVE LOGIC    */
+    /* -------------------- */
+    document.addEventListener("mousemove", (e) => {
+        if (!selected) return;
+
+        const rect = customScene.getBoundingClientRect();
+        let left = e.clientX - rect.left - dragOffsetX;
+        let top = e.clientY - rect.top - dragOffsetY;
+
+        // Bounded within canvas bounds
+        const sceneW = customScene.clientWidth;
+        const sceneH = customScene.clientHeight;
+        left = Math.max(0, Math.min(left, sceneW - selected.offsetWidth));
+        top = Math.max(0, Math.min(top, sceneH - selected.offsetHeight));
+
+        selected.style.left = left + "px";
+        selected.style.top = top + "px";
+    });
+
+    document.addEventListener("mouseup", () => {
+        selected = null;
+    });
+
+    // Deselect click
+    customScene.addEventListener("mousedown", (e) => {
+        if (e.target === customScene) {
+            selectElement(null);
+        }
+    });
+
+    /* -------------------- */
+    /* CONTROL ACTIONS      */
+    /* -------------------- */
+    document.getElementById("increaseSize").addEventListener("click", () => {
+        if (!selectedItem) {
+            alert("Please select a bouquet element first!");
+            return;
+        }
+        const currW = selectedItem.offsetWidth;
+        const currH = selectedItem.offsetHeight;
+        const ratio = currH / currW;
+        const newW = currW + 15;
+        selectedItem.style.width = newW + "px";
+        selectedItem.style.height = (newW * ratio) + "px";
+    });
+
+    document.getElementById("decreaseSize").addEventListener("click", () => {
+        if (!selectedItem) {
+            alert("Please select a bouquet element first!");
+            return;
+        }
+        const currW = selectedItem.offsetWidth;
+        const currH = selectedItem.offsetHeight;
+        const ratio = currH / currW;
+        if (currW > 30) {
+            const newW = currW - 15;
+            selectedItem.style.width = newW + "px";
+            selectedItem.style.height = (newW * ratio) + "px";
+        }
+    });
+
+    document.getElementById("rotateBtn").addEventListener("click", () => {
+        if (!selectedItem) {
+            alert("Please select a bouquet element first!");
+            return;
+        }
+        let rot = parseInt(selectedItem.dataset.rotation) || 0;
+        rot = (rot + 15) % 360;
+        selectedItem.dataset.rotation = rot;
+        updateTransform(selectedItem);
+    });
+
+    document.getElementById("flipBtn").addEventListener("click", () => {
+        if (!selectedItem) {
+            alert("Please select a bouquet element first!");
+            return;
+        }
+        let flip = parseInt(selectedItem.dataset.flip) || 1;
+        flip = flip === 1 ? -1 : 1;
+        selectedItem.dataset.flip = flip;
+        updateTransform(selectedItem);
+    });
+
+    document.getElementById("deleteBtn").addEventListener("click", () => {
+        if (selectedItem) {
+            selectedItem.remove();
+            selectedItem = null;
+            
+            // Show placeholder if empty
+            if (document.querySelectorAll(".draggableBouquetItem").length === 0) {
+                if (placeholderMsg) {
+                    placeholderMsg.style.display = "flex";
+                    setTimeout(() => {
+                        if (placeholderMsg) placeholderMsg.style.opacity = "1";
+                    }, 50);
+                }
+            }
+        }
+    });
+
+    function updateTransform(el) {
+        const rot = el.dataset.rotation || 0;
+        const flip = el.dataset.flip || 1;
+        el.style.transform = `rotate(${rot}deg) scaleX(${flip})`;
+    }
+
+    /* -------------------- */
+    /* SAVE TO CART         */
+    /* -------------------- */
+    document.getElementById("saveBouquet").addEventListener("click", () => {
+        const items = document.querySelectorAll("#customScene .draggableBouquetItem");
+        if (items.length === 0) {
+            alert("Your bouquet is empty! Please spawn some flowers and wraps first.");
+            return;
+        }
+
+        const accessories = [];
+        
+        items.forEach(item => {
+            const realLeft = parseFloat(item.style.left) || 0;
+            const realTop = parseFloat(item.style.top) || 0;
+            
+            // Translate real coordinates to virtual 700x700 coordinates
+            const sceneW = customScene.clientWidth;
+            const sceneH = customScene.clientHeight;
+            const virtualLeft = realLeft - (sceneW / 2) + 350;
+            const virtualTop = realTop - (sceneH / 2) + 350;
+
+            accessories.push({
+                image: "assets/flowers/" + item.src.split("/").pop(),
+                left: virtualLeft + "px",
+                top: virtualTop + "px",
+                width: item.style.width,
+                rotation: item.dataset.rotation || "0",
+                flip: item.dataset.flip || "1"
+            });
+        });
+
+        // Search if there's a holder to use as thumbnail, otherwise default to holder.png or first item
+        const holderItem = Array.from(items).find(i => i.dataset.type === 'holder');
+        const thumbnailSrc = holderItem ? "assets/flowers/" + holderItem.src.split("/").pop() : "assets/flowers/holder.png";
+
+        // Create transparent pixel SVG background image Data URL
+        const transparentImg = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'></svg>";
+
+        const bouquetItem = {
+            customId: "bouquet_" + Date.now(),
+            name: "Custom Bouquet",
+            image: transparentImg,
+            quantity: 1,
+            accessories: accessories
+        };
+
+        // Add to cart
+        let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+        cart.push(bouquetItem);
+        sessionStorage.setItem("cart", JSON.stringify(cart));
+
+        // Toast & Redirect
+        const toast = document.getElementById("toast");
+        toast.innerText = "Added Custom Bouquet to Cart!";
+        toast.style.display = "block";
+        setTimeout(() => {
+            toast.style.display = "none";
+            window.location = "checkout.html";
+        }, 1200);
+    });
+
+// Toggle Logic
+const showFlowersBtn = document.getElementById('showFlowersBtn');
+const showBouquetBtn = document.getElementById('showBouquetBtn');
+const flowersMainContainer = document.getElementById('flowersMainContainer');
+const bouquetMainContainer = document.getElementById('bouquetMainContainer');
+const storeHeader = document.querySelector('.storeHeader');
+const cartBtnNav = document.getElementById('cartButton');
+const saveBouquetNav = document.getElementById('saveBouquet');
+
+showFlowersBtn.addEventListener('click', () => {
+    showFlowersBtn.style.background = '#ffb6d9';
+    showFlowersBtn.style.color = '#5a0035';
+    showBouquetBtn.style.background = 'transparent';
+    showBouquetBtn.style.color = 'var(--text-color)';
+    
+    flowersMainContainer.style.display = 'flex';
+    bouquetMainContainer.style.display = 'none';
+    storeHeader.innerText = 'pick a bloom.';
+
+    if(cartBtnNav) cartBtnNav.style.display = 'inline-flex';
+    if(saveBouquetNav) saveBouquetNav.style.display = 'none';
+});
+
+showBouquetBtn.addEventListener('click', () => {
+    showBouquetBtn.style.background = '#ffb6d9';
+    showBouquetBtn.style.color = '#5a0035';
+    showFlowersBtn.style.background = 'transparent';
+    showFlowersBtn.style.color = 'var(--text-color)';
+    
+    flowersMainContainer.style.display = 'none';
+    bouquetMainContainer.style.display = 'flex';
+    storeHeader.innerText = 'build a custom bouquet';
+
+    if(cartBtnNav) cartBtnNav.style.display = 'none';
+    if(saveBouquetNav) saveBouquetNav.style.display = 'inline-flex';
+});
+
+</script>
 </body>
 
 </html>

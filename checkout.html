@@ -55,7 +55,10 @@
             background-size: 350px;
             background-attachment: fixed;
             background-color: var(--body-bg);
-            overflow-x: hidden;
+            overflow: hidden !important;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
             transition: background 0.5s ease, color 0.5s ease;
             font-family: var(--font-body);
             font-weight: 500;
@@ -90,6 +93,7 @@
         
 
         /* --- Smaller size --- */
+        :root {
             --container-width: 5.625em;
             --container-height: 2.5em;
             --container-radius: 6.25em;
@@ -705,12 +709,12 @@
             transform: translateY(2%);
         }
 
-        .shiny-cta span::before {
+        .shiny-cta > span::before {
             content: "✧";
             transition: all 0.2s ease;
         }
 
-        .shiny-cta:hover span::before {
+        .shiny-cta:hover > span::before {
             content: "✦";
         }
 
@@ -745,8 +749,7 @@
 
         /* --- CHECKOUT PAGE LAYOUT --- */
         body.checkoutPage {
-            overflow-x: hidden;
-            overflow-y: auto;
+            overflow: hidden !important;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -858,7 +861,16 @@
             font-size: 28px;
             color: var(--heading-color);
         }
-    </style>
+    
+/* --- NAVBAR BRAND OVERRIDE --- */
+.navBrand, a.navBrand {
+    font-family: 'Pinyon Script', cursive !important;
+    color: #ff4fa2 !important;
+    font-size: 38px !important;
+    text-shadow: none !important;
+}
+
+</style>
 
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -958,6 +970,7 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
     margin-top: 0 !important;
 }
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
 </head>
 
 <body class="checkoutPage">

@@ -28,7 +28,7 @@
     --nav-bg: rgba(255, 228, 241, 0.85);
     --nav-border: #ffb3d9;
     --font-body: 'Outfit', sans-serif;
-    --font-heading: 'Pacifico', cursive;
+    --font-heading: 'Pinyon Script', cursive;
 }
 
 
@@ -45,10 +45,13 @@ html {
 
 body {
     color: var(--text-color);
-    background: var(--bg-gradient);
-    background-size: 200% 200%;
-    animation: gradientShift 10s ease infinite;
+    background: url('assets/bg.png') center/cover no-repeat fixed;
+    animation: none;
     overflow-x: hidden;
+    overflow-y: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     transition: background 0.6s ease, color 0.6s ease;
     font-family: var(--font-body);
     font-weight: 400;
@@ -97,7 +100,8 @@ body {
 
 /* --- HERO SECTION --- */
 .hero {
-    min-height: 100vh;
+    flex: 1;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -106,21 +110,19 @@ body {
     text-align: center;
     position: relative;
     z-index: 10;
+    overflow-y: auto;
 }
 
 .hero-title {
     font-family: var(--font-heading);
     font-size: 72px;
-    background: var(--hero-gradient);
-    background-size: 200% auto;
-    color: transparent;
-    -webkit-background-clip: text;
-    background-clip: text;
+    color: white;
+    transform: scaleX(1.15);
+    display: inline-block;
     margin-bottom: 20px;
     padding: 20px 30px;
     line-height: 1.5;
     animation: fadeInDown 1s cubic-bezier(0.2, 0.8, 0.2, 1);
-    filter: drop-shadow(0 4px 10px rgba(255, 105, 180, 0.2));
 }
 
 @keyframes shine {
@@ -128,12 +130,14 @@ body {
 }
 
 .hero-subtitle {
-    font-size: 20px;
-    font-weight: 400;
+    font-family: 'Pinyon Script', cursive;
+    font-size: 38px;
+    font-weight: 700;
     max-width: 650px;
     margin-bottom: 60px;
-    color: var(--text-color);
-    line-height: 1.6;
+    color: rgba(255, 240, 245, 0.95);
+    letter-spacing: 1px;
+    line-height: 1.4;
     animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s both;
 }
 
@@ -237,7 +241,93 @@ body {
     50% { transform: translateY(-25px) rotate(8deg); }
     100% { transform: translateY(0px) rotate(0deg); }
 }
-    </style>
+
+/* --- RADIATING HEARTS BUTTON --- */
+.hero-btn-container {
+    position: relative;
+    display: inline-block;
+    margin-top: 40px;
+}
+
+.hero-btn {
+    position: relative;
+    padding: 18px 55px;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: var(--font-body);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    color: white !important;
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+    z-index: 2;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255,255,255,0.15) !important;
+}
+
+.hero-btn:hover {
+    transform: scale(1.06);
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.radiating-hearts {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.heart-particle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 26px;
+    color: rgba(255, 160, 200, 1);
+    opacity: 0;
+    animation: radiate 2.5s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+}
+
+.heart-particle:nth-child(1) { animation-delay: 0s; --angle: 0deg; }
+.heart-particle:nth-child(2) { animation-delay: 0.3s; --angle: 45deg; }
+.heart-particle:nth-child(3) { animation-delay: 0.6s; --angle: 90deg; }
+.heart-particle:nth-child(4) { animation-delay: 0.9s; --angle: 135deg; }
+.heart-particle:nth-child(5) { animation-delay: 1.2s; --angle: 180deg; }
+.heart-particle:nth-child(6) { animation-delay: 1.5s; --angle: 225deg; }
+.heart-particle:nth-child(7) { animation-delay: 1.8s; --angle: 270deg; }
+.heart-particle:nth-child(8) { animation-delay: 2.1s; --angle: 315deg; }
+
+@keyframes radiate {
+    0% {
+        transform: translate(-50%, -50%) rotate(var(--angle)) translateY(0px) rotate(calc(-1 * var(--angle))) scale(0.5);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-120px) rotate(calc(-1 * var(--angle))) scale(1.5);
+        opacity: 0;
+    }
+}
+    
+/* --- NAVBAR BRAND OVERRIDE --- */
+.navBrand, a.navBrand {
+    font-family: 'Pinyon Script', cursive !important;
+    color: #ff4fa2 !important;
+    font-size: 38px !important;
+    text-shadow: none !important;
+}
+
+</style>
     <script src="mobile-block.js"></script>
 
 <style>
@@ -249,7 +339,7 @@ body {
     padding: 0 20px;
     font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
     font-size: 12px;
-    color: var(--text-color);
+    color: rgba(255, 220, 235, 0.85);
     width: 100%;
     box-sizing: border-box;
     position: fixed;
@@ -257,17 +347,17 @@ body {
     left: 0;
     z-index: 9999;
     pointer-events: none;
-    background: rgba(255, 228, 241, 0.85);
-    backdrop-filter: blur(8px);
-    border-top: 1px solid rgba(255, 105, 180, 0.2);
+    background: rgba(40, 5, 20, 0.55);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
 }
 
 .site-footer a {
-    color: var(--heading-color);
+    color: rgba(255, 200, 220, 0.95);
     text-decoration: none;
     font-weight: 600;
-    border-bottom: 1px dotted var(--heading-color);
+    border-bottom: 1px dotted rgba(255, 200, 220, 0.6);
     transition: opacity 0.2s ease, color 0.3s ease;
     pointer-events: auto;
 }
@@ -303,52 +393,33 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
     margin-top: 0 !important;
 }
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Landing Page Navbar (Logo Only) -->
-    <nav id="storeNavbar">
-        <a href="index.html" class="navBrand">The Gifting Co.</a>
-    </nav>
 
-    
-
-    <!-- Floating Background Elements -->
-    <img src="assets/plushies/bunny-white.png" alt="Floating Bunny" class="floating-element float-1">
-    <img src="assets/flowers/flower2.png" alt="Floating Flower" class="floating-element float-2">
-    <img src="assets/treats/dessert2.png" alt="Floating Treat" class="floating-element float-3">
-    <img src="assets/plushies/duck.png" alt="Floating Duck" class="floating-element float-4">
 
     <!-- Main Hero Section -->
-    <main class="hero">
-        <h1 class="hero-title">Welcome to The Gifting Co.</h1>
-        <p class="hero-subtitle">Discover the perfect virtual gifts for your loved ones. Build customized bouquets, choose adorable plushies, or pick delicious treats to assemble the ultimate gift package.</p>
+    <main class="hero" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh;">
+        <h1 class="hero-title" style="font-size: 90px; margin-bottom: 10px;">The Gifting Co.</h1>
+        <p class="hero-subtitle">digital gifts for your loved ones</p>
         
-        <div class="categories">
-            <a href="plushies.html" class="category-card">
-                <img src="assets/plushies/bear.png" alt="Plushies" class="category-icon">
-                <h2 class="category-title">Plushies</h2>
-                <p class="category-desc">Cuddly, colorful companions. Customize them with accessories and colors.</p>
-            </a>
-            
-            <a href="flowers.html" class="category-card">
-                <img src="assets/flowers/flower1.png" alt="Flowers" class="category-icon">
-                <h2 class="category-title">Flowers</h2>
-                <p class="category-desc">Beautiful blooms that never fade. Arrange your own personalized bouquet.</p>
-            </a>
-            
-            <a href="treats.html" class="category-card">
-                <img src="assets/treats/dessert1.png" alt="Treats" class="category-icon">
-                <h2 class="category-title">Treats</h2>
-                <p class="category-desc">Sweet and delightful virtual snacks to complete any amazing gift box.</p>
-            </a>
+        <div class="hero-btn-container">
+            <div class="radiating-hearts">
+                <div class="heart-particle">❤</div>
+                <div class="heart-particle">❤</div>
+                <div class="heart-particle">❤</div>
+                <div class="heart-particle">❤</div>
+                <div class="heart-particle">❤</div>
+                <div class="heart-particle">❤</div>
+                <div class="heart-particle">❤</div>
+                <div class="heart-particle">❤</div>
+            </div>
+            <a href="plushies.html" class="hero-btn">Start Gifting</a>
         </div>
     </main>
 
-    <script>
-        
-        });
-    </script>
+
     <!-- Footer -->
     <footer class="site-footer">
         &copy; 2026 | &#9825; designed by <a href="https://www.instagram.com/artwsomi?igsh=bHRpb2Z6aWo1ZjFi" target="_blank" rel="noopener noreferrer">@somi</a> &amp; <a href="https://www.instagram.com/ayush.824?igsh=MW01NTU3MHMzaDJ1bQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">@byayushdas</a>

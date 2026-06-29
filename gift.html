@@ -59,7 +59,10 @@ body {
     background-size: 350px;
     background-attachment: fixed;
     background-color: var(--body-bg);
-    overflow-x: hidden;
+    overflow: hidden !important;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     transition: background 0.5s ease, color 0.5s ease;
     font-family: var(--font-body);
     font-weight: 500;
@@ -77,8 +80,10 @@ body.giftPage {
 }
 
 body.giftPage {
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: hidden !important;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .sidebar-panel {
@@ -128,12 +133,16 @@ body.giftPage {
 
 #giftContainer {
     display: flex;
+    flex: 1;
+    min-height: 0;
+    align-items: center;
     gap: 20px;
     justify-content: center;
     width: 95%;
     max-width: 1250px;
     margin: 0 auto;
     padding-top: 10px;
+    padding-bottom: 20px;
 }
 
 #giftScene {
@@ -149,10 +158,10 @@ body.giftPage {
 
 #assetPanel {
     width: 240px;
+    height: 65vh;
     background: var(--panel-bg);
     border-radius: 25px;
     padding: 15px;
-    height: 65vh;
     overflow-y: auto;
     transition: background 0.5s ease, box-shadow 0.5s ease;
     scrollbar-width: thin;
@@ -313,8 +322,6 @@ body.giftPage {
 }
 
 .giftDeleteBtn {
-    background: #ffd6d6;
-    color: #c0392b;
 }
 
 /* --- Highlight selected gift element --- */
@@ -647,12 +654,12 @@ body.giftPage {
     transform: translateY(2%);
 }
 
-.shiny-cta span::before {
+.shiny-cta > span::before {
     content: "✧";
     transition: all 0.2s ease;
 }
 
-.shiny-cta:hover span::before {
+.shiny-cta:hover > span::before {
     content: "✦";
 }
 
@@ -807,6 +814,15 @@ margin: 0 auto;
     font-size: 28px;
     color: var(--heading-color);
 }
+
+/* --- NAVBAR BRAND OVERRIDE --- */
+.navBrand, a.navBrand {
+    font-family: 'Pinyon Script', cursive !important;
+    color: #ff4fa2 !important;
+    font-size: 38px !important;
+    text-shadow: none !important;
+}
+
 </style>
 
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -881,6 +897,7 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
     margin-top: 0 !important;
 }
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
 </head>
 
 <body class="giftPage">
@@ -917,11 +934,11 @@ Create Your Gift
             <h2>Customizations</h2>
 
             <button id="giftIncreaseSize" class="giftControlBtn">
-                +
+                 Increase Size
             </button>
 
             <button id="giftDecreaseSize" class="giftControlBtn">
-                -
+                 Decrease Size
             </button>
 
             <button id="giftDeleteItem" class="giftControlBtn giftDeleteBtn">

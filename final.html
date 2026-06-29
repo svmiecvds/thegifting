@@ -65,6 +65,10 @@ body.giftPage {
     background-size: 350px;
     background-attachment: fixed;
     background-color: var(--receipt-bg);
+    overflow: hidden !important;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .sidebar-panel {
@@ -703,6 +707,15 @@ margin: 0 auto;
     transition: all 0.25s ease;
 }
 
+.shiny-cta > span::before {
+    content: "✧";
+    transition: all 0.2s ease;
+}
+
+.shiny-cta:hover > span::before {
+    content: "✦";
+}
+
 .share-social-btn:hover {
     background: var(--bg-pink);
     transform: translateY(-3px) scale(1.08);
@@ -759,6 +772,15 @@ body.viewer-mode {
     transform: translateY(-2px);
 }
 
+
+
+/* --- NAVBAR BRAND OVERRIDE --- */
+.navBrand, a.navBrand {
+    font-family: 'Pinyon Script', cursive !important;
+    color: #ff4fa2 !important;
+    font-size: 38px !important;
+    text-shadow: none !important;
+}
 
 </style>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -834,6 +856,7 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
     margin-top: 0 !important;
 }
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
 </head>
 
 <body class="giftPage" style="overflow-x: hidden; overflow-y: auto;">
@@ -850,8 +873,8 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
     <h1 class="checkoutTitle" style="text-align: center !important;">Your Wrapped Gift Card</h1>
 
     <!-- Display the stationary gift layout -->
-    <div id="giftContainer" style="justify-content: center; width: 95%; max-width: 1250px; margin: 0 auto; padding-top: 10px;">
-        <div id="giftScene" style="position: relative; overflow: hidden; border-radius: 25px; width: 100%; height: 65vh; flex: none; box-shadow: none; background: var(--card-bg);">
+    <div id="giftContainer" style="display: flex; flex: 1; min-height: 0; align-items: center; gap: 20px; justify-content: center; width: 95%; max-width: 1250px; margin: 0 auto; padding-top: 10px; padding-bottom: 20px;">
+        <div id="giftScene" style="height: 65vh; background: var(--card-bg); border-radius: 25px; position: relative; overflow: hidden; box-shadow: 0 15px 35px rgba(255, 105, 180, 0.2); border: 4px solid var(--border-color); flex: 1;">
             <!-- Arranged elements will be reconstructed here dynamically -->
         </div>
     </div>
@@ -1358,10 +1381,7 @@ shareBtn.addEventListener('click', async () => {
         });
     </script>
 
-    <!-- Footer -->
-    <footer class="site-footer">
-        &copy; 2026 | &#9825; designed by <a href="https://www.instagram.com/artwsomi?igsh=bHRpb2Z6aWo1ZjFi" target="_blank" rel="noopener noreferrer">@somi</a> &amp; <a href="https://www.instagram.com/ayush.824?igsh=MW01NTU3MHMzaDJ1bQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">@byayushdas</a>
-    </footer>
+
 </body>
 
 </html>

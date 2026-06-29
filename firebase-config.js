@@ -2,7 +2,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebas
 import { getFirestore, collection, addDoc, serverTimestamp, getDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 // Storage import removed
 
-// TODO: Replace with your actual Firebase project configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDFuBm7nMqGIv_iGoD_NZLXl49Q1sV8f1w",
   authDomain: "the-gifting-co.firebaseapp.com",
