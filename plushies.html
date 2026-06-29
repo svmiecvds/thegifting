@@ -1744,7 +1744,21 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 </script>
-    
+<script>
+    // Preload plushie color options after page load to prevent delay on change
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const colorOptions = document.querySelectorAll('.color-option');
+            colorOptions.forEach(option => {
+                const src = option.getAttribute('data-image');
+                if (src) {
+                    const img = new Image();
+                    img.src = src;
+                }
+            });
+        }, 500);
+    });
+</script>
 </body>
 
 </html>

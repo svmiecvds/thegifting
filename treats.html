@@ -1217,7 +1217,28 @@ if (cartButton) {
 }
 
 </script>
-    
+<script>
+    // Preload alternative options dynamically to prevent delay on change
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const preloadElements = document.querySelectorAll('[data-image]');
+            preloadElements.forEach(el => {
+                const src = el.getAttribute('data-image');
+                if (src) {
+                    const img = new Image();
+                    img.src = src;
+                }
+            });
+            // Also preload spawner items
+            document.querySelectorAll('.spawner-item img, .box-option img, .color-option img').forEach(imgEl => {
+                if (imgEl.src) {
+                    const img = new Image();
+                    img.src = imgEl.src;
+                }
+            });
+        }, 500);
+    });
+</script>
 </body>
 
 </html>
