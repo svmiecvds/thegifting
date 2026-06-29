@@ -10,6 +10,7 @@
 
 <title>The Gifting Co.</title>
     <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="preload" as="image" href="assets/giftbg.png">
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Fredoka:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
@@ -52,11 +53,14 @@ html {
     transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-body {
+body,
+body.receiptPage,
+body.giftPage {
     color: var(--text-color);
-    background-image: url("assets/bg_pattern.png");
-    background-repeat: repeat;
-    background-size: 350px;
+    background-image: url('assets/giftbg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     background-attachment: fixed;
     background-color: var(--body-bg);
     overflow: hidden !important;
@@ -66,24 +70,6 @@ body {
     transition: background 0.5s ease, color 0.5s ease;
     font-family: var(--font-body);
     font-weight: 500;
-}
-
-
-
-body.receiptPage,
-body.giftPage {
-    background-image: url("assets/bg_pattern.png");
-    background-repeat: repeat;
-    background-size: 350px;
-    background-attachment: fixed;
-    background-color: var(--receipt-bg);
-}
-
-body.giftPage {
-    overflow: hidden !important;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
 }
 
 .sidebar-panel {
@@ -127,7 +113,7 @@ body.giftPage {
 .giftTitle {
     text-align: center;
     margin-top: 100px;
-    color: var(--heading-color);
+    color: #ffffff;
     font-family: var(--font-heading);
 }
 
@@ -156,6 +142,7 @@ body.giftPage {
     transition: background 0.5s ease, box-shadow 0.5s ease;
 }
 
+#customPanel,
 #assetPanel {
     width: 240px;
     height: 65vh;
@@ -168,29 +155,35 @@ body.giftPage {
     scrollbar-color: var(--glow-soft) rgba(0, 0, 0, 0.05);
 }
 
+#customPanel::-webkit-scrollbar,
 #assetPanel::-webkit-scrollbar {
     width: 8px;
 }
 
+#customPanel::-webkit-scrollbar-track,
 #assetPanel::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0.02);
     border-radius: 10px;
 }
 
+#customPanel::-webkit-scrollbar-thumb,
 #assetPanel::-webkit-scrollbar-thumb {
     background: var(--glow-soft);
     border-radius: 10px;
 }
 
+#customPanel::-webkit-scrollbar-thumb:hover,
 #assetPanel::-webkit-scrollbar-thumb:hover {
     background: var(--heading-color);
 }
 
+#customPanel h2,
 #assetPanel h2 {
     color: var(--heading-color);
     margin: 10px 0;
 }
 
+#customPanel img,
 #assetPanel img {
     width: 100px;
     display: block;
@@ -199,6 +192,7 @@ body.giftPage {
     transition: .25s;
 }
 
+#customPanel img:hover,
 #assetPanel img:hover {
     transform: scale(1.05);
 }
@@ -922,12 +916,7 @@ Create Your Gift
 
 <div id="giftContainer">
 
-    <div id="giftScene">
-
-    </div>
-
-    <div id="assetPanel">
-
+    <div id="customPanel">
         <!-- Size controls for selected item -->
         <div class="giftControls">
 
@@ -958,6 +947,13 @@ Create Your Gift
             </button>
 
         </div>
+    </div>
+
+    <div id="giftScene">
+
+    </div>
+
+    <div id="assetPanel">
 
         <h2>
 

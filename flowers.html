@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=1250">
     <title>The Gifting Co.</title>
     <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="preload" as="image" href="assets/flowersbg.png">
     <style>
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Fredoka:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
@@ -48,11 +49,14 @@ html {
     transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-body {
+body,
+body.receiptPage,
+body.giftPage {
     color: var(--text-color);
-    background-image: url("assets/bg_pattern.png");
-    background-repeat: repeat;
-    background-size: 350px;
+    background-image: url('assets/flowersbg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     background-attachment: fixed;
     background-color: var(--body-bg);
     overflow: hidden !important;
@@ -62,17 +66,6 @@ body {
     transition: background 0.5s ease, color 0.5s ease;
     font-family: var(--font-body);
     font-weight: 500;
-}
-
-
-
-body.receiptPage,
-body.giftPage {
-    background-image: url("assets/bg_pattern.png");
-    background-repeat: repeat;
-    background-size: 350px;
-    background-attachment: fixed;
-    background-color: var(--receipt-bg);
 }
 
 .sidebar-panel {
@@ -338,6 +331,7 @@ body.giftPage {
     color: var(--heading-color);
     margin-bottom: 15px;
     font-family: var(--font-heading);
+    text-align: center;
     text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
 }
 
