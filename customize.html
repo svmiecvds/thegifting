@@ -121,7 +121,7 @@ body.giftPage {
     height: 700px;
     background: var(--card-bg);
     border-radius: 28px;
-    overflow: hidden;
+    overflow: visible;
     transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
@@ -197,7 +197,7 @@ body.giftPage {
 }
 
 .draggableAccessory {
-    cursor: move;
+    cursor: inherit;
     z-index: 10;
     transition: outline 0.2s ease, box-shadow 0.2s ease;
 }
@@ -374,6 +374,7 @@ height:auto;
 
 /* --- NAVBAR --- */
 #storeNavbar {
+    background: url(\'assets/kisses-bg.png\') center/cover no-repeat !important;
     position: fixed;
     top: 0;
     left: 0;
@@ -835,7 +836,15 @@ body.no-scroll {
     position: relative;
     flex: 1;
     max-width: 500px;
-    background: var(--card-bg) !important;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 100%) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    border-top: 2px solid rgba(255, 255, 255, 0.8) !important;
+    border-left: 2px solid rgba(255, 255, 255, 0.8) !important;
+    box-shadow: 
+        inset 0 4px 10px rgba(255, 255, 255, 0.6),
+        inset 0 -4px 10px rgba(255, 182, 193, 0.2) !important;
     border-radius: 24px !important;
     display: flex;
     align-items: center;
@@ -854,7 +863,7 @@ body.no-scroll {
 #customPanel, .customPanel-style {
     flex: 1;
     max-width: 320px;
-    background-color: var(--panel-bg) !important;
+    background-color: white !important;
     border-radius: 24px !important;
     padding: 22px !important;
     display: flex;
@@ -895,17 +904,47 @@ body.no-scroll {
     margin: 0;
     font-family: var(--font-heading);
     font-size: 28px;
-    color: var(--heading-color);
+    color: white !important;
+}
+
+.canvas-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+    color: #ff9ccb;
+    font-family: var(--font-heading);
+    font-size: 26px;
+    line-height: 1.5;
+    pointer-events: none;
+    z-index: 1;
+    transition: opacity 0.3s ease;
 }
 
 /* --- NAVBAR BRAND OVERRIDE --- */
 .navBrand, a.navBrand {
     font-family: 'Pinyon Script', cursive !important;
-    color: #ff4fa2 !important;
+    color: white !important;
     font-size: 38px !important;
     text-shadow: none !important;
 }
 
+
+
+/* NAVBAR OVERRIDE */
+#storeNavbar {
+    background: #900C3F !important; /* dark cherry red */
+}
+.navBrand, a.navBrand, .navBrand:hover {
+    color: white !important;
+}
 </style>
 
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -952,6 +991,7 @@ body.no-scroll {
     opacity: 0.7;
 }
 
+
 </style>
 
 <style>
@@ -979,6 +1019,7 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
 .flowerCard .customizeBtn {
     margin-top: 0 !important;
 }
+
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
 </head>
@@ -1009,15 +1050,10 @@ Customize Your Plushie.
 
 <div id="customizeContainer">
 
-    <div id="controlsPanel" class="customPanel-style" style="flex: 0 0 150px; margin-right: 24px;">
-        <h2 style="text-align: center; margin-bottom: 16px; font-family: var(--font-ui); font-weight: 600; font-size: 18px; color: var(--heading-color);">Customizations</h2>
-        <button id="increaseSize">Increase Size</button>
-        <button id="decreaseSize">Decrease Size</button>
-        <button id="deleteItem">Delete</button>
-    </div>
-
     <div id="customScene">
-
+        <div id="itemDeleteBtn" style="display: none; position: absolute; z-index: 1000; cursor: pointer; background: white; border-radius: 50%; padding: 4px; border: 1px solid #ffb6d9; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff4fa2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+        </div>
        <img
 id="mainPlushie"
 draggable="false"
@@ -1086,6 +1122,8 @@ document.getElementById(
 "mainPlushie"
 );
 
+const placeholderMsg = document.getElementById("placeholderMsg");
+
 let selectedItem = null;
 let selected = null;
 
@@ -1106,6 +1144,13 @@ function getRelativePath(absoluteUrl) {
 
 // Helper to create an accessory image
 function createAccessory(src, leftPx, topPx, widthPx) {
+    if (placeholderMsg) {
+        placeholderMsg.style.opacity = "0";
+        setTimeout(() => {
+            if (placeholderMsg) placeholderMsg.style.display = "none";
+        }, 300);
+    }
+
     const accessory = document.createElement("img");
     accessory.src = src;
     accessory.className = "draggableAccessory";
@@ -1122,14 +1167,34 @@ function createAccessory(src, leftPx, topPx, widthPx) {
     return accessory;
 }
 
-// Function to select a placed accessory and highlight it
+function updateSelectionUI() {
+    const deleteBtn = document.getElementById('itemDeleteBtn');
+    if (!selectedItem) {
+        deleteBtn.style.display = 'none';
+        return;
+    }
+    const l = parseFloat(selectedItem.style.left) || 0;
+    const t = parseFloat(selectedItem.style.top)  || 0;
+    const w = selectedItem.offsetWidth;
+    deleteBtn.style.left = (l + w - 12) + 'px';
+    deleteBtn.style.top  = (t - 12) + 'px';
+    deleteBtn.style.display = 'block';
+}
+
 function selectAccessory(element) {
     selectedItem = element;
     document.querySelectorAll(".draggableAccessory").forEach(item => {
         item.classList.remove("selectedAccessory");
+        item.style.outline = "none";
     });
+    const deleteBtn = document.getElementById('itemDeleteBtn');
     if (element) {
         element.classList.add("selectedAccessory");
+        element.style.outline = "2px dashed #ff4fa2";
+        updateSelectionUI();
+    } else {
+        deleteBtn.style.display = 'none';
+        customScene.style.cursor = '';
     }
 }
 
@@ -1203,137 +1268,163 @@ customScene.addEventListener("drop", (e) => {
 
 let dragOffsetX = 0;
 let dragOffsetY = 0;
+let isResizing = false;
+let resizeHandle = null; // 'TL','BL','BR'
+let resizeStartX = 0, resizeStartY = 0;
+let resizeStartW = 0, resizeStartH = 0;
+let resizeStartLeft = 0, resizeStartTop = 0;
+
+const CORNER_HIT = 26;
+
+function getHitZone(mouseX, mouseY) {
+    if (!selectedItem) return null;
+    const sceneRect = customScene.getBoundingClientRect();
+    const l = parseFloat(selectedItem.style.left) || 0;
+    const t = parseFloat(selectedItem.style.top)  || 0;
+    const w = selectedItem.offsetWidth;
+    const h = selectedItem.offsetHeight;
+
+    const mx = mouseX - sceneRect.left;
+    const my = mouseY - sceneRect.top;
+
+    const near = (px, py) => Math.hypot(mx - px, my - py) < CORNER_HIT;
+
+    if (near(l,     t))     return 'TL';
+    if (near(l,     t + h)) return 'BL';
+    if (near(l + w, t + h)) return 'BR';
+    if (mx >= l && mx <= l + w && my >= t && my <= t + h) return 'inside';
+    return null;
+}
+
+function zoneToCursor(zone) {
+    if (zone === 'TL') return 'nwse-resize';
+    if (zone === 'BL') return 'nesw-resize';
+    if (zone === 'BR') return 'nwse-resize';
+    if (zone === 'inside') return 'grab';
+    return '';
+}
+
+customScene.addEventListener('mousemove', (e) => {
+    if (isResizing || selected) return;
+    const zone = getHitZone(e.clientX, e.clientY);
+    customScene.style.cursor = zoneToCursor(zone);
+});
 
 document.addEventListener("mousedown", (e) => {
-    if (e.target.classList.contains("draggableAccessory")) {
-        e.preventDefault(); // Stop native drag
-        selected = e.target;
-        selectAccessory(e.target);
-        
-        // Calculate offset so the sticker doesn't snap to center under cursor
-        const rect = customScene.getBoundingClientRect();
-        const elementRect = selected.getBoundingClientRect();
-        dragOffsetX = e.clientX - elementRect.left;
-        dragOffsetY = e.clientY - elementRect.top;
-    } else {
-        // Deselect if clicking anywhere other than the controls panel
-        if (!e.target.closest('#controlsPanel')) {
-            selectAccessory(null);
+    if (e.target.closest('#itemDeleteBtn')) return;
+
+    const accessory = e.target.closest(".draggableAccessory");
+    if (accessory && customScene.contains(accessory)) {
+        const zone = getHitZone(e.clientX, e.clientY);
+
+        if (!selectedItem || selectedItem !== accessory) {
+            selectAccessory(accessory);
         }
+
+        if (zone === 'TL' || zone === 'BL' || zone === 'BR') {
+            e.stopPropagation(); e.preventDefault();
+            isResizing = true;
+            resizeHandle = zone;
+            resizeStartX    = e.clientX;
+            resizeStartY    = e.clientY;
+            resizeStartW    = accessory.offsetWidth;
+            resizeStartH    = accessory.offsetHeight;
+            resizeStartLeft = parseFloat(accessory.style.left) || 0;
+            resizeStartTop  = parseFloat(accessory.style.top)  || 0;
+            return;
+        }
+
+        e.preventDefault();
+        selected = accessory;
+        const rect = selected.getBoundingClientRect();
+        dragOffsetX = e.clientX - rect.left;
+        dragOffsetY = e.clientY - rect.top;
+        customScene.style.cursor = 'grabbing';
     }
 });
 
 document.addEventListener("mousemove", (e) => {
+    const sceneW = customScene.clientWidth;
+    const sceneH = customScene.clientHeight;
+
+    if (isResizing && selectedItem) {
+        const dx = e.clientX - resizeStartX;
+        const dy = e.clientY - resizeStartY;
+
+        if (resizeHandle === 'BR') {
+            let maxW = Math.min(sceneW - resizeStartLeft, sceneH - resizeStartTop);
+            let newW = Math.max(30, Math.min(resizeStartW + dx, maxW));
+            selectedItem.style.width  = newW + 'px';
+            selectedItem.style.height = newW + 'px';
+        } else if (resizeHandle === 'BL') {
+            let maxW = Math.min(resizeStartLeft + resizeStartW, sceneH - resizeStartTop);
+            let newW = Math.max(30, Math.min(resizeStartW - dx, maxW));
+            selectedItem.style.left   = (resizeStartLeft + resizeStartW - newW) + 'px';
+            selectedItem.style.width  = newW + 'px';
+            selectedItem.style.height = newW + 'px';
+        } else if (resizeHandle === 'TL') {
+            let maxW = Math.min(resizeStartLeft + resizeStartW, resizeStartTop + resizeStartH);
+            let size = Math.max(30, Math.min(resizeStartW - dx, maxW));
+            selectedItem.style.left   = (resizeStartLeft + resizeStartW - size) + 'px';
+            selectedItem.style.top    = (resizeStartTop  + resizeStartH - size) + 'px';
+            selectedItem.style.width  = size + 'px';
+            selectedItem.style.height = size + 'px';
+        }
+        updateSelectionUI();
+        return;
+    }
+
     if (!selected) return;
 
     const rect = customScene.getBoundingClientRect();
-    
-    // Position sticker relative to customScene with drag offsets
     let left = e.clientX - rect.left - dragOffsetX;
     let top = e.clientY - rect.top - dragOffsetY;
     
-    // Bounds check to keep stickers within customScene
-    left = Math.max(-selected.offsetWidth / 2, Math.min(left, rect.width - selected.offsetWidth / 2));
-    top = Math.max(-selected.offsetHeight / 2, Math.min(top, rect.height - selected.offsetHeight / 2));
+    // Strict bounds check to keep stickers completely inside customScene
+    left = Math.max(0, Math.min(left, sceneW - selected.offsetWidth));
+    top = Math.max(0, Math.min(top, sceneH - selected.offsetHeight));
     
     selected.style.left = left + "px";
     selected.style.top = top + "px";
+    updateSelectionUI();
 });
 
 document.addEventListener("mouseup", () => {
     selected = null;
+    isResizing = false;
+    resizeHandle = null;
+    if (selectedItem) {
+        customScene.style.cursor = 'grab';
+    } else {
+        customScene.style.cursor = '';
+    }
 });
 
-/* -------------------- */
-/* INCREASE SIZE        */
-/* -------------------- */
-
-document
-.getElementById(
-"increaseSize"
-)
-.addEventListener(
-"click",
-() => {
-
-if(!selectedItem){
-
-alert(
-"Select an accessory first!"
-);
-
-return;
-}
-
-const currentWidth =
-
-selectedItem.offsetWidth;
-
-selectedItem.style.width =
-
-(currentWidth + 15) + "px";
-
+// Deselect on bg click
+customScene.addEventListener("mousedown", (e) => {
+    if (e.target === customScene || e.target === mainPlushie) {
+        selectAccessory(null);
+    }
 });
 
-/* -------------------- */
-/* DECREASE SIZE        */
-/* -------------------- */
-
-document
-.getElementById(
-"decreaseSize"
-)
-.addEventListener(
-"click",
-() => {
-
-if(!selectedItem){
-
-alert(
-"Select an accessory first!"
-);
-
-return;
-}
-
-const currentWidth =
-
-selectedItem.offsetWidth;
-
-if(currentWidth > 30){
-
-selectedItem.style.width =
-
-(currentWidth - 15) + "px";
-
-}
-
+// Delete btn handler
+document.getElementById("itemDeleteBtn").addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (selectedItem) {
+        selectedItem.remove();
+        selectAccessory(null);
+        if (document.querySelectorAll(".draggableAccessory").length === 0) {
+            if (placeholderMsg) {
+                placeholderMsg.style.display = "flex";
+                setTimeout(() => {
+                    if (placeholderMsg) placeholderMsg.style.opacity = "1";
+                }, 50);
+            }
+        }
+    }
 });
 
-/* -------------------- */
-/* DELETE               */
-/* -------------------- */
 
-document
-.getElementById(
-"deleteItem"
-)
-.addEventListener(
-"click",
-() => {
-
-if(
-selectedItem
-){
-
-selectedItem.remove();
-
-selectedItem =
-null;
-
-}
-
-});
 
 /* -------------------- */
 /* SAVE                 */
@@ -1381,7 +1472,7 @@ document
 /* Build the customized plushie object with unique ID */
 const customizedPlushie = {
     customId: "plushie_" + Date.now(),
-    name: currentPlushie.name,
+    name: currentPlushie.name.startsWith("Customized ") ? currentPlushie.name : "Customized " + currentPlushie.name,
     image: currentPlushie.image,
     quantity: currentPlushie.quantity || 1,
     accessories: accessories

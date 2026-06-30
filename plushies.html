@@ -95,22 +95,26 @@ body.giftPage {
 }
 
 .flowerCard {
-    background: var(--card-bg);
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
     border-radius: 30px;
+    border: 2px solid #ffffff;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
     padding: 25px;
     width: 280px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, border-color 0.3s ease;
     position: relative;
 }
 
-
-
 .flowerCard:hover {
     transform: translateY(-8px) scale(1.03);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    border-color: #ffffff;
 }
 
 .flowerImage {
@@ -442,6 +446,7 @@ body.giftPage {
 
 /* --- NAVBAR --- */
 #storeNavbar {
+    background: url(\'assets/kisses-bg.png\') center/cover no-repeat !important;
     position: fixed;
     top: 0;
     left: 0;
@@ -455,7 +460,7 @@ body.giftPage {
     gap: 30px;
     z-index: 999;
     border-bottom: 3px solid #ffb3d9;
-    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.1);
+    box-shadow: none;
     padding: 10px 30px;
     box-sizing: border-box;
 }
@@ -575,8 +580,8 @@ body.giftPage {
 
 .box-option:hover {
     transform: translateY(-3px) scale(1.02);
-    border-color: hotpink;
-    box-shadow: 0 5px 12px rgba(255, 105, 180, 0.2);
+    border-color: #ffb6d9;
+    box-shadow: none;
 }
 
 .box-option.active {
@@ -637,7 +642,7 @@ body.giftPage {
 #saveCustomization {
     background: #ffb6d9 !important;
     color: #5a0035 !important;
-    box-shadow: 0 0 10px pink !important;
+    box-shadow: none !important;
 }
 
 #saveCustomization:hover {
@@ -681,9 +686,7 @@ body.giftPage {
     box-shadow: 
       inset 0 0.3rem 0.9rem rgba(255, 255, 255, 0.4),
       inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.4),
-      inset 0 -0.4rem 0.9rem rgba(255, 255, 255, 0.3),
-      0 10px 15px -3px rgba(255, 105, 180, 0.3),
-      0 4px 6px -2px rgba(255, 105, 180, 0.05);
+      inset 0 -0.4rem 0.9rem rgba(255, 255, 255, 0.3);
     overflow: hidden;
     display: inline-flex;
     align-items: center;
@@ -752,9 +755,7 @@ body.giftPage {
 .shiny-cta:hover {
     box-shadow:
       inset 0 0.3rem 0.5rem var(--hover-glow),
-      inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.4),
-      0 12px 20px rgba(255, 105, 180, 0.4),
-      0 4px 8px rgba(255, 105, 180, 0.1);
+      inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.4);
 }
 
 .shiny-cta:hover::before {
@@ -774,8 +775,7 @@ body.giftPage {
     transform: translateY(2px);
     box-shadow:
       inset 0 0.3rem 0.5rem var(--hover-glow),
-      inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.5),
-      0 6px 10px rgba(255, 105, 180, 0.2);
+      inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.5);
 }
 
 
@@ -836,10 +836,11 @@ body.no-scroll .storeHeader {
     margin: 0 auto;
     padding: 0 60px;
     height: auto;
+    overflow: hidden;
 }
 
 .carousel-track-container {
-    overflow: hidden;
+    overflow: visible;
     width: 100%;
     padding: 15px 0;
 
@@ -852,9 +853,9 @@ body.no-scroll .storeHeader {
 }
 
 .carousel-slide {
-    flex: 0 0 calc(100% / 3);
+    flex: 0 0 calc(100% / 3.3);
 
-/* --- Show 3 items --- */
+/* --- Show ~3 items with a peek of the next --- */
 padding: 0 15px;
     box-sizing: border-box;
     display: flex;
@@ -938,17 +939,26 @@ margin: 0 auto;
     margin: 0;
     font-family: var(--font-heading);
     font-size: 28px;
-    color: var(--heading-color);
+    color: white !important;
 }
 
 /* --- NAVBAR BRAND OVERRIDE --- */
 .navBrand, a.navBrand {
     font-family: 'Pinyon Script', cursive !important;
-    color: #ff4fa2 !important;
+    color: white !important;
     font-size: 38px !important;
     text-shadow: none !important;
 }
 
+
+
+/* NAVBAR OVERRIDE */
+#storeNavbar {
+    background: #900C3F !important; /* dark cherry red */
+}
+.navBrand, a.navBrand, .navBrand:hover {
+    color: white !important;
+}
 </style>
 
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -995,6 +1005,7 @@ margin: 0 auto;
     opacity: 0.7;
 }
 
+
 </style>
 
 <style>
@@ -1022,6 +1033,7 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
 .flowerCard .customizeBtn {
     margin-top: 0 !important;
 }
+
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
 </head>
@@ -1034,7 +1046,10 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
         <a href="plushies.html" class="navLink active">Plushies</a>
         <a href="flowers.html" class="navLink">Flowers</a>
         <a href="treats.html" class="navLink">Treats</a>
-        <div id="cartButton" class="shiny-cta"><span> Checkout (<span id="cartCount">0</span>)</span></div>
+        <div id="cartButton" class="shiny-cta" style="display: flex; align-items: center; justify-content: center; gap: 6px; padding-left: 14px; padding-right: 14px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            <span style="margin: 0; padding: 0;">Cart (<span id="cartCount">0</span>)</span>
+        </div>
     </nav>
 
     <!-- Theme Toggle (Shifted to top left corner) -->

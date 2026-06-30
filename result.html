@@ -143,6 +143,7 @@ body.giftPage {
 
 /* --- NAVBAR --- */
 #storeNavbar {
+    background: url(\'assets/kisses-bg.png\') center/cover no-repeat !important;
     position: fixed;
     top: 0;
     left: 0;
@@ -514,7 +515,7 @@ margin: 0 auto;
     margin: 0;
     font-family: 'Pacifico', cursive;
     font-size: 32px;
-    color: var(--heading-color);
+    color: white !important;
     text-decoration: none;
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), text-shadow 0.3s ease;
 }
@@ -824,11 +825,20 @@ body.viewer-mode {
 /* --- NAVBAR BRAND OVERRIDE --- */
 .navBrand, a.navBrand {
     font-family: 'Pinyon Script', cursive !important;
-    color: #ff4fa2 !important;
+    color: white !important;
     font-size: 38px !important;
     text-shadow: none !important;
 }
 
+
+
+/* NAVBAR OVERRIDE */
+#storeNavbar {
+    background: #900C3F !important; /* dark cherry red */
+}
+.navBrand, a.navBrand, .navBrand:hover {
+    color: white !important;
+}
 </style>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -875,6 +885,7 @@ body.viewer-mode {
     opacity: 0.7;
 }
 
+
 </style>
 
 <style>
@@ -902,6 +913,7 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
 .flowerCard .customizeBtn {
     margin-top: 0 !important;
 }
+
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
 </head>

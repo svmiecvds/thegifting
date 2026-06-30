@@ -387,6 +387,7 @@
 
         /* --- NAVBAR --- */
         #storeNavbar {
+    background: url(\'assets/kisses-bg.png\') center/cover no-repeat !important;
             position: fixed;
             top: 0;
             left: 0;
@@ -852,17 +853,26 @@
             margin: 0;
             font-family: var(--font-heading);
             font-size: 28px;
-            color: var(--heading-color);
+            color: white !important;
         }
     
 /* --- NAVBAR BRAND OVERRIDE --- */
 .navBrand, a.navBrand {
     font-family: 'Pinyon Script', cursive !important;
-    color: #ff4fa2 !important;
+    color: white !important;
     font-size: 38px !important;
     text-shadow: none !important;
 }
 
+
+
+/* NAVBAR OVERRIDE */
+#storeNavbar {
+    background: #900C3F !important; /* dark cherry red */
+}
+.navBrand, a.navBrand, .navBrand:hover {
+    color: white !important;
+}
 </style>
 
 
@@ -935,6 +945,7 @@
         }
 
         
+
 </style>
 
 <style>
@@ -962,6 +973,7 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
 .flowerCard .customizeBtn {
     margin-top: 0 !important;
 }
+
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
 </head>
@@ -1056,7 +1068,7 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
                         const row = document.createElement("div");
                         row.className = "orderRow";
                         row.innerHTML = `
-                    <span>${item.name} x ${item.quantity || 1}</span>
+                    <span>${item.name}</span>
                     <div class="cartQtyControl">
                         <button class="qtyMinusBtn" data-index="${item.originalIndex}">-</button>
                         <span>${item.quantity || 1}</span>
