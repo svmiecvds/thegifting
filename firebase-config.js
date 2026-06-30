@@ -2,7 +2,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebas
 import { getFirestore, collection, addDoc, serverTimestamp, getDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 // Storage import removed
 
-// TODO: Replace with your actual Firebase project configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDFuBm7nMqGIv_iGoD_NZLXl49Q1sV8f1w",
   authDomain: "the-gifting-co.firebaseapp.com",
@@ -18,11 +17,6 @@ const db = getFirestore(app);
 // Storage initialization removed
 
 export async function saveGift(components, audioDataUrl) {
-    if (firebaseConfig.apiKey === "YOUR_API_KEY") {
-        alert("⚠️ Firebase Credentials Missing!\n\nYou must replace the placeholder keys in firebase-config.js with your actual project config before sharing a gift!");
-        throw new Error("Missing Firebase Credentials.");
-    }
-    
     // We are no longer using Firebase Storage.
     // Instead, we will store the base64 dataURL directly in Firestore.
     // This works because the audio recording is small (15s max, well under the 1MB Firestore limit).
@@ -45,10 +39,6 @@ export async function saveGift(components, audioDataUrl) {
 }
 
 export async function getGift(docId) {
-    if (firebaseConfig.apiKey === "YOUR_API_KEY") {
-        alert("⚠️ Firebase Credentials Missing!\n\nThis app is currently using placeholder Firebase config keys. Please add your real config to firebase-config.js!");
-        throw new Error("Missing Firebase Credentials.");
-    }
     const docRef = doc(db, "gifts", docId);
     const docSnap = await getDoc(docRef);
 

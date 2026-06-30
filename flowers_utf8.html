@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -1440,33 +1440,13 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
             <div class="side-panel">
                 <h2>Wraps & Bows</h2>
                 <div class="spawner-grid">
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/holder.png', 'holder', 'Bouquet Holder')">
+                        <img src="assets/flowers/holder.png" alt="Bouquet Holder">
+                        <span>Bouquet Holder</span>
+                    </div>
                     <div class="spawner-item" onclick="spawnElement('assets/flowers/holder_pink.png', 'holder', 'Pink Holder')">
                         <img src="assets/flowers/holder_pink.png" alt="Pink Holder">
                         <span>Pink Holder</span>
-                    </div>
-                    <div class="spawner-item" onclick="spawnElement('assets/flowers/holder_green.png', 'holder', 'Green Holder')">
-                        <img src="assets/flowers/holder_green.png" alt="Green Holder">
-                        <span>Green Holder</span>
-                    </div>
-                    <div class="spawner-item" onclick="spawnElement('assets/flowers/holder_lightblue.png', 'holder', 'Light Blue Holder')">
-                        <img src="assets/flowers/holder_lightblue.png" alt="Light Blue Holder">
-                        <span>Light Blue Holder</span>
-                    </div>
-                    <div class="spawner-item" onclick="spawnElement('assets/flowers/holder_black.png', 'holder', 'Black Holder')">
-                        <img src="assets/flowers/holder_black.png" alt="Black Holder">
-                        <span>Black Holder</span>
-                    </div>
-                    <div class="spawner-item" onclick="spawnElement('assets/flowers/holder_purple.png', 'holder', 'Purple Holder')">
-                        <img src="assets/flowers/holder_purple.png" alt="Purple Holder">
-                        <span>Purple Holder</span>
-                    </div>
-                    <div class="spawner-item" onclick="spawnElement('assets/flowers/holder_brown.png', 'holder', 'Brown Holder')">
-                        <img src="assets/flowers/holder_brown.png" alt="Brown Holder">
-                        <span>Brown Holder</span>
-                    </div>
-                    <div class="spawner-item" onclick="spawnElement('assets/flowers/holder_white.png', 'holder', 'White Holder')">
-                        <img src="assets/flowers/holder_white.png" alt="White Holder">
-                        <span>White Holder</span>
                     </div>
                     <div class="spawner-item" onclick="spawnElement('assets/flowers/holder_blue.png', 'holder', 'Blue Holder')">
                         <img src="assets/flowers/holder_blue.png" alt="Blue Holder">
@@ -2040,7 +2020,7 @@ const placeholderMsg = document.getElementById("placeholderMsg");
 
         // Search if there's a holder to use as thumbnail, otherwise default to holder.png or first item
         const holderItem = Array.from(items).find(i => i.dataset.type === 'holder');
-        const thumbnailSrc = holderItem ? "assets/flowers/" + holderItem.src.split("/").pop() : "assets/flowers/holder_white.png";
+        const thumbnailSrc = holderItem ? "assets/flowers/" + holderItem.src.split("/").pop() : "assets/flowers/holder.png";
 
         // Create transparent pixel SVG background image Data URL
         const transparentImg = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'></svg>";
