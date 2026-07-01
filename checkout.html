@@ -1068,7 +1068,7 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
                         const row = document.createElement("div");
                         row.className = "orderRow";
                         row.innerHTML = `
-                    <span>${item.name}</span>
+                    <span>${(item.name && item.name !== 'undefined') ? item.name : 'Flower'}</span>
                     <div class="cartQtyControl">
                         <button class="qtyMinusBtn" data-index="${item.originalIndex}">-</button>
                         <span>${item.quantity || 1}</span>

@@ -1675,7 +1675,7 @@ document.querySelectorAll(".minusBtn").forEach(button => {
 document.querySelectorAll(".addToCartBtn").forEach(button => {
     button.addEventListener("click", () => {
         const flowerId = button.dataset.flower;
-        const itemName = button.dataset.name;
+        const itemName = button.dataset.name || "Flower";
         const itemImage = button.dataset.image;
         const qtyToAdd = localQtys[flowerId] || 1;
 
