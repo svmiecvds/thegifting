@@ -1186,6 +1186,7 @@ function selectElement(el) {
 
 let isResizing = false;
 let isRotating = false;
+let isDragging = false;
 let resizeStartX = 0, resizeStartY = 0;
 let resizeStartW = 0, resizeStartH = 0;
 let resizeStartLeft = 0, resizeStartTop = 0;
@@ -1201,6 +1202,7 @@ function makeDraggable(el){
             selectElement(el);
         }
         
+        isDragging = true;
         el.style.zIndex = highestZ++;
         const rect = el.getBoundingClientRect();
         dragOffsetX = e.clientX - rect.left;
@@ -1413,7 +1415,7 @@ document.addEventListener("mousemove", (e) => {
         return;
     }
 
-    if (!selected || isResizing || isRotating) return;
+    if (!selected || isResizing || isRotating || !isDragging) return;
 
     const sceneRect = giftScene.getBoundingClientRect();
     let newLeft = e.clientX - sceneRect.left - dragOffsetX;
@@ -1427,6 +1429,7 @@ document.addEventListener("mousemove", (e) => {
 document.addEventListener("mouseup", () => {
     isResizing = false;
     isRotating = false;
+    isDragging = false;
     if (selected) {
         giftScene.style.cursor = 'grab';
     } else {
