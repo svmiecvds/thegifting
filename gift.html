@@ -144,7 +144,7 @@ body.giftPage {
 
 #customPanel,
 #assetPanel {
-    width: 240px;
+    width: 320px;
     height: 65vh;
     background: var(--panel-bg);
     border-radius: 25px;
@@ -927,27 +927,6 @@ Create Your Gift
 
 <div id="giftContainer">
 
-    <div id="customPanel">
-        <!-- Size controls for selected item -->
-        <div class="giftControls">
-
-            <h2>Customizations</h2>
-
-
-
-            <button id="addTextBtn" class="giftControlBtn">
-                 Add Text
-            </button>
-
-
-
-            <button id="giftFlip" class="giftControlBtn">
-                 Flip Sideways
-            </button>
-
-        </div>
-    </div>
-
     <div id="giftScene">
             <div id="itemRotateBtn" style="display: none; position: absolute; z-index: 1000; cursor: pointer; background: white; border-radius: 50%; padding: 4px; border: 1px solid #ffb6d9; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff4fa2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.59-9.21l5.67-1.36"/></svg>
@@ -961,69 +940,36 @@ Create Your Gift
 
     </div>
 
+    
     <div id="assetPanel">
-
-        <h2>
-
-             Notes
-
-        </h2>
-
-        <img src="assets/final page/note1.png"
-             class="noteTemplate">
-
-        <img src="assets/final page/note2.png"
-             class="noteTemplate">
-
-        <img src="assets/final page/note3.png"
-             class="noteTemplate">
-
-        <img src="assets/final page/note4.png"
-             class="noteTemplate">
-
-        <img src="assets/final page/note5.png"
-             class="noteTemplate">
-
-        <img src="assets/final page/note6.png"
-             class="noteTemplate">
-
-        <h2>
-
-            Stickers
-
-        </h2>
-
-        <img src="assets/final page/sticker1.png"
-             class="stickerTemplate">
-
-        <img src="assets/final page/sticker 2.png"
-             class="stickerTemplate">
-
-        <img src="assets/final page/sticker3.png"
-             class="stickerTemplate">
-
-        <img src="assets/final page/sticker_clip_purple.png"
-             class="stickerTemplate" alt="Purple Binder Clip">
-
-        <img src="assets/final page/sticker_pin_red.png"
-             class="stickerTemplate" alt="Red Pushpin">
-
-        <img src="assets/final page/sticker_clip_beige.png"
-             class="stickerTemplate" alt="Beige Binder Clip">
-
-        <img src="assets/final page/sticker_clip_pink.png"
-             class="stickerTemplate" alt="Pink Binder Clip">
-
-        <img src="assets/final page/sticker_clip_blue.png"
-             class="stickerTemplate" alt="Blue Binder Clip">
-
-        <img src="assets/final page/sticker_camera.png"
-             class="stickerTemplate" alt="Camera">
-
+        <button id="addTextBtn" class="giftControlBtn" style="margin: 0 auto 15px auto; display: block;">
+             Add Text
+        </button>
+        <div class="asset-columns" style="display: flex; gap: 15px; justify-content: space-around;">
+            <div class="asset-column" style="display: flex; flex-direction: column; align-items: center; width: 50%;">
+                <h2>Notes</h2>
+                <img src="assets/final page/note1.png" class="noteTemplate">
+                <img src="assets/final page/note2.png" class="noteTemplate">
+                <img src="assets/final page/note3.png" class="noteTemplate">
+                <img src="assets/final page/note4.png" class="noteTemplate">
+                <img src="assets/final page/note5.png" class="noteTemplate">
+                <img src="assets/final page/note6.png" class="noteTemplate">
+            </div>
+            <div class="asset-column" style="display: flex; flex-direction: column; align-items: center; width: 50%;">
+                <h2>Stickers</h2>
+                <img src="assets/final page/sticker1.png" class="stickerTemplate">
+                <img src="assets/final page/sticker 2.png" class="stickerTemplate">
+                <img src="assets/final page/sticker3.png" class="stickerTemplate">
+                <img src="assets/final page/sticker_clip_purple.png" class="stickerTemplate" alt="Purple Binder Clip">
+                <img src="assets/final page/sticker_pin_red.png" class="stickerTemplate" alt="Red Pushpin">
+                <img src="assets/final page/sticker_clip_beige.png" class="stickerTemplate" alt="Beige Binder Clip">
+                <img src="assets/final page/sticker_clip_pink.png" class="stickerTemplate" alt="Pink Binder Clip">
+                <img src="assets/final page/sticker_clip_blue.png" class="stickerTemplate" alt="Blue Binder Clip">
+                <img src="assets/final page/sticker_camera.png" class="stickerTemplate" alt="Camera">
+            </div>
+        </div>
     </div>
-
 </div>
-
 <div id="noteEditor">
 
     <h2>
@@ -1895,24 +1841,6 @@ document
   let currentRotation = parseInt(el.dataset.rotation) || 0;
   currentRotation = (currentRotation + 45) % 360;
   el.dataset.rotation = currentRotation;
-  updateTransform(el);
-}
-);
-
-/* Flip selected sideways */
-document
-.getElementById("giftFlip")
-.addEventListener(
-"click",
-() => {
-  const el = getSelectedEl();
-  if(!el){
-    alert("Select an item first!");
-    return;
-  }
-  let currentFlip = parseInt(el.dataset.flip) || 1;
-  currentFlip = currentFlip === 1 ? -1 : 1;
-  el.dataset.flip = currentFlip;
   updateTransform(el);
 }
 );
