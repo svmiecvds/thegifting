@@ -1197,6 +1197,38 @@ margin: 0 auto;
 .navBrand, a.navBrand, .navBrand:hover {
     color: white !important;
 }
+
+.color-scroll-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.color-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 6px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    background: rgba(255, 182, 193, 0.15);
+    transition: all 0.3s ease;
+}
+
+.color-option:hover {
+    background: rgba(255, 182, 193, 0.3);
+    border-color: #ffb6d9;
+}
+
+.color-option.active {
+    background: #ffb6d9;
+    border-color: hotpink;
+}
+
 </style>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -1308,97 +1340,175 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
     <div id="flowersMainContainer">
     <div id="mainContainer">
         <div class="flowers-layout">
-            <!-- Top Row: 2 Flowers -->
             <div class="flowersRowTop">
-                <div class="flowerCard">
-                    <img src="assets/flowers/flower1.png" alt="Pink Columbine" class="flowerImage">
-                    <div class="flowerName">Pink Columbine</div>
-                    <div class="flowerSelector">
-                        <button class="minusBtn" data-flower="1">−</button>
-                        <span class="flowerQuantity" id="qtyFlower1">1</span>
-                        <button class="plusBtn" data-flower="1">+</button>
-                    </div>
-                    <button class="addToCartBtn shiny-cta" data-flower="1" data-name="Pink Columbine" data-image="assets/flowers/flower1.png"><span>Add To Cart </span></button>
-                </div>
-
-                <div class="flowerCard">
-                    <img src="assets/flowers/flower2.png" alt="Purple Clematis" class="flowerImage">
-                    <div class="flowerName">Purple Clematis</div>
-                    <div class="flowerSelector">
-                        <button class="minusBtn" data-flower="2">−</button>
-                        <span class="flowerQuantity" id="qtyFlower2">1</span>
-                        <button class="plusBtn" data-flower="2">+</button>
-                    </div>
-                    <button class="addToCartBtn shiny-cta" data-flower="2" data-name="Purple Clematis" data-image="assets/flowers/flower2.png"><span>Add To Cart </span></button>
-                </div>
+        <div class="flowerCard">
+            <img src="assets/flowers/flower1.png" class="flowerImage" style="max-height: 150px; object-fit: contain;">
+            <div class="color-scroll-container">
+                
+            <div class="color-option active" data-image="assets/flowers/flower1.png" data-flower="1">
+                <img src="assets/flowers/flower1.png" style="width: 25px; height: 25px; object-fit: contain; pointer-events: none;">
             </div>
-
-            <!-- Bottom Row: 3 Flowers -->
-            <div class="flowersRowBottom">
-                <div class="flowerCard">
-                    <img src="assets/flowers/flower3.png" alt="Crimson Orchid" class="flowerImage">
-                    <div class="flowerName">Crimson Orchid</div>
-                    <div class="flowerSelector">
-                        <button class="minusBtn" data-flower="3">−</button>
-                        <span class="flowerQuantity" id="qtyFlower3">1</span>
-                        <button class="plusBtn" data-flower="3">+</button>
-                    </div>
-                    <button class="addToCartBtn shiny-cta" data-flower="3" data-name="Crimson Orchid" data-image="assets/flowers/flower3.png"><span>Add To Cart </span></button>
-                </div>
-
-                <div class="flowerCard">
-                    <img src="assets/flowers/flower4.png" alt="Magenta Lily" class="flowerImage">
-                    <div class="flowerName">Magenta Lily</div>
-                    <div class="flowerSelector">
-                        <button class="minusBtn" data-flower="4">−</button>
-                        <span class="flowerQuantity" id="qtyFlower4">1</span>
-                        <button class="plusBtn" data-flower="4">+</button>
-                    </div>
-                    <button class="addToCartBtn shiny-cta" data-flower="4" data-name="Magenta Lily" data-image="assets/flowers/flower4.png"><span>Add To Cart </span></button>
-                </div>
-
-                <div class="flowerCard">
-                    <img src="assets/flowers/flower5.png" alt="Pink Tulips" class="flowerImage">
-                    <div class="flowerName">Pink Tulips</div>
-                    <div class="flowerSelector">
-                        <button class="minusBtn" data-flower="5">−</button>
-                        <span class="flowerQuantity" id="qtyFlower5">1</span>
-                        <button class="plusBtn" data-flower="5">+</button>
-                    </div>
-                    <button class="addToCartBtn shiny-cta" data-flower="5" data-name="Pink Tulips" data-image="assets/flowers/flower5.png"><span>Add To Cart </span></button>
-                </div>
+            <div class="color-option " data-image="assets/flowers/flower4.png" data-flower="4">
+                <img src="assets/flowers/flower4.png" style="width: 25px; height: 25px; object-fit: contain; pointer-events: none;">
             </div>
+            <div class="color-option " data-image="assets/flowers/flower5.png" data-flower="5">
+                <img src="assets/flowers/flower5.png" style="width: 25px; height: 25px; object-fit: contain; pointer-events: none;">
+            </div>
+            <div class="color-option " data-image="assets/flowers/flower6.png" data-flower="6">
+                <img src="assets/flowers/flower6.png" style="width: 25px; height: 25px; object-fit: contain; pointer-events: none;">
+            </div>
+            <div class="color-option " data-image="assets/flowers/flower10.png" data-flower="10">
+                <img src="assets/flowers/flower10.png" style="width: 25px; height: 25px; object-fit: contain; pointer-events: none;">
+            </div>
+            <div class="color-option " data-image="assets/flowers/flower14.png" data-flower="14">
+                <img src="assets/flowers/flower14.png" style="width: 25px; height: 25px; object-fit: contain; pointer-events: none;">
+            </div>
+            </div>
+            <div class="flowerSelector">
+                <button class="minusBtn" data-flower="1">−</button>
+                <span class="flowerQuantity" id="qtyFlower1">1</span>
+                <button class="plusBtn" data-flower="1">+</button>
+            </div>
+            <button class="addToCartBtn shiny-cta" data-flower="1" data-image="assets/flowers/flower1.png"><span>Add To Cart </span></button>
         </div>
-    </div>
+    
+        <div class="flowerCard">
+            <img src="assets/flowers/flower2.png" class="flowerImage" style="max-height: 150px; object-fit: contain;">
+            <div class="color-scroll-container">
+                
+            <div class="color-option active" data-image="assets/flowers/flower2.png" data-flower="2">
+                <img src="assets/flowers/flower2.png" style="width: 25px; height: 25px; object-fit: contain; pointer-events: none;">
+            </div>
+            <div class="color-option " data-image="assets/flowers/flower11.png" data-flower="11">
+                <img src="assets/flowers/flower11.png" style="width: 25px; height: 25px; object-fit: contain; pointer-events: none;">
+            </div>
+            </div>
+            <div class="flowerSelector">
+                <button class="minusBtn" data-flower="2">−</button>
+                <span class="flowerQuantity" id="qtyFlower2">1</span>
+                <button class="plusBtn" data-flower="2">+</button>
+            </div>
+            <button class="addToCartBtn shiny-cta" data-flower="2" data-image="assets/flowers/flower2.png"><span>Add To Cart </span></button>
+        </div>
+    
+        <div class="flowerCard">
+            <img src="assets/flowers/flower3.png" class="flowerImage" style="max-height: 150px; object-fit: contain;">
+            <div class="color-scroll-container">
+                
+            <div class="color-option active" data-image="assets/flowers/flower3.png" data-flower="3">
+                <img src="assets/flowers/flower3.png" style="width: 25px; height: 25px; object-fit: contain; pointer-events: none;">
+            </div>
+            <div class="color-option " data-image="assets/flowers/flower7.png" data-flower="7">
+                <img src="assets/flowers/flower7.png" style="width: 25px; height: 25px; object-fit: contain; pointer-events: none;">
+            </div>
+            <div class="color-option " data-image="assets/flowers/flower8.png" data-flower="8">
+                <img src="assets/flowers/flower8.png" style="width: 25px; height: 25px; object-fit: contain; pointer-events: none;">
+            </div>
+            <div class="color-option " data-image="assets/flowers/flower9.png" data-flower="9">
+                <img src="assets/flowers/flower9.png" style="width: 25px; height: 25px; object-fit: contain; pointer-events: none;">
+            </div>
+            <div class="color-option " data-image="assets/flowers/flower12.png" data-flower="12">
+                <img src="assets/flowers/flower12.png" style="width: 25px; height: 25px; object-fit: contain; pointer-events: none;">
+            </div>
+            <div class="color-option " data-image="assets/flowers/flower13.png" data-flower="13">
+                <img src="assets/flowers/flower13.png" style="width: 25px; height: 25px; object-fit: contain; pointer-events: none;">
+            </div>
+            </div>
+            <div class="flowerSelector">
+                <button class="minusBtn" data-flower="3">−</button>
+                <span class="flowerQuantity" id="qtyFlower3">1</span>
+                <button class="plusBtn" data-flower="3">+</button>
+            </div>
+            <button class="addToCartBtn shiny-cta" data-flower="3" data-image="assets/flowers/flower3.png"><span>Add To Cart </span></button>
+        </div>
+    
+            </div></div>
 
         </div>
 </div>
 <div id="bouquetMainContainer" style="display: none; width: 100%;">
 <div class="bouquet-layout">
             
-            <!-- Column 1: Spawner Tray (Flowers) -->
-            <div class="side-panel">
-                <h2>Spawn Flowers</h2>
-                <div class="spawner-grid">
-                    <div class="spawner-item" onclick="spawnElement('assets/flowers/flower1.png', 'flower', 'Pink Columbine')">
-                        <img src="assets/flowers/flower1.png" alt="Pink Columbine">
-                        <span>Pink Columbine</span>
+            <!-- Column 1: Spawner Tray (Flowers and Leaves) -->
+            <div class="side-column" style="display: flex; flex-direction: column; gap: 24px; flex: 1; max-width: 320px; height: 600px;">
+                <div class="side-panel" style="flex: 1; height: auto; max-height: none; margin: 0; max-width: none;">
+                    <h2>Spawn Flowers</h2>
+                    <div class="spawner-grid">
+                        <div class="spawner-item" onclick="spawnElement('assets/flowers/flower1.png', 'flower', '')">
+                        <img src="assets/flowers/flower1.png" alt="">
                     </div>
-                    <div class="spawner-item" onclick="spawnElement('assets/flowers/flower2.png', 'flower', 'Purple Clematis')">
-                        <img src="assets/flowers/flower2.png" alt="Purple Clematis">
-                        <span>Purple Clematis</span>
+                        <div class="spawner-item" onclick="spawnElement('assets/flowers/flower2.png', 'flower', '')">
+                        <img src="assets/flowers/flower2.png" alt="">
                     </div>
-                    <div class="spawner-item" onclick="spawnElement('assets/flowers/flower3.png', 'flower', 'Crimson Orchid')">
-                        <img src="assets/flowers/flower3.png" alt="Crimson Orchid">
-                        <span>Crimson Orchid</span>
+                        <div class="spawner-item" onclick="spawnElement('assets/flowers/flower3.png', 'flower', '')">
+                        <img src="assets/flowers/flower3.png" alt="">
                     </div>
-                    <div class="spawner-item" onclick="spawnElement('assets/flowers/flower4.png', 'flower', 'Magenta Lily')">
-                        <img src="assets/flowers/flower4.png" alt="Magenta Lily">
-                        <span>Magenta Lily</span>
+                        <div class="spawner-item" onclick="spawnElement('assets/flowers/flower4.png', 'flower', '')">
+                        <img src="assets/flowers/flower4.png" alt="">
                     </div>
-                    <div class="spawner-item" onclick="spawnElement('assets/flowers/flower5.png', 'flower', 'Pink Tulips')">
-                        <img src="assets/flowers/flower5.png" alt="Pink Tulips">
-                        <span>Pink Tulips</span>
+                        <div class="spawner-item" onclick="spawnElement('assets/flowers/flower5.png', 'flower', '')">
+                        <img src="assets/flowers/flower5.png" alt="">
+                    </div>
+                        <div class="spawner-item" onclick="spawnElement('assets/flowers/flower6.png', 'flower', '')">
+                        <img src="assets/flowers/flower6.png" alt="">
+                    </div>
+                        <div class="spawner-item" onclick="spawnElement('assets/flowers/flower7.png', 'flower', '')">
+                        <img src="assets/flowers/flower7.png" alt="">
+                    </div>
+                        <div class="spawner-item" onclick="spawnElement('assets/flowers/flower8.png', 'flower', '')">
+                        <img src="assets/flowers/flower8.png" alt="">
+                    </div>
+                        <div class="spawner-item" onclick="spawnElement('assets/flowers/flower9.png', 'flower', '')">
+                        <img src="assets/flowers/flower9.png" alt="">
+                    </div>
+                        <div class="spawner-item" onclick="spawnElement('assets/flowers/flower10.png', 'flower', '')">
+                        <img src="assets/flowers/flower10.png" alt="">
+                    </div>
+                        <div class="spawner-item" onclick="spawnElement('assets/flowers/flower11.png', 'flower', '')">
+                        <img src="assets/flowers/flower11.png" alt="">
+                    </div>
+                        <div class="spawner-item" onclick="spawnElement('assets/flowers/flower12.png', 'flower', '')">
+                        <img src="assets/flowers/flower12.png" alt="">
+                    </div>
+                        <div class="spawner-item" onclick="spawnElement('assets/flowers/flower13.png', 'flower', '')">
+                        <img src="assets/flowers/flower13.png" alt="">
+                    </div>
+                        <div class="spawner-item" onclick="spawnElement('assets/flowers/flower14.png', 'flower', '')">
+                        <img src="assets/flowers/flower14.png" alt="">
+                    </div>
+                    </div>
+                </div>
+
+                <div class="side-panel" style="flex: 1; height: auto; max-height: none; margin: 0; max-width: none;">
+                    <h2>Spawn Leaves</h2>
+                    <div class="spawner-grid">
+                        <div class="spawner-item" onclick="spawnElement('assets/flowers/leaves1.png', 'leaf', '')">
+                        <img src="assets/flowers/leaves1.png" alt="">
+                    </div>
+                        <div class="spawner-item" onclick="spawnElement('assets/flowers/leaves2.png', 'leaf', '')">
+                        <img src="assets/flowers/leaves2.png" alt="">
+                    </div>
+                        <div class="spawner-item" onclick="spawnElement('assets/flowers/leaves3.png', 'leaf', '')">
+                        <img src="assets/flowers/leaves3.png" alt="">
+                    </div>
+                        <div class="spawner-item" onclick="spawnElement('assets/flowers/leaves4.png', 'leaf', '')">
+                        <img src="assets/flowers/leaves4.png" alt="">
+                    </div>
+                        <div class="spawner-item" onclick="spawnElement('assets/flowers/leaves5.png', 'leaf', '')">
+                        <img src="assets/flowers/leaves5.png" alt="">
+                    </div>
+                        <div class="spawner-item" onclick="spawnElement('assets/flowers/leaves6.png', 'leaf', '')">
+                        <img src="assets/flowers/leaves6.png" alt="">
+                    </div>
+                        <div class="spawner-item" onclick="spawnElement('assets/flowers/leaves7.png', 'leaf', '')">
+                        <img src="assets/flowers/leaves7.png" alt="">
+                    </div>
+                        <div class="spawner-item" onclick="spawnElement('assets/flowers/leaves8.png', 'leaf', '')">
+                        <img src="assets/flowers/leaves8.png" alt="">
+                    </div>
+                        <div class="spawner-item" onclick="spawnElement('assets/flowers/leaves9.png', 'leaf', '')">
+                        <img src="assets/flowers/leaves9.png" alt="">
+                    </div>
                     </div>
                 </div>
             </div>
@@ -1407,7 +1517,14 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
             <div id="canvasContainer" style="position: relative;">
                 <div id="customScene" style="overflow: visible;">
                     <!-- Placeholder instructions -->
-                    <div class="canvas-placeholder" id="placeholderMsg">
+                    
+            <div id="itemRotateBtn" style="display: none; position: absolute; z-index: 1000; cursor: pointer; background: white; border-radius: 50%; padding: 4px; border: 1px solid #ffb6d9; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff4fa2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.59-9.21l5.67-1.36"/></svg>
+            </div>
+            <div id="itemResizeBtn" style="display: none; position: absolute; z-index: 1000; cursor: nwse-resize; background: white; border-radius: 50%; padding: 4px; border: 1px solid #ffb6d9; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff4fa2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            </div>
+<div class="canvas-placeholder" id="placeholderMsg">
                         <span>Bouquet Canvas</span>
                         <span style="font-size: 15px; font-family: var(--font-body); margin-top: 15px; opacity: 0.8;">
                             Click flowers, holders, or bows on the sides to spawn them. Drag to arrange and resize!
@@ -1440,57 +1557,44 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
             <div class="side-panel">
                 <h2>Wraps & Bows</h2>
                 <div class="spawner-grid">
-                    <div class="spawner-item" onclick="spawnElement('assets/flowers/holder_pink.png', 'holder', 'Pink Holder')">
-                        <img src="assets/flowers/holder_pink.png" alt="Pink Holder">
-                        <span>Pink Holder</span>
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/holder_pink.png', 'holder', '')">
+                        <img src="assets/flowers/holder_pink.png" alt="">
                     </div>
-                    <div class="spawner-item" onclick="spawnElement('assets/flowers/holder_green.png', 'holder', 'Green Holder')">
-                        <img src="assets/flowers/holder_green.png" alt="Green Holder">
-                        <span>Green Holder</span>
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/holder_green.png', 'holder', '')">
+                        <img src="assets/flowers/holder_green.png" alt="">
                     </div>
-                    <div class="spawner-item" onclick="spawnElement('assets/flowers/holder_lightblue.png', 'holder', 'Light Blue Holder')">
-                        <img src="assets/flowers/holder_lightblue.png" alt="Light Blue Holder">
-                        <span>Light Blue Holder</span>
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/holder_lightblue.png', 'holder', '')">
+                        <img src="assets/flowers/holder_lightblue.png" alt="">
                     </div>
-                    <div class="spawner-item" onclick="spawnElement('assets/flowers/holder_black.png', 'holder', 'Black Holder')">
-                        <img src="assets/flowers/holder_black.png" alt="Black Holder">
-                        <span>Black Holder</span>
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/holder_black.png', 'holder', '')">
+                        <img src="assets/flowers/holder_black.png" alt="">
                     </div>
-                    <div class="spawner-item" onclick="spawnElement('assets/flowers/holder_purple.png', 'holder', 'Purple Holder')">
-                        <img src="assets/flowers/holder_purple.png" alt="Purple Holder">
-                        <span>Purple Holder</span>
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/holder_purple.png', 'holder', '')">
+                        <img src="assets/flowers/holder_purple.png" alt="">
                     </div>
-                    <div class="spawner-item" onclick="spawnElement('assets/flowers/holder_brown.png', 'holder', 'Brown Holder')">
-                        <img src="assets/flowers/holder_brown.png" alt="Brown Holder">
-                        <span>Brown Holder</span>
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/holder_brown.png', 'holder', '')">
+                        <img src="assets/flowers/holder_brown.png" alt="">
                     </div>
-                    <div class="spawner-item" onclick="spawnElement('assets/flowers/holder_white.png', 'holder', 'White Holder')">
-                        <img src="assets/flowers/holder_white.png" alt="White Holder">
-                        <span>White Holder</span>
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/holder_white.png', 'holder', '')">
+                        <img src="assets/flowers/holder_white.png" alt="">
                     </div>
-                    <div class="spawner-item" onclick="spawnElement('assets/flowers/holder_blue.png', 'holder', 'Blue Holder')">
-                        <img src="assets/flowers/holder_blue.png" alt="Blue Holder">
-                        <span>Blue Holder</span>
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/holder_blue.png', 'holder', '')">
+                        <img src="assets/flowers/holder_blue.png" alt="">
                     </div>
-                    <div class="spawner-item" onclick="spawnElement('assets/flowers/bow_aqua.png', 'bow', 'Aqua Bow')">
-                        <img src="assets/flowers/bow_aqua.png" alt="Aqua Bow">
-                        <span>Aqua Bow</span>
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/bow_aqua.png', 'bow', '')">
+                        <img src="assets/flowers/bow_aqua.png" alt="">
                     </div>
-                    <div class="spawner-item" onclick="spawnElement('assets/flowers/bow_blue.png', 'bow', 'Blue Bow')">
-                        <img src="assets/flowers/bow_blue.png" alt="Blue Bow">
-                        <span>Blue Bow</span>
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/bow_blue.png', 'bow', '')">
+                        <img src="assets/flowers/bow_blue.png" alt="">
                     </div>
-                    <div class="spawner-item" onclick="spawnElement('assets/flowers/bow_purple.png', 'bow', 'Purple Bow')">
-                        <img src="assets/flowers/bow_purple.png" alt="Purple Bow">
-                        <span>Purple Bow</span>
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/bow_purple.png', 'bow', '')">
+                        <img src="assets/flowers/bow_purple.png" alt="">
                     </div>
-                    <div class="spawner-item" onclick="spawnElement('assets/flowers/bow_green.png', 'bow', 'Green Bow')">
-                        <img src="assets/flowers/bow_green.png" alt="Green Bow">
-                        <span>Green Bow</span>
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/bow_green.png', 'bow', '')">
+                        <img src="assets/flowers/bow_green.png" alt="">
                     </div>
-                    <div class="spawner-item" onclick="spawnElement('assets/flowers/bow_pink.png', 'bow', 'Pink Bow')">
-                        <img src="assets/flowers/bow_pink.png" alt="Pink Bow">
-                        <span>Pink Bow</span>
+                    <div class="spawner-item" onclick="spawnElement('assets/flowers/bow_pink.png', 'bow', '')">
+                        <img src="assets/flowers/bow_pink.png" alt="">
                     </div>
                 </div>
             </div>
@@ -1763,9 +1867,10 @@ const placeholderMsg = document.getElementById("placeholderMsg");
         }
 
         el.onload = function() {
-            if (type === 'flower') {
-                const w = el.naturalWidth * 0.5;
-                const h = el.naturalHeight * 0.5;
+            if (type === 'flower' || type === 'leaf') {
+                const ratio = el.naturalHeight / (el.naturalWidth || 1);
+                const w = 100;
+                const h = 100 * ratio;
                 el.style.width = w + "px";
                 el.style.height = h + "px";
                 el.style.left = (300 - w / 2) + "px";
@@ -1777,7 +1882,7 @@ const placeholderMsg = document.getElementById("placeholderMsg");
         el.className = "draggableAccessory draggableBouquetItem";
         el.style.position = "absolute";
         
-        if (type !== 'flower') {
+        if (type !== 'flower' && type !== 'leaf') {
             el.style.width = defaultDim + "px";
             el.style.height = defaultDim + "px";
             
@@ -1803,185 +1908,208 @@ const placeholderMsg = document.getElementById("placeholderMsg");
     /* SELECTION LOGIC      */
     /* -------------------- */
     function updateSelectionUI() {
-        const deleteBtn = document.getElementById('itemDeleteBtn');
-        if (!selectedItem) {
-            deleteBtn.style.display = 'none';
-            return;
-        }
-        const l = parseFloat(selectedItem.style.left) || 0;
-        const t = parseFloat(selectedItem.style.top)  || 0;
-        const w = selectedItem.offsetWidth;
-        deleteBtn.style.left = (l + w - 12) + 'px';
-        deleteBtn.style.top  = (t - 12) + 'px';
+    const deleteBtn = document.getElementById('itemDeleteBtn');
+    const rotateBtn = document.getElementById('itemRotateBtn');
+    const resizeBtn = document.getElementById('itemResizeBtn');
+    
+    if (!selectedItem) {
+        if (deleteBtn) deleteBtn.style.display = 'none';
+        if (rotateBtn) rotateBtn.style.display = 'none';
+        if (resizeBtn) resizeBtn.style.display = 'none';
+        return;
+    }
+    
+    const l = parseFloat(selectedItem.style.left) || 0;
+    const t = parseFloat(selectedItem.style.top)  || 0;
+    const w = selectedItem.offsetWidth;
+    const h = selectedItem.offsetHeight;
+    
+    const rotDeg = parseFloat(selectedItem.dataset.rotation) || 0;
+    const rotRad = rotDeg * Math.PI / 180;
+    
+    const cx = l + w / 2;
+    const cy = t + h / 2;
+    
+    function getRotatedPos(dx, dy) {
+        const rx = cx + dx * Math.cos(rotRad) - dy * Math.sin(rotRad);
+        const ry = cy + dx * Math.sin(rotRad) + dy * Math.cos(rotRad);
+        return { x: rx, y: ry };
+    }
+    
+    if (deleteBtn) {
+        const pos = getRotatedPos(w/2, -h/2);
+        deleteBtn.style.left = (pos.x - 12) + 'px';
+        deleteBtn.style.top  = (pos.y - 12) + 'px';
         deleteBtn.style.display = 'flex';
     }
-
-    function selectElement(el) {
-        selectedItem = el;
-        document.querySelectorAll(".draggableBouquetItem").forEach(item => {
-            item.classList.remove("selectedItem");
-            item.style.outline = "none";
-        });
-        const deleteBtn = document.getElementById('itemDeleteBtn');
-        if (el) {
-            el.classList.add("selectedItem");
-            el.style.outline = "2px dashed #ff4fa2";
-            updateSelectionUI();
-        } else {
-            deleteBtn.style.display = 'none';
-            customScene.style.cursor = '';
-        }
+    
+    if (rotateBtn) {
+        const pos = getRotatedPos(-w/2, h/2);
+        rotateBtn.style.left = (pos.x - 12) + 'px';
+        rotateBtn.style.top  = (pos.y - 12) + 'px';
+        rotateBtn.style.display = 'flex';
     }
-
-    let isResizing = false;
-    let resizeHandle = null; // 'TL','BL','BR'
-    let resizeStartX = 0, resizeStartY = 0;
-    let resizeStartW = 0, resizeStartH = 0;
-    let resizeStartLeft = 0, resizeStartTop = 0;
-    const CORNER_HIT = 26; // px radius for corner detection
-
-    function getHitZone(mouseX, mouseY) {
-        if (!selectedItem) return null;
-        const sceneRect = customScene.getBoundingClientRect();
-        const l = parseFloat(selectedItem.style.left) || 0;
-        const t = parseFloat(selectedItem.style.top)  || 0;
-        const w = selectedItem.offsetWidth;
-        const h = selectedItem.offsetHeight;
-        
-        const mx = mouseX - sceneRect.left;
-        const my = mouseY - sceneRect.top;
-        
-        const near = (px, py) => Math.hypot(mx - px, my - py) < CORNER_HIT;
-        
-        if (near(l, t)) return 'TL';
-        if (near(l, t + h)) return 'BL';
-        if (near(l + w, t + h)) return 'BR';
-        
-        if (mx >= l && mx <= l + w && my >= t && my <= t + h) {
-            return 'inside';
-        }
-        return null;
+    
+    if (resizeBtn) {
+        const pos = getRotatedPos(w/2, h/2);
+        resizeBtn.style.left = (pos.x - 12) + 'px';
+        resizeBtn.style.top  = (pos.y - 12) + 'px';
+        resizeBtn.style.display = 'flex';
     }
+}
 
-    function zoneToCursor(zone) {
-        if (zone === 'TL') return 'nwse-resize';
-        if (zone === 'BL') return 'nesw-resize';
-        if (zone === 'BR') return 'nwse-resize';
-        if (zone === 'inside') return 'grab';
-        return '';
-    }
-
-    customScene.addEventListener('mousemove', (e) => {
-        if (isResizing || selected) return;
-        const zone = getHitZone(e.clientX, e.clientY);
-        customScene.style.cursor = zoneToCursor(zone);
+function selectElement(el) {
+    selectedItem = el;
+    document.querySelectorAll(".draggableBouquetItem, .draggablePlushieItem, .draggableTreatsItem, .draggableAccessory").forEach(item => {
+        item.classList.remove("selectedItem", "selectedAccessory");
+        item.style.outline = "none";
     });
-
-    document.addEventListener("mousedown", (e) => {
-        if (e.target.closest('#itemDeleteBtn')) return;
-        
-        const zone = getHitZone(e.clientX, e.clientY);
-
-        if (selectedItem && (zone === 'TL' || zone === 'BL' || zone === 'BR')) {
-            e.stopPropagation(); e.preventDefault();
-            isResizing = true;
-            resizeHandle = zone;
-            resizeStartX = e.clientX;
-            resizeStartY = e.clientY;
-            resizeStartW = selectedItem.offsetWidth;
-            resizeStartH = selectedItem.offsetHeight;
-            resizeStartLeft = parseFloat(selectedItem.style.left) || 0;
-            resizeStartTop = parseFloat(selectedItem.style.top) || 0;
-            return;
-        }
-
-        const item = e.target.closest(".draggableBouquetItem");
-        if (item && customScene.contains(item)) {
-            if (!selectedItem || selectedItem !== item) {
-                selectElement(item);
-            }
-
-            selected = item;
-            const rect = item.getBoundingClientRect();
-            dragOffsetX = e.clientX - rect.left;
-            dragOffsetY = e.clientY - rect.top;
-            
-            item.style.zIndex = highestZ++;
-            e.preventDefault();
-            customScene.style.cursor = 'grabbing';
-        }
-    });
-
-    /* -------------------- */
-    /* DRAG & MOVE LOGIC    */
-    /* -------------------- */
-    document.addEventListener("mousemove", (e) => {
-        const sceneW = customScene.clientWidth;
-        const sceneH = customScene.clientHeight;
-
-        if (isResizing && selectedItem) {
-            const dx = e.clientX - resizeStartX;
-            const dy = e.clientY - resizeStartY;
-            
-            let newW = resizeStartW;
-            if (resizeHandle === 'BR') {
-                let maxW = Math.min(sceneW - resizeStartLeft, sceneH - resizeStartTop);
-                newW = Math.max(30, Math.min(resizeStartW + dx, maxW));
-                selectedItem.style.width = newW + "px";
-                selectedItem.style.height = (newW * (resizeStartH / resizeStartW)) + "px";
-            } else if (resizeHandle === 'BL') {
-                let maxW = Math.min(resizeStartLeft + resizeStartW, sceneH - resizeStartTop);
-                newW = Math.max(30, Math.min(resizeStartW - dx, maxW));
-                selectedItem.style.left = (resizeStartLeft + resizeStartW - newW) + "px";
-                selectedItem.style.width = newW + "px";
-                selectedItem.style.height = (newW * (resizeStartH / resizeStartW)) + "px";
-            } else if (resizeHandle === 'TL') {
-                let maxW = Math.min(resizeStartLeft + resizeStartW, resizeStartTop + resizeStartH);
-                newW = Math.max(30, Math.min(resizeStartW - dx, maxW));
-                const sizeH = newW * (resizeStartH / resizeStartW);
-                selectedItem.style.left = (resizeStartLeft + resizeStartW - newW) + "px";
-                selectedItem.style.top = (resizeStartTop + resizeStartH - sizeH) + "px";
-                selectedItem.style.width = newW + "px";
-                selectedItem.style.height = sizeH + "px";
-            }
-            updateSelectionUI();
-            return;
-        }
-
-        if (!selected) return;
-
-        const rect = customScene.getBoundingClientRect();
-        let left = e.clientX - rect.left - dragOffsetX;
-        let top = e.clientY - rect.top - dragOffsetY;
-
-        // Bounded within canvas bounds
-        left = Math.max(0, Math.min(left, sceneW - selected.offsetWidth));
-        top = Math.max(0, Math.min(top, sceneH - selected.offsetHeight));
-
-        selected.style.left = left + "px";
-        selected.style.top = top + "px";
+    
+    if (el) {
+        el.classList.add("selectedItem");
+        if(el.classList.contains("draggableAccessory")) el.classList.add("selectedAccessory");
+        el.style.outline = "2px dashed #ff4fa2";
         updateSelectionUI();
-    });
+    } else {
+        updateSelectionUI();
+        customScene.style.cursor = '';
+    }
+}
 
-    document.addEventListener("mouseup", () => {
-        selected = null;
-        isResizing = false;
-        resizeHandle = null;
-        if (selectedItem) {
-            customScene.style.cursor = 'grab';
+// Fallback for selectAccessory inside customize.html
+function selectAccessory(el) {
+    selectElement(el);
+}
+
+let isResizing = false;
+let isRotating = false;
+let resizeStartX = 0, resizeStartY = 0;
+let resizeStartW = 0, resizeStartH = 0;
+let resizeStartLeft = 0, resizeStartTop = 0;
+let rotateStartAngle = 0;
+let rotateInitialElementAngle = 0;
+
+document.addEventListener("mousedown", (e) => {
+    if (e.target.closest('#itemDeleteBtn')) return;
+    
+    if (e.target.closest('#itemResizeBtn') && selectedItem) {
+        e.stopPropagation(); e.preventDefault();
+        isResizing = true;
+        resizeStartX = e.clientX;
+        resizeStartY = e.clientY;
+        resizeStartW = selectedItem.offsetWidth;
+        resizeStartH = selectedItem.offsetHeight;
+        resizeStartLeft = parseFloat(selectedItem.style.left) || 0;
+        resizeStartTop = parseFloat(selectedItem.style.top) || 0;
+        return;
+    }
+    
+    if (e.target.closest('#itemRotateBtn') && selectedItem) {
+        e.stopPropagation(); e.preventDefault();
+        isRotating = true;
+        
+        const rect = selectedItem.getBoundingClientRect();
+        // Calculate center of actual element on screen
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        rotateStartAngle = Math.atan2(e.clientY - cy, e.clientX - cx) * 180 / Math.PI;
+        rotateInitialElementAngle = parseFloat(selectedItem.dataset.rotation) || 0;
+        return;
+    }
+
+    const item = e.target.closest(".draggableBouquetItem, .draggablePlushieItem, .draggableTreatsItem, .draggableAccessory");
+    if (item && customScene.contains(item)) {
+        if (!selectedItem || selectedItem !== item) {
+            selectElement(item);
+        }
+
+        selected = item;
+        const rect = item.getBoundingClientRect();
+        
+        // Use center of item for dragging so rotation doesn't offset it weirdly?
+        // Let's stick to standard dragOffsetX
+        dragOffsetX = e.clientX - rect.left;
+        dragOffsetY = e.clientY - rect.top;
+        
+        if (typeof highestZ !== 'undefined') {
+            item.style.zIndex = highestZ++;
         } else {
-            customScene.style.cursor = '';
+            // if highestZ is not defined, we can just use 100
+            item.style.zIndex = parseInt(item.style.zIndex || "100") + 1;
         }
-    });
+        e.preventDefault();
+        customScene.style.cursor = 'grabbing';
+    }
+});
 
-    // Deselect click
-    customScene.addEventListener("mousedown", (e) => {
-        if (e.target === customScene) {
-            selectElement(null);
-        }
-    });
+document.addEventListener("mousemove", (e) => {
+    const sceneW = customScene.clientWidth;
+    const sceneH = customScene.clientHeight;
 
-    // Delete btn handler
+    if (isResizing && selectedItem) {
+        const dx = e.clientX - resizeStartX;
+        
+        let maxW = Math.min(sceneW - resizeStartLeft, sceneH - resizeStartTop);
+        let newW = resizeStartW + dx;
+        newW = Math.max(30, Math.min(newW, maxW));
+        
+        selectedItem.style.width = newW + "px";
+        selectedItem.style.height = (newW * (resizeStartH / resizeStartW)) + "px";
+        updateSelectionUI();
+        return;
+    }
+    
+    if (isRotating && selectedItem) {
+        const rect = selectedItem.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const currentAngle = Math.atan2(e.clientY - cy, e.clientX - cx) * 180 / Math.PI;
+        
+        let angleDiff = currentAngle - rotateStartAngle;
+        let newAngle = rotateInitialElementAngle + angleDiff;
+        
+        selectedItem.dataset.rotation = newAngle;
+        let flipStr = selectedItem.dataset.flip === "-1" ? "scaleX(-1) " : "";
+        selectedItem.style.transform = flipStr + "rotate(" + newAngle + "deg)";
+        updateSelectionUI();
+        return;
+    }
+
+    if (!selected) return;
+
+    const rect = customScene.getBoundingClientRect();
+    let left = e.clientX - rect.left - dragOffsetX;
+    let top = e.clientY - rect.top - dragOffsetY;
+
+    // Bounded within canvas bounds
+    left = Math.max(0, Math.min(left, sceneW - selected.offsetWidth));
+    top = Math.max(0, Math.min(top, sceneH - selected.offsetHeight));
+
+    selected.style.left = left + "px";
+    selected.style.top = top + "px";
+    updateSelectionUI();
+});
+
+document.addEventListener("mouseup", () => {
+    selected = null;
+    isResizing = false;
+    isRotating = false;
+    if (selectedItem) {
+        customScene.style.cursor = 'grab';
+    } else {
+        customScene.style.cursor = '';
+    }
+});
+
+customScene.addEventListener("mousedown", (e) => {
+    // Make sure we only deselect if clicking customScene directly or the mainPlushie or placeholder
+    if (e.target === customScene || e.target.id === 'mainPlushie' || e.target.closest('.canvas-placeholder')) {
+        selectElement(null);
+    }
+});
+
+
+
     document.getElementById("itemDeleteBtn").addEventListener("click", (e) => {
         e.stopPropagation();
         if (selectedItem) {
@@ -2127,6 +2255,45 @@ showBouquetBtn.addEventListener('click', () => {
             });
         }, 500);
     });
+
+// Color Option Switching for Flowers
+document.addEventListener("click", e => {
+    const option = e.target.closest(".color-option");
+    if (!option) return;
+    
+    const card = option.closest(".flowerCard");
+    if (!card) return;
+    
+    card.querySelectorAll(".color-option").forEach(opt => opt.classList.remove("active"));
+    option.classList.add("active");
+    
+    const newImage = option.dataset.image;
+    const fId = option.dataset.flower;
+    
+    const mainImg = card.querySelector(".flowerImage");
+    if (mainImg) {
+        mainImg.src = newImage;
+    }
+    
+    // Update the Add To Cart button
+    const btn = card.querySelector(".addToCartBtn");
+    if (btn) {
+        btn.dataset.flower = fId;
+        btn.dataset.image = newImage;
+    }
+    
+    // Update quantity selector ID and data-flower for buttons
+    const minusBtn = card.querySelector(".minusBtn");
+    const plusBtn = card.querySelector(".plusBtn");
+    const qtySpan = card.querySelector(".flowerQuantity");
+    
+    if (minusBtn) minusBtn.dataset.flower = fId;
+    if (plusBtn) plusBtn.dataset.flower = fId;
+    if (qtySpan) qtySpan.id = "qtyFlower" + fId;
+    
+    // If the qty span value is not 1, maybe reset it? (Optional, let's keep current behavior)
+});
+
 </script>
 </body>
 

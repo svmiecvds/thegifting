@@ -905,7 +905,14 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
                 </div>
 
 
-                <div class="canvas-placeholder" id="placeholderMsg">
+                
+            <div id="itemRotateBtn" style="display: none; position: absolute; z-index: 1000; cursor: pointer; background: white; border-radius: 50%; padding: 4px; border: 1px solid #ffb6d9; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff4fa2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.59-9.21l5.67-1.36"/></svg>
+            </div>
+            <div id="itemResizeBtn" style="display: none; position: absolute; z-index: 1000; cursor: nwse-resize; background: white; border-radius: 50%; padding: 4px; border: 1px solid #ffb6d9; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff4fa2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            </div>
+<div class="canvas-placeholder" id="placeholderMsg">
                     <span>Treats Canvas</span>
                     <span style="font-size: 15px; font-family: var(--font-body); margin-top: 15px; opacity: 0.8;">
                         Select a box, then click desserts to spawn them. Drag to arrange, and use controls to customize!
@@ -1057,172 +1064,191 @@ document.querySelectorAll(".dessertSpawner").forEach(spawner => {
 
 function updateSelectionUI() {
     const deleteBtn = document.getElementById('itemDeleteBtn');
+    const rotateBtn = document.getElementById('itemRotateBtn');
+    const resizeBtn = document.getElementById('itemResizeBtn');
+    
     if (!selectedItem) {
-        deleteBtn.style.display = 'none';
+        if (deleteBtn) deleteBtn.style.display = 'none';
+        if (rotateBtn) rotateBtn.style.display = 'none';
+        if (resizeBtn) resizeBtn.style.display = 'none';
         return;
     }
-    const l = parseFloat(selectedItem.style.left) || 0;
-    const t = parseFloat(selectedItem.style.top)  || 0;
-    const w = selectedItem.offsetWidth;
-    deleteBtn.style.left = (l + w - 12) + 'px';
-    deleteBtn.style.top  = (t - 12) + 'px';
-    deleteBtn.style.display = 'block';
-}
-
-function selectElement(el) {
-    selectedItem = el;
-    document.querySelectorAll(".draggableAccessory").forEach(item => {
-        item.classList.remove("draggableTreatSelected");
-        item.style.outline = "none";
-    });
-    const deleteBtn = document.getElementById('itemDeleteBtn');
-    if (el) {
-        el.classList.add("draggableTreatSelected");
-        el.style.outline = "2px dashed #ff4fa2";
-        updateSelectionUI();
-    } else {
-        deleteBtn.style.display = 'none';
-        customScene.style.cursor = '';
-    }
-}
-
-// Resize state
-let isResizing = false;
-let resizeHandle = null; // 'TL','BL','BR'
-let resizeStartX = 0, resizeStartY = 0;
-let resizeStartW = 0, resizeStartH = 0;
-let resizeStartLeft = 0, resizeStartTop = 0;
-
-const CORNER_HIT = 26; // px radius for corner detection
-
-/* Returns which zone the mouse is in relative to the selected item:
-   'TL','BL','BR', 'inside', or null */
-function getHitZone(mouseX, mouseY) {
-    if (!selectedItem) return null;
-    const sceneRect = customScene.getBoundingClientRect();
+    
     const l = parseFloat(selectedItem.style.left) || 0;
     const t = parseFloat(selectedItem.style.top)  || 0;
     const w = selectedItem.offsetWidth;
     const h = selectedItem.offsetHeight;
-
-    const mx = mouseX - sceneRect.left;
-    const my = mouseY - sceneRect.top;
-
-    const near = (px, py) => Math.hypot(mx - px, my - py) < CORNER_HIT;
-
-    if (near(l,     t))     return 'TL';
-    if (near(l,     t + h)) return 'BL';
-    if (near(l + w, t + h)) return 'BR';
-    if (mx >= l && mx <= l + w && my >= t && my <= t + h) return 'inside';
-    return null;
+    
+    const rotDeg = parseFloat(selectedItem.dataset.rotation) || 0;
+    const rotRad = rotDeg * Math.PI / 180;
+    
+    const cx = l + w / 2;
+    const cy = t + h / 2;
+    
+    function getRotatedPos(dx, dy) {
+        const rx = cx + dx * Math.cos(rotRad) - dy * Math.sin(rotRad);
+        const ry = cy + dx * Math.sin(rotRad) + dy * Math.cos(rotRad);
+        return { x: rx, y: ry };
+    }
+    
+    if (deleteBtn) {
+        const pos = getRotatedPos(w/2, -h/2);
+        deleteBtn.style.left = (pos.x - 12) + 'px';
+        deleteBtn.style.top  = (pos.y - 12) + 'px';
+        deleteBtn.style.display = 'flex';
+    }
+    
+    if (rotateBtn) {
+        const pos = getRotatedPos(-w/2, h/2);
+        rotateBtn.style.left = (pos.x - 12) + 'px';
+        rotateBtn.style.top  = (pos.y - 12) + 'px';
+        rotateBtn.style.display = 'flex';
+    }
+    
+    if (resizeBtn) {
+        const pos = getRotatedPos(w/2, h/2);
+        resizeBtn.style.left = (pos.x - 12) + 'px';
+        resizeBtn.style.top  = (pos.y - 12) + 'px';
+        resizeBtn.style.display = 'flex';
+    }
 }
 
-function zoneToCursor(zone) {
-    if (zone === 'TL') return 'nwse-resize';
-    if (zone === 'BL') return 'nesw-resize';
-    if (zone === 'BR') return 'nwse-resize';
-    if (zone === 'inside') return 'grab';
-    return '';
+function selectElement(el) {
+    selectedItem = el;
+    document.querySelectorAll(".draggableBouquetItem, .draggablePlushieItem, .draggableTreatsItem, .draggableAccessory").forEach(item => {
+        item.classList.remove("selectedItem", "selectedAccessory");
+        item.style.outline = "none";
+    });
+    
+    if (el) {
+        el.classList.add("selectedItem");
+        if(el.classList.contains("draggableAccessory")) el.classList.add("selectedAccessory");
+        el.style.outline = "2px dashed #ff4fa2";
+        updateSelectionUI();
+    } else {
+        updateSelectionUI();
+        customScene.style.cursor = '';
+    }
 }
 
-// Update cursor live on hover over the scene
-customScene.addEventListener('mousemove', (e) => {
-    if (isResizing || selected) return;
-    const zone = getHitZone(e.clientX, e.clientY);
-    customScene.style.cursor = zoneToCursor(zone);
-});
+// Fallback for selectAccessory inside customize.html
+function selectAccessory(el) {
+    selectElement(el);
+}
 
+let isResizing = false;
+let isRotating = false;
+let resizeStartX = 0, resizeStartY = 0;
+let resizeStartW = 0, resizeStartH = 0;
+let resizeStartLeft = 0, resizeStartTop = 0;
+let rotateStartAngle = 0;
+let rotateInitialElementAngle = 0;
 
 document.addEventListener("mousedown", (e) => {
     if (e.target.closest('#itemDeleteBtn')) return;
-
-    const zone = getHitZone(e.clientX, e.clientY);
-
-    if (selectedItem && (zone === 'TL' || zone === 'BL' || zone === 'BR')) {
+    
+    if (e.target.closest('#itemResizeBtn') && selectedItem) {
         e.stopPropagation(); e.preventDefault();
         isResizing = true;
-        resizeHandle = zone;
-        resizeStartX    = e.clientX;
-        resizeStartY    = e.clientY;
-        resizeStartW    = selectedItem.offsetWidth;
-        resizeStartH    = selectedItem.offsetHeight;
+        resizeStartX = e.clientX;
+        resizeStartY = e.clientY;
+        resizeStartW = selectedItem.offsetWidth;
+        resizeStartH = selectedItem.offsetHeight;
         resizeStartLeft = parseFloat(selectedItem.style.left) || 0;
-        resizeStartTop  = parseFloat(selectedItem.style.top)  || 0;
+        resizeStartTop = parseFloat(selectedItem.style.top) || 0;
+        return;
+    }
+    
+    if (e.target.closest('#itemRotateBtn') && selectedItem) {
+        e.stopPropagation(); e.preventDefault();
+        isRotating = true;
+        
+        const rect = selectedItem.getBoundingClientRect();
+        // Calculate center of actual element on screen
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        rotateStartAngle = Math.atan2(e.clientY - cy, e.clientX - cx) * 180 / Math.PI;
+        rotateInitialElementAngle = parseFloat(selectedItem.dataset.rotation) || 0;
         return;
     }
 
-    const treat = e.target.closest(".draggableAccessory");
-    if (treat && customScene.contains(treat)) {
-        if (!selectedItem || selectedItem !== treat) {
-            selectElement(treat);
+    const item = e.target.closest(".draggableBouquetItem, .draggablePlushieItem, .draggableTreatsItem, .draggableAccessory");
+    if (item && customScene.contains(item)) {
+        if (!selectedItem || selectedItem !== item) {
+            selectElement(item);
         }
 
-        // Normal drag
-        selected = treat;
-        treat.style.zIndex = highestZ++;
-        const rect = treat.getBoundingClientRect();
+        selected = item;
+        const rect = item.getBoundingClientRect();
+        
+        // Use center of item for dragging so rotation doesn't offset it weirdly?
+        // Let's stick to standard dragOffsetX
         dragOffsetX = e.clientX - rect.left;
         dragOffsetY = e.clientY - rect.top;
-        customScene.style.cursor = 'grabbing';
+        
+        if (typeof highestZ !== 'undefined') {
+            item.style.zIndex = highestZ++;
+        } else {
+            // if highestZ is not defined, we can just use 100
+            item.style.zIndex = parseInt(item.style.zIndex || "100") + 1;
+        }
         e.preventDefault();
+        customScene.style.cursor = 'grabbing';
     }
 });
-
-/* -------------------- */
-/* DRAGGING MOVEMENT    */
-/* -------------------- */
 
 document.addEventListener("mousemove", (e) => {
     const sceneW = customScene.clientWidth;
     const sceneH = customScene.clientHeight;
 
-    // --- RESIZE ---
     if (isResizing && selectedItem) {
         const dx = e.clientX - resizeStartX;
-        const dy = e.clientY - resizeStartY;
-
-        if (resizeHandle === 'BR') {
-            let maxW = Math.min(sceneW - resizeStartLeft, sceneH - resizeStartTop);
-            let newW = Math.max(30, Math.min(resizeStartW + dx, maxW));
-            selectedItem.style.width  = newW + 'px';
-            selectedItem.style.height = newW + 'px';
-        } else if (resizeHandle === 'BL') {
-            let maxW = Math.min(resizeStartLeft + resizeStartW, sceneH - resizeStartTop);
-            let newW = Math.max(30, Math.min(resizeStartW - dx, maxW));
-            selectedItem.style.left   = (resizeStartLeft + resizeStartW - newW) + 'px';
-            selectedItem.style.width  = newW + 'px';
-            selectedItem.style.height = newW + 'px';
-        } else if (resizeHandle === 'TL') {
-            let maxW = Math.min(resizeStartLeft + resizeStartW, resizeStartTop + resizeStartH);
-            let size = Math.max(30, Math.min(resizeStartW - dx, maxW));
-            selectedItem.style.left   = (resizeStartLeft + resizeStartW - size) + 'px';
-            selectedItem.style.top    = (resizeStartTop  + resizeStartH - size) + 'px';
-            selectedItem.style.width  = size + 'px';
-            selectedItem.style.height = size + 'px';
-        }
+        
+        let maxW = Math.min(sceneW - resizeStartLeft, sceneH - resizeStartTop);
+        let newW = resizeStartW + dx;
+        newW = Math.max(30, Math.min(newW, maxW));
+        
+        selectedItem.style.width = newW + "px";
+        selectedItem.style.height = (newW * (resizeStartH / resizeStartW)) + "px";
+        updateSelectionUI();
+        return;
+    }
+    
+    if (isRotating && selectedItem) {
+        const rect = selectedItem.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const currentAngle = Math.atan2(e.clientY - cy, e.clientX - cx) * 180 / Math.PI;
+        
+        let angleDiff = currentAngle - rotateStartAngle;
+        let newAngle = rotateInitialElementAngle + angleDiff;
+        
+        selectedItem.dataset.rotation = newAngle;
+        let flipStr = selectedItem.dataset.flip === "-1" ? "scaleX(-1) " : "";
+        selectedItem.style.transform = flipStr + "rotate(" + newAngle + "deg)";
         updateSelectionUI();
         return;
     }
 
-    // --- DRAG ---
     if (!selected) return;
 
     const rect = customScene.getBoundingClientRect();
-    let newLeft = e.clientX - rect.left - dragOffsetX;
-    let newTop  = e.clientY - rect.top  - dragOffsetY;
+    let left = e.clientX - rect.left - dragOffsetX;
+    let top = e.clientY - rect.top - dragOffsetY;
 
-    newLeft = Math.max(0, Math.min(newLeft, sceneW - selected.offsetWidth));
-    newTop  = Math.max(0, Math.min(newTop,  sceneH - selected.offsetHeight));
+    // Bounded within canvas bounds
+    left = Math.max(0, Math.min(left, sceneW - selected.offsetWidth));
+    top = Math.max(0, Math.min(top, sceneH - selected.offsetHeight));
 
-    selected.style.left = newLeft + 'px';
-    selected.style.top  = newTop  + 'px';
+    selected.style.left = left + "px";
+    selected.style.top = top + "px";
     updateSelectionUI();
 });
 
 document.addEventListener("mouseup", () => {
     selected = null;
     isResizing = false;
-    resizeHandle = null;
+    isRotating = false;
     if (selectedItem) {
         customScene.style.cursor = 'grab';
     } else {
@@ -1230,19 +1256,16 @@ document.addEventListener("mouseup", () => {
     }
 });
 
-// Deselect when clicking scene background
 customScene.addEventListener("mousedown", (e) => {
-    if (e.target === customScene || e.target === mainBox) {
+    // Make sure we only deselect if clicking customScene directly or the mainPlushie or placeholder
+    if (e.target === customScene || e.target.id === 'mainPlushie' || e.target.closest('.canvas-placeholder')) {
         selectElement(null);
     }
 });
 
-/* -------------------- */
-/* CONTROLS HANDLING    */
-/* -------------------- */
 
-// Delete Selected via floating button
-document.getElementById("itemDeleteBtn").addEventListener("click", (e) => {
+
+    document.getElementById("itemDeleteBtn").addEventListener("click", (e) => {
     e.stopPropagation(); // prevent selecting the background
     if (selectedItem) {
         selectedItem.remove();
