@@ -13,22 +13,22 @@
 
 /* --- THEME VARIABLES --- */
 :root {
-    --bg-gradient: linear-gradient(135deg, #ffe4f1 0%, #ffc2e0 40%, #ffb3d9 100%);
-    --body-bg: #fff5fb;
-    --panel-bg: #ffe4f1;
-    --popup-bg: #ffe4f1;
-    --receipt-bg: #ffeaf5;
+    --bg-gradient: linear-gradient(135deg, #fce0e5 0%, #fac5cf 40%, #fac5cf 100%);
+    --body-bg: #fef2f4;
+    --panel-bg: #fce0e5;
+    --popup-bg: #fce0e5;
+    --receipt-bg: #fef2f4;
     --card-bg: #ffffff;
     --text-color: #B71A3D;
     --heading-color: #B71A3D;
     --btn-bg: #ffffff;
     --btn-text: #B71A3D;
-    --cart-btn-bg: #ff69b4;
-    --cart-btn-shadow: hotpink;
-    --glow-color: hotpink;
-    --glow-soft: pink;
-    --toast-bg: #ff69b4;
-    --receipt-shadow: pink;
+    --cart-btn-bg: #B71A3D;
+    --cart-btn-shadow: #B71A3D;
+    --glow-color: #B71A3D;
+    --glow-soft: #fac5cf;
+    --toast-bg: #B71A3D;
+    --receipt-shadow: #fac5cf;
     --shelf-overlay: rgba(255,255,255,0.0);
     --font-body: 'Quicksand', sans-serif;
     --font-heading: 'Pinyon Script', cursive;
@@ -121,7 +121,7 @@ body.giftPage {
 
 /* --- Highlight selected gift element --- */
 .gifSelected {
-    outline: 3px solid hotpink !important;
+    outline: 3px solid #B71A3D !important;
     outline-offset: 3px;
 }
 
@@ -144,7 +144,7 @@ body.giftPage {
     margin-top: 100px;
     margin-bottom: 25px;
     font-size: 50px;
-    text-shadow: 2px 2px 4px rgba(255, 182, 193, 0.4);
+    text-shadow: 2px 2px 4px rgba(250, 197, 207, 0.4);
     font-weight: bold;
 }
 
@@ -165,7 +165,7 @@ body.giftPage {
     align-items: center;
     gap: 30px;
     z-index: 999;
-    border-bottom: 3px solid #ffb3d9;
+    border-bottom: 3px solid #fac5cf;
     box-shadow: 0 4px 15px rgba(255, 105, 180, 0.1);
     padding: 10px 30px;
     box-sizing: border-box;
@@ -209,7 +209,7 @@ body.giftPage {
     color: var(--heading-color);
     font-family: var(--font-heading);
     font-size: 56px;
-    text-shadow: 2px 2px 4px rgba(255, 182, 193, 0.4);
+    text-shadow: 2px 2px 4px rgba(250, 197, 207, 0.4);
     font-weight: bold;
 }
 
@@ -230,7 +230,7 @@ body.giftPage {
 .dessert-cart-container {
     width: 340px;
     background: white;
-    border: 3px solid #ffb6d9;
+    border: 3px solid #fac5cf;
     border-radius: 35px;
     padding: 24px;
     box-shadow: 0 10px 25px rgba(255, 105, 180, 0.15);
@@ -325,7 +325,7 @@ body.giftPage {
     justify-content: center;
     padding: 40px;
     text-align: center;
-    color: #ff9ccb;
+    color: #df244e;
     font-family: var(--font-heading);
     font-size: 26px;
     line-height: 1.5;
@@ -350,13 +350,13 @@ body.giftPage {
 
 .box-option:hover {
     transform: translateY(-3px) scale(1.02);
-    border-color: hotpink;
-    box-shadow: 0 5px 12px rgba(255, 105, 180, 0.2);
+    border-color: #B71A3D;
+    box-shadow: 0 5px 12px rgba(183, 26, 61, 0.2);
 }
 
 .box-option.active {
-    background: #ffb6d9;
-    border-color: hotpink;
+    background: #fac5cf;
+    border-color: #B71A3D;
     box-shadow: none;
 }
 
@@ -423,15 +423,15 @@ body.giftPage {
 }
 
 .draggableTreatSelected {
-    outline: 3px solid hotpink !important;
+    outline: 3px solid #B71A3D !important;
     outline-offset: 3px;
 }
 
 /* --- PEARL STARDUST BUTTON DESIGN --- */
 :root {
-    --bg-pink: #ffb6d9;
-    --hover-glow: rgba(255, 182, 193, 0.6);
-    --hover-glow-soft: rgba(255, 105, 180, 0.8);
+    --bg-pink: #fac5cf;
+    --hover-glow: rgba(250, 197, 207, 0.6);
+    --hover-glow-soft: rgba(183, 26, 61, 0.8);
     --btn-text-color: #5a0035;
 }
 
@@ -542,7 +542,7 @@ body.giftPage {
     box-shadow:
       inset 0 0.3rem 0.5rem var(--hover-glow),
       inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.5),
-      0 6px 10px rgba(255, 105, 180, 0.2);
+      0 6px 10px rgba(183, 26, 61, 0.2);
 }
 
 
@@ -791,9 +791,9 @@ body.no-scroll #mainContainer {
     left: 0;
     z-index: 9999;
     pointer-events: none;
-    background: rgba(255, 228, 241, 0.85);
+    background: rgba(252, 224, 229, 0.85);
     backdrop-filter: blur(8px);
-    border-top: 1px solid rgba(255, 105, 180, 0.2);
+    border-top: 1px solid rgba(183, 26, 61, 0.2);
     transition: all 0.3s ease;
 }
 
@@ -903,16 +903,16 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
 
             <!-- Column 2: Workspace Canvas (Tad bit smaller) -->
             <div id="customScene">
-                <div id="itemDeleteBtn" style="display: none; position: absolute; z-index: 1000; cursor: pointer; background: white; border-radius: 50%; padding: 4px; border: 1px solid #ffb6d9; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+                <div id="itemDeleteBtn" style="display: none; position: absolute; z-index: 1000; cursor: pointer; background: white; border-radius: 50%; padding: 4px; border: 1px solid #fac5cf; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B71A3D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
                 </div>
 
 
                 
-            <div id="itemRotateBtn" style="display: none; position: absolute; z-index: 1000; cursor: pointer; background: white; border-radius: 50%; padding: 4px; border: 1px solid #ffb6d9; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+            <div id="itemRotateBtn" style="display: none; position: absolute; z-index: 1000; cursor: pointer; background: white; border-radius: 50%; padding: 4px; border: 1px solid #fac5cf; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B71A3D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.59-9.21l5.67-1.36"/></svg>
             </div>
-            <div id="itemResizeBtn" style="display: none; position: absolute; z-index: 1000; cursor: nwse-resize; background: white; border-radius: 50%; padding: 4px; border: 1px solid #ffb6d9; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+            <div id="itemResizeBtn" style="display: none; position: absolute; z-index: 1000; cursor: nwse-resize; background: white; border-radius: 50%; padding: 4px; border: 1px solid #fac5cf; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B71A3D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
             </div>
 <div class="canvas-placeholder" id="placeholderMsg">
