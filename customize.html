@@ -23,10 +23,10 @@
     --popup-bg: #ffe4f1;
     --receipt-bg: #ffeaf5;
     --card-bg: #ffffff;
-    --text-color: #c2185b;
-    --heading-color: #ff4fa2;
+    --text-color: #B71A3D;
+    --heading-color: #B71A3D;
     --btn-bg: #ffffff;
-    --btn-text: #ff4fa2;
+    --btn-text: #B71A3D;
     --cart-btn-bg: #ff69b4;
     --cart-btn-shadow: hotpink;
     --glow-color: hotpink;
@@ -35,7 +35,7 @@
     --receipt-shadow: pink;
     --shelf-overlay: rgba(255,255,255,0.0);
     --font-body: 'Quicksand', sans-serif;
-    --font-heading: 'Pacifico', cursive;
+    --font-heading: 'Yeseva One', serif;
     --font-ui: 'Fredoka', sans-serif;
     --font-nav: 'Inter', sans-serif;
 }
@@ -1020,6 +1020,10 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
 
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bentham&family=Miss+Fajardose&family=Monsieur+La+Doulaise&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Yeseva+One&display=swap" rel="stylesheet">
 </head>
 
 <body class="no-scroll">
@@ -1051,13 +1055,13 @@ Customize Your Plushie.
     <div id="customScene">
         
             <div id="itemRotateBtn" style="display: none; position: absolute; z-index: 1000; cursor: pointer; background: white; border-radius: 50%; padding: 4px; border: 1px solid #ffb6d9; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff4fa2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.59-9.21l5.67-1.36"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B71A3D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.59-9.21l5.67-1.36"/></svg>
             </div>
             <div id="itemResizeBtn" style="display: none; position: absolute; z-index: 1000; cursor: nwse-resize; background: white; border-radius: 50%; padding: 4px; border: 1px solid #ffb6d9; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff4fa2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B71A3D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
             </div>
 <div id="itemDeleteBtn" style="display: none; position: absolute; z-index: 1000; cursor: pointer; background: white; border-radius: 50%; padding: 4px; border: 1px solid #ffb6d9; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff4fa2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B71A3D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
         </div>
        <img
 id="mainPlushie"
@@ -1245,7 +1249,7 @@ function selectAccessory(element) {
     const deleteBtn = document.getElementById('itemDeleteBtn');
     if (element) {
         element.classList.add("selectedAccessory");
-        element.style.outline = "2px dashed #ff4fa2";
+        element.style.outline = "2px dashed #B71A3D";
         updateSelectionUI();
     } else {
         deleteBtn.style.display = 'none';

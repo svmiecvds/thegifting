@@ -23,10 +23,10 @@
     --popup-bg: #ffe4f1;
     --receipt-bg: #ffeaf5;
     --card-bg: #ffffff;
-    --text-color: #c2185b;
-    --heading-color: #ff4fa2;
+    --text-color: #B71A3D;
+    --heading-color: #B71A3D;
     --btn-bg: #ffffff;
-    --btn-text: #ff4fa2;
+    --btn-text: #B71A3D;
     --cart-btn-bg: #ff69b4;
     --cart-btn-shadow: hotpink;
     --glow-color: hotpink;
@@ -35,7 +35,7 @@
     --receipt-shadow: pink;
     --shelf-overlay: rgba(255,255,255,0.0);
     --font-body: 'Quicksand', sans-serif;
-    --font-heading: 'Pacifico', cursive;
+    --font-heading: 'Yeseva One', serif;
     --font-ui: 'Fredoka', sans-serif;
     --font-nav: 'Inter', sans-serif;
 }
@@ -903,6 +903,10 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
 
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bentham&family=Miss+Fajardose&family=Monsieur+La+Doulaise&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Yeseva+One&display=swap" rel="stylesheet">
 </head>
 
 <body class="giftPage">
@@ -929,13 +933,13 @@ Create Your Gift
 
     <div id="giftScene">
             <div id="itemRotateBtn" style="display: none; position: absolute; z-index: 1000; cursor: pointer; background: white; border-radius: 50%; padding: 4px; border: 1px solid #ffb6d9; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff4fa2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.59-9.21l5.67-1.36"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B71A3D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.59-9.21l5.67-1.36"/></svg>
             </div>
             <div id="itemResizeBtn" style="display: none; position: absolute; z-index: 1000; cursor: nwse-resize; background: white; border-radius: 50%; padding: 4px; border: 1px solid #ffb6d9; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff4fa2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B71A3D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
             </div>
             <div id="itemDeleteBtn" style="display: none; position: absolute; z-index: 1000; cursor: pointer; background: white; border-radius: 50%; padding: 4px; border: 1px solid #ffb6d9; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff4fa2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B71A3D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
             </div>
 
     </div>
@@ -1010,7 +1014,7 @@ Create Your Gift
 
         </select>
         
-        <input type="color" id="textColorPicker" value="#ff4fa2" style="width: 45px; height: 45px; border: none; border-radius: 50%; cursor: pointer; padding: 0; background: none; box-shadow: none;">
+        <input type="color" id="textColorPicker" value="#B71A3D" style="width: 45px; height: 45px; border: none; border-radius: 50%; cursor: pointer; padding: 0; background: none; box-shadow: none;">
     </div>
 
     <br><br>
@@ -1122,7 +1126,7 @@ function selectElement(el) {
     
     if (el) {
         el.classList.add("gifSelected");
-        el.style.outline = "2px dashed #ff4fa2";
+        el.style.outline = "2px dashed #B71A3D";
         updateSelectionUI();
     } else {
         updateSelectionUI();
@@ -1543,7 +1547,7 @@ textEl.style.fontSize =
 "22px";
 
 textEl.style.color =
-"#ff4fa2";
+"#B71A3D";
 
 textEl.style.cursor =
 "move";
@@ -1588,7 +1592,7 @@ document.getElementById(
 let editingEl = null;
 
 function rgbToHex(rgb) {
-    if (!rgb) return "#ff4fa2";
+    if (!rgb) return "#B71A3D";
     if (rgb.startsWith("#")) return rgb;
     const match = rgb.match(/^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i);
     if (match) {
@@ -1597,7 +1601,7 @@ function rgbToHex(rgb) {
             ("0" + parseInt(match[2], 10).toString(16)).slice(-2) +
             ("0" + parseInt(match[3], 10).toString(16)).slice(-2);
     }
-    return "#ff4fa2";
+    return "#B71A3D";
 }
 
 function openTextEditor(el){
@@ -1627,7 +1631,7 @@ el.style.fontFamily
 : "Pacifico";
 
 const textColorPicker = document.getElementById("textColorPicker");
-textColorPicker.value = el.style.color ? rgbToHex(el.style.color) : "#ff4fa2";
+textColorPicker.value = el.style.color ? rgbToHex(el.style.color) : "#B71A3D";
 
 noteEditor.style.display =
 "block";
