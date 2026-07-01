@@ -852,20 +852,16 @@ margin: 0 auto;
 
     /* --- SIDE PANELS --- */
     .side-panel {
-        flex: 1;
-        max-width: 320px;
-        background: white;
-        border: 2px solid rgba(255, 182, 217, 0.3);
-        border-radius: 24px;
-        padding: 20px;
-        box-shadow: 0 8px 24px rgba(255, 182, 193, 0.1);
-        display: flex;
-        flex-direction: column;
-        height: 600px;
-        max-height: 600px;
-        overflow-y: auto;
-        transition: background 0.4s ease, border-color 0.4s ease;
-    }
+    width: 280px;
+    height: auto !important;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    background: var(--panel-bg) !important;
+    padding: 24px;
+    border-radius: 24px;
+    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
 
     
 
@@ -1232,6 +1228,15 @@ margin: 0 auto;
     border-color: #B71A3D;
 }
 
+
+#cartButton, #saveCustomization, #saveGiftLayoutBtn, #giftButton {
+    background-color: #ffffff !important;
+}
+#cartButton > span::before, #saveCustomization > span::before, #saveGiftLayoutBtn > span::before, #giftButton > span::before {
+    content: none !important;
+    display: none !important;
+}
+
 </style>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -1317,6 +1322,7 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
         <a href="plushies.html" class="navLink">Plushies</a>
         <a href="flowers.html" class="navLink active">Flowers</a>
         <a href="treats.html" class="navLink">Treats</a>
+        <a href="notes.html" class="navLink">Notes</a>
         <div id="cartButton" class="shiny-cta" style="display: flex; align-items: center; justify-content: center; gap: 6px; padding-left: 14px; padding-right: 14px;">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
             <span style="margin: 0; padding: 0;">Cart (<span id="cartCount">0</span>)</span>
@@ -1434,8 +1440,9 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
             
             <!-- Column 1: Spawner Tray (Flowers and Leaves) -->
             <div class="side-column" style="display: flex; flex-direction: column; gap: 24px; flex: 1; max-width: 320px; height: 600px;">
-                <div class="side-panel" style="flex: 1; height: auto; max-height: none; margin: 0; max-width: none;">
-                    <h2>Spawn Flowers</h2>
+                <div class="side-panel">
+                    <h2>Flowers</h2>
+<hr style="margin: 10px 0 15px 0; border: none; border-top: 1px solid var(--text-color); opacity: 0.2;">
                     <div class="spawner-grid">
                         <div class="spawner-item" onclick="spawnElement('assets/flowers/flower1.png', 'flower', '')">
                         <img src="assets/flowers/flower1.png" alt="">
@@ -1482,8 +1489,9 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
                     </div>
                 </div>
 
-                <div class="side-panel" style="flex: 1; height: auto; max-height: none; margin: 0; max-width: none;">
-                    <h2>Spawn Leaves</h2>
+                <div class="side-panel">
+                    <h2>Leaves</h2>
+<hr style="margin: 10px 0 15px 0; border: none; border-top: 1px solid var(--text-color); opacity: 0.2;">
                     <div class="spawner-grid">
                         <div class="spawner-item" onclick="spawnElement('assets/flowers/leaves1.png', 'leaf', '')">
                         <img src="assets/flowers/leaves1.png" alt="">
@@ -2195,7 +2203,6 @@ customScene.addEventListener("mousedown", (e) => {
         toast.style.display = "block";
         setTimeout(() => {
             toast.style.display = "none";
-            window.location = "checkout.html";
         }, 1200);
     });
 
@@ -2298,6 +2305,29 @@ document.addEventListener("click", e => {
 });
 
 </script>
+
+<style>
+#storeNavbar {
+    border-bottom: none !important;
+}
+</style>
+
+<style>
+</style>
+
+
+<style>
+.side-panel h2 {
+    text-align: center !important;
+    margin-bottom: 16px !important;
+    font-family: var(--font-ui) !important;
+    font-weight: 600 !important;
+    font-size: 18px !important;
+    color: var(--heading-color) !important;
+    letter-spacing: 0.3px !important;
+}
+</style>
+
 </body>
 
 </html>

@@ -842,6 +842,14 @@ body.viewer-mode {
 .navBrand, a.navBrand, .navBrand:hover {
     color: white !important;
 }
+
+#cartButton, #saveCustomization, #saveGiftLayoutBtn, #giftButton {
+    background-color: #ffffff !important;
+}
+#cartButton > span::before, #saveCustomization > span::before, #saveGiftLayoutBtn > span::before, #giftButton > span::before {
+    content: none !important;
+    display: none !important;
+}
 </style>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -1214,6 +1222,12 @@ shareBtn.addEventListener('click', async () => {
     <!-- Footer -->
     <footer class="site-footer">&copy; 2026 | Made with <a href="https://thegifting.vercel.app" target="_blank" rel="noopener noreferrer" style="margin-left: 4px;">The Gifting Co.</a></footer>
 
+
+<style>
+#storeNavbar {
+    border-bottom: none !important;
+}
+</style>
 </body>
 
 </html>

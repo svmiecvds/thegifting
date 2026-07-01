@@ -6,7 +6,7 @@
 
     <title>The Gifting Co.</title>
     <link rel="icon" type="image/png" href="assets/favicon.png">
-    <link rel="preload" as="image" href="assets/bg.png">
+    <link rel="preload" as="image" href="assets/bg.jpeg">
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Fredoka:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
@@ -26,7 +26,7 @@
             --cart-btn-bg: #B71A3D;
             --cart-btn-shadow: #B71A3D;
             --glow-color: #B71A3D;
-            --glow-soft: #fac5cf;
+            --glow-soft: transparent;
             --font-body: 'Quicksand', sans-serif;
             --font-heading: 'Pinyon Script', cursive;
             --font-ui: 'Fredoka', sans-serif;
@@ -53,7 +53,7 @@
         body.receiptPage,
         body.giftPage {
             color: var(--text-color);
-            background-image: url('assets/bg.png');
+            background-image: url('assets/bg.jpeg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -379,7 +379,7 @@
             margin-top: 100px;
             margin-bottom: 25px;
             font-size: 50px;
-            text-shadow: 2px 2px 4px rgba(250, 197, 207, 0.4);
+            text-shadow: 2px 2px 4px transparent;
             font-weight: bold;
 }
 
@@ -404,7 +404,7 @@
             gap: 30px;
             z-index: 999;
             border-bottom: 3px solid #fac5cf;
-            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.1);
+            box-shadow: 0 4px 15px transparent;
             padding: 10px 30px;
             box-sizing: border-box;
         }
@@ -447,7 +447,7 @@
             color: var(--heading-color);
             font-family: 'Pinyon Script', cursive;
             font-size: 56px;
-            text-shadow: 2px 2px 4px rgba(250, 197, 207, 0.4);
+            text-shadow: 2px 2px 4px transparent;
             font-weight: bold;
 }
 
@@ -503,10 +503,10 @@
         #customPanel.treats-controls-panel {
             width: 280px !important;
             background: var(--popup-bg);
-            border: 3px solid #fac5cf;
+            border: none !important;
             border-radius: 35px;
             padding: 24px;
-            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.15);
+            box-shadow: 0 10px 25px transparent;
             display: flex;
             flex-direction: column;
         }
@@ -540,7 +540,7 @@
         .box-option:hover {
             transform: translateY(-3px) scale(1.02);
             border-color: #B71A3D;
-            box-shadow: 0 5px 12px rgba(183, 26, 61, 0.2);
+            box-shadow: 0 5px 12px transparent;
         }
 
         .box-option.active {
@@ -603,7 +603,7 @@
         #saveCustomization {
             background: #fac5cf !important;
             color: #5a0035 !important;
-            box-shadow: 0 0 10px pink !important;
+            box-shadow: none !important;
         }
 
         #saveCustomization:hover {
@@ -629,8 +629,8 @@
         /* --- PEARL STARDUST BUTTON DESIGN --- */
         :root {
             --bg-pink: #fac5cf;
-            --hover-glow: rgba(250, 197, 207, 0.6);
-            --hover-glow-soft: rgba(183, 26, 61, 0.8);
+            --hover-glow: transparent;
+            --hover-glow-soft: transparent;
             --btn-text-color: #5a0035;
         }
 
@@ -648,7 +648,7 @@
                 inset 0 0.3rem 0.9rem rgba(255, 255, 255, 0.4),
                 inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.4),
                 inset 0 -0.4rem 0.9rem rgba(255, 255, 255, 0.3),
-                0 10px 15px -3px rgba(255, 105, 180, 0.3),
+                0 10px 15px -3px transparent,
                 0 4px 6px -2px rgba(255, 105, 180, 0.05);
             overflow: hidden;
             display: inline-flex;
@@ -717,8 +717,8 @@
             box-shadow:
                 inset 0 0.3rem 0.5rem var(--hover-glow),
                 inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.4),
-                0 12px 20px rgba(255, 105, 180, 0.4),
-                0 4px 8px rgba(255, 105, 180, 0.1);
+                0 12px 20px transparent,
+                0 4px 8px transparent;
         }
 
         .shiny-cta:hover::before {
@@ -739,7 +739,7 @@
             box-shadow:
                 inset 0 0.3rem 0.5rem var(--hover-glow),
                 inset 0 -0.1rem 0.3rem rgba(0, 0, 0, 0.5),
-                0 6px 10px rgba(183, 26, 61, 0.2);
+                0 6px 10px transparent;
         }
 
         /* --- CHECKOUT PAGE LAYOUT --- */
@@ -769,12 +769,12 @@
 
         .checkout-receipt {
             background: var(--popup-bg);
-            border: 3px solid #fac5cf;
+            border: none !important;
             border-radius: 20px;
             padding: 40px;
             width: 100%;
             max-width: 600px;
-            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.15);
+            box-shadow: 0 10px 25px transparent;
             text-align: left;
             position: relative;
             z-index: 10;
@@ -875,6 +875,14 @@
 .navBrand, a.navBrand, .navBrand:hover {
     color: white !important;
 }
+
+#cartButton, #saveCustomization, #saveGiftLayoutBtn, #giftButton {
+    background-color: #ffffff !important;
+}
+#cartButton > span::before, #saveCustomization > span::before, #saveGiftLayoutBtn > span::before, #giftButton > span::before {
+    content: none !important;
+    display: none !important;
+}
 </style>
 
 
@@ -903,7 +911,7 @@
     pointer-events: none;
     background: rgba(252, 224, 229, 0.85);
     backdrop-filter: blur(8px);
-    border-top: 1px solid rgba(183, 26, 61, 0.2);
+    border-top: 1px solid transparent;
     transition: all 0.3s ease;
 }
 
@@ -937,7 +945,7 @@
             padding: 0 18px;
             cursor: pointer;
             transition: opacity 0.2s ease, transform 0.2s ease;
-            box-shadow: 0 2px 8px rgba(255, 105, 180, 0.3);
+            box-shadow: 0 2px 8px transparent;
             white-space: nowrap;
         }
 
@@ -987,7 +995,7 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
     <nav id="storeNavbar">
         <a href="index.html" class="navBrand" style="text-decoration: none;">The Gifting Co.</a>
         <div style="margin-left: auto; display: flex; gap: 15px; align-items: center;">
-            <button onclick="window.location.href='index.html'" style="display: inline-flex; align-items: center; justify-content: center; background: transparent; border: none; font-family: 'Fredoka', sans-serif; font-size: 16px; font-weight: 600; letter-spacing: 0.5px; height: 38px; padding: 0 10px; color: var(--text-color); cursor: pointer; text-decoration: none; white-space: nowrap; transition: all 0.3s ease;" onmouseover="this.style.color='var(--heading-color)'; this.style.transform='translateX(-3px)';" onmouseout="this.style.color='var(--text-color)'; this.style.transform='translateX(0)';">
+            <button onclick="window.location.href='index.html'" style="display: inline-flex; align-items: center; justify-content: center; background: transparent; border: none; font-family: 'Fredoka', sans-serif; font-size: 16px; font-weight: 600; letter-spacing: 0.5px; height: 38px; padding: 0 10px; color: #ffffff; cursor: pointer; text-decoration: none; white-space: nowrap; transition: all 0.3s ease;" onmouseover="this.style.color='white'; this.style.transform='translateY(-2px)'; this.style.opacity='0.9';" onmouseout="this.style.color='#ffffff'; this.style.transform='translateY(0)'; this.style.opacity='1';">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.6; margin-right: 4px; flex-shrink: 0;" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
                 Go back
             </button>
@@ -1116,6 +1124,37 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
 
 
     
+
+<style>
+#storeNavbar {
+    border-bottom: none !important;
+}
+</style>
+
+<style>
+:root {
+    --glow-soft: transparent !important;
+    --hover-glow: transparent !important;
+    --hover-glow-soft: transparent !important;
+    --glow-color: transparent !important;
+}
+.shiny-cta, .shiny-cta:hover, .shiny-cta:focus, .shiny-cta:active, 
+.checkout-panel, .checkout-panel:hover,
+.summary, .summary:hover,
+input:focus {
+    box-shadow: none !important;
+    text-shadow: none !important;
+}
+</style>
+
+
+<style>
+.checkout-receipt {
+    box-shadow: none !important;
+    border: none !important;
+}
+</style>
+
 </body>
 
 </html>

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=1250">
     <title>The Gifting Co.</title>
     <link rel="icon" type="image/png" href="assets/favicon.png">
-    <link rel="preload" as="image" href="assets/treatsbg.png">
+    <link rel="preload" as="image" href="assets/notesbg.png">
     <style>
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Fredoka:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
@@ -53,7 +53,7 @@ body,
 body.receiptPage,
 body.giftPage {
     color: var(--text-color);
-    background-image: url('assets/bg_pattern.png');
+    background-image: url('assets/notesbg.png');
     background-repeat: repeat;
     background-size: 350px;
     background-attachment: fixed;
@@ -298,15 +298,16 @@ body.giftPage {
 }
 
 #customPanel.treats-controls-panel {
-    width: 280px;
-    height: auto !important;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
+    width: 280px !important;
+    height: 700px !important;
+    box-sizing: border-box !important;
     background: var(--panel-bg) !important;
-    padding: 24px;
-    border-radius: 24px;
-    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    padding: 24px !important;
+    border-radius: 24px !important;
+    box-shadow: none !important;
+    border: none !important;
+    display: flex !important;
+    flex-direction: column !important;
 }
 
 
@@ -838,15 +839,9 @@ body.no-scroll #mainContainer {
 <style>
 /* GLOBAL OVERRIDES TO REMOVE BORDERS AND SHADOWS FROM CARDS AND BUTTONS */
 [class*="card"], [class*="panel"], [class*="popup"], [id*="Scene"], [class*="item"], .summary, .cart-item, .checkout-panel, .category-card, .spawner-item, .dessert-cart-container, .dessert-spawner-card {
-    width: 280px;
-    height: auto !important;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    background: var(--panel-bg) !important;
-    padding: 24px;
-    border-radius: 24px;
-    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    border: none !important;
+    box-shadow: none !important;
+    filter: none !important;
 }
 
 button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-action-btn, .shiny-cta, .navLink {
@@ -871,15 +866,15 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
 <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
 </head>
 
-<body class="no-scroll">
+<body class="giftPage no-scroll">
 
     <!-- Baby Pink Navbar -->
     <nav id="storeNavbar">
         <a href="index.html" class="navBrand" style="text-decoration: none;">The Gifting Co.</a>
         <a href="plushies.html" class="navLink">Plushies</a>
         <a href="flowers.html" class="navLink">Flowers</a>
-        <a href="treats.html" class="navLink active">Treats</a>
-        <a href="notes.html" class="navLink">Notes</a>
+        <a href="treats.html" class="navLink">Treats</a>
+        <a href="notes.html" class="navLink active">Notes</a>
         <div id="cartButton" class="shiny-cta" style="display: flex; align-items: center; justify-content: center; gap: 6px; padding-left: 14px; padding-right: 14px;">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
             <span style="margin: 0; padding: 0;">Cart (<span id="cartCount">0</span>)</span>
@@ -889,48 +884,71 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
     
 
     <!-- Header Text -->
-    <h1 class="storeHeader">pack a box of treats.</h1>
+    <h1 class="storeHeader">add notes and stickers</h1>
 
-    <div id="mainContainer">
-        <div class="treats-layout">
-            
-            <!-- Column 1: Spawner Tray (All 25 Desserts) -->
-            <div class="dessert-cart-container">
-                <div class="dessert-spawner-card">
-                    <h2>Select Your Desserts</h2>
-                    <hr class="dessert-hr" style="margin: 10px 0 15px 0; border: none; border-top: 1px solid var(--text-color); opacity: 0.2;">
-                    <div class="spawner-grid">
-                        <img src="assets/treats/dessert1.png" class="dessertSpawner" data-src="assets/treats/dessert1.png" alt="Heart Macaron">
-                        <img src="assets/treats/dessert2.png" class="dessertSpawner" data-src="assets/treats/dessert2.png" alt="Chocolate Cube">
-                        <img src="assets/treats/dessert3.png" class="dessertSpawner" data-src="assets/treats/dessert3.png" alt="Strawberry Macaron">
-                        <img src="assets/treats/dessert4.png" class="dessertSpawner" data-src="assets/treats/dessert4.png" alt="Strawberry Cupcake">
-                        <img src="assets/treats/dessert5.png" class="dessertSpawner" data-src="assets/treats/dessert5.png" alt="Cherry Cupcake">
-                        <img src="assets/treats/dessert6.png" class="dessertSpawner" data-src="assets/treats/dessert6.png" alt="Chestnut Chocolate Cake">
-                        <img src="assets/treats/dessert7.png" class="dessertSpawner" data-src="assets/treats/dessert7.png" alt="Chocolate Donut">
-                        <img src="assets/treats/dessert8.png" class="dessertSpawner" data-src="assets/treats/dessert8.png" alt="Berry Ice Cream">
-                        <img src="assets/treats/dessert9.png" class="dessertSpawner" data-src="assets/treats/dessert9.png" alt="Strawberry Swirl Cheesecake">
-                        <img src="assets/treats/dessert10.png" class="dessertSpawner" data-src="assets/treats/dessert10.png" alt="Waffle Cup Ice Cream">
-                        <img src="assets/treats/dessert11.png" class="dessertSpawner" data-src="assets/treats/dessert11.png" alt="Cherry Pink Donut">
-                        <img src="assets/treats/dessert12.png" class="dessertSpawner" data-src="assets/treats/dessert12.png" alt="Paw Print Cookie">
-                        <img src="assets/treats/dessert13.png" class="dessertSpawner" data-src="assets/treats/dessert13.png" alt="Caramel Chocolate Donut">
-                        <img src="assets/treats/dessert14.png" class="dessertSpawner" data-src="assets/treats/dessert14.png" alt="Pistachio Cream Donut">
-                        <img src="assets/treats/dessert15.png" class="dessertSpawner" data-src="assets/treats/dessert15.png" alt="Lotus Biscoff Donut">
-                        <img src="assets/treats/dessert16.png" class="dessertSpawner" data-src="assets/treats/dessert16.png" alt="Fresh Blueberry Cupcake">
-                        <img src="assets/treats/dessert17.png" class="dessertSpawner" data-src="assets/treats/dessert17.png" alt="Taro Purple Roll Cake">
-                        <img src="assets/treats/dessert18.png" class="dessertSpawner" data-src="assets/treats/dessert18.png" alt="Key Lime Mint Cheesecake">
-                        <img src="assets/treats/dessert19.png" class="dessertSpawner" data-src="assets/treats/dessert19.png" alt="Bear Cookie Cream Cupcake">
-                        <img src="assets/treats/dessert20.png" class="dessertSpawner" data-src="assets/treats/dessert20.png" alt="Cute Bunny Matcha Gateau">
-                        <img src="assets/treats/dessert21.png" class="dessertSpawner" data-src="assets/treats/dessert21.png" alt="Cherry Pudding">
-                        <img src="assets/treats/dessert22.png" class="dessertSpawner" data-src="assets/treats/dessert22.png" alt="Strawberry Donut">
-                        <img src="assets/treats/dessert23.png" class="dessertSpawner" data-src="assets/treats/dessert23.png" alt="Strawberry Sandwich Slice">
-                        <img src="assets/treats/dessert24.png" class="dessertSpawner" data-src="assets/treats/dessert24.png" alt="Heart Jam Cookies">
-                        <img src="assets/treats/dessert25.png" class="dessertSpawner" data-src="assets/treats/dessert25.png" alt="Bunny Canele Cake">
-                        <img src="assets/treats/dessert26.png" class="dessertSpawner" data-src="assets/treats/dessert26.png" alt="Taiyaki Ice Cream Waffle">
-                        <img src="assets/treats/dessert27.png" class="dessertSpawner" data-src="assets/treats/dessert27.png" alt="Hello Kitty Cookie">
-                        <img src="assets/treats/dessert28.png" class="dessertSpawner" data-src="assets/treats/dessert28.png" alt="Cat Donut">
-                    </div>
+    
+    <div id="mainContainer" style="display: flex; gap: 20px; justify-content: center; align-items: flex-start; max-width: 1200px; margin: 0 auto;">
+        
+        <!-- Left Panel: Notes & Stickers Selection -->
+        <div id="customPanel" class="notes-controls-panel" style="width: 320px; background: var(--popup-bg); border-radius: 35px; padding: 24px; display: flex; flex-direction: column; overflow-y: auto; max-height: 70vh;">
+            <button id="addTextBtn" class="giftControlBtn" style="margin: 0 auto 15px auto; display: block; width: 100%; border: none; border-radius: 50px; background: var(--btn-bg); color: var(--btn-text); padding: 10px 14px; font-weight: bold; cursor: pointer;">
+                 Add Custom Text
+            </button>
+            <div class="asset-columns" style="display: flex; gap: 15px; justify-content: space-around;">
+                <div class="asset-column" style="display: flex; flex-direction: column; align-items: center; width: 50%;">
+                    <h2 style="color: var(--heading-color); margin-bottom: 10px;">Notes</h2>
+                    <img src="assets/final page/note1.png" class="noteTemplate" style="width: 80px; margin-bottom: 10px; cursor: pointer;">
+                    <img src="assets/final page/note2.png" class="noteTemplate" style="width: 80px; margin-bottom: 10px; cursor: pointer;">
+                    <img src="assets/final page/note3.png" class="noteTemplate" style="width: 80px; margin-bottom: 10px; cursor: pointer;">
+                    <img src="assets/final page/note4.png" class="noteTemplate" style="width: 80px; margin-bottom: 10px; cursor: pointer;">
+                    <img src="assets/final page/note5.png" class="noteTemplate" style="width: 80px; margin-bottom: 10px; cursor: pointer;">
+                    <img src="assets/final page/note6.png" class="noteTemplate" style="width: 80px; margin-bottom: 10px; cursor: pointer;">
+                </div>
+                <div class="asset-column" style="display: flex; flex-direction: column; align-items: center; width: 50%;">
+                    <h2 style="color: var(--heading-color); margin-bottom: 10px;">Stickers</h2>
+                    <img src="assets/final page/sticker1.png" class="stickerTemplate" style="width: 80px; margin-bottom: 10px; cursor: pointer;">
+                    <img src="assets/final page/sticker 2.png" class="stickerTemplate" style="width: 80px; margin-bottom: 10px; cursor: pointer;">
+                    <img src="assets/final page/sticker3.png" class="stickerTemplate" style="width: 80px; margin-bottom: 10px; cursor: pointer;">
+                    <img src="assets/final page/sticker_clip_purple.png" class="stickerTemplate" style="width: 80px; margin-bottom: 10px; cursor: pointer;">
+                    <img src="assets/final page/sticker_pin_red.png" class="stickerTemplate" style="width: 80px; margin-bottom: 10px; cursor: pointer;">
+                    <img src="assets/final page/sticker_clip_beige.png" class="stickerTemplate" style="width: 80px; margin-bottom: 10px; cursor: pointer;">
+                    <img src="assets/final page/sticker_clip_pink.png" class="stickerTemplate" style="width: 80px; margin-bottom: 10px; cursor: pointer;">
+                    <img src="assets/final page/sticker_clip_blue.png" class="stickerTemplate" style="width: 80px; margin-bottom: 10px; cursor: pointer;">
+                    <img src="assets/final page/sticker_camera.png" class="stickerTemplate" style="width: 80px; margin-bottom: 10px; cursor: pointer;">
                 </div>
             </div>
+        </div>
+
+        <!-- Right Panel: Currently selected items list (Cart preview) -->
+        <div class="dessert-cart-container" style="width: 320px; background: var(--card-bg); border-radius: 35px; padding: 24px; display: flex; flex-direction: column; min-height: 50vh;">
+            <h2 style="text-align: center; color: var(--heading-color); margin-bottom: 15px; font-weight: 600;">Selected Notes</h2>
+            <div id="cartItemsContainer" style="flex: 1; overflow-y: auto;">
+                <!-- items go here -->
+            </div>
+            
+            <button id="addToCartBtn" class="shiny-cta" style="margin-top: 15px; width: 100%; border: none;">
+                <span>Save to Cart</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Note Editor Modal -->
+    <div id="noteEditor" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--popup-bg); padding: 25px; border-radius: 25px; z-index: 99999; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+        <h2 style="color: var(--heading-color); margin-bottom: 15px; font-family: var(--font-ui);">Edit Text</h2>
+        <textarea id="noteMessage" placeholder="Write your message..." style="width: 320px; height: 130px; margin-bottom: 15px; resize: none; border-radius: 10px; padding: 10px; border: 1px solid var(--card-border);"></textarea>
+        <br>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 15px;">
+            <select id="fontSelect" style="flex: 1; padding: 10px; border-radius: 10px; border: 1px solid var(--card-border);">
+                <option value="Pacifico">Pacifico</option>
+                <option value="Fredoka">Fredoka</option>
+                <option value="Quicksand">Quicksand</option>
+                <option value="Ribeye">Ribeye</option>
+            </select>
+            <input type="color" id="textColorPicker" value="#B71A3D" style="width: 40px; height: 40px; border: none; cursor: pointer; padding: 0; background: transparent;">
+        </div>
+        <button id="saveNote" style="width: 100%; border: none; border-radius: 50px; padding: 15px; background: #ffffff; color: #B71A3D; font-weight: bold; cursor: pointer;">Save</button>
+    </div>
+
 
             <!-- Column 2: Workspace Canvas (Tad bit smaller) -->
             <div id="customScene">
@@ -988,452 +1006,164 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
         Added To Cart 
     </div>
 
-    <script>
-/* -------------------- */
-/* THEME TOGGLE         */
-/* -------------------- */
+    
 
-// Apply saved theme immediately to <html> to prevent flash
-
-
-</script>
-    <script>
-const customScene = document.getElementById("customScene");
-const mainBox = document.getElementById("mainBox");
-const placeholderMsg = document.getElementById("placeholderMsg");
-
-let selectedItem = null;
-let selected = null;
-let highestZ = 10;
-
-// Rotation and flip state trackers
-let dragOffsetX = 0;
-let dragOffsetY = 0;
-
-/* -------------------- */
-/* LOAD CART STATE      */
-/* -------------------- */
-
-let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
-
-function getCartCount() {
-    const cartItems = JSON.parse(sessionStorage.getItem("cart")) || [];
-    return cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
-}
-
-const cartCountSpan = document.getElementById("cartCount");
-if (cartCountSpan) {
-    cartCountSpan.innerText = getCartCount();
-}
-
-/* -------------------- */
-/* SWITCH BOX TYPE      */
-/* -------------------- */
-
-let currentBoxName = "";
-let currentBoxImage = "";
-
-document.querySelectorAll(".box-option").forEach(option => {
-    option.addEventListener("click", () => {
-        // Toggle active options
-        document.querySelectorAll(".box-option").forEach(opt => opt.classList.remove("active"));
-        option.classList.add("active");
-
-        // Update active box details
-        currentBoxName = option.dataset.name;
-        currentBoxImage = option.dataset.image;
-
-        // Update scene backdrop
-        if (mainBox) {
-            mainBox.src = currentBoxImage;
-            mainBox.alt = currentBoxName;
+<script>
+    let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+    let pendingNoteType = null;
+    let pendingNoteSrc = null;
+    let isEditingTextOnly = false;
+    
+    function updateCartCount() {
+        const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        document.getElementById('cartCount').innerText = count;
+    }
+    
+    function renderLocalCart() {
+        const container = document.getElementById('cartItemsContainer');
+        container.innerHTML = '';
+        
+        const localItems = cart.filter(item => item.type === 'note' || item.type === 'sticker' || item.type === 'text');
+        
+        if (localItems.length === 0) {
+            container.innerHTML = '<p style="text-align:center; color:#999; margin-top:20px;">No notes added yet.</p>';
+            return;
         }
-
-        if (placeholderMsg) {
-            placeholderMsg.style.opacity = "0";
-            setTimeout(() => {
-                if (placeholderMsg) placeholderMsg.style.display = "none";
-            }, 300);
-        }
-    });
-});
-
-/* -------------------- */
-/* DESSERT SPAWNING     */
-/* -------------------- */
-
-document.querySelectorAll(".dessertSpawner").forEach(spawner => {
-    spawner.addEventListener("click", () => {
-        const dessert = document.createElement("img");
-        dessert.src = spawner.dataset.src;
-        dessert.className = "draggableAccessory draggableTreat";
-        dessert.style.position = "absolute";
-        dessert.style.width = "70px";
-        dessert.style.height = "70px";
-        dessert.style.left = "265px"; // Centered inside the 600px scene (600/2 - 70/2)
-        dessert.style.top = "265px";  // Centered inside the 600px scene
-        dessert.style.zIndex = highestZ++;
-        dessert.draggable = false;
         
-        // Initial transform states
-        dessert.dataset.rotation = "0";
-        dessert.dataset.flip = "1";
-
-        customScene.appendChild(dessert);
-
-        // Auto select newly spawned dessert
-        selectElement(dessert);
-        
-        if (placeholderMsg) {
-            placeholderMsg.style.opacity = "0";
-            setTimeout(() => {
-                if (placeholderMsg) placeholderMsg.style.display = "none";
-            }, 300);
-        }
-    });
-});
-
-/* -------------------- */
-/* SELECTION SYSTEM     */
-/* -------------------- */
-
-function updateSelectionUI() {
-    const deleteBtn = document.getElementById('itemDeleteBtn');
-    const rotateBtn = document.getElementById('itemRotateBtn');
-    const resizeBtn = document.getElementById('itemResizeBtn');
-    
-    if (!selectedItem) {
-        if (deleteBtn) deleteBtn.style.display = 'none';
-        if (rotateBtn) rotateBtn.style.display = 'none';
-        if (resizeBtn) resizeBtn.style.display = 'none';
-        return;
-    }
-    
-    const l = parseFloat(selectedItem.style.left) || 0;
-    const t = parseFloat(selectedItem.style.top)  || 0;
-    const w = selectedItem.offsetWidth;
-    const h = selectedItem.offsetHeight;
-    
-    const rotDeg = parseFloat(selectedItem.dataset.rotation) || 0;
-    const rotRad = rotDeg * Math.PI / 180;
-    
-    const cx = l + w / 2;
-    const cy = t + h / 2;
-    
-    function getRotatedPos(dx, dy) {
-        const rx = cx + dx * Math.cos(rotRad) - dy * Math.sin(rotRad);
-        const ry = cy + dx * Math.sin(rotRad) + dy * Math.cos(rotRad);
-        return { x: rx, y: ry };
-    }
-    
-    if (deleteBtn) {
-        const pos = getRotatedPos(w/2, -h/2);
-        deleteBtn.style.left = (pos.x - 12) + 'px';
-        deleteBtn.style.top  = (pos.y - 12) + 'px';
-        deleteBtn.style.display = 'flex';
-    }
-    
-    if (rotateBtn) {
-        const pos = getRotatedPos(-w/2, h/2);
-        rotateBtn.style.left = (pos.x - 12) + 'px';
-        rotateBtn.style.top  = (pos.y - 12) + 'px';
-        rotateBtn.style.display = 'flex';
-    }
-    
-    if (resizeBtn) {
-        const pos = getRotatedPos(w/2, h/2);
-        resizeBtn.style.left = (pos.x - 12) + 'px';
-        resizeBtn.style.top  = (pos.y - 12) + 'px';
-        resizeBtn.style.display = 'flex';
-    }
-}
-
-function selectElement(el) {
-    selectedItem = el;
-    document.querySelectorAll(".draggableBouquetItem, .draggablePlushieItem, .draggableTreatsItem, .draggableAccessory").forEach(item => {
-        item.classList.remove("selectedItem", "selectedAccessory");
-        item.style.outline = "none";
-    });
-    
-    if (el) {
-        el.classList.add("selectedItem");
-        if(el.classList.contains("draggableAccessory")) el.classList.add("selectedAccessory");
-        el.style.outline = "2px solid #B71A3D";
-        updateSelectionUI();
-    } else {
-        updateSelectionUI();
-        customScene.style.cursor = '';
-    }
-}
-
-// Fallback for selectAccessory inside customize.html
-function selectAccessory(el) {
-    selectElement(el);
-}
-
-let isResizing = false;
-let isRotating = false;
-let resizeStartX = 0, resizeStartY = 0;
-let resizeStartW = 0, resizeStartH = 0;
-let resizeStartLeft = 0, resizeStartTop = 0;
-let rotateStartAngle = 0;
-let rotateInitialElementAngle = 0;
-
-document.addEventListener("mousedown", (e) => {
-    if (e.target.closest('#itemDeleteBtn')) return;
-    
-    if (e.target.closest('#itemResizeBtn') && selectedItem) {
-        e.stopPropagation(); e.preventDefault();
-        isResizing = true;
-        resizeStartX = e.clientX;
-        resizeStartY = e.clientY;
-        resizeStartW = selectedItem.offsetWidth;
-        resizeStartH = selectedItem.offsetHeight;
-        resizeStartLeft = parseFloat(selectedItem.style.left) || 0;
-        resizeStartTop = parseFloat(selectedItem.style.top) || 0;
-        return;
-    }
-    
-    if (e.target.closest('#itemRotateBtn') && selectedItem) {
-        e.stopPropagation(); e.preventDefault();
-        isRotating = true;
-        
-        const rect = selectedItem.getBoundingClientRect();
-        // Calculate center of actual element on screen
-        const cx = rect.left + rect.width / 2;
-        const cy = rect.top + rect.height / 2;
-        rotateStartAngle = Math.atan2(e.clientY - cy, e.clientX - cx) * 180 / Math.PI;
-        rotateInitialElementAngle = parseFloat(selectedItem.dataset.rotation) || 0;
-        return;
-    }
-
-    const item = e.target.closest(".draggableBouquetItem, .draggablePlushieItem, .draggableTreatsItem, .draggableAccessory");
-    if (item && customScene.contains(item)) {
-        if (!selectedItem || selectedItem !== item) {
-            selectElement(item);
-        }
-
-        selected = item;
-        const rect = item.getBoundingClientRect();
-        
-        // Use center of item for dragging so rotation doesn't offset it weirdly?
-        // Let's stick to standard dragOffsetX
-        dragOffsetX = e.clientX - rect.left;
-        dragOffsetY = e.clientY - rect.top;
-        
-        if (typeof highestZ !== 'undefined') {
-            item.style.zIndex = highestZ++;
-        } else {
-            // if highestZ is not defined, we can just use 100
-            item.style.zIndex = parseInt(item.style.zIndex || "100") + 1;
-        }
-        e.preventDefault();
-        customScene.style.cursor = 'grabbing';
-    }
-});
-
-document.addEventListener("mousemove", (e) => {
-    const sceneW = customScene.clientWidth;
-    const sceneH = customScene.clientHeight;
-
-    if (isResizing && selectedItem) {
-        const dx = e.clientX - resizeStartX;
-        
-        let maxW = Math.min(sceneW - resizeStartLeft, sceneH - resizeStartTop);
-        let newW = resizeStartW + dx;
-        newW = Math.max(30, Math.min(newW, maxW));
-        
-        selectedItem.style.width = newW + "px";
-        selectedItem.style.height = (newW * (resizeStartH / resizeStartW)) + "px";
-        updateSelectionUI();
-        return;
-    }
-    
-    if (isRotating && selectedItem) {
-        const rect = selectedItem.getBoundingClientRect();
-        const cx = rect.left + rect.width / 2;
-        const cy = rect.top + rect.height / 2;
-        const currentAngle = Math.atan2(e.clientY - cy, e.clientX - cx) * 180 / Math.PI;
-        
-        let angleDiff = currentAngle - rotateStartAngle;
-        let newAngle = rotateInitialElementAngle + angleDiff;
-        
-        selectedItem.dataset.rotation = newAngle;
-        let flipStr = selectedItem.dataset.flip === "-1" ? "scaleX(-1) " : "";
-        selectedItem.style.transform = flipStr + "rotate(" + newAngle + "deg)";
-        updateSelectionUI();
-        return;
-    }
-
-    if (!selected) return;
-
-    const rect = customScene.getBoundingClientRect();
-    let left = e.clientX - rect.left - dragOffsetX;
-    let top = e.clientY - rect.top - dragOffsetY;
-
-    // Bounded within canvas bounds
-    left = Math.max(0, Math.min(left, sceneW - selected.offsetWidth));
-    top = Math.max(0, Math.min(top, sceneH - selected.offsetHeight));
-
-    selected.style.left = left + "px";
-    selected.style.top = top + "px";
-    updateSelectionUI();
-});
-
-document.addEventListener("mouseup", () => {
-    selected = null;
-    isResizing = false;
-    isRotating = false;
-    if (selectedItem) {
-        customScene.style.cursor = 'grab';
-    } else {
-        customScene.style.cursor = '';
-    }
-});
-
-customScene.addEventListener("mousedown", (e) => {
-    // Make sure we only deselect if clicking customScene directly or the mainPlushie or placeholder
-    if (e.target === customScene || e.target.id === 'mainPlushie' || e.target.closest('.canvas-placeholder')) {
-        selectElement(null);
-    }
-});
-
-
-
-    document.getElementById("itemDeleteBtn").addEventListener("click", (e) => {
-    e.stopPropagation(); // prevent selecting the background
-    if (selectedItem) {
-        selectedItem.remove();
-        selectElement(null); // clears UI
-        
-        if (document.querySelectorAll(".draggableTreat").length === 0 && !currentBoxImage) {
-            if (placeholderMsg) {
-                placeholderMsg.style.display = "flex";
-                setTimeout(() => {
-                    if (placeholderMsg) placeholderMsg.style.opacity = "1";
-                }, 50);
+        localItems.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.style.display = 'flex';
+            div.style.alignItems = 'center';
+            div.style.gap = '10px';
+            div.style.marginBottom = '15px';
+            div.style.padding = '10px';
+            div.style.background = '#ffffff';
+            div.style.borderRadius = '15px';
+            
+            if (item.type === 'text') {
+                div.innerHTML = `
+                    <div style="flex: 1; font-family: ${item.fontFamily}; color: ${item.color}; font-size: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        ${item.text}
+                    </div>
+                    <button onclick="removeLocalItem('${item.id}')" style="background: none; border: none; color: red; cursor: pointer; font-weight: bold;">X</button>
+                `;
+            } else {
+                div.innerHTML = `
+                    <img src="${item.src}" style="width: 50px; height: 50px; object-fit: contain;">
+                    <div style="flex: 1; font-family: var(--font-ui); font-size: 14px;">
+                        ${item.type === 'note' ? 'Note: ' + (item.noteTextDetails ? item.noteTextDetails.text : '') : 'Sticker'}
+                    </div>
+                    <button onclick="removeLocalItem('${item.id}')" style="background: none; border: none; color: red; cursor: pointer; font-weight: bold;">X</button>
+                `;
             }
-        }
+            container.appendChild(div);
+        });
     }
-});
-
-
-/* -------------------- */
-/* SERIALIZE & SAVE     */
-/* -------------------- */
-
-document.getElementById("saveCustomization").addEventListener("click", () => {
-    if (!currentBoxImage) {
-        alert("Please select a box first!");
-        return;
-    }
-    const accessories = [];
     
-    document.querySelectorAll("#customScene .draggableTreat").forEach(item => {
-        const realLeft = parseFloat(item.style.left) || 0;
-        const realTop = parseFloat(item.style.top) || 0;
-        const sceneW = customScene.clientWidth;
-        const sceneH = customScene.clientHeight;
-        const virtualLeft = realLeft - (sceneW / 2) + 350;
-        const virtualTop = realTop - (sceneH / 2) + 350;
-        accessories.push({
-            image: "assets/treats/" + item.src.split("/").pop(),
-            left: virtualLeft + "px",
-            top: virtualTop + "px",
-            width: item.style.width,
-            rotation: item.dataset.rotation || "0",
-            flip: item.dataset.flip || "1"
+    window.removeLocalItem = function(id) {
+        cart = cart.filter(item => item.id !== id);
+        sessionStorage.setItem("cart", JSON.stringify(cart));
+        updateCartCount();
+        renderLocalCart();
+    };
+    
+    function generateId() {
+        return Math.random().toString(36).substr(2, 9);
+    }
+    
+    document.querySelectorAll('.stickerTemplate').forEach(img => {
+        img.addEventListener('click', () => {
+            cart.push({
+                id: generateId(),
+                type: 'sticker',
+                src: img.src,
+                quantity: 1,
+                name: 'Sticker'
+            });
+            sessionStorage.setItem("cart", JSON.stringify(cart));
+            updateCartCount();
+            renderLocalCart();
         });
     });
+    
+    document.querySelectorAll('.noteTemplate').forEach(img => {
+        img.addEventListener('click', () => {
+            pendingNoteType = 'note';
+            pendingNoteSrc = img.src;
+            isEditingTextOnly = false;
+            document.getElementById('noteMessage').value = '';
+            document.getElementById('noteEditor').style.display = 'block';
+        });
+    });
+    
+    document.getElementById('addTextBtn').addEventListener('click', () => {
+        pendingNoteType = 'text';
+        isEditingTextOnly = true;
+        document.getElementById('noteMessage').value = '';
+        document.getElementById('noteEditor').style.display = 'block';
+    });
+    
+    document.getElementById('saveNote').addEventListener('click', () => {
+        const text = document.getElementById('noteMessage').value;
+        const font = document.getElementById('fontSelect').value;
+        const color = document.getElementById('textColorPicker').value;
+        
+        if (isEditingTextOnly) {
+            if (text.trim() === '') {
+                document.getElementById('noteEditor').style.display = 'none';
+                return;
+            }
+            cart.push({
+                id: generateId(),
+                type: 'text',
+                text: text,
+                fontFamily: font + ", cursive",
+                color: color,
+                quantity: 1,
+                name: 'Custom Text'
+            });
+        } else {
+            cart.push({
+                id: generateId(),
+                type: 'note',
+                src: pendingNoteSrc,
+                noteTextDetails: {
+                    text: text,
+                    fontFamily: font + ", cursive",
+                    color: color
+                },
+                quantity: 1,
+                name: 'Custom Note'
+            });
+        }
+        
+        sessionStorage.setItem("cart", JSON.stringify(cart));
+        updateCartCount();
+        renderLocalCart();
+        document.getElementById('noteEditor').style.display = 'none';
+    });
+    
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') document.getElementById('noteEditor').style.display = 'none';
+    });
+    
+    document.getElementById('addToCartBtn').addEventListener('click', () => {
+        // already saved to session storage during add
+        alert('Notes & Stickers saved to your cart!');
+        window.location.href = 'gift.html';
+    });
+    
+    // Init
+    updateCartCount();
+    renderLocalCart();
 
-    const customizedBox = {
-        customId: "box_" + Date.now(),
-        name: currentBoxName,
-        image: currentBoxImage,
-        quantity: 1,
-        accessories: accessories
-    };
-
-    let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
-    cart.push(customizedBox);
-    sessionStorage.setItem("cart", JSON.stringify(cart));
-
-    // Update cart count
-    const cartCountSpan = document.getElementById("cartCount");
-    if (cartCountSpan) cartCountSpan.innerText = getCartCount();
-
-    // Toast
-    const toast = document.getElementById("toast");
-    toast.innerText = "Added To Cart";
-    toast.style.display = "block";
-    setTimeout(() => { toast.style.display = "none"; }, 2000);
-
-    // Reset canvas
-    document.querySelectorAll("#customScene .draggableTreat").forEach(el => el.remove());
-    selectElement(null);
-    mainBox.src = "";
-    mainBox.alt = "";
-    currentBoxImage = "";
-    currentBoxName = "";
-    document.querySelectorAll(".box-option").forEach(opt => opt.classList.remove("active"));
-
-    // Show placeholder again
-    if (placeholderMsg) {
-        placeholderMsg.style.display = "flex";
-        setTimeout(() => { placeholderMsg.style.opacity = "1"; }, 50);
+    const cartButton = document.getElementById("cartButton");
+    if (cartButton) {
+        cartButton.addEventListener("click", () => {
+            window.location = "checkout.html";
+        });
     }
-});
-
-/* Redirect to checkout cart */
-const cartButton = document.getElementById("cartButton");
-if (cartButton) {
-    cartButton.addEventListener("click", () => {
-        window.location = "checkout.html";
-    });
-}
-
 </script>
-<script>
-    // Preload alternative options dynamically to prevent delay on change
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            const preloadElements = document.querySelectorAll('[data-image]');
-            preloadElements.forEach(el => {
-                const src = el.getAttribute('data-image');
-                if (src) {
-                    const img = new Image();
-                    img.src = src;
-                }
-            });
-            // Also preload spawner items
-            document.querySelectorAll('.spawner-item img, .box-option img, .color-option img').forEach(imgEl => {
-                if (imgEl.src) {
-                    const img = new Image();
-                    img.src = imgEl.src;
-                }
-            });
-        }, 500);
-    });
-</script>
-
-<style>
-#storeNavbar {
-    border-bottom: none !important;
-}
-</style>
-
-<style>
-.dessert-spawner-card h2, .treats-controls-panel h2 {
-    text-align: center !important;
-    margin-bottom: 16px !important;
-    font-family: var(--font-ui) !important;
-    font-weight: 600 !important;
-    font-size: 18px !important;
-    color: var(--heading-color) !important;
-    letter-spacing: 0.3px !important;
-}
-</style>
-
 </body>
 
 </html>

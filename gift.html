@@ -142,8 +142,7 @@ body.giftPage {
     transition: background 0.5s ease, box-shadow 0.5s ease;
 }
 
-#customPanel,
-#assetPanel {
+#customPanel {
     width: 320px;
     height: 65vh;
     background: var(--panel-bg);
@@ -155,19 +154,16 @@ body.giftPage {
     scrollbar-color: var(--glow-soft) rgba(0, 0, 0, 0.05);
 }
 
-#customPanel::-webkit-scrollbar,
-#assetPanel::-webkit-scrollbar {
+#customPanel::-webkit-scrollbar {
     width: 8px;
 }
 
-#customPanel::-webkit-scrollbar-track,
-#assetPanel::-webkit-scrollbar-track {
+#customPanel::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0.02);
     border-radius: 10px;
 }
 
-#customPanel::-webkit-scrollbar-thumb,
-#assetPanel::-webkit-scrollbar-thumb {
+#customPanel::-webkit-scrollbar-thumb {
     background: var(--glow-soft);
     border-radius: 10px;
 }
@@ -177,14 +173,12 @@ body.giftPage {
     background: var(--heading-color);
 }
 
-#customPanel h2,
-#assetPanel h2 {
+#customPanel h2 {
     color: var(--heading-color);
     margin: 10px 0;
 }
 
-#customPanel img,
-#assetPanel img {
+#customPanel img {
     width: 100px;
     display: block;
     margin: 10px auto;
@@ -220,68 +214,6 @@ body.giftPage {
     text-align: center;
     word-wrap: break-word;
     font-size: 18px;
-}
-
-/* --- NOTE EDITOR --- */
-#noteEditor {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: var(--popup-bg);
-    padding: 25px;
-    border-radius: 25px;
-    box-shadow: none;
-    z-index: 99999;
-    transition: background 0.5s ease, box-shadow 0.5s ease;
-}
-
-#noteEditor textarea {
-    width: 320px;
-    height: 130px;
-    margin-bottom: 15px;
-    resize: none;
-}
-
-#fontSelect {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-}
-
-#saveNote {
-    width: 100%;
-    border: none;
-    border-radius: 50px;
-    padding: 15px;
-    background: var(--btn-bg);
-    color: var(--btn-text);
-    font-family: var(--font-ui);
-    cursor: pointer;
-    box-shadow: none;
-    transition: background 0.5s ease, color 0.5s ease;
-}
-#customizeBtn{
-
-    border:none;
-
-    border-radius:50px;
-
-    padding:15px 30px;
-
-    cursor:pointer;
-
-    background:#fce0e5;
-
-    margin-bottom:15px;
-
-    font-size:16px;
-}
-
-#customizeBtn:hover{
-
-    transform:scale(1.05);
 }
 
 /* --- GIFT CONTROLS --- */
@@ -921,7 +853,7 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
 
 
 
-<h1 class="giftTitle">
+<h1 class="storeHeader">
 
 Create Your Gift
 
@@ -943,77 +875,8 @@ Create Your Gift
     </div>
 
     
-    <div id="assetPanel">
-        <button id="addTextBtn" class="giftControlBtn" style="margin: 0 auto 15px auto; display: block;">
-             Add Text
-        </button>
-        <div class="asset-columns" style="display: flex; gap: 15px; justify-content: space-around;">
-            <div class="asset-column" style="display: flex; flex-direction: column; align-items: center; width: 50%;">
-                <h2>Notes</h2>
-                <img src="assets/final page/note1.png" class="noteTemplate">
-                <img src="assets/final page/note2.png" class="noteTemplate">
-                <img src="assets/final page/note3.png" class="noteTemplate">
-                <img src="assets/final page/note4.png" class="noteTemplate">
-                <img src="assets/final page/note5.png" class="noteTemplate">
-                <img src="assets/final page/note6.png" class="noteTemplate">
-            </div>
-            <div class="asset-column" style="display: flex; flex-direction: column; align-items: center; width: 50%;">
-                <h2>Stickers</h2>
-                <img src="assets/final page/sticker1.png" class="stickerTemplate">
-                <img src="assets/final page/sticker 2.png" class="stickerTemplate">
-                <img src="assets/final page/sticker3.png" class="stickerTemplate">
-                <img src="assets/final page/sticker_clip_purple.png" class="stickerTemplate" alt="Purple Binder Clip">
-                <img src="assets/final page/sticker_pin_red.png" class="stickerTemplate" alt="Red Pushpin">
-                <img src="assets/final page/sticker_clip_beige.png" class="stickerTemplate" alt="Beige Binder Clip">
-                <img src="assets/final page/sticker_clip_pink.png" class="stickerTemplate" alt="Pink Binder Clip">
-                <img src="assets/final page/sticker_clip_blue.png" class="stickerTemplate" alt="Blue Binder Clip">
-                <img src="assets/final page/sticker_camera.png" class="stickerTemplate" alt="Camera">
-            </div>
-        </div>
     </div>
-</div>
-<div id="noteEditor">
 
-    <h2>
-
-        Edit Text
-
-    </h2>
-
-    <textarea
-    id="noteMessage"
-    placeholder="Write your message...">
-    </textarea>
-
-    <br><br>
-
-    <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
-        <select id="fontSelect" style="flex: 1; margin-bottom: 0;">
-
-            <option value="Pacifico">
-            Pacifico
-            </option>
-
-            <option value="Dancing Script">
-            Dancing Script
-            </option>
-
-            <option value="Caveat">
-            Caveat
-            </option>
-
-            <option value="Indie Flower">
-            Indie Flower
-            </option>
-
-            <option value="Patrick Hand">
-            Patrick Hand
-            </option>
-
-        </select>
-        
-        <input type="color" id="textColorPicker" value="#B71A3D" style="width: 45px; height: 45px; border: none; border-radius: 50%; cursor: pointer; padding: 0; background: none; box-shadow: none;">
-    </div>
 
     <br><br>
 
@@ -1198,123 +1061,139 @@ document.addEventListener("mousedown", (e) => {
 /* LOAD GIFT ITEMS      */
 /* -------------------- */
 
+
 giftItems.forEach((item, itemIndex) => {
+    const qty = item.quantity || 1;
+    for (let q = 0; q < qty; q++) {
+        
+        if (item.type === 'text') {
+            const textEl = document.createElement("div");
+            textEl.className = "draggable giftEl giftText";
+            textEl.dataset.itemIndex = itemIndex;
+            textEl.style.position = "absolute";
+            textEl.style.left = (150 + q * 20) + "px";
+            textEl.style.top = (200 + q * 20) + "px";
+            textEl.style.zIndex = highestZ++;
+            textEl.style.fontFamily = item.fontFamily || "Pacifico, cursive";
+            textEl.style.fontSize = "22px";
+            textEl.style.color = item.color || "#B71A3D";
+            textEl.style.cursor = "move";
+            textEl.style.userSelect = "none";
+            textEl.innerText = item.text || "Custom Text";
+            
+            makeDraggable(textEl);
+            giftScene.appendChild(textEl);
+            continue;
+        }
+        
+        if (item.type === 'note') {
+            const wrapper = document.createElement("div");
+            wrapper.className = "note draggable giftEl";
+            wrapper.dataset.itemIndex = itemIndex;
+            wrapper.style.position = "absolute";
+            wrapper.style.left = (200 + q * 20) + "px";
+            wrapper.style.top = (150 + q * 20) + "px";
+            wrapper.style.width = "220px";
+            wrapper.style.zIndex = highestZ++;
+            
+            const paper = document.createElement("img");
+            paper.src = item.src;
+            paper.style.width = "100%";
+            paper.draggable = false;
+            wrapper.appendChild(paper);
+            
+            if (item.noteTextDetails) {
+                const textDiv = document.createElement("div");
+                textDiv.className = "noteText";
+                textDiv.innerText = item.noteTextDetails.text;
+                textDiv.style.fontFamily = item.noteTextDetails.fontFamily;
+                textDiv.style.color = item.noteTextDetails.color;
+                wrapper.appendChild(textDiv);
+            }
+            
+            makeDraggable(wrapper);
+            giftScene.appendChild(wrapper);
+            continue;
+        }
 
-const qty = item.quantity || 1;
+        if (item.type === 'sticker') {
+            const img = document.createElement("img");
+            img.src = item.src;
+            img.className = "draggable giftEl";
+            img.dataset.itemIndex = itemIndex;
+            img.style.position = "absolute";
+            img.style.width = "100px";
+            img.style.left = (250 + q * 20) + "px";
+            img.style.top = (250 + q * 20) + "px";
+            img.style.zIndex = highestZ++;
+            img.draggable = false;
+            
+            makeDraggable(img);
+            giftScene.appendChild(img);
+            continue;
+        }
 
-for (let q = 0; q < qty; q++) {
-
-const wrapper =
-document.createElement(
-"div"
-);
-
-wrapper.className =
-"draggable giftEl";
-
-wrapper.dataset.itemIndex = itemIndex;
-
-const isBouquet = (item.customId && item.customId.startsWith("bouquet_")) || (item.name && item.name.toLowerCase().includes("bouquet"));
-if (isBouquet) {
-    wrapper.dataset.isBouquet = "true";
-}
-
-wrapper.style.position =
-"absolute";
-
-wrapper.style.left = (80 + q * 30) + "px";
-
-wrapper.style.top = (80 + q * 30) + "px";
-
-wrapper.style.width = "180px";
-
-wrapper.style.height = "180px";
-
-wrapper.style.zIndex =
-highestZ++;
-
-/* Plushie base image */
-const plushie =
-document.createElement(
-"img"
-);
-
-plushie.src =
-item.image;
-
-plushie.style.position = "absolute";
-plushie.style.width = "100%";
-plushie.style.height = "100%";
-plushie.style.objectFit = "contain";
-plushie.style.left = "0";
-plushie.style.top = "0";
-plushie.style.transform = "none";
-
-plushie.style.display =
-"block";
-
-plushie.draggable = false;
-
-wrapper.appendChild(
-plushie
-);
-
-/* Accessories overlaid at saved positions */
-if(item.accessories && item.accessories.length > 0){
-
-const canvasW = isBouquet ? 600 : 280;
-const canvasL = isBouquet ? 50 : 210;
-const canvasT = isBouquet ? 50 : 210;
-
-item.accessories.forEach(acc => {
-
-const accessory =
-document.createElement(
-"img"
-);
-
-let src = acc.image;
-if (src) {
-    src = resolveAccessorySrc(src);
-}
-accessory.src = src;
-
-accessory.style.position =
-"absolute";
-
-accessory.style.pointerEvents = "none";
-
-const rawLeft = parseFloat(acc.left);
-const rawTop  = parseFloat(acc.top);
-const rawWidth = parseFloat(acc.width);
-
-accessory.style.left  = (((rawLeft - canvasL) / canvasW) * 100) + "%";
-accessory.style.top   = (((rawTop  - canvasT) / canvasW) * 100) + "%";
-accessory.style.width = ((rawWidth / canvasW) * 100) + "%";
-accessory.style.transform = `rotate(${acc.rotation || 0}deg) scaleX(${acc.flip || 1})`;
-
-wrapper.appendChild(
-accessory
-);
-
-});
-
-}
-
-if (item.voiceNote) {
-    wrapper.dataset.voiceNote = item.voiceNote;
-    wrapper.dataset.voiceNoteDuration = item.voiceNoteDuration || 0;
-    wrapper.classList.add("has-audio");
-}
-
-makeDraggable(wrapper);
-
-giftScene.appendChild(
-wrapper
-);
-
-}
-
+        // Standard plushie/flower/treat
+        const wrapper = document.createElement("div");
+        wrapper.className = "draggable giftEl";
+        wrapper.dataset.itemIndex = itemIndex;
+        
+        const isBouquet = (item.customId && item.customId.startsWith("bouquet_")) || (item.name && item.name.toLowerCase().includes("bouquet"));
+        if (isBouquet) wrapper.dataset.isBouquet = "true";
+        
+        wrapper.style.position = "absolute";
+        wrapper.style.left = (80 + q * 30) + "px";
+        wrapper.style.top = (80 + q * 30) + "px";
+        wrapper.style.width = "180px";
+        wrapper.style.height = "180px";
+        wrapper.style.zIndex = highestZ++;
+        
+        const baseImg = document.createElement("img");
+        baseImg.src = item.image || item.src; // fallback for src
+        baseImg.style.position = "absolute";
+        baseImg.style.width = "100%";
+        baseImg.style.height = "100%";
+        baseImg.style.objectFit = "contain";
+        baseImg.style.left = "0";
+        baseImg.style.top = "0";
+        baseImg.style.transform = "none";
+        baseImg.style.display = "block";
+        baseImg.draggable = false;
+        
+        wrapper.appendChild(baseImg);
+        
+        if (item.accessories && item.accessories.length > 0) {
+            const canvasW = isBouquet ? 600 : 280;
+            const canvasL = isBouquet ? 50 : 210;
+            const canvasT = isBouquet ? 50 : 210;
+            
+            item.accessories.forEach(acc => {
+                const accessory = document.createElement("img");
+                let src = acc.image;
+                if (src) src = resolveAccessorySrc(src);
+                accessory.src = src;
+                accessory.style.position = "absolute";
+                accessory.style.pointerEvents = "none";
+                const rawLeft = parseFloat(acc.left);
+                const rawTop = parseFloat(acc.top);
+                const rawWidth = parseFloat(acc.width);
+                accessory.style.left = (((rawLeft - canvasL) / canvasW) * 100) + "%";
+                accessory.style.top = (((rawTop - canvasT) / canvasW) * 100) + "%";
+                accessory.style.width = ((rawWidth / canvasW) * 100) + "%";
+                accessory.style.transform = `rotate(${acc.rotation || 0}deg) scaleX(${acc.flip || 1})`;
+                wrapper.appendChild(accessory);
+            });
+        }
+        
+        if (item.voiceNote) {
+            wrapper.dataset.voiceNote = item.voiceNote;
+            wrapper.dataset.voiceNoteDuration = item.voiceNoteDuration || 0;
+            wrapper.classList.add("has-audio");
+        }
+        
+        makeDraggable(wrapper);
+        giftScene.appendChild(wrapper);
+    }
 });
 
 /* -------------------- */
@@ -1391,359 +1270,6 @@ giftScene.addEventListener("mousedown", (e) => {
         selectElement(null);
     }
 });
-
-/* -------------------- */
-/* CREATE NOTES         */
-/* -------------------- */
-
-document
-.querySelectorAll(
-".noteTemplate"
-)
-.forEach(note => {
-
-note.addEventListener(
-"click",
-() => {
-
-const wrapper =
-document.createElement(
-"div"
-);
-
-wrapper.className =
-"note draggable giftEl";
-
-wrapper.style.position =
-"absolute";
-
-wrapper.style.left =
-"200px";
-
-wrapper.style.top =
-"150px";
-
-wrapper.style.width =
-"220px";
-
-wrapper.style.zIndex =
-highestZ++;
-
-const paper =
-document.createElement(
-"img"
-);
-
-paper.src =
-note.src;
-
-paper.style.width =
-"100%";
-
-paper.draggable = false;
-
-wrapper.appendChild(
-paper
-);
-
-makeDraggable(wrapper);
-
-giftScene.appendChild(
-wrapper
-);
-
-});
-
-});
-
-/* -------------------- */
-/* CREATE STICKERS      */
-/* -------------------- */
-
-document
-.querySelectorAll(
-".stickerTemplate"
-)
-.forEach(sticker => {
-
-sticker.addEventListener(
-"click",
-() => {
-
-const img =
-document.createElement(
-"img"
-);
-
-img.src =
-sticker.src;
-
-img.className =
-"draggable giftEl";
-
-img.style.position =
-"absolute";
-
-img.style.width =
-"100px";
-
-img.style.left =
-"250px";
-
-img.style.top =
-"250px";
-
-img.style.zIndex =
-highestZ++;
-
-img.draggable = false;
-
-makeDraggable(img);
-
-giftScene.appendChild(
-img
-);
-
-});
-
-});
-
-/* -------------------- */
-/* ADD TEXT             */
-/* -------------------- */
-
-document
-.getElementById("addTextBtn")
-.addEventListener(
-"click",
-() => {
-
-const textEl =
-document.createElement(
-"div"
-);
-
-textEl.className =
-"draggable giftEl giftText";
-
-textEl.style.position =
-"absolute";
-
-textEl.style.left =
-"150px";
-
-textEl.style.top =
-"200px";
-
-textEl.style.zIndex =
-highestZ++;
-
-textEl.style.fontFamily =
-"Pacifico, cursive";
-
-textEl.style.fontSize =
-"22px";
-
-textEl.style.color =
-"#B71A3D";
-
-textEl.style.cursor =
-"move";
-
-textEl.style.userSelect =
-"none";
-
-textEl.innerText =
-"Your Text Here";
-
-makeDraggable(textEl);
-
-giftScene.appendChild(
-textEl
-);
-
-/* Auto-open editor for new text */
-currentNote = null;
-openTextEditor(textEl);
-
-});
-
-/* -------------------- */
-/* NOTE / TEXT EDITOR   */
-/* -------------------- */
-
-const noteEditor =
-document.getElementById(
-"noteEditor"
-);
-
-const noteMessage =
-document.getElementById(
-"noteMessage"
-);
-
-const fontSelect =
-document.getElementById(
-"fontSelect"
-);
-
-let editingEl = null;
-
-function rgbToHex(rgb) {
-    if (!rgb) return "#B71A3D";
-    if (rgb.startsWith("#")) return rgb;
-    const match = rgb.match(/^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i);
-    if (match) {
-        return "#" + 
-            ("0" + parseInt(match[1], 10).toString(16)).slice(-2) +
-            ("0" + parseInt(match[2], 10).toString(16)).slice(-2) +
-            ("0" + parseInt(match[3], 10).toString(16)).slice(-2);
-    }
-    return "#B71A3D";
-}
-
-function openTextEditor(el){
-
-editingEl = el;
-
-const isNote = el.classList.contains("note");
-
-if(isNote){
-
-const textDiv =
-el.querySelector(".noteText");
-
-noteMessage.value =
-textDiv ? textDiv.innerText : "";
-
-} else {
-
-noteMessage.value =
-el.innerText;
-
-}
-
-fontSelect.value =
-el.style.fontFamily
-? el.style.fontFamily.split(",")[0].trim().replace(/['"]/g, "")
-: "Pacifico";
-
-const textColorPicker = document.getElementById("textColorPicker");
-textColorPicker.value = el.style.color ? rgbToHex(el.style.color) : "#B71A3D";
-
-noteEditor.style.display =
-"block";
-
-}
-
-/* Double-click to edit notes and text elements */
-document.addEventListener(
-"dblclick",
-(e) => {
-
-const note = e.target.closest(".note");
-
-if(note){
-
-openTextEditor(note);
-
-return;
-
-}
-
-const textEl = e.target.closest(".giftText");
-
-if(textEl){
-
-openTextEditor(textEl);
-
-}
-
-}
-);
-
-/* -------------------- */
-/* SAVE EDITOR          */
-/* -------------------- */
-
-document
-.getElementById(
-"saveNote"
-)
-.addEventListener(
-"click",
-() => {
-
-if(!editingEl) return;
-
-const isNote = editingEl.classList.contains("note");
-
-const font = fontSelect.value;
-const textColor = document.getElementById("textColorPicker").value;
-
-if(isNote){
-
-const textDiv =
-editingEl.querySelector(".noteText");
-
-if(textDiv){
-
-textDiv.innerText =
-noteMessage.value;
-
-textDiv.style.fontFamily =
-font;
-
-textDiv.style.color = textColor;
-
-}
-
-} else {
-
-editingEl.innerText =
-noteMessage.value;
-
-editingEl.style.fontFamily =
-font + ", cursive";
-
-editingEl.style.color = textColor;
-
-}
-
-noteEditor.style.display =
-"none";
-
-}
-);
-
-/* ESC closes editor */
-document.addEventListener(
-"keydown",
-(e) => {
-
-if(
-e.key === "Escape"
-){
-
-noteEditor.style.display =
-"none";
-
-}
-
-}
-);
-
-/* -------------------- */
-/* ROTATE & FLIP        */
-/* -------------------- */
-
-
-
-function updateTransform(el) {
-  let rotation = el.dataset.rotation || 0;
-  let flip = el.dataset.flip || 1;
-  el.style.transform = `rotate(${rotation}deg) scaleX(${flip})`;
-}
 
 /* -------------------- */
 /* SERIALIZE & SAVE     */
@@ -1829,6 +1355,19 @@ if (saveGiftBtn) {
 
 </script>
     
+
+<style>
+#giftScene {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 100%) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    border-top: 2px solid rgba(255, 255, 255, 0.8) !important;
+    border-left: 2px solid rgba(255, 255, 255, 0.8) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1),
+        inset 0 4px 10px rgba(255, 255, 255, 0.6),
+        inset 0 -4px 10px rgba(255, 182, 193, 0.2) !important;
+}
+</style>
 </body>
 
 </html>

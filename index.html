@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=1250">
     <title>Welcome to The Gifting Co.</title>
     <link rel="icon" type="image/png" href="assets/favicon.png">
-    <link rel="preload" as="image" href="assets/bg.png">
+    <link rel="preload" as="image" href="assets/bg.jpeg">
 
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Pacifico&family=Fredoka:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -46,7 +46,7 @@ html {
 
 body {
     color: var(--text-color);
-    background: url('assets/bg.png') center/cover no-repeat fixed;
+    background: url('assets/bg.jpeg') center/cover no-repeat fixed;
     animation: none;
     overflow-x: hidden;
     overflow-y: hidden;
@@ -254,16 +254,12 @@ body {
 
 .hero-btn {
     position: relative;
-    padding: 18px 55px;
-    font-size: 18px;
-    font-weight: 600;
-    font-family: var(--font-body);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    padding: 8px 40px;
+    font-size: 28px;
+    font-weight: 400;
+    font-family: var(--font-heading);
+    background: #900C3F;
+    border: 1px solid #ffffff;
     color: white !important;
     border-radius: 50px;
     cursor: pointer;
@@ -278,8 +274,8 @@ body {
 
 .hero-btn:hover {
     transform: scale(1.06);
-    background: rgba(255, 255, 255, 0.16);
-    border-color: rgba(255, 255, 255, 0.6);
+    background: #700a31;
+    border-color: #700a31;
 }
 
 .radiating-hearts {
@@ -338,6 +334,14 @@ body {
 }
 .navBrand, a.navBrand, .navBrand:hover {
     color: white !important;
+}
+
+#cartButton, #saveCustomization, #saveGiftLayoutBtn, #giftButton {
+    background-color: #ffffff !important;
+}
+#cartButton > span::before, #saveCustomization > span::before, #saveGiftLayoutBtn > span::before, #giftButton > span::before {
+    content: none !important;
+    display: none !important;
 }
 </style>
     <script src="mobile-block.js"></script>
@@ -416,7 +420,7 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
     <!-- Main Hero Section -->
     <main class="hero" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh;">
         <h1 class="hero-title" style="font-size: 130px; margin-bottom: 10px;">The Gifting Co.</h1>
-        <p class="hero-subtitle">digital gifts for your loved ones</p>
+        <p class="hero-subtitle" style="color: white !important;">digital gifts for your loved ones</p>
         
         <div class="hero-btn-container">
             <div class="radiating-hearts">
@@ -438,6 +442,12 @@ button, [class*="btn"], [class*="button"], .continue-btn, .action-btn, .nav-acti
     <footer class="site-footer">
         &copy; 2026 | &#9825; designed by <a href="https://www.instagram.com/artwsomi?igsh=bHRpb2Z6aWo1ZjFi" target="_blank" rel="noopener noreferrer">@somi</a> &amp; <a href="https://www.instagram.com/ayush.824?igsh=MW01NTU3MHMzaDJ1bQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">@byayushdas</a>
     </footer>
+
+<style>
+#storeNavbar {
+    border-bottom: none !important;
+}
+</style>
 </body>
 </html>
 
