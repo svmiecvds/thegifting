@@ -1735,23 +1735,7 @@ noteEditor.style.display =
 /* ROTATE & FLIP        */
 /* -------------------- */
 
-/* Rotate selected */
-document
-.getElementById("giftRotate")
-.addEventListener(
-"click",
-() => {
-  const el = getSelectedEl();
-  if(!el){
-    alert("Select an item first!");
-    return;
-  }
-  let currentRotation = parseInt(el.dataset.rotation) || 0;
-  currentRotation = (currentRotation + 45) % 360;
-  el.dataset.rotation = currentRotation;
-  updateTransform(el);
-}
-);
+
 
 function updateTransform(el) {
   let rotation = el.dataset.rotation || 0;
